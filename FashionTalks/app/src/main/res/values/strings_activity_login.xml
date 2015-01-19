@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Kullanıcı Adı veya Email Adresi</string>
+    <string name="prompt_password">Şifre</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Giriş Yap</string>
+    <string name="action_forget_pass">Şifremi Unuttum</string>
+    <string name="action_register_short">Kayıt Ol</string>
+    <string name="error_invalid_email">Email Adresi Geçersiz</string>
+    <string name="error_invalid_password">Şifre Geçersiz</string>
+    <string name="error_incorrect_password">Şifre Yanlış</string>
+    <string name="error_field_required">Alan gerekli</string>
+</resources>
