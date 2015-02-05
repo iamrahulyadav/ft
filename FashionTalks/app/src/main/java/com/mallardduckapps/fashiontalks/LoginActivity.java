@@ -1,43 +1,16 @@
 package com.mallardduckapps.fashiontalks;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.util.Log;
 
 import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
-import com.mallardduckapps.fashiontalks.fragments.PlaceHolderFragment;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
-import com.mallardduckapps.fashiontalks.objects.User;
-import com.mallardduckapps.fashiontalks.tasks.LoginTask;
-import com.mallardduckapps.fashiontalks.utils.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mallardduckapps.fashiontalks.services.RestClient;
 
 /**
  * A login screen that offers login via email/password.
@@ -48,16 +21,19 @@ public class LoginActivity extends ActionBarActivity{
     private RegisterFragment registerFragment;
     FragmentManager fragmentManager;
     Toolbar mainToolbar;
+    FashionTalksApp app;
     //CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        app = (FashionTalksApp) getApplication();
         fragmentManager = getSupportFragmentManager();
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment();
         loginFragment.setActivity(this);
+        registerFragment.setActivity(this);
         mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
         mainToolbar.setTitle("");
 
@@ -86,10 +62,19 @@ public class LoginActivity extends ActionBarActivity{
     }
 
     public void goToMainActivity(){
+
+        Log.d("LOGIN_ACTIVITY", "GOTO MAIN ACTIVITY");
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
         this.finish();
+    }
+
+    public void saveTokens(String...tokens){
+        app.dataSaver.putString("accessToken", tokens[0]);
+        app.dataSaver.putString("refreshToken", tokens[1]);
+        RestClient.setAccessToken(tokens[0]);
+        app.dataSaver.save();
     }
 }
 

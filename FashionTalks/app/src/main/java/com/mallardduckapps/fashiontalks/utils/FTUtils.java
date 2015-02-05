@@ -69,12 +69,14 @@ public class FTUtils {
     public static int[] getScreenSize(Activity activity){
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
+
         // dataList = new ArrayList<GalleryItem>();
         int width = size.x;
         int height = size.y;
         int[] sizes = {width, height};
         Log.d("FT_UTILS_SCREEN_SIZE", "WIDTH: " + width);
-        Log.d("FT_UTILS_SCREEN_SIZE", "Height: " + height);
+        Log.d("FT_UTILS_SCREEN_SIZE", "HEIGHT: " + height);
+        Log.d("FT_UTILS_SCREEN_SIZE", "Density: " + activity.getResources().getDisplayMetrics().density );
         return sizes;
     }
 

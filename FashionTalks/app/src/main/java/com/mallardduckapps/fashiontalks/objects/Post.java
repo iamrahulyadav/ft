@@ -34,7 +34,10 @@ public class Post {
     private int commentCount;
     @SerializedName("todays_glam")
     private int todaysGlam;
+    @SerializedName("tags")
     private ArrayList<Tag> tags;
+
+    private User user;
 
     public int getId() {
         return id;
@@ -154,5 +157,13 @@ public class Post {
 
     public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

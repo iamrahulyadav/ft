@@ -3,9 +3,9 @@ package com.mallardduckapps.fashiontalks.components;
 /**
  * Created by oguzemreozcan on 12/01/15.
  */
+
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
@@ -13,11 +13,9 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,7 +69,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private int mTabViewTextViewId;
     private int mTabViewImageViewId;
     private Integer titleColor = Color.BLACK;//-1;
-
+    private Integer unSelectedTitleColor = 0xFF9B9B9B;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
     private boolean mDistributeEvenly;
@@ -101,12 +99,21 @@ public class SlidingTabLayout extends HorizontalScrollView {
     }
 
     /**
-     * Sets the title color showed in tabs.
+     * Sets the title color showed in selected tab.
      *
      * @param titleColor
      */
     public void setTitleColor(int titleColor) {
         this.titleColor = titleColor;
+    }
+
+    /**
+     * Sets the title color showed in unselected tab.
+     *
+     * @param titleColor
+     */
+    public void setUnselectedTitleColor(int titleColor) {
+        this.unSelectedTitleColor = titleColor;
     }
 
     /**
@@ -322,6 +329,24 @@ public class SlidingTabLayout extends HorizontalScrollView {
             tabView.setOnClickListener(tabClickListener);
             mTabStrip.addView(tabView);
         }
+
+        setTitleTextStyle(0);
+    }
+
+    protected void setTitleTextStyle(int selectedViewOrder){
+        int childCount  = mTabStrip.getChildCount();
+        for(int i = 0; i < childCount; i ++){
+            View view = mTabStrip.getChildAt(i);
+            if(view instanceof TextView){
+                if(i == selectedViewOrder){
+                    ((TextView) view).setTextColor(titleColor);
+                    ((TextView) view).setTypeface(null, Typeface.BOLD);
+                }else{
+                    ((TextView) view).setTextColor(unSelectedTitleColor);
+                    ((TextView) view).setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        }
     }
 
     @Override
@@ -395,8 +420,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 mTabStrip.onViewPagerPageChanged(position, 0f);
                 scrollToTab(position, 0);
             }
-
+            setTitleTextStyle(position);
             if (mViewPagerPageChangeListener != null) {
+
                 mViewPagerPageChangeListener.onPageSelected(position);
             }
         }

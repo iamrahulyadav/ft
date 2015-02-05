@@ -1,11 +1,10 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 
+import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Loader;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +62,7 @@ public abstract class GalleryBaseFragment extends BasicFragment  implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listAdapter = new GalleryGridAdapter(getActivity(),MAX_CARDS);
+        //listAdapter = new GalleryGridAdapter(getActivity(),MAX_CARDS);
         useLoader();
     }
 

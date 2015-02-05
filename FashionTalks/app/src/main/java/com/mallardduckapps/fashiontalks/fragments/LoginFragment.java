@@ -4,15 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-
-import android.content.Intent;
-
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
-
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -27,9 +24,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.mallardduckapps.fashiontalks.LoginActivity;
-import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
@@ -51,6 +48,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     private View mProgressView;
     private View mLoginFormView;
     private LoginActivity activity;
+    public ViewSwitcher switcher;
 //    private View container;
 
     @Override
@@ -66,12 +64,13 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(app.dataSaver != null){
-            String accessToken =app.dataSaver.getString("accessToken");
+            String accessToken = app.dataSaver.getString("accessToken");
             if(!accessToken.equals("")){
                 if(activity != null){
+                    //showProgress(true);
                     RestClient.setAccessToken(accessToken);
-                    activity.goToMainActivity();
-                    activity.finish();
+                    LoginTask authTask = new LoginTask(this);
+                    authTask.execute();
                 }
             }
         }
@@ -81,11 +80,12 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
+        switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
+        switcher.setDisplayedChild(0);
         // Set up the login form.
+
         mEmailView = (AutoCompleteTextView) rootView.findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) rootView.findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -116,6 +116,15 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 
         mLoginFormView = rootView.findViewById(R.id.login_form);
         mProgressView = rootView.findViewById(R.id.login_progress);
+        Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                switcher.setDisplayedChild(1);
+            }
+        };
+
+        handler.postDelayed(r, 300);
         return rootView;
     }
 
@@ -135,6 +144,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
+        switcher.setDisplayedChild(0);
         if (authTask != null) {
             return;
         }
@@ -285,18 +295,21 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                 authTask = null;
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
-                saveTokens(tokens);
+                activity.saveTokens(tokens);
                 activity.goToMainActivity();
-
                 break;
         }
     }
 
-    private void saveTokens(String...tokens){
+    @Override
+    public void getUser(int authStatus, User user) {
+        //TODO handle errors
+        if(user != null && authStatus == Constants.AUTHENTICATION_SUCCESSFUL){
+            app.setMe(user);
+            activity.goToMainActivity();
+            //activity.finish();
+        }
 
-        app.dataSaver.putString("accessToken", tokens[0]);
-        app.dataSaver.putString("refreshToken", tokens[1]);
-        RestClient.setAccessToken(tokens[0]);
-        app.dataSaver.save();
     }
+
 }

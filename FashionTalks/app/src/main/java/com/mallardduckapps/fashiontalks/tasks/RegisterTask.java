@@ -7,15 +7,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mallardduckapps.fashiontalks.LoginActivity;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import org.apache.http.message.BasicNameValuePair;
-
-import java.util.ArrayList;
 
 /**
  * Created by oguzemreozcan on 13/01/15.
@@ -25,13 +22,13 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
     public static final String TAG = "LOGIN_TASK";
     //LoginActivity activity;
     private int authStatus;
-    LoginTaskCallback callBack;
+    RegisterTaskCallback callBack;
     String[] tokens;
 //    String json;
 
     public RegisterTask(RegisterFragment fragment){
         //this.activity = activity;
-        callBack = (LoginTaskCallback) fragment;
+        callBack = (RegisterTaskCallback) fragment;
     }
 
     @Override
@@ -64,7 +61,7 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
 ////        pairs.add(new BasicNameValuePair("grant_type", "password"));
 //    }
 
-    public interface LoginTaskCallback {
+    public interface RegisterTaskCallback {
         public void getAuthStatus(int authStatus,User user, String... tokens);
     }
 
@@ -84,8 +81,8 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
         JsonObject dataObject = object.getAsJsonObject("data");
         JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
         JsonObject userObject = dataObject.getAsJsonObject("User");
-        accessToken = oauthObject.get("access_token").toString();
-        refreshToken = oauthObject.get("refresh_token").toString();
+        accessToken = oauthObject.get("access_token").getAsString();
+        refreshToken = oauthObject.get("refresh_token").getAsString();
         User me = gson.fromJson(userObject, User.class);
 
         Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());

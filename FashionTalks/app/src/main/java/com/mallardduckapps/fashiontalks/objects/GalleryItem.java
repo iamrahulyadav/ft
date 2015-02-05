@@ -11,6 +11,7 @@ public class GalleryItem {
     private int id;
     private String title;
     private String coverPath;
+    private boolean loadingFailed;
 
     public GalleryItem(int position,int id, String title, String coverPath) {
         this.position = position;
@@ -28,4 +29,12 @@ public class GalleryItem {
     public String getTitle(){return title;}
 
     public String getCoverPath(){return coverPath;}
+
+    public boolean isLoadingFailed() {
+        return loadingFailed;
+    }
+
+    public void setLoadingFailed(boolean loadingFailed) {
+        this.loadingFailed = loadingFailed;
+    }
 }

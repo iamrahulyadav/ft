@@ -6,7 +6,6 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +53,7 @@ public class PlaceHolderFragment extends BasicFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
+       // ((MainActivity) activity).onSectionAttached(
+        //        getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

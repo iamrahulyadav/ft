@@ -1,12 +1,11 @@
 package com.mallardduckapps.fashiontalks.services;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import static android.app.Activity.*;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by oguzemreozcan on 26/12/14.

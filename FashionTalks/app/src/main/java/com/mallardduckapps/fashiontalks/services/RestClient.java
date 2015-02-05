@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
-import com.squareup.okhttp.Call;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -14,7 +13,6 @@ import com.squareup.okhttp.Response;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -48,6 +46,7 @@ public class RestClient {
     }
 
     public String doPostRequestWithJSON(String url, String accessToken, BasicNameValuePair ... params) throws IOException, JSONException {
+        url = new StringBuilder(mainUrl).append(url).toString();
         Request request = createRequestWithBody(url,accessToken, FTUtils.getBasicJson(params));
         Response response = client.newCall(request).execute();
         return response.body().string();

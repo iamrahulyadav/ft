@@ -11,11 +11,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.objects.Gallery;
-import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
-
-import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 
@@ -35,13 +32,13 @@ public class GalleriesLoader extends AsyncTaskLoader<ArrayList<Gallery>> {
     public GalleriesLoader(Context context, int loaderId) {
         super(context);
         this.loaderId = loaderId;
-        galleryItems = new ArrayList<Gallery>();
     }
 
     @Override
     public ArrayList<Gallery> loadInBackground() {
         String response = "";
         RestClient restClient = new RestClient();
+        galleryItems = new ArrayList<Gallery>();
         try {
             response = restClient.doGetRequest(Constants.GALLERIES_PREFIX, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);

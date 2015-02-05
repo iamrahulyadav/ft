@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mallardduckapps.fashiontalks.components.ExpandablePanel
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/foo"
+    android:layout_height="30dp"
+    android:layout_width="wrap_content"
+    android:background="@drawable/glam_shape"
+    app:handle="@+id/expand"
+    app:content="@+id/value"
+    app:expendedWidth="100dp"
+    app:animationDuration="250">
+    <ImageButton
+        android:id="@id/expand"
+        android:layout_alignParentLeft="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+
+        android:src="@drawable/glam_icon" />
+   <TextView
+       android:id="@+id/value"
+       android:layout_toRightOf="@+id/expand"
+       android:layout_width="30dp"
+       android:layout_height="30dp"
+       android:clickable="true"
+       android:gravity="center"
+       android:singleLine="true"
+       android:maxLines="1"
+       android:background="@drawable/glam_shape"
+       android:textColor="@color/black"
+       android:text=""/>
+
+</com.mallardduckapps.fashiontalks.components.ExpandablePanel>

@@ -1,7 +1,6 @@
 package com.mallardduckapps.fashiontalks.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +13,11 @@ import com.birin.gridlistviewadapters.Card;
 import com.birin.gridlistviewadapters.ListGridAdapter;
 import com.birin.gridlistviewadapters.dataholders.CardDataHolder;
 import com.birin.gridlistviewadapters.utils.ChildViewsClickHandler;
-
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
 import com.mallardduckapps.fashiontalks.objects.GalleryViewHolder;
+import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -32,18 +31,50 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
 
     DisplayImageOptions options;
     private final String TAG = "GalleryGripAdapter";
+    Activity activity;
+    //Defines if adapter used on gallery or a posts - galleries is the parent of posts, posts are the parent of post
+    boolean isGallery;
+    boolean opensGallery;
+    GalleryItemClicked galleryCallback;
+    PostItemClicked postCallback;
+    int cardWidth;
+    StringBuilder builder;
+    private final int TEXT_VIEW_CLICK_ID = 0;
+    private String mainImagePath;
 
-    public GalleryGridAdapter(Activity context, int totalCardsInRow) {
+    public GalleryGridAdapter(Activity context, GalleryItemClicked callback, int totalCardsInRow, boolean isGallery) {
         super(context, totalCardsInRow);
+        this.galleryCallback = callback;
+        //this.opensGallery = opensGallery;
+        builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
+        activity = context;
         options = ((FashionTalksApp)context.getApplication()).options;
+        this.isGallery = isGallery;
     }
+
+    public GalleryGridAdapter(Activity context, PostItemClicked callback, int totalCardsInRow, boolean isGallery) {
+        super(context, totalCardsInRow);
+        this.postCallback = callback;
+        builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
+        activity = context;
+        options = ((FashionTalksApp)context.getApplication()).options;
+        this.isGallery = isGallery;
+    }
+
+    private void init(){
+
+    }
+
 
     @Override
     protected Card<GalleryViewHolder> getNewCard(int cardWidth) {
         // Create card through XML (can be created programmatically as well.)
         View cardView = getLayoutInflater().inflate(
                 R.layout.gallery_card_view, null);
+        this.cardWidth = cardWidth;
+        Log.d(TAG, "CARD WIDTH: " + cardWidth);
         cardView.setMinimumHeight(cardWidth);
+        mainImagePath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(cardWidth).append("x").append(cardWidth).append("/").toString();
 
         // Now create card view holder.
         GalleryViewHolder viewHolder = new GalleryViewHolder();
@@ -56,32 +87,11 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     @Override
     protected void setCardView(CardDataHolder<GalleryItem> cardDataHolder,
                                final GalleryViewHolder cardViewHolder) {
-        GalleryItem item = cardDataHolder.getData();
+        final GalleryItem item = cardDataHolder.getData();
         cardViewHolder.textView.setText(item.getTitle());
-        Log.d(TAG, "ADAPTER: " + item.getCoverPath() + " - width: " + cardViewHolder.imageView.getWidth());
-        ImageLoader.getInstance()
-                .displayImage(item.getCoverPath(), cardViewHolder.imageView, options, new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        cardViewHolder.progressBar.setProgress(0);
-                        cardViewHolder.progressBar.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        cardViewHolder.progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        cardViewHolder.progressBar.setVisibility(View.GONE);
-                    }
-                }, new ImageLoadingProgressListener() {
-                    @Override
-                    public void onProgressUpdate(String imageUri, View view, int current, int total) {
-                        cardViewHolder.progressBar.setProgress(Math.round(100.0f * current / total));
-                    }
-                });
+        String path = mainImagePath.concat(item.getCoverPath());
+        Log.d(TAG, "ADAPTER URL PATH: " + path + " - width: " + cardViewHolder.imageView.getWidth());
+        displayImage(path, cardViewHolder, item);
         //cardViewHolder.Image.setText(item.getTitle());
     }
 
@@ -92,8 +102,6 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
                 .show();
     }
 
-    private final int TEXT_VIEW_CLICK_ID = 0;
-
     @Override
     protected void registerChildrenViewClickEvents(GalleryViewHolder cardViewHolder,
                                                    ChildViewsClickHandler childViewsClickHandler) {
@@ -101,18 +109,64 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
                 cardViewHolder.imageView, TEXT_VIEW_CLICK_ID);
     }
 
+    private void displayImage(String path, final GalleryViewHolder cardViewHolder, final GalleryItem item){
+        ImageLoader.getInstance()
+                .displayImage(path, cardViewHolder.imageView, options, new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                        //cardViewHolder.progressBar.setProgress(0);
+                        cardViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        cardViewHolder.progressBar.setVisibility(View.GONE);
+                        Log.d(TAG, "LOAD IMAGE FAILED");
+                        item.setLoadingFailed(true);
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        cardViewHolder.progressBar.setVisibility(View.GONE);
+                        item.setLoadingFailed(false);
+                    }
+                }, new ImageLoadingProgressListener() {
+                    @Override
+                    public void onProgressUpdate(String imageUri, View view, int current, int total) {
+                        //cardViewHolder.progressBar.setProgress(Math.round(100.0f * current / total));
+                    }
+                });
+    }
+
     @Override
     protected void onChildViewClicked(View clickedChildView, GalleryItem cardData,
                                       int eventId) {
         if (eventId == TEXT_VIEW_CLICK_ID) {
             Toast.makeText(getContext(),
-                    "TextView click " + cardData.getPositionText(),
+                    "TextView click " + cardData.getPositionText() + " - GET ITEM ID: " + cardData.getId() + "-isGallery: " +isGallery,
                     Toast.LENGTH_LONG).show();
+
+            if(cardData.isLoadingFailed()){
+                String path = mainImagePath.concat(cardData.getCoverPath());
+                ImageLoader.getInstance()
+                        .displayImage(path, (ImageView)clickedChildView, options);
+                cardData.setLoadingFailed(false);
+                return;
+            }
+
+            if(galleryCallback != null){
+                //if(galleryCallback != null){
+                    galleryCallback.galleryOnItemClicked(cardData.getId(), Integer.parseInt(cardData.getPositionText()));
+               // }
+            }else{
+               // if(postCallback != null){
+                    postCallback.postOnItemClicked(cardData.getId(), Integer.parseInt(cardData.getPositionText()));
+               // }
+            }
         }
     }
 
     // OPTIONAL SETUP
-
     @Override
     public int getCardSpacing() {
         return (2 * super.getCardSpacing());
@@ -122,6 +176,15 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     protected void setRowView(View rowView, int arg1) {
   //      rowView.setBackgroundColor(getContext().getResources().getColor(
     //            R.color.simplest_list_background));
+    }
+
+    public interface GalleryItemClicked{
+        public void galleryOnItemClicked(int galleryId, int galleryItemPosition);
+    }
+
+
+    public interface PostItemClicked{
+        public void postOnItemClicked(int postId, int postItemPosition);
     }
 
 }

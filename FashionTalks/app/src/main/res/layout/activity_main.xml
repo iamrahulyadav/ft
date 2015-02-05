@@ -2,7 +2,6 @@
          space available using match_parent in both dimensions. -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,6 +14,13 @@
         android:minHeight="?android:attr/actionBarSize"
         app:popupTheme="@style/Theme.AppCompat.Light"
         app:theme="@style/Theme.AppCompat.Light">
+
+        <!--<ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/menuButton"
+            android:gravity="left"
+            android:src="@drawable/ic_drawer"/>-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,23 +31,25 @@
             android:text="@string/app_name"/>
         </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/mainToolbar"
-        tools:context=".MainActivity">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+    <!--    <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <!-- android:layout_gravity="start" tells DrawerLayout to treat
-     this as a sliding drawer on the left side for left-to-right
-     languages and on the right side for right-to-left languages.
-     If you're not building against API 17 or higher, use      android:minHeight="?android:attr/actionBarSize"
-     android:layout_gravity="left" instead. -->
+            android:layout_height="match_parent"
+            android:layout_below="@+id/mainToolbar"
+            tools:context=".MainActivity">-->
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/mainToolbar"
+                android:layout_marginTop="?android:attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <!-- android:layout_gravity="start" tells DrawerLayout to treat
+         this as a sliding drawer on the left side for left-to-right
+         languages and on the right side for right-to-left languages.
+         If you're not building against API 17 or higher, use      android:minHeight="?android:attr/actionBarSize"
+         android:layout_gravity="left" instead. -->
         <!-- The drawer is given a fixed width in dp and extends the full height of
              the container. -->
         <LinearLayout
@@ -49,6 +57,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/mainToolbar"
             android:layout_alignParentRight="true"
+
             android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
@@ -57,11 +66,8 @@
                 android:layout_height="?android:attr/actionBarSize"
                 android:minHeight="?android:attr/actionBarSize"
                 android:background="@color/white"
-                android:contentInsetStart="0dp"
                 app:popupTheme="@style/Theme.AppCompat.Light"
                 app:theme="@style/Theme.AppCompat.Light">
-
-
                     <com.mallardduckapps.fashiontalks.components.SlidingTabLayout
                         android:id="@+id/sliding_tabs"
                         android:layout_width="match_parent"
@@ -75,7 +81,7 @@
                 ></FrameLayout>
 
         </LinearLayout>
-
+<!--
         <fragment
             android:id="@+id/navigation_drawer"
             android:name="com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment"
@@ -84,7 +90,7 @@
             android:layout_below="@+id/mainToolbar"
             android:layout_gravity="start"
             tools:layout="@layout/fragment_navigation_drawer" />
-    </android.support.v4.widget.DrawerLayout>
+    </android.support.v4.widget.DrawerLayout>-->
 </RelativeLayout>
 
 

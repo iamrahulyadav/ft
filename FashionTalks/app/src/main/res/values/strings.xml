@@ -2,17 +2,16 @@
 <resources>
 
     <string name="app_name">FASHIONTALKS</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section1">Stil Keşfet</string>
+    <string name="title_section2">Kullanıcı Bul</string>
+    <string name="title_section3">Bildirimler</string>
+    <string name="title_section4">Ayarlar</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Ayarlar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    //Register Ekranı
-    <string name="userName">Kullanıcı Adı</string>
+    //Register Ekranı    <string name="userName">Kullanıcı Adı</string>
     <string name="email">Email</string>
     <string name="password">Şifre</string>
     <string name="passwordAgain"> / Şifre Tekrar</string>
@@ -26,8 +25,24 @@
     <string name="male">E</string>
     <string name="female">K</string>
     <string name="register">Kayıt Ol</string>
-    <string name="tab1">Takipteki Stiller</string>
-    <string name="tab2">Popüler Stiller</string>
-    <string name="tab3">Galeriler</string>
+    <string name="main_tab1">Takipteki Stiller</string>
+    <string name="main_tab2">Popüler Stiller</string>
+    <string name="main_tab3">Galeriler</string>
+    <string name="users_tab1">Popüler Kullanıcılar</string>
+    <string name="users_tab2">Facebook Arkadaşları</string>
+    <string name="title_activity_posts">PostsActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- Settings -->
+    <string name="send_posting_codes"></string>
+    <string name="user_settings"></string>
+    <string name="posting_rules"></string>
+    <string name="contact"></string>
+    <string name="privacy_policy"></string>
+    <string name="terms_of_service"></string>
+    <string name="logout">"Çıkış Yap"</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_users">UsersActivity</string>
+    <string name="title_activity_notification">NotificationActivity</string>
 
 </resources>

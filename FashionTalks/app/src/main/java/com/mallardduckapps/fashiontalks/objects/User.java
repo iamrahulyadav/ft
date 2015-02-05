@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class User {
     private int id;
     @SerializedName("first_name") private String firstName;
+    @SerializedName("username") private String userName;
     @SerializedName("last_name")private String lastName;
     private String email;
     @SerializedName("birth_date") private String birthDateTxt;
@@ -253,5 +254,13 @@ public class User {
 
     public void setIsFollowing(int isFollowing) {
         this.isFollowing = isFollowing;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

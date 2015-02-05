@@ -10,21 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mallardduckapps.fashiontalks.LoginActivity;
-import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
-import com.mallardduckapps.fashiontalks.tasks.LoginTask;
 import com.mallardduckapps.fashiontalks.tasks.RegisterTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by oguzemreozcan on 13/01/15.
  */
-public class RegisterFragment extends BasicFragment implements LoginTask.LoginTaskCallback {
+public class RegisterFragment extends BasicFragment implements RegisterTask.RegisterTaskCallback {
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -146,6 +142,24 @@ public class RegisterFragment extends BasicFragment implements LoginTask.LoginTa
 
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
+       // showProgress(false);
+        switch (authStatus) {
+            case Constants.WRONG_CREDENTIALS:
+                //mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //mPasswordView.requestFocus();
+                break;
+            case Constants.AUTHENTICATION_FAILED:
+                //mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //mPasswordView.requestFocus();
+                break;
+            case Constants.AUTHENTICATION_CANCELED:
+                //authTask = null;
+                break;
+            case Constants.AUTHENTICATION_SUCCESSFUL:
+                activity.saveTokens(tokens);
+                activity.goToMainActivity();
 
+                break;
+        }
     }
 }
