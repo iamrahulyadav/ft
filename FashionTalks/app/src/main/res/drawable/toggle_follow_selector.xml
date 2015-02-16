@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_checked="true" android:drawable="@drawable/add_user_box_checked" />
+<!-- pressed -->
+<item android:state_checked="false" android:drawable="@drawable/add_user_box_unchecked" />
+<!-- unchecked -->
+ <item android:drawable="@drawable/add_user_box_unchecked" />
+    <!-- default -->
+</selector>

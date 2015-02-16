@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UsersActivity;
+import com.mallardduckapps.fashiontalks.adapters.NavDrawerListAdapter;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -47,9 +49,17 @@ public class NavigationDrawerFragment extends BasicFragment {
     private boolean mFromSavedInstanceState;
     private RoundedImageView thumbnailImage;
     private TextView userNameTv;
+    private TextView styleTv;
     //private boolean mUserLearnedDrawer;
     String[] menuItems;
-   // private static NavigationDrawerFragment instance;
+
+    Integer[] imageId = {
+            R.drawable.discover_icon,
+            R.drawable.find_users_icon,
+            R.drawable.notifications_icon,
+            R.drawable.settings_icon,
+            R.drawable.logout_icon
+    };
 
     public NavigationDrawerFragment() {
     }
@@ -75,8 +85,6 @@ public class NavigationDrawerFragment extends BasicFragment {
         }else if(getActivity() instanceof UsersActivity){
             mCurrentSelectedPosition = 1;
         }
-
-
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition, "");
     }
@@ -97,36 +105,48 @@ public class NavigationDrawerFragment extends BasicFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView)view.findViewById(R.id.drawerListView) ;
         thumbnailImage = (RoundedImageView) view.findViewById(R.id.thumbnailImage);
         userNameTv = (TextView) view.findViewById(R.id.userNameTv);
+        styleTv = (TextView) view.findViewById(R.id.styleTv);
+        LinearLayout profileClickLayout = (LinearLayout) view.findViewById(R.id.profileClickLayout);
         User me = app.getMe();
+        menuItems = new String[]{
+            getString(R.string.title_section1),
+                    getString(R.string.title_section2),
+                    getString(R.string.title_section3),
+                    getString(R.string.title_section4),
+                    getString(R.string.logout)
+        };
 
         String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").append(me.getPhotoPath()).toString();
         ImageLoader.getInstance().displayImage(url, thumbnailImage, app.options);
         userNameTv.setText(me.getFirstName() +" " + me.getLastName());
 
-        menuItems = new String[]{
-                getString(R.string.title_section1),
-                getString(R.string.title_section2),
-                getString(R.string.title_section3),
-                getString(R.string.title_section4),
-                getString(R.string.logout)
-        };
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position, menuItems[position]);
             }
         });
+        profileClickLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCallbacks != null) {
+                    mCallbacks.onNavigationDrawerItemSelected(-1, "PROFILE");
+                }
+            }
+        });
         //getActionBar().getThemedContext()
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,menuItems));
+        NavDrawerListAdapter adapter = new NavDrawerListAdapter(getActivity(),menuItems,imageId);
+        mDrawerListView.setAdapter(adapter);
+//        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_activated_1,
+//                android.R.id.text1,menuItems));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return view;
     }

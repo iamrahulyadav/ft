@@ -1,2 +1,3 @@
 include ':app'
 include ':gridListViewAdapters'
+include ':emojiTextView'

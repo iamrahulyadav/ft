@@ -24,6 +24,8 @@ public class PopularUsersLoader extends AsyncTaskLoader<ArrayList<PopularUser>> 
     private ArrayList<PopularUser> usersList;
     private final String TAG = "PopularUsersLoader";
     boolean loadingInProgress;
+    public int startIndex = 0;
+    public int perPage = 50;
 
     public PopularUsersLoader(Context context, int loaderId){
         super(context);
@@ -36,7 +38,7 @@ public class PopularUsersLoader extends AsyncTaskLoader<ArrayList<PopularUser>> 
         String response = "";
         RestClient restClient = new RestClient();
         try {
-            String url = new StringBuilder(Constants.POPULAR_USERS_PREFIX).toString();
+            String url = new StringBuilder(Constants.POPULAR_USERS_PREFIX).append("/").append(startIndex).append("/").append(perPage).toString();
             response = restClient.doGetRequest(url, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {

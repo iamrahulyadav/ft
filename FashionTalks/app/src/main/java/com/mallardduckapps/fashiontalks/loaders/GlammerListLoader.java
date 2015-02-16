@@ -25,6 +25,8 @@ public class GlammerListLoader extends AsyncTaskLoader<ArrayList<User>> {
     private ArrayList<User> glammerList;
     private final String TAG = "GlammerListLoader";
     boolean loadingInProgress;
+    public int startIndex = 0;
+    public int perPage = 15;
 
     public GlammerListLoader(Context context, int loaderId, String postId){
         super(context);
@@ -38,7 +40,7 @@ public class GlammerListLoader extends AsyncTaskLoader<ArrayList<User>> {
         String response = "";
         RestClient restClient = new RestClient();
         try {
-            String url = new StringBuilder(Constants.GLAMMER_LIST_PREFIX).append(postId).toString();
+            String url = new StringBuilder(Constants.GLAMMER_LIST_PREFIX).append(postId).append("/").append(startIndex).append("/").append(perPage).toString();
             response = restClient.doGetRequest(url, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {
@@ -66,13 +68,6 @@ public class GlammerListLoader extends AsyncTaskLoader<ArrayList<User>> {
             }
         }
         if (takeContentChanged() || glammerList == null) {
-            // When the observer detects a change, it should call
-            // onContentChanged()
-            // on the Loader, which will cause the next call to
-            // takeContentChanged()
-            // to return true. If this is ever the case (or if the current data
-            // is
-            // null), we force a new load.
             forceLoad();
         }
     }

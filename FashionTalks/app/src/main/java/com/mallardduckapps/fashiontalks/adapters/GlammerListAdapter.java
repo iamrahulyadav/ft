@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -31,7 +32,7 @@ public class GlammerListAdapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<User> data;
     private LayoutInflater inflater = null;
-    private final String TAG = "SALE_LIST_ADAPTER";
+    private final String TAG = "GLAMMER_LIST_ADAPTER";
     Resources res;
     DisplayImageOptions options;
     String pathMainUrl;
@@ -45,6 +46,15 @@ public class GlammerListAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
+    }
+
+    public void addData(ArrayList<User> data){
+        if(this.data == null){
+            this.data = data;
+        }else{
+            // this.data.addAll(data);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

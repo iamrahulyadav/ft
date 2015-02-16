@@ -18,7 +18,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="11dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/profile"
         app:riv_corner_radius="30dip"
         app:riv_mutate_background="true"
         app:riv_oval="true" />
@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/nameTv"
         android:layout_alignParentRight="true"
+        android:background="@drawable/toggle_follow_selector"
         android:textOff=""
         android:textOn=""
         android:layout_marginLeft="10dp"
@@ -83,14 +84,7 @@
             android:layout_width="@dimen/thumbnail_width"
             android:layout_height="@dimen/thumbnail_height"
             android:layout_margin="5dp"
-            android:layout_marginRight="10dp"
-
-            />
-
+            android:layout_marginRight="10dp"/>
         </LinearLayout>
-
-
-
-
 </RelativeLayout>
 

@@ -18,6 +18,8 @@ public class Pivot {
     @SerializedName("ad_url")
     private String adUrl;
 
+    private boolean isGlammed;
+
     public int getPostId() {
         return postId;
     }
@@ -72,5 +74,13 @@ public class Pivot {
 
     public void setAdUrl(String adUrl) {
         this.adUrl = adUrl;
+    }
+
+    public boolean isGlammed() {
+        return isGlammed;
+    }
+
+    public void setGlammed(boolean isGlammed) {
+        this.isGlammed = isGlammed;
     }
 }

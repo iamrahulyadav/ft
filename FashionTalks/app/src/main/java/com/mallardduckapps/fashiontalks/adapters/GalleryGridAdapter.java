@@ -65,7 +65,6 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
 
     }
 
-
     @Override
     protected Card<GalleryViewHolder> getNewCard(int cardWidth) {
         // Create card through XML (can be created programmatically as well.)
@@ -169,8 +168,8 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     // OPTIONAL SETUP
     @Override
     public int getCardSpacing() {
-        return (2 * super.getCardSpacing());
-    }
+        return ( super.getCardSpacing()/2);
+    } // 2*
 
     @Override
     protected void setRowView(View rowView, int arg1) {

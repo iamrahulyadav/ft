@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextView"
         android:scaleType="fitCenter"
-        android:src="@drawable/images"
+        android:src="@drawable/splash_portrait"
         android:background="@color/blue"
         android:adjustViewBounds="true"
         android:layout_above="@+id/saveButton"/>

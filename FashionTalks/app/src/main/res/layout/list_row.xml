@@ -17,7 +17,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="11dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/profile"
         app:riv_corner_radius="30dip"
         app:riv_mutate_background="true"
         app:riv_oval="true" />
@@ -30,6 +30,4 @@
         android:layout_centerVertical="true"
         android:layout_margin="4dp"
         android:text="NAME" />
-
- />
 </RelativeLayout>

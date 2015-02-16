@@ -59,7 +59,7 @@ public class GalleriesFragment extends BasicFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listAdapter = new GalleryGridAdapter(getActivity(), this ,MAX_CARDS, true);
+        listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
         useLoader();
     }
 

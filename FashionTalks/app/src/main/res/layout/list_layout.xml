@@ -3,15 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <ListView
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/white"
-        android:divider="@color/gray"
-        android:dividerHeight="1dp"
+        android:divider="@color/white"
+        android:dividerHeight="0dp"
         android:drawSelectorOnTop="false" />
     <RelativeLayout
         android:id="@id/android:empty"

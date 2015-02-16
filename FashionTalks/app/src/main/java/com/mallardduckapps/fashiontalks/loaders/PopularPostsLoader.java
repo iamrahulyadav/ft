@@ -26,9 +26,6 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
     final String TAG = "PopularPosts_Loader";
     int loaderId;
     ArrayList<Post> popularPostItems;
-    //	public static int pageIndex = 1;
-    //public static int perPage = 25;
-    //public static boolean noMoreData = false;
     boolean loadingInProgress;
     public int startIndex = 0;
     public int perPage = 15;

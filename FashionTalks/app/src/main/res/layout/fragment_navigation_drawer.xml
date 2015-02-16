@@ -3,35 +3,80 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/white"
-    android:paddingLeft="25dp"
+    android:paddingLeft="20dp"
     android:orientation="vertical">
-    <com.makeramen.RoundedImageView
-        android:id="@+id/thumbnailImage"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/ic_launcher"
-        android:layout_width="@dimen/thumbnail_width"
-        android:layout_height="@dimen/thumbnail_height"
-        android:scaleType="fitCenter"
-        app:riv_corner_radius="30dip"
-        app:riv_mutate_background="true"
-        app:riv_oval="true" />
-    <TextView
-        android:id="@+id/userNameTv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/profileClickLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="6dp"
-        android:textColor="@color/black"/>
+        android:orientation="vertical">
+        <com.makeramen.RoundedImageView
+            android:id="@+id/thumbnailImage"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/sign_up_image_placeholder"
+            android:layout_width="@dimen/thumbnail_width"
+            android:layout_height="@dimen/thumbnail_height"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true" />
+        <TextView
+            android:id="@+id/userNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/styleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/show_my_style"
+            android:textColor="@color/black"/>
+        </LinearLayout>
+
     <ListView
         android:id="@+id/drawerListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
         android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
+        android:divider="@color/white"
         android:background="@color/white" />
-
-    </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:layout_gravity="bottom">
+    <View
+        android:id="@+id/divider"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="30dp"
+        style="@style/Divider1"/>
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:src="@drawable/post_new_look_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/divider"/>
+    <TextView
+        android:id="@+id/uploadNewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/upload_new_style"/>
+    </RelativeLayout>
+</LinearLayout>
 
 

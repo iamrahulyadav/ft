@@ -50,11 +50,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         // Required empty public constructor
     }
 
-
-    //public void setActivity(MainActivity activity) {
-    // this.activity = activity;
-   // }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,32 +102,10 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         }
     }
 
-    @SuppressLint("InflateParams")
-    protected View getLoadMoreView(LayoutInflater inflater) {
-        ProgressBar loadMoreProgress = (ProgressBar) inflater.inflate(
-                R.layout.auto_load_more_view, null);
-        loadMoreProgress.setBackgroundColor(Color.LTGRAY);
-        return loadMoreProgress;
-    }
-
     @Override
     public Loader<ArrayList<Post>> onCreateLoader(int id, Bundle args) {
         loader = new PopularPostsLoader(getActivity().getApplicationContext(), id, galleryId);
         return loader;
-    }
-
-    public boolean canLoadMoreData() {
-        if(loader == null)
-            return true;
-        return loader.perPage > itemCountPerLoad  ? false : true;//listData.size() < getMaxAllowedItems();
-    }
-
-    public void calculateLoadValues(){
-        if(dataList == null){
-            loader.startIndex = 0;
-        }else{
-            loader.startIndex += loader.perPage;
-        }
     }
 
     @Override
@@ -212,6 +185,28 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         loadMoreFooterView.setVisibility(View.VISIBLE);
         Log.d(TAG, "ON REACHED TO END");
         useLoader();
+    }
+
+    public boolean canLoadMoreData() {
+        if(loader == null)
+            return true;
+        return loader.perPage > itemCountPerLoad  ? false : true;//listData.size() < getMaxAllowedItems();
+    }
+
+    public void calculateLoadValues(){
+        if(dataList == null){
+            loader.startIndex = 0;
+        }else{
+            loader.startIndex += loader.perPage;
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    protected View getLoadMoreView(LayoutInflater inflater) {
+        ProgressBar loadMoreProgress = (ProgressBar) inflater.inflate(
+                R.layout.auto_load_more_view, null);
+        //loadMoreProgress.setBackgroundColor(Color.LTGRAY);
+        return loadMoreProgress;
     }
 
     @Override

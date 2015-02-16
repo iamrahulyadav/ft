@@ -3,276 +3,161 @@ package com.mallardduckapps.fashiontalks.components;
 /**
  * Created by oguzemreozcan on 29/01/15.
  */
-import android.animation.Animator;
+
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.objects.Pivot;
+import com.mallardduckapps.fashiontalks.tasks.GlamTask;
 
-public class ExpandablePanel extends RelativeLayout {
+public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse {
 
-    private int mHandleId;
-    private int mContentId;
-    // Contains references to the handle and content views
-   // private ImageButton mHandle;
-    private TextView mContent;
-    private ImageView mHandle;
     private boolean mExpanded = false;
     private int expendedWidth = 0;
     private int mContentWidth = 0;
     private int mAnimationDuration = 0;
+    private Pivot pivot;
     private OnExpandListener mListener;
     private String text;
+    private final String TAG = "EXPANDABLE_PANEL";
+    private boolean lhsAnimation = false;
 
-    public ExpandablePanel(final Context context, int x, int y) {
+    public ExpandablePanel(final Context context,Pivot pivot, int x, int y, boolean lhsAnimation) {
         super(context);
-        //this.setWillNotDraw(false);
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (inflater != null) {
-            View view = inflater.inflate(R.layout.expandable_panel, this);
-            mHandle = (ImageButton) view.findViewById(R.id.expand);
-            mContent = (TextView) view.findViewById(R.id.value);
-            expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources()
-                    .getDisplayMetrics());
-            mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources()
-                    .getDisplayMetrics());
-            mAnimationDuration = 200;
-            LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            //params.addRule(RelativeLayout.LEFT_OF, mHandle.getId());
-            Log.d("EXPANDABLE_PANEL", "WIDTH: " + getWidth() + " - Height: " + getHeight());
-            params.leftMargin = x; //- getWidth()/2;
-            params.topMargin = y; //- getHeight()/2;
-            setLayoutParams(params);
-
-            mContent.getViewTreeObserver()
-                    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                                //Drawable img = context.getResources().getDrawable(
-                                //        R.drawable.glam_icon);
-                                //img.setBounds(0, 0, mContentWidth, mContent.getMeasuredHeight());
-                               // mContent.setCompoundDrawables(img, null, null, null);
-                                //resize = true;
-                                if (Build.VERSION.SDK_INT < 16) {
-                                    mContent.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                                } else {
-                                    mContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                }
-                                        //removeOnLayoutChangeListener(this);
-
-                        }
-                    });
-
-            mHandle.setOnClickListener(new PanelToggler());
+        this.lhsAnimation = lhsAnimation;
+        this.pivot = pivot;
+        expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources()
+                .getDisplayMetrics());
+        mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources()
+                .getDisplayMetrics());
+        mAnimationDuration = 200;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
+        Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
+        params.leftMargin = x;
+        params.topMargin = y;
+        Drawable img = context.getResources().getDrawable(
+                R.drawable.glam_icon);
+        img.setBounds(0, 0, mContentWidth, mContentWidth);
+        if(lhsAnimation){
+            setCompoundDrawables(null, null, img, null);
+        }else{
+            setCompoundDrawables(img, null, null, null);
         }
 
+        setBackgroundResource(R.drawable.glam_shape);
+        setSingleLine();
+        setMaxLines(1);
+        setGravity(Gravity.CENTER);
+        setClickable(true);
+        setLayoutParams(params);
+        setOnClickListener(new PanelToggler());
     }
 
-/*    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        //canvas.scale(-1,1, getWidth()/2, getHeight()/2);
-       // super.dispatchDraw(canvas);
-       // canvas.restore();
-    }*/
-
-    public ExpandablePanel(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mListener = new DefaultOnExpandListener();
-        TypedArray a = context.obtainStyledAttributes(
-                attrs, R.styleable.ExpandablePanel, 0, 0);
-        expendedWidth = (int) a.getDimension(
-                R.styleable.ExpandablePanel_expendedWidth, 0.0f);
-        mAnimationDuration = a.getInteger(
-                R.styleable.ExpandablePanel_animationDuration, 250);
-        int handleId = a.getResourceId(
-                R.styleable.ExpandablePanel_handle, 0);
-
-        if (handleId == 0) {
-            throw new IllegalArgumentException(
-                    "The handle attribute is required and must refer "
-                            + "to a valid child.");
-        }
-
-        int contentId = a.getResourceId(
-                R.styleable.ExpandablePanel_content, 0);
-        if (contentId == 0) {
-            throw new IllegalArgumentException(
-                    "The content attribute is required and must " +
-                            "refer to a valid child.");
-        }
-        mHandleId = handleId;
-        mContentId = contentId;
-        a.recycle();
+    public boolean isLhsAnimation() {
+        return lhsAnimation;
     }
 
     public void setOnExpandListener(OnExpandListener listener) {
         mListener = listener;
     }
 
-    public void setExpendedWidth(int collapsedWidth) {
-        expendedWidth = expendedWidth;
-    }
-
-    public void setAnimationDuration(int animationDuration) {
-        mAnimationDuration = animationDuration;
-    }
-
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    public void setTagText(String text) {
         this.text = text;
+        setText(text);
+        measure(MeasureSpec.UNSPECIFIED,MeasureSpec.UNSPECIFIED);
+        expendedWidth = getMeasuredWidth() + 25;
+        setText("");
     }
 
-    /**
-     * This method gets called when the View is physically
-     * visible to the user
-     */
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-    }
-
-    /**
-     * This is where the magic happens for measuring the actual
-     * (un-expanded) height of the content. If the actual height
-     * is less than the collapsedHeight, the handle will be hidden.
-     */
     @Override
     protected void onMeasure(int widthMeasureSpec,
                              int heightMeasureSpec) {
-        // First, measure how high content wants to be
-        //mContent.
-            //    measure(MeasureSpec.UNSPECIFIED,heightMeasureSpec );
-       // mContentWidth = //mContent.
-             //   getMeasuredWidth();
-        //TODO
-        //if (mContentWidth < mCollapsedWidth) {
-       //     mHandle.setVisibility(View.GONE);
-       // } else {
-       //     mHandle.setVisibility(View.VISIBLE);
-       // }
-
-        // Then let the usual thing happen
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
+    @Override
+    public void processFinish(int glamCount) {
+        Log.d(TAG, "PROCESS FINISH: " + glamCount);
+        if(text.startsWith(pivot.getGlamCount() + " | ")){
+            text = text.replaceFirst(Integer.toString(pivot.getGlamCount()), Integer.toString(glamCount));
+            pivot.setGlamCount(glamCount);
+
+            setText(text);
+        }
+                //new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(pivot.getTag()).toString();
 
     }
 
-    /**
-     * This is the on click listene
-     *
-     * r for the handle.
-     * It basically just creates a new animation instance and fires
-     * animation.
-     */
     private class PanelToggler implements OnClickListener {
         public void onClick(View v) {
             Animation a;
             if (mExpanded) {
-                a = new ExpandAnimation(expendedWidth,mContentWidth,mContent,true);//mContentWidth
-                // a = new ScaleAnimation(30, 1, 1,1);
-                a.initialize(expendedWidth,mContentWidth, expendedWidth, mContentWidth);
-
-                RelativeLayout.LayoutParams param = (LayoutParams) mContent.getLayoutParams();
-                param.addRule(RelativeLayout.LEFT_OF, mHandle.getId());
-                mContent.setLayoutParams(param);
-                //a.setDuration((int)(mContentWidth / getContext().getResources().getDisplayMetrics().density));
-                mListener.onCollapse(mContent, mContent );//mContent
-
+                return;
+/*                a = new ExpandAnimation(expendedWidth, mContentWidth);
+                a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
+                mListener.onCollapse(ExpandablePanel.this);*/
             } else {
-                a = new ExpandAnimation(mContentWidth,expendedWidth,mContent, true); //mContentWidth
-                // a = new ScaleAnimation(1, 30, 1, 1);
-                RelativeLayout.LayoutParams param = (LayoutParams) mContent.getLayoutParams();
-                param.addRule(RelativeLayout.RIGHT_OF, mHandle.getId());
-                mContent.setLayoutParams(param);
-                a.initialize(mContentWidth,mContentWidth, mContentWidth, mContentWidth);
-                //a.setDuration((int)(expendedWidth / getContext().getResources().getDisplayMetrics().density));
-                mListener.onExpand(mContent, mContent);//mContent
+                a = new ExpandAnimation(mContentWidth, expendedWidth);
+                a.initialize(mContentWidth, mContentWidth, mContentWidth, mContentWidth);
 
             }
-            //a.setDuration(mAnimationDuration);
-            //mContent.
             a.setDuration(mAnimationDuration);
             a.setFillAfter(true);
-            mContent.invalidate();
-            mExpanded = !mExpanded;
-            //mContent.startAnimation(a);
+            startAnimation(a);
+            invalidate();
         }
     }
 
-    /**
-     * This is a private animation class that handles the expand/collapse
-     * animations. It uses the animationDuration attribute for the length
-     * of time it takes.
-     */
     private class ExpandAnimation extends Animation implements Animation.AnimationListener {
         private final int mStartWidth;
         private final int mDeltaWidth;
-        private final int mEndWidth;
-        private final View view;
-        private final boolean rightAnimation;
+        int delta;
 
-        public ExpandAnimation( int startWidth, int endWidth, View view, boolean rightAnimation) {
+        public ExpandAnimation(int startWidth, int endWidth) {
             mStartWidth = startWidth;
             mDeltaWidth = endWidth - startWidth;
-            mEndWidth = endWidth;
-            this.view = view;
-                //this.view.setPivotX(1f);
-            this.rightAnimation = rightAnimation;
-
             setAnimationListener(this);
         }
 
         @Override
-        protected void applyTransformation(float interpolatedTime,Transformation t) {
-            //LayoutParams lp =
-              //      (LayoutParams) view.getLayoutParams();
-            //if(rightAnimation){
-            RelativeLayout.LayoutParams param = (LayoutParams) view.getLayoutParams();
-            if(!rightAnimation) {
-
-                param.addRule(RelativeLayout.LEFT_OF, mHandle.getId());
-                //view.setLayoutParams(param);
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            RelativeLayout.LayoutParams param = (RelativeLayout.LayoutParams) getLayoutParams();
+            delta = param.width;
+            if(param.width<=0){
+                delta = 0;
             }
             param.width = (int) (mStartWidth + mDeltaWidth *
                     interpolatedTime);
-                view.setLayoutParams(param);
-            Log.d("EXPANDABLE_PANEL", "Width: " + param.width);
-/*           // }else{
-                lp.width = (int) (mStartWidth + mDeltaWidth *
-                        interpolatedTime);
+            if(delta != 0 && lhsAnimation){
+                delta = (int) (mStartWidth + mDeltaWidth *
+                        interpolatedTime) - delta;
+                param.leftMargin -=delta;
+            }
 
-                view.setX( (int)(lp.leftMargin - (mDeltaWidth *interpolatedTime)));
-                view.setLayoutParams(lp);
-                Log.d("EXPANDABLE_PANEL", "DELTA: " + mDeltaWidth *interpolatedTime);
-                //lp.setLayoutDirection(LAYOUT_DIRECTION_RTL);
-                //lp.leftMargin = (int)
-            }*/
-            invalidate();
+            setLayoutParams(param);
 
+//            Log.d("EXPANDABLE_PANEL", "Width: " + param.width + "leftmargin: "+ param.leftMargin +
+//                    " - time: " +  interpolatedTime + " - delta: " + delta);
         }
 
         @Override
@@ -282,22 +167,22 @@ public class ExpandablePanel extends RelativeLayout {
 
         @Override
         public void onAnimationStart(Animation animation) {
-
-            //((TextView)mContent).setText("");
         }
 
         @Override
         public void onAnimationEnd(Animation animation) {
-           // if(collapse){
-            //}else{
-            //if(mStartWidth == mContentWidth)
-            mContent.setText(text);
-            Log.d("ExpandablePanel", "TEXTVIEW SIZE: " + mContent.getWidth());
-            mContent.requestLayout();
+            setText(text);
+            requestLayout();
             mExpanded = !mExpanded;
-            //else
-             //   ((TextView)mContent).setText("");
-            //}
+            if(mExpanded){
+                mListener.onExpand(ExpandablePanel.this);
+                if (!pivot.isGlammed()) {
+                    GlamTask task = new GlamTask(ExpandablePanel.this,pivot.getId(), pivot.getGlamCount());
+                    task.execute();
+                }
+            }else{
+                mListener.onCollapse(ExpandablePanel.this);
+            }
         }
 
         @Override
@@ -306,16 +191,13 @@ public class ExpandablePanel extends RelativeLayout {
         }
     }
 
-    /**
-     * Simple OnExpandListener interface
-     */
     public interface OnExpandListener {
-        public void onExpand(View handle, View content);
-        public void onCollapse(View handle, View content);
+        public void onExpand(View view);
+        public void onCollapse(View view);
     }
 
-    private class DefaultOnExpandListener implements OnExpandListener {
-        public void onCollapse(View handle, View content) {}
-        public void onExpand(View handle, View content) {}
-    }
+/*    private class DefaultOnExpandListener implements OnExpandListener {
+        public void onCollapse(View view) {}
+        public void onExpand(View view) {}
+    }*/
 }

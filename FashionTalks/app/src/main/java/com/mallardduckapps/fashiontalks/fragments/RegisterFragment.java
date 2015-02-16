@@ -22,10 +22,6 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class RegisterFragment extends BasicFragment implements RegisterTask.RegisterTaskCallback {
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
 //    public static RegisterFragment newInstance() {
 //        return new RegisterFragment();
 //    }

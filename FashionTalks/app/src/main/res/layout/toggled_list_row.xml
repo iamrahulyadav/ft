@@ -17,7 +17,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="11dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/profile"
         app:riv_corner_radius="30dip"
         app:riv_mutate_background="true"
         app:riv_oval="true" />
@@ -34,8 +34,9 @@
 
     <ToggleButton
         android:id="@+id/followButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/toggle_follow_selector"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:textOff=""

@@ -15,12 +15,6 @@
         app:popupTheme="@style/Theme.AppCompat.Light"
         app:theme="@style/Theme.AppCompat.Light">
 
-        <!--<ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/menuButton"
-            android:gravity="left"
-            android:src="@drawable/ic_drawer"/>-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,16 +75,6 @@
                 ></FrameLayout>
 
         </LinearLayout>
-<!--
-        <fragment
-            android:id="@+id/navigation_drawer"
-            android:name="com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment"
-            android:layout_width="@dimen/navigation_drawer_width"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/mainToolbar"
-            android:layout_gravity="start"
-            tools:layout="@layout/fragment_navigation_drawer" />
-    </android.support.v4.widget.DrawerLayout>-->
 </RelativeLayout>
 
 

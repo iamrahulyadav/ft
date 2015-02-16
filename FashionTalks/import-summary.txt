@@ -7,16 +7,18 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* GridListViewAdapters.iml
+* .DS_Store
+* default.properties
+* proguard.cfg
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => gridListViewAdapters/src/main/AndroidManifest.xml
-* res/ => gridListViewAdapters/src/main/res/
-* src/ => gridListViewAdapters/src/main/java/
+* AndroidManifest.xml => emojiTextView/src/main/AndroidManifest.xml
+* res/ => emojiTextView/src/main/res/
+* src/ => emojiTextView/src/main/java/
 
 Next Steps:
 -----------

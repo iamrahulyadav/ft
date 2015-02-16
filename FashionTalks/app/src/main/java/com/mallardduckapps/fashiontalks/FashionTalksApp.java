@@ -28,6 +28,7 @@ public class FashionTalksApp extends Application {
     ArrayList<Post> galleryPostArrayList;
     SlidingMenu menu;
     User me;
+    User other;
 
     @Override
     public void onCreate() {
@@ -111,5 +112,13 @@ public class FashionTalksApp extends Application {
 
     public void setMe(User me) {
         this.me = me;
+    }
+
+    public User getOther() {
+        return other;
+    }
+
+    public void setOther(User other) {
+        this.other = other;
     }
 }

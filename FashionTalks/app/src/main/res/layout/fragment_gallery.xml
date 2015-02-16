@@ -4,6 +4,7 @@
     tools:context="com.mallardduckapps.fashiontalks.fragments.GalleriesFragment">
     <ListView
         android:id="@+id/galleryList"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         </ListView>

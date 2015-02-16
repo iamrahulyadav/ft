@@ -38,10 +38,8 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     int positionIndex;
     int loaderId;
     private final String TAG = "POSTS ACTIVITY";
-
     private static final float MIN_SCALE = 0.95f;
     private static final float MIN_ALPHA = 0.85f;
-
     public static int width;
     public static int height;
 
@@ -50,7 +48,6 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts);
         int[] size = FTUtils.getScreenSize(this);
-
         width = size[0];
         height = size[1];
         galleryId = getIntent().getIntExtra("GALLERY_ID", 0);
@@ -65,13 +62,10 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         VerticalViewPager verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
-
         verticalViewPager.setAdapter(new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), loaderId));
         //verticalViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
         //verticalViewPager.setPageMarginDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_green_dark)));
         verticalViewPager.setCurrentItem(positionIndex);
-        //verticalViewPager.
-
         verticalViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
             @Override
             public void transformPage(View view, float position) {

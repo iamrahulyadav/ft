@@ -48,7 +48,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
 /*        if(TAG.equals("MAIN_ACTIVITY")){
@@ -160,6 +160,9 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
             this.finish();
         }else if(actionName.equals(getString(R.string.title_section3))){
             Intent intent = new Intent(BaseActivity.this, NotificationActivity.class);
+            this.startActivity(intent);
+        }else if(actionName.equals("PROFILE")){
+            Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
             this.startActivity(intent);
         }
     }

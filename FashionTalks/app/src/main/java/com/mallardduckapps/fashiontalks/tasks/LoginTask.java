@@ -86,8 +86,7 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
         }else{
             Log.d(TAG, "GET USER: " + response);
             Gson gson = new GsonBuilder().create();
-            JsonObject object = null;
-            object = new JsonParser().parse(response).getAsJsonObject();
+            JsonObject object = new JsonParser().parse(response).getAsJsonObject();
             JsonObject dataObject = object.getAsJsonObject("data");
             JsonObject userObject = dataObject.getAsJsonObject("User");
             User me = gson.fromJson(userObject, User.class);

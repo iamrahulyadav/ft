@@ -51,6 +51,15 @@ public class PopularUserListAdapter extends BaseAdapter {
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
     }
 
+    public void addData(ArrayList<PopularUser> data){
+        if(this.data == null){
+            this.data = data;
+        }else{
+           // this.data.addAll(data);
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public int getCount() {
         if (data == null) {
