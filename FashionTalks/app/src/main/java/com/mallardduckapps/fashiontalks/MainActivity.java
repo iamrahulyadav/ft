@@ -96,6 +96,17 @@ public class MainActivity extends BaseActivity
         }*/
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(menu.isMenuShowing()){
+            finish();
+        }else{
+            menu.toggle();
+        }
+
+    }
+
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:

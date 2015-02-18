@@ -54,9 +54,26 @@
     <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="title_activity_profile">ProfileActivity</string>
 
-    <!--Profile-->
+    <!-- Profile -->
     <string name="follow">Takip Et</string>
+    <string name="unfollow">Takibi Bırak</string>
     <string name="followers">Takip Edenler</string>
     <string name="following">Takip Ediyor</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_style_upload">StyleUploadActivity</string>
+
+    <!-- Time Util -->
+    <string name="after_minute"> Dakika Sonra</string>
+    <string name="after_hour"> Saat Sonra</string>
+    <string name="after_day"> Gün Sonra </string>
+    <string name="after_month"> Ay Sonra </string>
+    <string name="after_year"> Yıl Sonra </string>
+    <string name="before_minute"> Dakika Önce</string>
+    <string name="before_hour"> Saat Önce</string>
+    <string name="before_day"> Gün Önce </string>
+    <string name="before_month"> Ay Önce </string>
+    <string name="before_year"> Yıl Önce </string>
+    <string name="day_today"> Bugün </string>
+    <string name="now"> Şimdi </string>
 
 </resources>

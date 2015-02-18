@@ -31,7 +31,7 @@ public class UsersActivity extends BaseActivity implements
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
         //actionBar.setHomeButtonEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
 
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 /*        app = (FashionTalksApp) getApplication();

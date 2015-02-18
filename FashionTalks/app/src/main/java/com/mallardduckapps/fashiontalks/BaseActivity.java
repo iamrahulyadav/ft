@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -33,7 +34,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     ActionBar actionBar;
     FrameLayout mainLayout;
     SlidingMenu menu;
-
+    View topDivider;
     FragmentManager fragmentManager;
 
     @Override
@@ -50,6 +51,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         actionBar.setHomeButtonEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        topDivider = findViewById(R.id.divider);
 
 /*        if(TAG.equals("MAIN_ACTIVITY")){
             mViewPager.setAdapter(new GalleriesPagerAdapter(getSupportFragmentManager(), this));
@@ -119,9 +121,17 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
             return true;
         }
 
-
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+       // if(menu.isMenuShowing()){
+            menu.toggle();
+        //}
+
     }
 
     @Override
@@ -147,15 +157,12 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         if(actionName.equals("NO_ACTION")){
             return;
         }
-        if(actionName.equals(getString(R.string.logout))){
-            app.dataSaver.remove("ACCESS_TOKEN");
-        }else if(actionName.equals(getString(R.string.title_section2))){
+        if(actionName.equals(getString(R.string.title_section2))){
             Intent intent = new Intent(BaseActivity.this, UsersActivity.class);
             //this.finish();
             //menu.det
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
-
         }else if(actionName.equals(getString(R.string.title_section1))){
             this.finish();
         }else if(actionName.equals(getString(R.string.title_section3))){
@@ -163,6 +170,9 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
             this.startActivity(intent);
         }else if(actionName.equals("PROFILE")){
             Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
+            this.startActivity(intent);
+        }else if(actionName.equals(getString(R.string.title_section4))){
+            Intent intent = new Intent(BaseActivity.this, SettingsActivity.class);
             this.startActivity(intent);
         }
     }

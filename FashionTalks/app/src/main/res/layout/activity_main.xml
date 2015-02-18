@@ -12,18 +12,27 @@
         android:layout_alignParentTop="true"
         android:background="@color/white"
         android:minHeight="?android:attr/actionBarSize"
+
         app:popupTheme="@style/Theme.AppCompat.Light"
         app:theme="@style/Theme.AppCompat.Light">
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="@string/app_name"/>
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="@string/app_name"/>
+
+
+            </RelativeLayout>
+
         </android.support.v7.widget.Toolbar>
+
 
     <!--    <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer_layout"
@@ -72,7 +81,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="?android:attr/actionBarSize"
-                ></FrameLayout>
+                >
+                <View
+                    android:id="@+id/divider"
+                    android:visibility="gone"
+                    android:layout_gravity="top"
+                    style="@style/Divider1"/>
+                </FrameLayout>
 
         </LinearLayout>
 </RelativeLayout>

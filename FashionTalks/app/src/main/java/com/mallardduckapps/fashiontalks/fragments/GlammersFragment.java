@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Color;
 import android.net.Uri;
@@ -17,6 +18,8 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 
 import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
@@ -34,7 +37,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     private static final String POST_ID = "POST_ID";
     private String paramPostId;
     GlammerListLoader loader;
-
+    FashionTalksApp app;
     protected View loadMoreFooterView;
     int itemCountPerLoad = 0;
     boolean loading;
@@ -63,10 +66,11 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         adapter = new GlammerListAdapter(getActivity(),dataList);
+        adapter = new GlammerListAdapter(getActivity(),dataList);
         if (getArguments() != null) {
             paramPostId = getArguments().getString(POST_ID);
         }
+        app = (FashionTalksApp) getActivity().getApplication();
         useLoader();
     }
 
@@ -106,7 +110,14 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(Uri.EMPTY);
+           // mListener.onFragmentInteraction(Uri.EMPTY);
+            Log.d(TAG, "ITEM CLICKED " + position);
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            User user = dataList.get(position);
+            app.setOther(user);
+            intent.putExtra("PROFILE_ID", user.getId());
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 

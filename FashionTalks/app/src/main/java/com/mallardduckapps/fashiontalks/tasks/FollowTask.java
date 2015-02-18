@@ -16,6 +16,7 @@ public class FollowTask extends AsyncTask<Void, Void, String> {
     private final boolean follow;
     private final int userId;
     private final String TAG = "Follow_TASK";
+    //TODO add lsitener to get callback value
 
     public FollowTask(boolean follow, int userId){
         this.follow = follow;

@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/white"
+        android:descendantFocusability="beforeDescendants"
         android:divider="@color/white"
         android:dividerHeight="0dp"
         android:drawSelectorOnTop="false" />

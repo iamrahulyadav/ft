@@ -34,9 +34,10 @@
 
     <ToggleButton
         android:id="@+id/followButton"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/toggle_follow_selector"
+        android:focusable="false"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:textOff=""

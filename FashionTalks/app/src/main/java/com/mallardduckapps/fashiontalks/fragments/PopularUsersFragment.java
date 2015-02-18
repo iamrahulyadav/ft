@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.PopularUserListAdapter;
 import com.mallardduckapps.fashiontalks.components.GridListOnScrollListener;
@@ -24,6 +27,7 @@ import com.mallardduckapps.fashiontalks.loaders.PopularPostsLoader;
 import com.mallardduckapps.fashiontalks.loaders.PopularUsersLoader;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
 import com.mallardduckapps.fashiontalks.objects.PopularUser;
+import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.util.ArrayList;
@@ -41,6 +45,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
     boolean loading;
     ArrayList<PopularUser> dataList;
     PopularUserListAdapter adapter;
+    FashionTalksApp app;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,7 +66,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new PopularUserListAdapter(getActivity(), dataList);
-
+        app = (FashionTalksApp)getActivity().getApplication();
         useLoader();
     }
 
@@ -101,11 +106,17 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
+        Log.d(TAG, "ON ITEM CLICKED" + position);
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
             //mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            User user = dataList.get(position);
+            app.setOther(user);
+            intent.putExtra("PROFILE_ID", user.getId());
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -217,8 +228,4 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
             useLoader();
         }
     }
-
-
-
-
 }

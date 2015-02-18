@@ -7,6 +7,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +20,14 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.FollowListLoader;
 import com.mallardduckapps.fashiontalks.loaders.GlammerListLoader;
 import com.mallardduckapps.fashiontalks.objects.User;
+import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.util.ArrayList;
@@ -40,6 +44,7 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     boolean loading;
     ArrayList<User> dataList;
     GlammerListAdapter adapter;
+    FashionTalksApp app;
     private final String TAG = "Followers_Fragment";
     boolean followers;
     int loaderId;
@@ -63,6 +68,7 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new GlammerListAdapter(getActivity(),dataList);
+        app = (FashionTalksApp)getActivity().getApplication();
         if (getArguments() != null) {
             paramProfileId = getArguments().getInt(PROFILE_ID);
             followers = getArguments().getBoolean(FOLLOWER_LIST);
@@ -108,11 +114,19 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        if (null != mListener) {
+        //if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(Uri.EMPTY);
-        }
+            //mListener.onFragmentInteraction(Uri.EMPTY);
+            Log.d(TAG, "ITEM CLICKED " + position);
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            User user = dataList.get(position);
+            app.setOther(user);
+            intent.putExtra("PROFILE_ID", user.getId());
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+       // }
     }
 
     @Override

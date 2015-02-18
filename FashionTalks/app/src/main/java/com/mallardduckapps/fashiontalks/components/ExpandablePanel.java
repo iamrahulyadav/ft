@@ -105,7 +105,6 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
             setText(text);
         }
                 //new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(pivot.getTag()).toString();
-
     }
 
     private class PanelToggler implements OnClickListener {

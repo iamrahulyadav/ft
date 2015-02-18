@@ -1,5 +1,6 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     private static final float MIN_ALPHA = 0.85f;
     public static int width;
     public static int height;
+
+    //TODO Changed so it doesnt open galleries now
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,23 +89,19 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                     } else {
                         view.setTranslationY(-vertMargin + horzMargin / 2);
                     }
-
                     // Scale the page down (between MIN_SCALE and 1)
                     view.setScaleX(scaleFactor);
                     view.setScaleY(scaleFactor);
-
                     // Fade the page relative to its size.
                     view.setAlpha(MIN_ALPHA +
                             (scaleFactor - MIN_SCALE) /
                                     (1 - MIN_SCALE) * (1 - MIN_ALPHA));
-
                 } else { // (1,+Infinity]
                     // This page is way off-screen to the right.
                     view.setAlpha(0);
                 }
             }
         });
-
 
         if(galleryId != 0){
             PopularPostsFragment galleryFragment = new PopularPostsFragment();
@@ -115,6 +114,17 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         }else{
             //openPostFragment(postId, positionIndex, loaderId, false);
         }
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "ON NEW INSTANCE");
+        galleryId = intent.getIntExtra("GALLERY_ID", 0);
+        postId = intent.getIntExtra("POST_ID", 0);
+        loaderId = intent.getIntExtra("LOADER_ID", 0);
+        positionIndex = intent.getIntExtra("POST_INDEX", -1);
     }
 
     private void replaceFragment(BasicFragment fragment, boolean addToBackStack){
@@ -153,8 +163,20 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             case Constants.GALLERY_POSTS_LOADER_ID:
                 list = app.getGalleryPostArrayList();
                 break;
+            case Constants.USER_POSTS_LOADER_ID:
+                list = app.getUserPostArrayList();
+                break;
+            case Constants.MY_POSTS_LOADER_ID:
+                list = app.getMyPostArrayList();
+                break;
         }
         return list;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "ON RESUME");
     }
 
     @Override
@@ -192,9 +214,8 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
             getSupportFragmentManager().popBackStack();
         } else {
-            super.onBackPressed();
+            finish();
         }
-
     }
 
     @Override

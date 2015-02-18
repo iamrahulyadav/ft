@@ -26,6 +26,8 @@ public class FashionTalksApp extends Application {
     ArrayList<Post> popularPostArrayList;
     ArrayList<Post> feedPostArrayList;
     ArrayList<Post> galleryPostArrayList;
+    ArrayList<Post> userPostArrayList;
+    ArrayList<Post> myPostArrayList;
     SlidingMenu menu;
     User me;
     User other;
@@ -106,11 +108,45 @@ public class FashionTalksApp extends Application {
         }
     }
 
+    public void addUserPostArrayList(ArrayList<Post> userPostArrayList) {
+        if(this.userPostArrayList == null){
+            this.userPostArrayList = userPostArrayList;
+        }else{
+            this.userPostArrayList.addAll(userPostArrayList);
+        }
+    }
+
+    public void addMyPostArrayList(ArrayList<Post> myPostArrayList) {
+        if(this.myPostArrayList == null){
+            this.myPostArrayList = myPostArrayList;
+        }else{
+            this.myPostArrayList.addAll(myPostArrayList);
+        }
+    }
+
+    public ArrayList<Post> getUserPostArrayList() {
+        return userPostArrayList;
+    }
+
+    public void setUserPostArrayList(ArrayList<Post> userPostArrayList) {
+        this.userPostArrayList = userPostArrayList;
+    }
+
+    public ArrayList<Post> getMyPostArrayList() {
+        return myPostArrayList;
+    }
+
+    public void setMyPostArrayList(ArrayList<Post> myPostArrayList) {
+        this.myPostArrayList = myPostArrayList;
+    }
+
     public User getMe() {
         return me;
     }
 
+    //TODO Control for adding same item multiple times
     public void setMe(User me) {
+        myPostArrayList = null;
         this.me = me;
     }
 
@@ -119,6 +155,8 @@ public class FashionTalksApp extends Application {
     }
 
     public void setOther(User other) {
+        userPostArrayList = null;
         this.other = other;
+
     }
 }

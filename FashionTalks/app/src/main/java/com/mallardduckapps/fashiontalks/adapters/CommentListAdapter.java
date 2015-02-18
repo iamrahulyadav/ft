@@ -19,6 +19,7 @@ import com.mallardduckapps.fashiontalks.objects.Comment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rockerhieu.emojicon.EmojiconTextView;
@@ -87,7 +88,7 @@ public class CommentListAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) vi.getTag();
         }
-        holder.nameTv.setText(user.getFirstName().concat(" ").concat(user.getLastName()));
+        holder.nameTv.setText(user.getFirstName().concat(" ").concat(user.getLastName().concat(" | ").concat(TimeUtil.compareDateWithToday(comment.getCreatedAt(), res))));
         holder.comment.setText(comment.getComment());
         String path = new StringBuilder(pathMainUrl).append(user.getPhotoPath()).toString();
         ImageLoader.getInstance()

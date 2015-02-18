@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
+import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
@@ -25,6 +27,7 @@ import com.mallardduckapps.fashiontalks.loaders.PostsLoader;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.User;
+import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -73,9 +76,10 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             profileId = getArguments().getInt(PROFILE_ID);
-            if(app.getMe().getId() == profileId){
+            if(app.getMe().getId() == profileId || profileId == 0){
                 myProfile = true;
                 loaderId = Constants.MY_POSTS_LOADER_ID;
+                app.setMyPostArrayList(null);
                 user = app.getMe();
             }else{
                 myProfile = false;
@@ -84,6 +88,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             }
         }else{
             myProfile = true;
+            app.setMyPostArrayList(null);
             user = app.getMe();
             loaderId = Constants.MY_POSTS_LOADER_ID;
         }
@@ -108,6 +113,23 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         listView.setOnScrollListener(new GridListOnScrollListener(this));
         if(myProfile){
             followButton.setVisibility(View.INVISIBLE);
+        }else{
+            //TODO user should be updated
+            final boolean isFollowing = user.getIsFollowing() == 1 ? true: false;
+            if(isFollowing){
+                followButton.setText(getString(R.string.unfollow));
+            }
+            followButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "BUTTON FOLLOW is clicked ");
+                    if(isFollowing){
+
+                    }
+                    FollowTask task = new FollowTask(!isFollowing, user.getId());
+                    task.execute();
+                }
+            });
         }
 
         if(dataList != null){
@@ -187,6 +209,11 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         }
         itemCountPerLoad = data.size();
         listAdapter.addItemsInGrid(dataList);
+        if(loaderId == Constants.USER_POSTS_LOADER_ID){
+            app.addUserPostArrayList(data);
+        }else{
+            app.addMyPostArrayList(data);
+        }
         //addToGlobalLists(data);
     }
 
@@ -229,11 +256,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
     @Override
     public void postOnItemClicked(int postId, int postItemPosition) {
-
+        Intent intent = new Intent(getActivity(), PostsActivity.class);
+        intent.putExtra("LOADER_ID", loaderId);
+        intent.putExtra("POST_ID", postId);
+        intent.putExtra("POST_INDEX", postItemPosition);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
     }
+
     public void useLoader() {
         if (this.canLoadMoreData() && !loading) {
-            Log.d(TAG, "USE LOADER FRAGMENT POPULAR POSTS");
+            Log.d(TAG, "USE LOADER FRAGMENT Profile Fragment");
             loading = true;
             if(loader == null ){
                 loader = (PostsLoader) getActivity().getLoaderManager()
@@ -241,7 +274,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 loader.forceLoad();
 
             }else{
-                Log.d(TAG, "USE LOADER FRAGMENT POPULAR POSTS - ON CONTENT CHANGEDD");
+                Log.d(TAG, "USE LOADER FRAGMENT Profile Fragment - ON CONTENT CHANGEDD");
                 //loader.startLoading(); //= (PopularPostsLoader) getActivity().getLoaderManager()
                 // .restartLoader(Constants.POPULAR_POSTS_LOADER_ID, null, this);
                 // loader.onContentChanged();

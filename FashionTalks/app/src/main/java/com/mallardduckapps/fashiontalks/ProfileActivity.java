@@ -1,10 +1,12 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,10 +25,13 @@ public class ProfileActivity extends ActionBarActivity {
     FashionTalksApp app;
     ActionBar actionBar;
     int userId;
+    final String TAG = "ProfileActivity";
+    boolean onNewIntent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onNewIntent = false;
         setContentView(R.layout.activity_profile);
         userId = getIntent().getIntExtra("PROFILE_ID", 0);
         mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
@@ -35,12 +40,33 @@ public class ProfileActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         if (savedInstanceState == null) {
-            ProfileFragment fragment = new ProfileFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("PROFILE_ID", userId);
-            if(userId != 0){
-                fragment.setArguments(bundle);
-            }
+            ProfileFragment fragment = ProfileFragment.newInstance(userId);
+            //ProfileFragment fragment = new ProfileFragment();
+            //Bundle bundle = new Bundle();
+           // bundle.putInt("PROFILE_ID", userId);
+//            if(userId != 0){
+//                fragment.setArguments(bundle);
+//            }
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, fragment)
+                    .commit();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //Log.d(TAG, "ON NEW INTENT: ");
+        //userId = intent.getIntExtra("PROFILE_ID", 0);
+        //onNewIntent = true;
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(onNewIntent){
+            ProfileFragment fragment = ProfileFragment.newInstance(userId);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, fragment)
                     .commit();

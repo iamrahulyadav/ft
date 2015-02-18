@@ -69,8 +69,6 @@ public class FTUtils {
     public static int[] getScreenSize(Activity activity){
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
-
-        // dataList = new ArrayList<GalleryItem>();
         int width = size.x;
         int height = size.y;
         int[] sizes = {width, height};
@@ -83,7 +81,7 @@ public class FTUtils {
     /**
      * Checks if the device is a tablet or a phone
      *
-     * @param activityContext
+     * @param context
      *            The Activity Context.
      * @return Returns true if the device is a Tablet
      */

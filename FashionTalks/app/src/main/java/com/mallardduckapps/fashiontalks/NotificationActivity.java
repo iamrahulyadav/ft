@@ -24,8 +24,9 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
         mViewPager.setVisibility(View.GONE);
         LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)mainLayout.getLayoutParams();
         param.topMargin = 0;
+        topDivider.setVisibility(View.VISIBLE);
         //actionBar.setHomeButtonEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, new NotificationsFragment())
@@ -60,7 +61,7 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
             menu.toggle();
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

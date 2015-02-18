@@ -1,1 +1,0 @@
-/Users/oguzemreozcan/Documents/workspace/AndroidStudio/FashionTalks/FashionTalks/emojiTextView/build/intermediates/classes/debug

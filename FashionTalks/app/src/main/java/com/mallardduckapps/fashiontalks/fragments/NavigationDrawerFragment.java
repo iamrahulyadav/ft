@@ -58,7 +58,6 @@ public class NavigationDrawerFragment extends BasicFragment {
             R.drawable.find_users_icon,
             R.drawable.notifications_icon,
             R.drawable.settings_icon,
-            R.drawable.logout_icon
     };
 
     public NavigationDrawerFragment() {
@@ -117,8 +116,7 @@ public class NavigationDrawerFragment extends BasicFragment {
             getString(R.string.title_section1),
                     getString(R.string.title_section2),
                     getString(R.string.title_section3),
-                    getString(R.string.title_section4),
-                    getString(R.string.logout)
+                    getString(R.string.title_section4)
         };
 
         String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").append(me.getPhotoPath()).toString();
