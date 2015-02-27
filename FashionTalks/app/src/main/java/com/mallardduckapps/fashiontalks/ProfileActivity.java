@@ -13,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.FollowFragment;
 import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class ProfileActivity extends ActionBarActivity {
 
@@ -39,6 +41,8 @@ public class ProfileActivity extends ActionBarActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+        TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         if (savedInstanceState == null) {
             ProfileFragment fragment = ProfileFragment.newInstance(userId);
             //ProfileFragment fragment = new ProfileFragment();
@@ -99,14 +103,14 @@ public class ProfileActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == android.R.id.home){
+        if(id == android.R.id.home){
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {
                 finish();
             }
+        }else if(id == R.id.action_home){
+
         }
         return super.onOptionsItemSelected(item);
     }

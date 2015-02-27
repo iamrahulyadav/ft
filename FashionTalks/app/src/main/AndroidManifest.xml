@@ -29,7 +29,7 @@
             android:name=".LoginActivity"
             android:icon="@drawable/app_logo"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +40,7 @@
             android:name=".MainActivity"
             android:icon="@drawable/app_logo"
             android:label="@string/app_name"
-            android:launchMode="singleInstance" >
+            android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
 
         <receiver
@@ -69,12 +69,7 @@
         <activity
             android:name=".UsersActivity"
             android:icon="@drawable/app_logo"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mallardduckapps.fashiontalks.MainActivity" />
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".BaseActivity"
@@ -99,7 +94,28 @@
             android:parentActivityName=".SettingsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mallardduckapps.fashiontalks.SettingsActivity" />>
+                android:value="com.mallardduckapps.fashiontalks.SettingsActivity" />
+            >
+        </activity>
+        <activity
+            android:name=".WebActivity"
+            android:label="@string/title_activity_web" >
+        </activity>
+        <activity
+            android:name=".SendPostingCodeActivity"
+            android:label="@string/title_activity_send_posting_code"
+            android:parentActivityName=".SettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mallardduckapps.fashiontalks.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".UserSettingsActivity"
+            android:label="@string/title_activity_user_settings" >
+        </activity>
+        <activity
+            android:name=".UploadNewStyleActivity"
+            android:label="@string/title_activity_upload_new_style" >
         </activity>
     </application>
 

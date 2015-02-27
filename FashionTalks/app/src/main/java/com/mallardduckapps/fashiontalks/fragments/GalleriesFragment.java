@@ -130,12 +130,12 @@ public class GalleriesFragment extends BasicFragment implements
     @Override
     public void galleryOnItemClicked(int galleryId, int galleryItemPosition) {
         Log.d(TAG, "SEND GALLERY ID TO ACTIVITY: " + galleryId);
-
-            //Intent intent = new Intent(getActivity(), PostsActivity.class);
-            Intent intent = new Intent(getActivity(), GalleryActivity.class);
-            intent.putExtra("GALLERY_ID", galleryId);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
+        //Intent intent = new Intent(getActivity(), PostsActivity.class);
+        Intent intent = new Intent(getActivity(), GalleryActivity.class);
+        intent.putExtra("GALLERY_ID", galleryId);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
 /*        PopularPostsFragment galleryFragment = new PopularPostsFragment();
         galleryFragment.setActivity(activity);
         Bundle bundle = new Bundle();

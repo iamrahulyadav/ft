@@ -21,6 +21,7 @@ import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -90,6 +91,8 @@ public class PopularUserListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
             holder.glamTv = (TextView) vi.findViewById(R.id.glamTv);
+            holder.nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+            holder.glamTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
             holder.column1Image = (ImageView) vi.findViewById(R.id.imageColumn1);
             holder.column2Image = (ImageView) vi.findViewById(R.id.imageColumn2);
             holder.column3Image = (ImageView) vi.findViewById(R.id.imageColumn3);

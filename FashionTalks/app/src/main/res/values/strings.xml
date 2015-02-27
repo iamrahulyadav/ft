@@ -11,6 +11,7 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Ayarlar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_data">No Data</string>
     <!-- Register Ekranı -->
     <string name="userName">Kullanıcı Adı</string>
     <string name="email">Email</string>
@@ -75,5 +76,32 @@
     <string name="before_year"> Yıl Önce </string>
     <string name="day_today"> Bugün </string>
     <string name="now"> Şimdi </string>
+    <string name="title_activity_web">WebActivity</string>
+    <string name="title_activity_send_posting_code">SendPostingCodeActivity</string>
+
+    <!-- User Settings -->
+    <string name="permission_talks">Konuşmalara izin ver</string>
+    <string name="permission_news">Haber Maili Al</string>
+    <string name="permission_new_glam">Yeni Glam</string>
+    <string name="permission_new_talk">Yeni Konuşma</string>
+    <string name="permission_new_mention">Yeni Bahsetme</string>
+    <string name="permission_new_follower">Yeni Takipçi</string>
+    <string name="notification">Bildirim</string>
+
+    <!-- FontNames -->
+    <string name="font_avantgarde_bold">ITC-Avant-Garde-bold.otf</string>
+    <string name="font_avantgarde_regular">ITC-Avant-Garde-regular.otf</string>
+    <string name="font_helvatica_lt">HelveticaNeueLTPro-Lt.otf</string>
+    <string name="font_helvatica_md">HelveticaNeueLTPro-Md.otf</string>
+    <string name="font_helvatica_thin">HelveticaNeueLTPro-Th.otf</string>
+    <string name="font_helvatica_roman">HelveticaNeueLTPro-Roman.otf</string>
+    <string name="font_helvatica_bold">HelveticaNeueLTPro-Bd.otf</string>
+    <string name="title_activity_user_settings">UserSettingsActivity</string>
+    <string name="title_activity_upload_new_style">UploadNewStyleActivity</string>
+
+    <!-- Upload Screens -->
+    <string name="upload_select_or_shoot">Yeni bir resim çekin veya albümden bir resim seçin</string>
+    <string name="upload_shoot">Resim Çek</string>
+    <string name="upload_select">Albümden</string>
 
 </resources>

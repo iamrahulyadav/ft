@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 /**
  * Created by oguzemreozcan on 13/02/15.
@@ -31,6 +32,7 @@ public class NavDrawerListAdapter extends ArrayAdapter<String>{
         TextView txtTitle = (TextView) rowView.findViewById(R.id.text);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         txtTitle.setText(names[position]);
+        txtTitle.setTypeface(FTUtils.loadFont(context.getAssets(),context.getString(R.string.font_helvatica_lt)));
         imageView.setImageResource(imageId[position]);
         return rowView;
     }

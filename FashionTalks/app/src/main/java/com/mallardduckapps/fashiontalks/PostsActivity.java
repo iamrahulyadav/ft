@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
@@ -64,6 +65,8 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+        TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         VerticalViewPager verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
         verticalViewPager.setAdapter(new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), loaderId));
         //verticalViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
@@ -182,7 +185,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_posts, menu);
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
 
@@ -195,14 +198,14 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         int id = item.getItemId();
         super.onOptionsItemSelected(item);
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == android.R.id.home){
+        if(id == android.R.id.home){
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {
                 finish();
             }
+        }else if(id == R.id.action_home){
+
         }
 
         return true;

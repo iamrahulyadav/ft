@@ -6,10 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
-import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UsersActivity;
-import com.mallardduckapps.fashiontalks.fragments.PlaceHolderFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularUsersFragment;
 
 import java.util.Locale;
@@ -35,10 +33,10 @@ import java.util.Locale;
                     Log.d("USERS PAGER ADAPTER", "POPULER KULLANICILAR LOAD");
                     return PopularUsersFragment.newInstance("");
                 case 1:
-                    return new PlaceHolderFragment();
+                    return new Fragment();
             }
 
-            return new PlaceHolderFragment();
+            return new Fragment();
         }
 
         @Override

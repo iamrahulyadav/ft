@@ -52,7 +52,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
 
     @Override
     public void setTag() {
-        TAG = "RegisterFragment";
+        TAG = "Register";
     }
 
     @Override

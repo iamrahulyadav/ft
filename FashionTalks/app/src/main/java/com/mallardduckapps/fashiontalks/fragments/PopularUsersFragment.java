@@ -117,6 +117,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
             intent.putExtra("PROFILE_ID", user.getId());
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
         }
     }
 

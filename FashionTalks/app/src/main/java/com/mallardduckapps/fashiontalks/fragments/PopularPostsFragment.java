@@ -224,6 +224,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             intent.putExtra("POST_INDEX", postItemPosition);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
         }
 
     }

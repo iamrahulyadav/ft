@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
@@ -44,6 +45,8 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     ArrayList<User> dataList;
     GlammerListAdapter adapter;
     private final String TAG = "Glammers_Fragment";
+    ProgressBar progressBar;
+    TextView noDataTv;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
@@ -82,6 +85,8 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
             adapter.addData(dataList);
             setListAdapter(adapter);
         }
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        noDataTv = (TextView) view.findViewById(R.id.noDataTv);
         loadMoreFooterView =getLoadMoreView(inflater);
         return view;
     }
@@ -155,6 +160,11 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
                 listView.removeFooterView(loadMoreFooterView);
                 loadMoreFooterView.setVisibility(View.INVISIBLE);
             }
+        }
+
+        if(dataList.size() == 0){
+            progressBar.setVisibility(View.GONE);
+            noDataTv.setVisibility(View.VISIBLE);
         }
         loading = false;
     }

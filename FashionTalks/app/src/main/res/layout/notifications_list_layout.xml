@@ -22,6 +22,7 @@
         android:drawSelectorOnTop="false" />
     <RelativeLayout
         android:id="@id/android:empty"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ProgressBar
@@ -36,7 +37,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:visibility="gone"
-            android:text="No data"/>
+            android:text="@string/no_data"/>
     </RelativeLayout>
 
 </LinearLayout>

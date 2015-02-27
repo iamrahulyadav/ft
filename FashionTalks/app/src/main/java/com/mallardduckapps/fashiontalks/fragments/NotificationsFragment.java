@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.NotificationListAdapter;
@@ -26,6 +28,8 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
 
     private BasicFragment.OnFragmentInteractionListener mListener;
     private NotificationListLoader loader;
+    ProgressBar progressBar;
+    TextView noDataTv;
 
     public NotificationsFragment() {
     }
@@ -40,6 +44,8 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.notifications_list_layout, container, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        noDataTv = (TextView) view.findViewById(R.id.noDataTv);
         return view;
     }
 
@@ -84,6 +90,10 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
     public void onLoadFinished(Loader<ArrayList<Notification>> loader, ArrayList<Notification> data) {
         NotificationListAdapter adapter = new NotificationListAdapter(getActivity(),data);
         setListAdapter(adapter);
+        if(data.size() == 0){
+            progressBar.setVisibility(View.GONE);
+            noDataTv.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

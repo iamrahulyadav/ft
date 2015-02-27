@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
@@ -48,6 +49,8 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     private final String TAG = "Followers_Fragment";
     boolean followers;
     int loaderId;
+    ProgressBar progressBar;
+    TextView noDataTv;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
@@ -89,6 +92,8 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
             adapter.addData(dataList);
             setListAdapter(adapter);
         }
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        noDataTv = (TextView) view.findViewById(R.id.noDataTv);
         loadMoreFooterView = getLoadMoreView(inflater);
         return view;
     }
@@ -163,6 +168,11 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
                 listView.removeFooterView(loadMoreFooterView);
                 loadMoreFooterView.setVisibility(View.INVISIBLE);
             }
+        }
+
+        if(dataList.size() == 0){
+            progressBar.setVisibility(View.GONE);
+            noDataTv.setVisibility(View.VISIBLE);
         }
         loading = false;
     }

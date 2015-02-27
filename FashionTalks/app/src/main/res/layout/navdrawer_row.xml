@@ -15,6 +15,7 @@
         android:layout_marginTop="8dp"/>
     <TextView
         android:id="@+id/text"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

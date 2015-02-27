@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layoutBottom"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@color/white"
+        android:dividerHeight="0dp"
+        android:drawSelectorOnTop="false" />
+    <RelativeLayout
+        android:id="@id/android:empty"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/noDataTv"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:text="@string/no_data"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layoutBottom"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/codesLeft"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="codes left"/>
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider1"
+            android:layout_below="@+id/codesLeft"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"/>
+        <Button
+            android:id="@+id/sendPermission"
+            android:textSize="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:text="Send Permission"
+            android:layout_below="@+id/divider"/>
+        </RelativeLayout>
+
+</RelativeLayout>

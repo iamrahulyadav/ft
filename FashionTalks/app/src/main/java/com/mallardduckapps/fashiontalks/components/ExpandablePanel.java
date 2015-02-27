@@ -46,9 +46,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                 .getDisplayMetrics());
         mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources()
                 .getDisplayMetrics());
+        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources()
+                .getDisplayMetrics()));
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
-        Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
+        //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
         params.leftMargin = x;
         params.topMargin = y;
         Drawable img = context.getResources().getDrawable(
@@ -101,7 +103,6 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         if(text.startsWith(pivot.getGlamCount() + " | ")){
             text = text.replaceFirst(Integer.toString(pivot.getGlamCount()), Integer.toString(glamCount));
             pivot.setGlamCount(glamCount);
-
             setText(text);
         }
                 //new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(pivot.getTag()).toString();

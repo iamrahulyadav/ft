@@ -1,6 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -91,10 +92,18 @@ public class PostFragment extends BasicFragment{
         final TextView tvGlamCount = (TextView) rootView.findViewById(R.id.glamCount);
         final TextView tvChatText = (TextView) rootView.findViewById(R.id.chatText);
         final TextView tvPostTime = (TextView) rootView.findViewById(R.id.postTime);
+
         final ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         final ImageButton shareButton = (ImageButton) rootView.findViewById(R.id.shareButton);
         final LinearLayout chatLayout = (LinearLayout) rootView.findViewById(R.id.chatLayout);
         final LinearLayout glamLayout = (LinearLayout) rootView.findViewById(R.id.glamLayout);
+
+        Activity activity = getActivity();
+        tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_thin)));
+        tvGlamCount.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
+        tvChatText.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
+        tvUserName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
+        tvName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
 
         shareMenu = (LinearLayout) rootView.findViewById(R.id.shareMenuLayout);
         postId = getArguments().getInt("POST_ID");
@@ -158,6 +167,7 @@ public class PostFragment extends BasicFragment{
                 intent.putExtra("PROFILE_ID", user.getId());
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
             }
         };
         tvUserName.setOnClickListener(onClickListener);
@@ -256,7 +266,8 @@ public class PostFragment extends BasicFragment{
             final Pivot pivot = tag.getPivot();
             int x = getRealX(pivot.getX());
             ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false);
-            panel.setTagText(new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(tag.getTag()).toString());
+            panel.setTagText(new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(tag.getTag()).append(" ").toString());
+            panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
                 @Override
                 public void onExpand(View handle) {

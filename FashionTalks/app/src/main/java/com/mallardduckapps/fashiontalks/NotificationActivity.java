@@ -3,15 +3,18 @@ package com.mallardduckapps.fashiontalks;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.NotificationsFragment;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class NotificationActivity extends BaseActivity implements BasicFragment.OnFragmentInteractionListener {
 
@@ -22,6 +25,8 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
         actionBar.setDisplayHomeAsUpEnabled(false);
         tabToolbar.setVisibility(View.GONE);
         mViewPager.setVisibility(View.GONE);
+        TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)mainLayout.getLayoutParams();
         param.topMargin = 0;
         topDivider.setVisibility(View.VISIBLE);
@@ -40,28 +45,20 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
 
     }
 
-/*    @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_base, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else {
+        if (id == R.id.home) {
             menu.toggle();
         }
-
-        return true;
+        return false;
     }
 
     @Override

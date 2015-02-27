@@ -8,10 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class GalleryActivity extends ActionBarActivity {
 
@@ -36,6 +38,9 @@ public class GalleryActivity extends ActionBarActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+
+        TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         PopularPostsFragment galleryFragment = new PopularPostsFragment();
         //galleryFragment.setActivity(activity);
         Bundle bundle = new Bundle();
@@ -54,7 +59,7 @@ public class GalleryActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_gallery, menu);
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
 
@@ -64,17 +69,14 @@ public class GalleryActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == android.R.id.home){
+        if(id == android.R.id.home){
 /*            if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {*/
                 finish();
          //   }
         }
+
 
         return super.onOptionsItemSelected(item);
     }

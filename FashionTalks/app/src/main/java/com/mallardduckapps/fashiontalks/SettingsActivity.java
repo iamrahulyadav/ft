@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.SettingsFragment;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -35,6 +37,8 @@ public class SettingsActivity extends BaseActivity {
         LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)mainLayout.getLayoutParams();
         param.topMargin = 0;
         actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
+        TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
 /*        mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
         setSupportActionBar(mainToolbar);
         actionBar = getSupportActionBar();
@@ -58,11 +62,7 @@ public class SettingsActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else {
+        if (id == android.R.id.home) {
             menu.toggle();
         }
 

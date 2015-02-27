@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -14,11 +15,14 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -49,11 +53,12 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     private View mLoginFormView;
     private LoginActivity activity;
     public ViewSwitcher switcher;
+    boolean loggedInBefore = false;
 //    private View container;
 
     @Override
     public void setTag() {
-        TAG = "LoginFragment";
+        TAG = "Login";
     }
 
     public void setActivity(LoginActivity activity) {
@@ -64,14 +69,19 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(app.dataSaver != null){
-            String accessToken = app.dataSaver.getString("accessToken");
+            String accessToken = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+            Log.d(TAG, "ACCESS TOKEN: " + accessToken);
             if(!accessToken.equals("")){
                 if(activity != null){
                     //showProgress(true);
+                    loggedInBefore = true;
+                    hideKeyboard();
                     RestClient.setAccessToken(accessToken);
                     LoginTask authTask = new LoginTask(this);
                     authTask.execute();
                 }
+            }else{
+                loggedInBefore = false;
             }
         }
     }
@@ -81,9 +91,14 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
-        switcher.setDisplayedChild(0);
+        if(loggedInBefore){
+            switcher.setDisplayedChild(0);
+            activity.mainToolbar.setVisibility(View.GONE);
+        }else{
+            switcher.setDisplayedChild(1);
+            activity.mainToolbar.setVisibility(View.VISIBLE);
+        }
         // Set up the login form.
-
         mEmailView = (AutoCompleteTextView) rootView.findViewById(R.id.email);
         populateAutoComplete();
         mPasswordView = (EditText) rootView.findViewById(R.id.password);
@@ -99,10 +114,11 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         });
 //        container = (View)rootView.findViewById(R.id.container);
 
-        Button mEmailSignInButton = (Button) rootView.findViewById(R.id.email_sign_in_button);
+        final Button mEmailSignInButton = (Button) rootView.findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 attemptLogin();
             }
         });
@@ -110,6 +126,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 activity.goRegistrationPage();
             }
         });
@@ -117,14 +134,14 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         mLoginFormView = rootView.findViewById(R.id.login_form);
         mProgressView = rootView.findViewById(R.id.login_progress);
         Handler handler = new Handler();
-
         final Runnable r = new Runnable() {
             public void run() {
-                switcher.setDisplayedChild(1);
+                Log.d(TAG, "SHOW KEYBOARD");
+                showKeyboard(mEmailView);
             }
         };
-
-        handler.postDelayed(r, 300);
+        if(!loggedInBefore)
+             handler.postDelayed(r, 300);
         return rootView;
     }
 
@@ -145,6 +162,8 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
      */
     public void attemptLogin() {
         switcher.setDisplayedChild(0);
+        activity.mainToolbar.setVisibility(View.GONE);
+        hideKeyboard();
         if (authTask != null) {
             return;
         }
@@ -155,10 +174,11 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         boolean cancel = false;
-        View focusView = null;
+        EditText focusView = null;
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
+            showKeyboard(mPasswordView);
             focusView = mPasswordView;
             cancel = true;
         }
@@ -176,7 +196,11 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            switcher.setDisplayedChild(1);
+            activity.mainToolbar.setVisibility(View.VISIBLE);
+            //focusView.requestFocus();
+            showKeyboard(focusView);
+
         } else {
             showProgress(true);
             authTask = new LoginTask(this, email, password);
@@ -192,6 +216,21 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    private void showKeyboard(EditText editText){
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     /**
@@ -285,14 +324,18 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         switch (authStatus) {
             case Constants.WRONG_CREDENTIALS:
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                showKeyboard(mPasswordView);
+                switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_FAILED:
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
+                showKeyboard(mPasswordView);
                 mPasswordView.requestFocus();
+                switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_CANCELED:
                 authTask = null;
+                switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
                 activity.saveTokens(tokens);

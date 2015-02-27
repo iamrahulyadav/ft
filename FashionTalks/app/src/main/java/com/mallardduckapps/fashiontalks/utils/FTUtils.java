@@ -20,6 +20,10 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -45,28 +49,26 @@ public class FTUtils {
 
     public static String getBasicJson(BasicNameValuePair... params) throws JSONException {
         JSONObject object = new JSONObject();
-        if(params == null){
+        if (params == null) {
             return null;
         }
-        for(BasicNameValuePair param : params) {
+        for (BasicNameValuePair param : params) {
             object.put(param.getName(), param.getValue());
         }
         Log.d("JSON", "JSON: " + object.toString());
         return object.toString();
     }
 
-    public static float dpFromPx(int px, Context context)
-    {
+    public static float dpFromPx(int px, Context context) {
         return px / context.getResources().getDisplayMetrics().density;
     }
 
-    public static float pxFromDp(int dp, Context context)
-    {
+    public static float pxFromDp(int dp, Context context) {
         return dp * context.getResources().getDisplayMetrics().density;
     }
 
 
-    public static int[] getScreenSize(Activity activity){
+    public static int[] getScreenSize(Activity activity) {
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
         int width = size.x;
@@ -74,15 +76,14 @@ public class FTUtils {
         int[] sizes = {width, height};
         Log.d("FT_UTILS_SCREEN_SIZE", "WIDTH: " + width);
         Log.d("FT_UTILS_SCREEN_SIZE", "HEIGHT: " + height);
-        Log.d("FT_UTILS_SCREEN_SIZE", "Density: " + activity.getResources().getDisplayMetrics().density );
+        Log.d("FT_UTILS_SCREEN_SIZE", "Density: " + activity.getResources().getDisplayMetrics().density);
         return sizes;
     }
 
     /**
      * Checks if the device is a tablet or a phone
      *
-     * @param context
-     *            The Activity Context.
+     * @param context The Activity Context.
      * @return Returns true if the device is a Tablet
      */
     //TODO CHECK IF STILL WORKS
@@ -133,14 +134,15 @@ public class FTUtils {
      * A helper loading a custom font.
      *
      * @param assetManager
-     *            App's asset manager.
+     * App's asset manager.
      * @param filePath
-     *            The path of the file.
+     * The path of the file.
      * @return Return {@link android.graphics.Typeface} or null if the path is
-     *         invalid.
+     * invalid.
      */
     //TODO BEST PRACTISE TO LOAD CUSTOM FONT
     private static final HashMap<String, Typeface> sCachedFonts = new HashMap<String, Typeface>();
+
     public static Typeface loadFont(final AssetManager assetManager,
                                     final String filePath) {
         synchronized (sCachedFonts) {
@@ -161,6 +163,30 @@ public class FTUtils {
                 return null;
             }
             return sCachedFonts.get(filePath);
+        }
+    }
+
+    /*
+     * Sets the font on all TextViews in the ViewGroup. Searches
+     * recursively for all inner ViewGroups as well. Just add a
+     * check for any other views you want to set as well (EditText,
+     * etc.)
+     */
+    public static void setFont(ViewGroup group, Typeface font) {
+        int count = group.getChildCount();
+        View v;
+        for (int i = 0; i < count; i++) {
+            v = group.getChildAt(i);
+            if (v instanceof TextView || v instanceof Button /*etc.*/)
+                ((TextView) v).setTypeface(font);
+            else if (v instanceof ViewGroup)
+                setFont((ViewGroup) v, font);
+        }
+    }
+
+    public static void setLayoutFont(Typeface tf, TextView... params) {
+        for (TextView tv : params) {
+            tv.setTypeface(tf);
         }
     }
 }

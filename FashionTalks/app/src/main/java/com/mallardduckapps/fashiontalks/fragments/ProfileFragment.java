@@ -1,6 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
@@ -29,6 +30,7 @@ import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -108,6 +110,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         TextView nameTv = (TextView) rootView.findViewById(R.id.nameTv);
         TextView userNameTv = (TextView) rootView.findViewById(R.id.userNameTv);
         TextView glamCountTv = (TextView) rootView.findViewById(R.id.glamCountTv);
+        TextView aboutMeTv = (TextView) rootView.findViewById(R.id.aboutMeText);
+        Activity activity = getActivity();
+
+        nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
+        userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
+        followButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
+        followingButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        followersButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        aboutMeTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        glamCountTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_bold)));
+        
         profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
         listView = (ListView) rootView.findViewById(R.id.uploadsList);
         listView.setOnScrollListener(new GridListOnScrollListener(this));
@@ -157,6 +170,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         ImageLoader.getInstance().displayImage(url, profileImage, app.options);
         nameTv.setText(user.getFirstName() +" " + user.getLastName());
         userNameTv.setText(user.getUserName());
+        aboutMeTv.setText(user.getAbout());
         glamCountTv.setText(Integer.toString(user.getGlamCount()).concat(" Glam"));
         loadMoreFooterView = getLoadMoreView(inflater);
         return rootView;
@@ -262,6 +276,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         intent.putExtra("POST_INDEX", postItemPosition);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
+        this.getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
 
     public void useLoader() {

@@ -1,6 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,16 +16,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.UsersActivity;
+import com.mallardduckapps.fashiontalks.WebActivity;
 import com.mallardduckapps.fashiontalks.adapters.NavDrawerListAdapter;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -50,6 +55,7 @@ public class NavigationDrawerFragment extends BasicFragment {
     private RoundedImageView thumbnailImage;
     private TextView userNameTv;
     private TextView styleTv;
+    private TextView uploadNewStyleTv;
     //private boolean mUserLearnedDrawer;
     String[] menuItems;
 
@@ -98,7 +104,6 @@ public class NavigationDrawerFragment extends BasicFragment {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
-
     }
 
     @Override
@@ -110,6 +115,8 @@ public class NavigationDrawerFragment extends BasicFragment {
         thumbnailImage = (RoundedImageView) view.findViewById(R.id.thumbnailImage);
         userNameTv = (TextView) view.findViewById(R.id.userNameTv);
         styleTv = (TextView) view.findViewById(R.id.styleTv);
+        uploadNewStyleTv = (TextView) view.findViewById(R.id.uploadNewStyle);
+        RelativeLayout uploadNewStyleLayout = (RelativeLayout) view.findViewById(R.id.uploadNewStyleLayout);
         LinearLayout profileClickLayout = (LinearLayout) view.findViewById(R.id.profileClickLayout);
         User me = app.getMe();
         menuItems = new String[]{
@@ -122,7 +129,8 @@ public class NavigationDrawerFragment extends BasicFragment {
         String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").append(me.getPhotoPath()).toString();
         ImageLoader.getInstance().displayImage(url, thumbnailImage, app.options);
         userNameTv.setText(me.getFirstName() +" " + me.getLastName());
-
+        FTUtils.setLayoutFont(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)),userNameTv, styleTv);
+        uploadNewStyleTv.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_md)));
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -141,11 +149,18 @@ public class NavigationDrawerFragment extends BasicFragment {
         //getActionBar().getThemedContext()
         NavDrawerListAdapter adapter = new NavDrawerListAdapter(getActivity(),menuItems,imageId);
         mDrawerListView.setAdapter(adapter);
-//        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-//                getActivity(),
-//                android.R.layout.simple_list_item_activated_1,
-//                android.R.id.text1,menuItems));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        uploadNewStyleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mCallbacks != null) {
+                    mCurrentSelectedPosition = -1;
+                    mCallbacks.onNavigationDrawerItemSelected(-1, "UPLOAD");
+                }
+            }
+        });
+
         return view;
     }
 
@@ -200,7 +215,7 @@ public class NavigationDrawerFragment extends BasicFragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         //if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.global, menu);
+            //inflater.inflate(R.menu.global, menu);
             //showGlobalContextActionBar();
         //}
         super.onCreateOptionsMenu(menu, inflater);
@@ -211,11 +226,6 @@ public class NavigationDrawerFragment extends BasicFragment {
        // if (mDrawerToggle.onOptionsItemSelected(item)) {
         //    return true;
        // }
-
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

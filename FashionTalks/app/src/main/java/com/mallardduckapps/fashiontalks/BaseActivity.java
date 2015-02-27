@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.R;
@@ -21,6 +22,7 @@ import com.mallardduckapps.fashiontalks.adapters.GalleriesPagerAdapter;
 import com.mallardduckapps.fashiontalks.adapters.UsersPagerAdapter;
 import com.mallardduckapps.fashiontalks.components.SlidingTabLayout;
 import com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class BaseActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, ActionBar.TabListener {
 
@@ -52,6 +54,8 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         topDivider = findViewById(R.id.divider);
+        TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(),getString(R.string.font_avantgarde_bold)));
 
 /*        if(TAG.equals("MAIN_ACTIVITY")){
             mViewPager.setAdapter(new GalleriesPagerAdapter(getSupportFragmentManager(), this));
@@ -111,16 +115,6 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -149,31 +143,46 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position, String actionName) {
+    public void onNavigationDrawerItemSelected(final int position, final String actionName) {
 
         if(menu != null && !actionName.equals("")){
             menu.toggle();
+            menu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
+                @Override
+                public void onClosed() {
+                    if(actionName.equals("NO_ACTION")){
+                        return;
+                    }
+                    BaseActivity.this.finish();
+                    if(actionName.equals(getString(R.string.title_section2))){
+                        Intent intent = new Intent(BaseActivity.this, UsersActivity.class);
+                        //this.finish();
+                        //menu.det
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        BaseActivity.this.startActivity(intent);
+                        //overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+                    }else if(actionName.equals(getString(R.string.title_section1))){
+
+                        Intent intent = new Intent(BaseActivity.this, MainActivity.class);
+                        BaseActivity.this.startActivity(intent);
+                    }else if(actionName.equals(getString(R.string.title_section3))){
+                        Intent intent = new Intent(BaseActivity.this, NotificationActivity.class);
+                        BaseActivity.this.startActivity(intent);
+                    }else if(actionName.equals("PROFILE")){
+                        Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
+                        BaseActivity.this.startActivity(intent);
+                    }else if(actionName.equals(getString(R.string.title_section4))){
+                        Intent intent = new Intent(BaseActivity.this, SettingsActivity.class);
+                        BaseActivity.this.startActivity(intent);
+                    }else if(actionName.equals("UPLOAD")){
+                        Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
+                        BaseActivity.this.startActivity(intent);
+                    }
+                    overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+
+                }
+            });
         }
-        if(actionName.equals("NO_ACTION")){
-            return;
-        }
-        if(actionName.equals(getString(R.string.title_section2))){
-            Intent intent = new Intent(BaseActivity.this, UsersActivity.class);
-            //this.finish();
-            //menu.det
-            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
-        }else if(actionName.equals(getString(R.string.title_section1))){
-            this.finish();
-        }else if(actionName.equals(getString(R.string.title_section3))){
-            Intent intent = new Intent(BaseActivity.this, NotificationActivity.class);
-            this.startActivity(intent);
-        }else if(actionName.equals("PROFILE")){
-            Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
-            this.startActivity(intent);
-        }else if(actionName.equals(getString(R.string.title_section4))){
-            Intent intent = new Intent(BaseActivity.this, SettingsActivity.class);
-            this.startActivity(intent);
-        }
+
     }
 }

@@ -59,7 +59,7 @@
     <View
         android:id="@+id/divider1"
         style="@style/Divider1"
-        android:layout_below="@+id/bottomBar"/>
+        android:layout_above="@+id/bottomBar"/>
 
     <ImageView
         android:id="@+id/postImage"

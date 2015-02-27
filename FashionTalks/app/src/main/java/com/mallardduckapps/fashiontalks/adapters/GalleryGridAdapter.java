@@ -18,6 +18,7 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
 import com.mallardduckapps.fashiontalks.objects.GalleryViewHolder;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -78,6 +79,7 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
         // Now create card view holder.
         GalleryViewHolder viewHolder = new GalleryViewHolder();
         viewHolder.textView = (TextView) cardView.findViewById(R.id.titleText);
+        viewHolder.textView.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         viewHolder.imageView = (ImageView) cardView.findViewById(R.id.coverPhoto);
         viewHolder.progressBar = (ProgressBar) cardView.findViewById(R.id.progress);
         return new Card<GalleryViewHolder>(cardView, viewHolder);

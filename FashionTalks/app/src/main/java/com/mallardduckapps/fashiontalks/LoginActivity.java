@@ -7,10 +7,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
 import com.mallardduckapps.fashiontalks.services.RestClient;
+import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 /**
  * A login screen that offers login via email/password.
@@ -20,8 +26,9 @@ public class LoginActivity extends ActionBarActivity{
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
     FragmentManager fragmentManager;
-    Toolbar mainToolbar;
+    public Toolbar mainToolbar;
     FashionTalksApp app;
+    TextView tvName;
     //CharSequence mTitle;
 
     @Override
@@ -35,15 +42,34 @@ public class LoginActivity extends ActionBarActivity{
         loginFragment.setActivity(this);
         registerFragment.setActivity(this);
         mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
-        mainToolbar.setTitle("");
-
+        tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
+       // mainToolbar.setTitle("");
+        mainToolbar.setVisibility(View.GONE);
         //mTitle = getTitle();
         setSupportActionBar(mainToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        //actionBar.setDisplayShowTitleEnabled(true);
         goLoginPage();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            //menu.toggle();
+        }
+
+        return true;
     }
 
     //TODO temporary
@@ -51,14 +77,18 @@ public class LoginActivity extends ActionBarActivity{
         fragmentManager.beginTransaction()
                 .replace(R.id.container, registerFragment)
                 .commit();
-        mainToolbar.setTitle(registerFragment.TAG);
+        tvName.setText(registerFragment.TAG);
+        mainToolbar.setVisibility(View.VISIBLE);
+        //mainToolbar.setTitle(registerFragment.TAG);
     }
 
     public void goLoginPage(){
         fragmentManager.beginTransaction()
                 .replace(R.id.container, loginFragment)
                 .commit();
-        mainToolbar.setTitle(loginFragment.TAG);
+        tvName.setText(loginFragment.TAG);
+        mainToolbar.setVisibility(View.VISIBLE);
+        //mainToolbar.setTitle(loginFragment.TAG);
     }
 
     public void goToMainActivity(){
@@ -71,8 +101,8 @@ public class LoginActivity extends ActionBarActivity{
     }
 
     public void saveTokens(String...tokens){
-        app.dataSaver.putString("accessToken", tokens[0]);
-        app.dataSaver.putString("refreshToken", tokens[1]);
+        app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, tokens[0]);
+        app.dataSaver.putString(Constants.REFRESH_TOKEN_KEY, tokens[1]);
         RestClient.setAccessToken(tokens[0]);
         app.dataSaver.save();
     }

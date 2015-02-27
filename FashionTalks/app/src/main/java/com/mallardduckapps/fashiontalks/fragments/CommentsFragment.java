@@ -10,6 +10,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -22,6 +23,7 @@ import com.mallardduckapps.fashiontalks.loaders.GlammerListLoader;
 import com.mallardduckapps.fashiontalks.objects.Comment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.rockerhieu.emojicon.EmojiconEditText;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     private static final String POST_ID = "POST_ID";
     private String paramPostId;
     CommentListLoader loader;
+    Button sendButton;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
@@ -67,6 +70,8 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         final EmojiconEditText editText = (EmojiconEditText) view.findViewById(R.id.textField);
        // editText.setText();//"\ud83d" #0xd83d    \uD83D\uDE04 = 0xd83d0xde04
         editText.setText("U+1F601" + "-" +"\ue32d" + " " + "\ud83d" + "-" + "\udc4d" + "-" + "\uef0f" + " - " + "\u2764");
+        sendButton = (Button) view.findViewById(R.id.sendButton);
+        sendButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_md)));
         return view;
     }
 

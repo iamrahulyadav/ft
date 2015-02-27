@@ -129,11 +129,15 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+/*        if (id == R.id.action_settings) {
             //CALL TEST NOTIFICATION
             testNotification();
             return true;
-        }else {
+        }else*/
+        if(id == R.id.action_search){
+
+        }
+        else {
             Log.d(TAG,"MENU TOGGLE");
             menu.toggle();
         }
