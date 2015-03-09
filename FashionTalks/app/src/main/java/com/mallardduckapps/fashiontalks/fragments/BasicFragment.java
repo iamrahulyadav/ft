@@ -1,7 +1,6 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -29,7 +28,7 @@ public abstract class BasicFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(String tag);
         public void onToolbarThemeChange(int themeId);
     }
 }

@@ -1,5 +1,6 @@
 package com.mallardduckapps.fashiontalks.tasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -23,6 +25,7 @@ import java.io.IOException;
 public class LoginTask extends AsyncTask<Void, Void, String> {
 
     public static final String TAG = "LOGIN_TASK";
+    public Context context;
    // LoginActivity activity;
     private int authStatus;
     LoginTaskCallback callBack;
@@ -36,6 +39,7 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
        // this.activity = activity;
         this.email = email;
         this.password = password;
+        context = fragment.getActivity();
         //this.loginUrl = loginUrl;
         callBack = (LoginTaskCallback) fragment;
     }
@@ -85,12 +89,25 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
             parseToken(response);
         }else{
             Log.d(TAG, "GET USER: " + response);
-            Gson gson = new GsonBuilder().create();
-            JsonObject object = new JsonParser().parse(response).getAsJsonObject();
-            JsonObject dataObject = object.getAsJsonObject("data");
-            JsonObject userObject = dataObject.getAsJsonObject("User");
-            User me = gson.fromJson(userObject, User.class);
-            callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
+            try{
+                Gson gson = new GsonBuilder().create();
+                JsonObject object = new JsonParser().parse(response).getAsJsonObject();
+                JsonObject dataObject = object.getAsJsonObject("data");
+                JsonObject userObject = dataObject.getAsJsonObject("User");
+                User me = gson.fromJson(userObject, User.class);
+                callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
+            }catch(IllegalStateException e){
+                Log.d(TAG, "EXCEPTION: " );
+                e.printStackTrace();
+                if(FTUtils.isNetworkAvailable(context)){
+                    Log.d(TAG, "FAILED CONNECTION: " );
+                    callBack.getUser(Constants.AUTHENTICATION_FAILED,null);
+                }else{
+                    Log.d(TAG, "NO CONNECTION: " );
+                    callBack.getUser(Constants.NO_CONNECTION, null);
+                }
+
+            }
         }
 
     }

@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.mallardduckapps.fashiontalks.BaseActivity;
-import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.GalleriesFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;

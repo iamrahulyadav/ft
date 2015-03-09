@@ -1,17 +1,12 @@
 package com.mallardduckapps.fashiontalks;
 
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.NotificationsFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
@@ -55,14 +50,14 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
             menu.toggle();
         }
-        return false;
+        return true;
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction(String tag) {
 
     }
 

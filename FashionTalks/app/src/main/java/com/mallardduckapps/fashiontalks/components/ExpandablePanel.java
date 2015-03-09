@@ -5,20 +5,15 @@ package com.mallardduckapps.fashiontalks.components;
  */
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,42 +32,110 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     private String text;
     private final String TAG = "EXPANDABLE_PANEL";
     private boolean lhsAnimation = false;
+    //Meaning no pivot, draggable, no tasks works after click, glamCount 0
+    private boolean ownPost = false;
+    boolean nameGiven = false;
+    private boolean selected = false;
+    private boolean readyToDelete = false;
 
-    public ExpandablePanel(final Context context,Pivot pivot, int x, int y, boolean lhsAnimation) {
+    public ExpandablePanel(final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost) {
         super(context);
         this.lhsAnimation = lhsAnimation;
+        this.ownPost = ownPost;
         this.pivot = pivot;
-        expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources()
+        Resources res = getResources();
+        expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, res
                 .getDisplayMetrics());
-        mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources()
+        mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 .getDisplayMetrics());
-        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources()
-                .getDisplayMetrics()));
+        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, res.getDisplayMetrics()));
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
         //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
         params.leftMargin = x;
         params.topMargin = y;
-        Drawable img = context.getResources().getDrawable(
-                R.drawable.glam_icon);
-        img.setBounds(0, 0, mContentWidth, mContentWidth);
-        if(lhsAnimation){
-            setCompoundDrawables(null, null, img, null);
-        }else{
-            setCompoundDrawables(img, null, null, null);
-        }
-
+        setLhsAnimation(lhsAnimation);
         setBackgroundResource(R.drawable.glam_shape);
         setSingleLine();
         setMaxLines(1);
         setGravity(Gravity.CENTER);
         setClickable(true);
         setLayoutParams(params);
-        setOnClickListener(new PanelToggler());
+        if(!ownPost){
+            setOnClickListener(new PanelToggler());
+        }else{
+            //Change to delete icon
+        }
+    }
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isNameGiven() {
+        return nameGiven;
+    }
+
+    public void setNameGiven(boolean nameGiven) {
+        this.nameGiven = nameGiven;
     }
 
     public boolean isLhsAnimation() {
         return lhsAnimation;
+    }
+
+    public void setLhsAnimation(boolean lhsAnimation){
+        //if(ownPost){
+            this.lhsAnimation = lhsAnimation;
+            Drawable img = getResources().getDrawable(
+                    R.drawable.glam_dot_unpressed);
+            img.setBounds(0, 0, mContentWidth, mContentWidth);
+            if(!lhsAnimation){
+                setCompoundDrawables(null, null, img, null);
+                setPadding(5,0,0,0);
+            }else{
+                setCompoundDrawables(img, null, null, null);
+                setPadding(0,0,5,0);
+            }
+        setCompoundDrawablePadding(0);
+       // }
+    }
+
+    public boolean isReadyToDelete(){
+        return readyToDelete;
+    }
+
+    public void setReadyToDelete(boolean readyToDelete){
+        Drawable img = null;
+        if(!readyToDelete){
+            getResources().getDrawable(
+                    R.drawable.glam_dot_unpressed);
+            setBackgroundResource(R.drawable.glam_shape);
+            setTagText(text);
+        }else{
+            img = getResources().getDrawable(
+                    R.drawable.delete_circle);
+            setBackgroundResource(R.drawable.glam_shape_delete);
+            setText(" Sil? ");
+        }
+        try{
+            img.setBounds(0, 0, mContentWidth, mContentWidth);
+        }catch(Exception e){
+
+        }
+
+        if(!lhsAnimation && !readyToDelete){
+            setCompoundDrawables(null, null, img, null);
+        }else{
+            setCompoundDrawables(img, null, null, null);
+        }
+        this.readyToDelete = !this.readyToDelete;
     }
 
     public void setOnExpandListener(OnExpandListener listener) {
@@ -87,7 +150,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         this.text = text;
         setText(text);
         measure(MeasureSpec.UNSPECIFIED,MeasureSpec.UNSPECIFIED);
-        expendedWidth = getMeasuredWidth() + 25;
+        expendedWidth = getMeasuredWidth() + 20;
         setText("");
     }
 

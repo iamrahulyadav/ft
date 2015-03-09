@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -26,9 +25,7 @@ import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.FollowListLoader;
-import com.mallardduckapps.fashiontalks.loaders.GlammerListLoader;
 import com.mallardduckapps.fashiontalks.objects.User;
-import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.util.ArrayList;

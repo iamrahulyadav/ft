@@ -27,8 +27,9 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:id="@+id/takePicTv"
+                android:layout_width="@dimen/new_style_photo_button"
+                android:layout_height="@dimen/new_style_photo_button"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/gallery_card_drawable"
                 android:drawablePadding="10dp"
@@ -41,8 +42,9 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:id="@+id/choosePicTv"
+                android:layout_width="@dimen/new_style_photo_button"
+                android:layout_height="@dimen/new_style_photo_button"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/gallery_card_drawable"
                 android:drawablePadding="10dp"

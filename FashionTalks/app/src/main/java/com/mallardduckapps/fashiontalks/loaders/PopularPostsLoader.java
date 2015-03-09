@@ -119,8 +119,8 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
            // releaseResources(oldData);
        // }
         //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.size() );
-        //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.get(0).getTitle() );
-        //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.get(data.size()-1).getTitle() );
+        //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.get(0).getTag() );
+        //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.get(data.size()-1).getTag() );
     }
 
     @Override

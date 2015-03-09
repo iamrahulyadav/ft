@@ -1,22 +1,14 @@
 package com.mallardduckapps.fashiontalks;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.TextView;
 
-import com.mallardduckapps.fashiontalks.R;
-import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.FollowFragment;
 import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
@@ -81,6 +73,11 @@ public class ProfileActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_profile, menu);
+        if(userId == 0){
+            menu.removeItem(R.id.action_home);
+        }else{
+            menu.removeItem(R.id.action_edit_profile);
+        }
         return true;
     }
 
@@ -99,19 +96,36 @@ public class ProfileActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if(id == android.R.id.home){
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {
+                if(userId == 0){
+                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
         }else if(id == R.id.action_home){
+            if(userId == 0){
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            finish();
+        }else if(id == R.id.action_edit_profile){
 
         }
-        return super.onOptionsItemSelected(item);
+        return false; //super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(userId == 0){
+            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        finish();
     }
 }

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.mallardduckapps.fashiontalks.GalleryActivity;
-import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
 import com.mallardduckapps.fashiontalks.loaders.GalleriesLoader;

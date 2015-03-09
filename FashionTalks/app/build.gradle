@@ -68,6 +68,7 @@ dependencies {
     compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
     compile 'com.rockerhieu.emojicon:library:1.0'
     compile 'joda-time:joda-time:2.3'
+    compile project(':simple-crop-image-lib')
 }
 // Find any 3rd party libraries which have released new versions
 // to the central Maven repo since we last upgraded.

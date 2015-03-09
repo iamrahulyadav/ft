@@ -12,6 +12,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <permission
         android:name="com.mallardduckapps.fashiontalks.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -40,9 +44,8 @@
             android:name=".MainActivity"
             android:icon="@drawable/app_logo"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-        </activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
+<!--stateHidden|adjustResize-->
         <receiver
             android:name=".services.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -55,39 +58,31 @@
 
         <service
             android:name=".services.GCMIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
 
         <activity
             android:name=".PostsActivity"
-            android:label="@string/title_activity_posts" >
-        </activity>
+            android:label="@string/title_activity_posts" />
         <activity
             android:name=".GalleryActivity"
-            android:label="@string/title_activity_gallery" >
-        </activity>
+            android:label="@string/title_activity_gallery" />
         <activity
             android:name=".UsersActivity"
             android:icon="@drawable/app_logo"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
+            android:label="@string/title_activity_base" />
         <activity
             android:name=".NotificationActivity"
             android:label="@string/title_activity_notification"
-            android:launchMode="singleTask" >
-        </activity>
+            android:launchMode="singleTask" />
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile" >
-        </activity>
+            android:label="@string/title_activity_profile" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".StyleUploadActivity"
             android:label="@string/title_activity_style_upload"
@@ -99,8 +94,7 @@
         </activity>
         <activity
             android:name=".WebActivity"
-            android:label="@string/title_activity_web" >
-        </activity>
+            android:label="@string/title_activity_web" />
         <activity
             android:name=".SendPostingCodeActivity"
             android:label="@string/title_activity_send_posting_code"
@@ -111,11 +105,22 @@
         </activity>
         <activity
             android:name=".UserSettingsActivity"
-            android:label="@string/title_activity_user_settings" >
-        </activity>
+            android:label="@string/title_activity_user_settings" />
         <activity
             android:name=".UploadNewStyleActivity"
-            android:label="@string/title_activity_upload_new_style" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_upload_new_style"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CamTestActivity"
+            android:label="@string/title_activity_cam_test" />
+        <activity android:name="eu.janmuller.android.simplecropimage.CropImage"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search">
         </activity>
     </application>
 

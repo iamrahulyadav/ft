@@ -44,9 +44,9 @@ public class LoginActivity extends ActionBarActivity{
         mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
         tvName = (TextView) findViewById(R.id.toolbarName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
-       // mainToolbar.setTitle("");
+       // mainToolbar.setTag("");
         mainToolbar.setVisibility(View.GONE);
-        //mTitle = getTitle();
+        //mTitle = getTag();
         setSupportActionBar(mainToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -79,7 +79,7 @@ public class LoginActivity extends ActionBarActivity{
                 .commit();
         tvName.setText(registerFragment.TAG);
         mainToolbar.setVisibility(View.VISIBLE);
-        //mainToolbar.setTitle(registerFragment.TAG);
+        //mainToolbar.setTag(registerFragment.TAG);
     }
 
     public void goLoginPage(){
@@ -88,7 +88,7 @@ public class LoginActivity extends ActionBarActivity{
                 .commit();
         tvName.setText(loginFragment.TAG);
         mainToolbar.setVisibility(View.VISIBLE);
-        //mainToolbar.setTitle(loginFragment.TAG);
+        //mainToolbar.setTag(loginFragment.TAG);
     }
 
     public void goToMainActivity(){

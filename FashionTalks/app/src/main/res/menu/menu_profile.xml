@@ -9,4 +9,11 @@
         android:visible="true"
         app:showAsAction="always">
     </item>
+    <item
+        android:id="@+id/action_edit_profile"
+        android:icon="@drawable/settings_icon"
+        android:title="Profil Düzenle"
+        android:visible="true"
+        app:showAsAction="always">
+    </item>
 </menu>

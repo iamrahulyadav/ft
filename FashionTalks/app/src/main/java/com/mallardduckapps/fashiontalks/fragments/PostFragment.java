@@ -3,9 +3,9 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
-import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -32,7 +30,7 @@ import com.mallardduckapps.fashiontalks.objects.Pivot;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.Tag;
 import com.mallardduckapps.fashiontalks.objects.User;
-import com.mallardduckapps.fashiontalks.tasks.GlamTask;
+import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
@@ -50,10 +48,9 @@ public class PostFragment extends BasicFragment{
     int loaderId;
     int width;
     int height;
-    final int VIRTUAL_WIDTH = 320;
-    final int VIRTUAL_HEIGHT = 320;
     RelativeLayout layout;
     RelativeLayout bottomBar;
+    ProgressBar progressBarMain;
     LinearLayout shareMenu;
     boolean shareMenuVisible = false;
 
@@ -106,6 +103,7 @@ public class PostFragment extends BasicFragment{
         tvName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
 
         shareMenu = (LinearLayout) rootView.findViewById(R.id.shareMenuLayout);
+        progressBarMain = (ProgressBar) rootView.findViewById(R.id.progressBar1);
         postId = getArguments().getInt("POST_ID");
         postIndex = getArguments().getInt("POST_INDEX");
         loaderId = getArguments().getInt("LOADER_ID");
@@ -115,10 +113,13 @@ public class PostFragment extends BasicFragment{
 
         if(loaderId == Constants.MY_POSTS_LOADER_ID){
             user = app.getMe();
+            shareButton.setImageResource(R.drawable.delete_icon);
         }else if(loaderId == Constants.USER_POSTS_LOADER_ID){
             user = app.getOther();
+            shareButton.setImageResource(R.drawable.report_icon);
         }else{
             user = post.getUser();
+            shareButton.setImageResource(R.drawable.report_icon);
         }
 
         String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
@@ -206,35 +207,48 @@ public class PostFragment extends BasicFragment{
                         progressBar.setVisibility(View.GONE);
                     }
                 });
-        Log.d(TAG, "POST FR: SELECTeD POST ID: " + post.getTitle());
-
+        //Log.d(TAG, "POST FR: SELECTeD POST ID: " + post.getTag());
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG,"ON CLICK");
-                Animation slide;
-                if(shareMenuVisible){
-                    slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
-                    Log.d(TAG,"ON CLICK - sldie down");
+                // Share Menu is not active now
+                //shareMenuOnClick();
+                if(user != app.getMe()){
+                    // REPORT
+                    FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
                 }else{
-                    shareMenu.setVisibility(View.VISIBLE);
-                    slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
-                    Log.d(TAG,"ON CLICK - slide up");
-                }
-                if(slide != null){
-                    slide.reset();
-                    if(shareMenu != null){
-                        //Log.d(TAG,"ON CLICK - start animation");
-                        shareMenu.clearAnimation();
-                        shareMenu.startAnimation(slide);
-                        shareMenuVisible = !shareMenuVisible;
-                    }
+
+                    //DELETE
+                    DeleteTask task = new DeleteTask();
+                    task.execute(Integer.toString(postId));
                 }
             }
         });
 
         return rootView;
         //listView = (ListView) rootView.findViewById(R.id.galleryList);
+    }
+
+    private void shareMenuOnClick(){
+        Animation slide;
+        if(shareMenuVisible){
+            slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+            Log.d(TAG,"ON CLICK - sldie down");
+        }else{
+            shareMenu.setVisibility(View.VISIBLE);
+            slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+            Log.d(TAG,"ON CLICK - slide up");
+        }
+        if(slide != null){
+            slide.reset();
+            if(shareMenu != null){
+                //Log.d(TAG,"ON CLICK - start animation");
+                shareMenu.clearAnimation();
+                shareMenu.startAnimation(slide);
+                shareMenuVisible = !shareMenuVisible;
+            }
+        }
     }
 
     private Post getPost(){
@@ -260,12 +274,12 @@ public class PostFragment extends BasicFragment{
     }
 
     private void setGlamPosition(Post post){
-        LayoutInflater inflater = (LayoutInflater) getActivity()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        LayoutInflater inflater = (LayoutInflater) getActivity()
+//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (Tag tag : post.getTags()){
             final Pivot pivot = tag.getPivot();
             int x = getRealX(pivot.getX());
-            ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false);
+            ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, false);
             panel.setTagText(new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(tag.getTag()).append(" ").toString());
             panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
@@ -287,12 +301,52 @@ public class PostFragment extends BasicFragment{
     }
 
     private int getRealX(int x){
-        return width*x/VIRTUAL_WIDTH;
+        return width*x/Constants.VIRTUAL_WIDTH;
     }
 
     //TODO it was height before, control the height
     private int getRealY(int y){
-        return finalImageHeight*y/VIRTUAL_HEIGHT + imageTopMargin;
+        return finalImageHeight*y/Constants.VIRTUAL_HEIGHT + imageTopMargin;
+    }
+
+    public class DeleteTask extends AsyncTask<String, Void, String> {
+
+        private final String TAG = "SendPhotoTask";
+        private int status = -1;
+
+        public DeleteTask(){
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarMain.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            RestClient restClient = new RestClient();
+            try {
+                String url = new StringBuilder(Constants.POST_DELETE).append(params[0]).toString();
+                response = restClient.doGetRequest(url, null);
+                Log.d(TAG, "User REQUEST RESPONSE: " + response);
+
+
+            } catch (Exception e) {
+                response = "NO_CONNECTION";
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String text) {
+            super.onPostExecute(text);
+            progressBarMain.setVisibility(View.GONE);
+            getActivity().finish();
+
+        }
     }
 
 

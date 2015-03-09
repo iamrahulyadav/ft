@@ -1,8 +1,6 @@
 package com.mallardduckapps.fashiontalks;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
-import com.mallardduckapps.fashiontalks.fragments.GlammersFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;
 import com.mallardduckapps.fashiontalks.fragments.PostFragment;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -41,7 +38,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     int loaderId;
     private final String TAG = "POSTS ACTIVITY";
     private static final float MIN_SCALE = 0.95f;
-    private static final float MIN_ALPHA = 0.85f;
+    private static final float MIN_ALPHA = 0.50f;
     public static int width;
     public static int height;
 
@@ -185,7 +182,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -205,7 +202,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 finish();
             }
         }else if(id == R.id.action_home){
-
+            finish();
         }
 
         return true;
@@ -222,7 +219,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction(String tag) {
 
     }
 

@@ -47,7 +47,20 @@ public class RestClient {
 
     public String doPostRequestWithJSON(String url, String accessToken, BasicNameValuePair ... params) throws IOException, JSONException {
         url = new StringBuilder(mainUrl).append(url).toString();
+        if(accessToken == null){
+            accessToken = ACCESS_TOKEN;
+        }
         Request request = createRequestWithBody(url,accessToken, FTUtils.getBasicJson(params));
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public String doPostRequestWithJSON(String url, String accessToken, String json) throws IOException, JSONException {
+        url = new StringBuilder(mainUrl).append(url).toString();
+        if(accessToken == null){
+            accessToken = ACCESS_TOKEN;
+        }
+        Request request = createRequestWithBody(url,accessToken, json);
         Response response = client.newCall(request).execute();
         return response.body().string();
     }

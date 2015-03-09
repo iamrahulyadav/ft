@@ -1,13 +1,14 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,9 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.mallardduckapps.fashiontalks.R;
-import com.mallardduckapps.fashiontalks.adapters.GalleriesPagerAdapter;
-import com.mallardduckapps.fashiontalks.adapters.UsersPagerAdapter;
 import com.mallardduckapps.fashiontalks.components.SlidingTabLayout;
 import com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
@@ -178,11 +176,15 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                         Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }
-                    overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+                    setTranslateAnimation(BaseActivity.this);
 
                 }
             });
         }
 
+    }
+
+    public static void setTranslateAnimation(Activity activity){
+        activity.overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
 }

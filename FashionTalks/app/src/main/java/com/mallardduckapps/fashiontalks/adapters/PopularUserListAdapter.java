@@ -18,7 +18,6 @@ import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Photo;
 import com.mallardduckapps.fashiontalks.objects.PopularUser;
-import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;

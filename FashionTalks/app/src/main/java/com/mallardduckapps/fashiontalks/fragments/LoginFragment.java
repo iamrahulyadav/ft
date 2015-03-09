@@ -20,7 +20,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -28,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.mallardduckapps.fashiontalks.LoginActivity;
@@ -328,10 +328,14 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                 switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_FAILED:
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                showKeyboard(mPasswordView);
-                mPasswordView.requestFocus();
-                switcher.setDisplayedChild(1);
+                Toast.makeText(getActivity(), getString(R.string.connection_failed), Toast.LENGTH_LONG).show();
+//                mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                showKeyboard(mPasswordView);
+//                mPasswordView.requestFocus();
+//                switcher.setDisplayedChild(1);
+                break;
+            case Constants.NO_CONNECTION:
+                Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
                 break;
             case Constants.AUTHENTICATION_CANCELED:
                 authTask = null;

@@ -16,7 +16,6 @@ import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
-import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,6 +35,7 @@ public class SendCodeListAdapter extends BaseAdapter {
     Resources res;
     DisplayImageOptions options;
     String pathMainUrl;
+    int[] selectedUserIds;
 
     public SendCodeListAdapter(Activity act, ArrayList<User> userList){
 
@@ -46,6 +46,7 @@ public class SendCodeListAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
+        selectedUserIds = new int[data.size()];
     }
 
     public void addData(ArrayList<User> data){
@@ -70,13 +71,17 @@ public class SendCodeListAdapter extends BaseAdapter {
         return data.get(position);
     }
 
+    public int[] getSelectedUserIds(){
+        return selectedUserIds;
+    }
+
     @Override
     public long getItemId(int position) {
         return data.get(position).getId();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         ViewHolder holder;
         final User user = data.get(position);
@@ -101,6 +106,11 @@ public class SendCodeListAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(TAG, "BUTTON CHECKED is " + isChecked);
+                if(isChecked){
+                    selectedUserIds[position] = user.getId();
+                }else{
+                    selectedUserIds[position] = 0;
+                }
 
             }
         });

@@ -2,7 +2,6 @@ package com.mallardduckapps.fashiontalks;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.objects.Post;

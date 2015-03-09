@@ -3,25 +3,18 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.mallardduckapps.fashiontalks.R;
-
 import com.mallardduckapps.fashiontalks.adapters.CommentListAdapter;
-import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.CommentListLoader;
-import com.mallardduckapps.fashiontalks.loaders.GlammerListLoader;
 import com.mallardduckapps.fashiontalks.objects.Comment;
-import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.rockerhieu.emojicon.EmojiconEditText;
@@ -99,7 +92,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(Uri.EMPTY);
+            mListener.onFragmentInteraction("");
         }
     }
 

@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -19,11 +20,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -80,6 +85,27 @@ public class FTUtils {
         return sizes;
     }
 
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+
     /**
      * Checks if the device is a tablet or a phone
      *
@@ -128,6 +154,24 @@ public class FTUtils {
             return true;
         }
         return false;
+    }
+
+    public static void sendMail(String email, String recipient, String subject, Activity activity) {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:")); // .concat(recipient)
+        emailIntent.setType("message/rfc822");
+        //emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { recipient });
+        emailIntent.putExtra(Intent.EXTRA_TEXT, email);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        try {
+            activity.startActivity(Intent.createChooser(emailIntent, "Mail Yolla ... "));
+            // finish();
+            Log.i("Email", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(activity, "Mail uygulaması mevcut degil.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

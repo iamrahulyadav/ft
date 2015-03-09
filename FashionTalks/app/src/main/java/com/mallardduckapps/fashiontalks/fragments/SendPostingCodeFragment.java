@@ -1,33 +1,32 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager;
-import android.content.Intent;
 import android.content.Loader;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
-import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
-import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
 import com.mallardduckapps.fashiontalks.adapters.SendCodeListAdapter;
-import com.mallardduckapps.fashiontalks.loaders.FollowListLoader;
 import com.mallardduckapps.fashiontalks.loaders.SendCodeListLoader;
 import com.mallardduckapps.fashiontalks.objects.User;
+import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -83,6 +82,18 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
             sendPermission.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int[] userIds = adapter.getSelectedUserIds();
+                    try {
+                        JSONArray array = new JSONArray("ids");
+                        for(int i : userIds){
+                            if(i != 0){
+                                array.put(i);
+                            }
+                        }
+                        SendCodeTask task = new SendCodeTask(array);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             });
@@ -179,4 +190,34 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
             //calculateLoadValues();
         }
     }
+
+    public class SendCodeTask extends AsyncTask<Void, Void, String> {
+
+        private final String TAG = "SendCodeTask";
+        //TODO add lsitener to get callback value
+        private final JSONArray array;
+
+        public SendCodeTask(JSONArray array){
+
+            this.array = array;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String response = "";
+            RestClient restClient = new RestClient();
+            try {
+                //String url = new StringBuilder(Constants.FOLLOW_USER_PREFIX).toString();
+                response = restClient.doPostRequestWithJSON(Constants.POST_CODE_REQUEST_PREFIX, null, array.toString());
+                JSONObject object = new JSONObject(response);
+                int status = object.getInt("status");
+                Log.d(TAG, "RESPONSE FROM API: " + response);
+            } catch (Exception e) {
+                response = "NO_CONNECTION";
+                e.printStackTrace();
+            }
+            return response;
+        }
+    }
+
 }

@@ -167,8 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_menu_moreoverflow_normal_holo_light"/>
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
 
@@ -177,5 +176,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#B3FFFFFF"
         android:visibility="gone" />
 </RelativeLayout>

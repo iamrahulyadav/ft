@@ -15,7 +15,6 @@ import android.widget.ToggleButton;
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
-import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -92,7 +91,7 @@ public class GlammerListAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) vi.getTag();
         }
-        holder.nameTv.setText(user.getUserName());
+        holder.nameTv.setText(user.getFirstName().concat(" ").concat(user.getLastName()));
         String path = new StringBuilder(pathMainUrl).append(user.getPhotoPath()).toString();
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);

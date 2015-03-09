@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">Tekrar</string>
+    <string name="save">Kullan</string>
+    <string name="saving_image">Resim Kaydediliyor</string>
+    <string name="preparing_card">Kart Hazırlanıyor</string>
+    <string name="no_storage_card">SD Kart Yok</string>
+    <string name="not_enough_space">Yeterli Alan Yok</string>
+</resources>

@@ -1,21 +1,19 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.LoginActivity;
-import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.SendPostingCodeActivity;
-import com.mallardduckapps.fashiontalks.SettingsActivity;
 import com.mallardduckapps.fashiontalks.StyleUploadActivity;
 import com.mallardduckapps.fashiontalks.UserSettingsActivity;
 import com.mallardduckapps.fashiontalks.WebActivity;
@@ -49,7 +47,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UserSettingsActivity.class);
                 startActivity(intent);
-
+                BaseActivity.setTranslateAnimation(getActivity());
             }
         });
 
@@ -75,6 +73,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), StyleUploadActivity.class);
                 startActivity(intent);
+                BaseActivity.setTranslateAnimation(getActivity());
             }
         });
 
@@ -84,6 +83,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SendPostingCodeActivity.class);
                 startActivity(intent);
+                BaseActivity.setTranslateAnimation(getActivity());
             }
         });
 
@@ -94,7 +94,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Constants.PRIVACY_URL);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+                BaseActivity.setTranslateAnimation(getActivity());
             }
         });
 
@@ -105,7 +105,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Constants.TERMS_OF_USE_URL);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+                BaseActivity.setTranslateAnimation(getActivity());
             }
         });
 
@@ -113,10 +113,15 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         contactLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FTUtils.sendMail("Email Template", getString(R.string.email_send_communication_recipient), getString(R.string.email_send_communication_subject), getActivity());
+                BaseActivity.setTranslateAnimation(getActivity());
             }
         });
         return rootView;
     }
+
+
+
+
 }
 

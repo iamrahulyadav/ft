@@ -1,16 +1,15 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
@@ -59,7 +58,7 @@ public class GalleryActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 

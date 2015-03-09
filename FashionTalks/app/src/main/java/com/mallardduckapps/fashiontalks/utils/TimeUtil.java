@@ -6,9 +6,7 @@ import android.util.Log;
 import com.mallardduckapps.fashiontalks.R;
 
 import org.joda.time.DateTime;
-import org.joda.time.DurationField;
 import org.joda.time.DurationFieldType;
-import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.format.DateTimeFormat;

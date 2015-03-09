@@ -1,3 +1,5 @@
 include ':app'
 include ':gridListViewAdapters'
 include ':emojiTextView'
+include ':simple-crop-image-example'
+include ':simple-crop-image-lib'

@@ -29,10 +29,13 @@ public class Constants {
     public final static String FEED_PREFIX = "/posts/feed";
     public final static String POST_CODE_REQUEST_PREFIX = "/posts/list-code-requests";
     public final static String POSTS_BY_USER_PREFIX = "/posts/user/";
+    public final static String POSTS_INVITE_USERS = "/posts/invite-friends";
 
     public final static String POST_COMMENTS = "/comments/comments/";
     public final static String GLAMMER_LIST_PREFIX= "/glam/glammers/";
     public final static String GLAM_TAG_PREFIX = "/glam/tag/";
+    public final static String GLAM_AC_TAG_PREFIX = "/tags/ac/";
+
     public final static String FOLLOW_USER_PREFIX = "/members/follow/";
     public final static String UNFOLLOW_USER_PREFIX = "/members/unfollow/";
     public final static String FOLLOWERS_PREFIX = "/members/followers/";
@@ -41,6 +44,12 @@ public class Constants {
     public final static String UNBLOCK_USER_PREFIX = "/members/unblock/";
     public final static String POPULAR_USERS_PREFIX = "/members/popular";
     public final static String FB_FRIENDS_PREFIX = "/members/fbfriends";
+
+    public final static String SEARCH_USERS = "/search/users/";
+    public final static String SEARCH_BRANDS = "/tags/ac/";
+
+    public final static String POST_NEW = "/posts/add";
+    public final static String POST_DELETE ="/posts/delete/";
 
     public final static String PRIVACY_URL = "http://www.fashiontalks.org/privacy-policy.html";
     public final static String TERMS_OF_USE_URL = "http://www.fashiontalks.org/terms-of-use.html";
@@ -58,6 +67,8 @@ public class Constants {
 
     public final static String SENDER_ID = "337533113430";
 
+    public final static int SEARCH_USER_LOADER = 16;
+    public final static int SEARCH_TAG_LOADER = 15;
     public final static int CODE_REQUESTS_LOADER = 14;
     public final static int FOLLOWERS_LOADER_ID = 12;
     public final static int FOLLOWING_LOADER_ID = 13;
@@ -71,5 +82,8 @@ public class Constants {
     public final static int GALLERIES_LOADER_ID = 3;
     public final static int POPULAR_POSTS_LOADER_ID = 2;
     public final static int FEED_POSTS_LOADER_ID = 1;
+
+    public static final int VIRTUAL_WIDTH = 320;
+    public static final int VIRTUAL_HEIGHT = 320;
 
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider1"
+        android:layout_alignParentTop="true"/>
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:background="@color/white">
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/okTv"
+            android:layout_marginLeft="20dp"
+            android:padding="8dp"
+            android:hint="@string/search_user"
+            android:maxLines="1"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/xTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:text="X"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topBar"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@color/white"
+        android:dividerHeight="0dp"
+        android:drawSelectorOnTop="false" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:id="@id/android:empty"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/topBar"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/noDataTv"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone"
+            android:text="@string/no_data"/>
+    </RelativeLayout>
+
+</RelativeLayout>

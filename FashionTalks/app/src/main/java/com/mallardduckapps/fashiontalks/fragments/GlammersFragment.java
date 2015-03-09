@@ -5,10 +5,7 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,12 +19,8 @@ import android.widget.TextView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
-
 import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
-import com.mallardduckapps.fashiontalks.adapters.PopularUserListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.GlammerListLoader;
-import com.mallardduckapps.fashiontalks.loaders.PopularUsersLoader;
-import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.birin.gridlistviewadapters.Card;
 import com.birin.gridlistviewadapters.ListGridAdapter;
@@ -93,14 +92,14 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
         String path = mainImagePath.concat(item.getCoverPath());
         Log.d(TAG, "ADAPTER URL PATH: " + path + " - width: " + cardViewHolder.imageView.getWidth());
         displayImage(path, cardViewHolder, item);
-        //cardViewHolder.Image.setText(item.getTitle());
+        //cardViewHolder.Image.setText(item.getTag());
     }
 
     @Override
     protected void onCardClicked(GalleryItem cardData) {
-        Toast.makeText(getContext(),
+/*        Toast.makeText(getContext(),
                 "Card click " + cardData.getPositionText(), Toast.LENGTH_LONG)
-                .show();
+                .show()*/;
     }
 
     @Override
@@ -143,9 +142,9 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     protected void onChildViewClicked(View clickedChildView, GalleryItem cardData,
                                       int eventId) {
         if (eventId == TEXT_VIEW_CLICK_ID) {
-            Toast.makeText(getContext(),
+/*            Toast.makeText(getContext(),
                     "TextView click " + cardData.getPositionText() + " - GET ITEM ID: " + cardData.getId() + "-isGallery: " +isGallery,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG).show();*/
 
             if(cardData.isLoadingFailed()){
                 String path = mainImagePath.concat(cardData.getCoverPath());

@@ -13,7 +13,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.objects.Comment;
-import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 

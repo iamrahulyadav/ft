@@ -3,9 +3,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.NotificationListAdapter;
-import com.mallardduckapps.fashiontalks.loaders.GlammerListLoader;
 import com.mallardduckapps.fashiontalks.loaders.NotificationListLoader;
 import com.mallardduckapps.fashiontalks.objects.Notification;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -75,7 +72,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(Uri.EMPTY);
+            mListener.onFragmentInteraction("");
         }
     }
 

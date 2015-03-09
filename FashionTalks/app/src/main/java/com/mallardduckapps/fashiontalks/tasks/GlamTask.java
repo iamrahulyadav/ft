@@ -3,7 +3,6 @@ package com.mallardduckapps.fashiontalks.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 

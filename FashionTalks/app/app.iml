@@ -102,6 +102,7 @@
     <orderEntry type="library" exported="" name="okhttp-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />
     <orderEntry type="module" module-name="gridListViewAdapters" exported="" />
+    <orderEntry type="module" module-name="simple-crop-image-lib" exported="" />
   </component>
 </module>
 

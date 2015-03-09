@@ -1,10 +1,8 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,20 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
-import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.UsersActivity;
-import com.mallardduckapps.fashiontalks.WebActivity;
 import com.mallardduckapps.fashiontalks.adapters.NavDrawerListAdapter;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
