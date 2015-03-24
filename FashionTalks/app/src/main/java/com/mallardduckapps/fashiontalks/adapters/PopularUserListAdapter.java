@@ -48,7 +48,8 @@ public class PopularUserListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
-        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
+        //TODO
+        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/60x60/").toString();
     }
 
     public void addData(ArrayList<PopularUser> data){
@@ -103,7 +104,7 @@ public class PopularUserListAdapter extends BaseAdapter {
             holder = (ViewHolder) vi.getTag();
         }
         holder.nameTv.setText(user.getUserName());
-        holder.glamTv.setText(new StringBuilder("").append(user.getGlamCount()).append(" Glam").toString());
+        holder.glamTv.setText(new StringBuilder(user.getGlamCountPattern()).append(" Glam").toString());
         String path = new StringBuilder(pathMainUrl).append(user.getPhotoPath()).toString();
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);

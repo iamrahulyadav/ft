@@ -78,8 +78,6 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
                 e.printStackTrace();
             }
         }
-
-
         return response;
     }
 

@@ -80,7 +80,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
         }
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noDataTv = (TextView) view.findViewById(R.id.noDataTv);
-        loadMoreFooterView =getLoadMoreView(inflater);
+        loadMoreFooterView = getLoadMoreView(inflater);
         return view;
     }
 

@@ -1,6 +1,10 @@
 package com.mallardduckapps.fashiontalks.objects;
 
 import com.google.gson.annotations.SerializedName;
+import com.mallardduckapps.fashiontalks.utils.TimeUtil;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Created by oguzemreozcan on 12/01/15.
@@ -154,6 +158,14 @@ public class User {
 
     public int getGlamCount() {
         return glamCount;
+    }
+
+    public String getGlamCountPattern(){
+        DecimalFormat decimalFormat = (DecimalFormat)
+                NumberFormat.getNumberInstance(TimeUtil.localeTr);
+        decimalFormat.applyPattern(TimeUtil.GLAM_PATTERN);
+
+        return decimalFormat.format(glamCount);
     }
 
     public void setGlamCount(int glamCount) {

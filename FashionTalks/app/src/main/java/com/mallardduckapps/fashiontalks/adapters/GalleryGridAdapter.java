@@ -71,14 +71,14 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
         View cardView = getLayoutInflater().inflate(
                 R.layout.gallery_card_view, null);
         this.cardWidth = cardWidth;
-        Log.d(TAG, "CARD WIDTH: " + cardWidth);
+        //Log.d(TAG, "CARD WIDTH: " + cardWidth);
         cardView.setMinimumHeight(cardWidth);
         mainImagePath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(cardWidth).append("x").append(cardWidth).append("/").toString();
 
         // Now create card view holder.
         GalleryViewHolder viewHolder = new GalleryViewHolder();
         viewHolder.textView = (TextView) cardView.findViewById(R.id.titleText);
-        viewHolder.textView.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        viewHolder.textView.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_md)));
         viewHolder.imageView = (ImageView) cardView.findViewById(R.id.coverPhoto);
         viewHolder.progressBar = (ProgressBar) cardView.findViewById(R.id.progress);
         return new Card<GalleryViewHolder>(cardView, viewHolder);
@@ -90,7 +90,7 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
         final GalleryItem item = cardDataHolder.getData();
         cardViewHolder.textView.setText(item.getTitle());
         String path = mainImagePath.concat(item.getCoverPath());
-        Log.d(TAG, "ADAPTER URL PATH: " + path + " - width: " + cardViewHolder.imageView.getWidth());
+        //Log.d(TAG, "ADAPTER URL PATH: " + path + " - width: " + cardViewHolder.imageView.getWidth());
         displayImage(path, cardViewHolder, item);
         //cardViewHolder.Image.setText(item.getTag());
     }
@@ -156,11 +156,12 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
 
             if(galleryCallback != null){
                 //if(galleryCallback != null){
-                    galleryCallback.galleryOnItemClicked(cardData.getId(), Integer.parseInt(cardData.getPositionText()));
+                    galleryCallback.galleryOnItemClicked(cardData.getId(), cardData.getTitle(), cardData.getPosition());
                // }
             }else{
                // if(postCallback != null){
-                    postCallback.postOnItemClicked(cardData.getId(), Integer.parseInt(cardData.getPositionText()));
+                Log.d(TAG, "ON POST CLICKED : " + cardData.getPosition());
+                    postCallback.postOnItemClicked(cardData.getId(), cardData.getPosition());
                // }
             }
         }
@@ -179,7 +180,7 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     }
 
     public interface GalleryItemClicked{
-        public void galleryOnItemClicked(int galleryId, int galleryItemPosition);
+        public void galleryOnItemClicked(int galleryId,String galleryName, int galleryItemPosition);
     }
 
 

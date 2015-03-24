@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mallardduckapps.fashiontalks.services.RestClient;
@@ -42,6 +43,8 @@ public class GCMTask {
                     regId = gcm.register(Constants.SENDER_ID);
                     msg = "Device registered, registration ID=" + regId;
                     Log.d("GCM_TASK", msg);
+
+                    //Toast.makeText(context,"DEVICE REGISTERED: " + regId, Toast.LENGTH_LONG).show();
                     // You should send the registration ID to your server over HTTP,
                     // so it can use GCM/HTTP or CCS to send messages to your app.
                     // The request to your server should be authenticated if your app
@@ -70,6 +73,8 @@ public class GCMTask {
     }
 
     private void sendRegistrationIdToBackend(Context context){
+
+        //Toast.makeText(context,"DEVICE REGISTERED: " + regId, Toast.LENGTH_LONG).show();
         String response = "";
         RestClient restClient = new RestClient();
         String accessToken = dataSaver.getString("accessToken");
@@ -78,6 +83,7 @@ public class GCMTask {
         try {
             response = restClient.doPostRequestWithJSON(Constants.REGISTER_GCM_TOKEN,accessToken, new BasicNameValuePair("android_token", regId));
             Log.d("GCM_TASK", "RESPONSE FROM API (send reg id): " + "accessToken: " +accessToken + "-response: " + response);
+            //Toast.makeText(context,"RESPONSE FROM API (send reg id): " + response, Toast.LENGTH_LONG).show();
         } catch ( Exception e) {
             // TODO Auto-generated catch block
             response = "NO_CONNECTION";

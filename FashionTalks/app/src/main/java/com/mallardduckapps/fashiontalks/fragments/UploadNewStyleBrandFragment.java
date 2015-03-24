@@ -4,6 +4,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,7 +33,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
@@ -87,6 +90,8 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     //SearchTask task;
     SearchBrandLoader loader;
 
+    ImageView postPhoto;
+
     public UploadNewStyleBrandFragment() {
         setTag();
         // Required empty public constructor
@@ -118,11 +123,15 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "LIST SELECTED TEXT: " + listData.get(position));
+                String extraField = " ";
+                if(listData.get(position).equals("")){
+                    extraField = "";
+                }
                 //resetLoader(listData.get(position));
 //                if(task != null){
 //                    task.cancel(true);
 //                }
-                currentGlam.setText(listData.get(position) + " ");//" ".concat(listData.get(position)).concat("  ")
+                currentGlam.setText(listData.get(position) + extraField);//" ".concat(listData.get(position)).concat("  ")
                 glamReady(listData.get(position));
             }
         });
@@ -182,7 +191,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             }
         });
 
-        final ImageView postPhoto = (ImageView) rootView.findViewById(R.id.postImage);
+        postPhoto = (ImageView) rootView.findViewById(R.id.postImage);
         postPhoto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -240,7 +249,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         }
         object.put("tags", array);
         Log.d(TAG, "JSON: " + object.toString(1));
-        Log.d(TAG, "JSON title: " + object.getString("title"));
+        //Log.d(TAG, "JSON title: " + object.getString("title"));
         SendPhotoTask task = new SendPhotoTask();
         task.execute(object.toString());
 
@@ -254,7 +263,11 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         hideKeyboard();
         Log.d(TAG, "GLAM TEXT: " + tagName);
         //String glamText = glam.getText().trim();
-        Glam glamItem = new Glam(getVirtualX((int)currentGlam.getX()), getVirtualY((int)currentGlam.getY()), tagName);
+        int x = (int)currentGlam.getX();
+        if(!currentGlam.isLhsAnimation()){
+            x += currentGlam.getWidth();
+        }
+        Glam glamItem = new Glam(getVirtualX(x), getVirtualY((int)currentGlam.getY()), tagName);
         if(glamList == null){
             glamList = new ArrayList<>();
         }
@@ -263,8 +276,6 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     public void filter() {
-        //charText = charText.toLowerCase(); // Locale.getDefault()
-       // Log.d(TAG, "CHAR TEXT: " + charText + " tags.length: " + tags.size());
         listData.clear();
         lv.setVisibility(View.GONE);
         if(tags.size() == 0){
@@ -454,7 +465,6 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     public void useLoader(String text){
-        Log.d(TAG, "USE LOADER - START");
         resetLoader(text);
         loader.forceLoad();
     }
@@ -489,16 +499,20 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     private int getVirtualX(int x){
+        Log.d(TAG, "REAL X: " + x  + " - Image Width: " + imageWidth + " - postPhotoX: " + postPhoto.getX());
         return Constants.VIRTUAL_WIDTH*x/imageWidth;
+
     }
 
     private int getVirtualY(int y){
-        return Constants.VIRTUAL_HEIGHT*y/imageHeight;
+        Log.d(TAG, "REAL Y: " + y  + " - Image Height: " + imageHeight + "- postPhotoY: " + postPhoto.getY());
+        return (int)(Constants.VIRTUAL_HEIGHT*(y - postPhoto.getY()))/imageHeight;
     }
 
 
     public class SendPhotoTask extends AsyncTask<String, Void, String> {
         private final String TAG = "SendPhotoTask";
+        int status = -1;
         public SendPhotoTask(){
         }
 
@@ -516,7 +530,8 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 String url = new StringBuilder(Constants.POST_NEW).toString();
                 response = restClient.doPostRequestWithJSON(url, null,params[0]);
                 Log.d(TAG, "User REQUEST RESPONSE: " + response);
-
+                JSONObject object = new JSONObject(response);
+                status = object.getInt("status");
             } catch (Exception e) {
                 response = "NO_CONNECTION";
                 e.printStackTrace();
@@ -528,7 +543,14 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
             progressBarMain.setVisibility(View.GONE);
-            getActivity().finish();
+            if(status == 0){
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }else{
+                Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), "Bir sorun oluştu! Tekrar dene!", Toast.LENGTH_SHORT).show();
+            }
+
 
         }
     }

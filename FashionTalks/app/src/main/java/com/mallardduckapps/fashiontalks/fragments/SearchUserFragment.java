@@ -163,8 +163,6 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
         return true;
     }
 
-
-
     public void resetLoader(String text){
         Bundle bundle = new Bundle();
         Log.d(TAG, "RESET LOADER");

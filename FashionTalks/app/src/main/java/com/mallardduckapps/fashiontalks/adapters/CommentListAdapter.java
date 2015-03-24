@@ -20,6 +20,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.rockerhieu.emojicon.EmojiconTextView;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -44,6 +46,7 @@ public class CommentListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
+        //TODO
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
     }
 
@@ -76,7 +79,7 @@ public class CommentListAdapter extends BaseAdapter {
                     false);
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
-            holder.comment = (EmojiconTextView) vi.findViewById(R.id.commentTv);
+            holder.comment = (TextView) vi.findViewById(R.id.commentTv);
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
 
             vi.setTag(holder);
@@ -85,7 +88,8 @@ public class CommentListAdapter extends BaseAdapter {
             holder = (ViewHolder) vi.getTag();
         }
         holder.nameTv.setText(user.getFirstName().concat(" ").concat(user.getLastName().concat(" | ").concat(TimeUtil.compareDateWithToday(comment.getCreatedAt(), res))));
-        holder.comment.setText(comment.getComment());
+        holder.comment.setText(StringEscapeUtils.unescapeJson(comment.getComment()));
+
         String path = new StringBuilder(pathMainUrl).append(user.getPhotoPath()).toString();
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);
@@ -97,7 +101,7 @@ public class CommentListAdapter extends BaseAdapter {
     public static class ViewHolder {
         RoundedImageView thumbView;
         TextView nameTv;
-        EmojiconTextView comment;
+        TextView comment;
 
     }
 }

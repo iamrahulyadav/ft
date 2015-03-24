@@ -1,6 +1,9 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+
 
 /**
  * Created by oguzemreozcan on 10/02/15.

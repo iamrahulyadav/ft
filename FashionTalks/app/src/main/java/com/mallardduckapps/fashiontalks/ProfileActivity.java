@@ -21,6 +21,7 @@ public class ProfileActivity extends ActionBarActivity {
     int userId;
     final String TAG = "ProfileActivity";
     boolean onNewIntent = false;
+    public static boolean imageGalleryChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,6 @@ public class ProfileActivity extends ActionBarActivity {
         //Log.d(TAG, "ON NEW INTENT: ");
         //userId = intent.getIntExtra("PROFILE_ID", 0);
         //onNewIntent = true;
-
     }
 
     @Override
@@ -92,6 +92,7 @@ public class ProfileActivity extends ActionBarActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment).addToBackStack(name)
                 .commit();
+        //TODO add animation;
     }
 
     @Override
@@ -104,6 +105,7 @@ public class ProfileActivity extends ActionBarActivity {
                 if(userId == 0){
                     Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                     startActivity(intent);
+                    //BaseActivity.setTranslateAnimation(this);
                 }
                 finish();
             }
@@ -111,6 +113,7 @@ public class ProfileActivity extends ActionBarActivity {
             if(userId == 0){
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
+                //BaseActivity.setTranslateAnimation(this);
             }
             finish();
         }else if(id == R.id.action_edit_profile){
@@ -125,6 +128,7 @@ public class ProfileActivity extends ActionBarActivity {
         if(userId == 0){
             Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
             startActivity(intent);
+            //BaseActivity.setTranslateAnimation(this);
         }
         finish();
     }

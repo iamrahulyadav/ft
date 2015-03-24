@@ -16,6 +16,9 @@ public class Constants {
     public final static int TOOLBAR_WITH_BACK_AND_EXIT_BUTTON = 2;
 
     public final static String API_ADDRESS = "http://api.ft-api.com";
+
+    public final static String TEST = "http://ft-notifs.elasticbeanstalk.com";
+
     public final static String LOGIN_PREFIX = "/users/login";
     public final static String GET_USER_PREFIX = "/members/profile";
     public final static String REGISTER_PREFIX = "/users/register";
@@ -31,7 +34,9 @@ public class Constants {
     public final static String POSTS_BY_USER_PREFIX = "/posts/user/";
     public final static String POSTS_INVITE_USERS = "/posts/invite-friends";
 
+    public final static String POST_DETAILS_PREFIX = "/posts/view/";
     public final static String POST_COMMENTS = "/comments/comments/";
+    public final static String POST_COMMENT = "/comments/comment";
     public final static String GLAMMER_LIST_PREFIX= "/glam/glammers/";
     public final static String GLAM_TAG_PREFIX = "/glam/tag/";
     public final static String GLAM_AC_TAG_PREFIX = "/tags/ac/";
@@ -44,6 +49,9 @@ public class Constants {
     public final static String UNBLOCK_USER_PREFIX = "/members/unblock/";
     public final static String POPULAR_USERS_PREFIX = "/members/popular";
     public final static String FB_FRIENDS_PREFIX = "/members/fbfriends";
+    public final static String SETTINGS_PREFIX = "/members/settings";
+    public final static String FB_CONNECT ="connect/facebook";
+    public final static String SETTINGS_TOGGLE_PREFIX ="/members/toggle-setting/";
 
     public final static String SEARCH_USERS = "/search/users/";
     public final static String SEARCH_BRANDS = "/tags/ac/";
@@ -67,6 +75,10 @@ public class Constants {
 
     public final static String SENDER_ID = "337533113430";
 
+    public final static int SETTINGS_LOADER_ID = 20;
+    public final static int NOTIFICATION_MY_POST_LOADER_ID = 18;
+    public final static int NOTIFICATION_OTHER_POST_LOADER_ID = 19;
+    public final static int FB_FRIENDS_LOADER = 17;
     public final static int SEARCH_USER_LOADER = 16;
     public final static int SEARCH_TAG_LOADER = 15;
     public final static int CODE_REQUESTS_LOADER = 14;
@@ -75,13 +87,19 @@ public class Constants {
     public final static int MY_POSTS_LOADER_ID = 10;
     public final static int USER_POSTS_LOADER_ID = 11;
     public final static int COMMENTS_LOADER_ID = 8;
-    public final static int NOTICATIONS_LOADER_ID = 7;
+    public final static int NOTIFICATIONS_LOADER_ID = 7;
     public final static int POPULAR_USERS_LOADER_ID = 6;
     public final static int GLAMMERS_LOADER_ID = 5;
     public final static int GALLERY_POSTS_LOADER_ID = 4;
     public final static int GALLERIES_LOADER_ID = 3;
     public final static int POPULAR_POSTS_LOADER_ID = 2;
     public final static int FEED_POSTS_LOADER_ID = 1;
+
+    public final static String TARGET_PROFILE = "profile";
+    public final static String TARGET_POST = "post";
+    public final static String TARGET_COMMENT = "comment";
+    public final static String TARGET_CODE_REQUEST = "code-request";
+
 
     public static final int VIRTUAL_WIDTH = 320;
     public static final int VIRTUAL_HEIGHT = 320;

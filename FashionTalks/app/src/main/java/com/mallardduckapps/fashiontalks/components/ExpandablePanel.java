@@ -20,6 +20,11 @@ import android.widget.TextView;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Pivot;
 import com.mallardduckapps.fashiontalks.tasks.GlamTask;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
+import com.mallardduckapps.fashiontalks.utils.TimeUtil;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse {
 
@@ -48,7 +53,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                 .getDisplayMetrics());
         mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 .getDisplayMetrics());
-        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, res.getDisplayMetrics()));
+        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9, res.getDisplayMetrics()));
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
         //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
@@ -98,10 +103,10 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
             img.setBounds(0, 0, mContentWidth, mContentWidth);
             if(!lhsAnimation){
                 setCompoundDrawables(null, null, img, null);
-                setPadding(5,0,0,0);
+                //setPadding(5,0,5,0);// 5,0,0,0
             }else{
                 setCompoundDrawables(img, null, null, null);
-                setPadding(0,0,5,0);
+                //setPadding(5,0,5,0);
             }
         setCompoundDrawablePadding(0);
        // }
@@ -142,10 +147,6 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         mListener = listener;
     }
 
-    public String getText() {
-        return text;
-    }
-
     public void setTagText(String text) {
         this.text = text;
         setText(text);
@@ -162,32 +163,50 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
 
     @Override
     public void processFinish(int glamCount) {
-        Log.d(TAG, "PROCESS FINISH: " + glamCount);
-        if(text.startsWith(pivot.getGlamCount() + " | ")){
-            text = text.replaceFirst(Integer.toString(pivot.getGlamCount()), Integer.toString(glamCount));
+        //Log.d(TAG, "PROCESS FINISH: " + glamCount);
+
+        if(text.startsWith(pivot.getGlamCountPattern() + " | ")){
+            text = text.replaceFirst(pivot.getGlamCountPattern(), TimeUtil.getPatternedInteger(glamCount));
             pivot.setGlamCount(glamCount);
             setText(text);
         }
                 //new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(pivot.getTag()).toString();
     }
 
-    private class PanelToggler implements OnClickListener {
-        public void onClick(View v) {
-            Animation a;
-            if (mExpanded) {
-                return;
+    public void runShrinkAnimation (){
+        if(!mExpanded){
+            return;
+        }
+        Animation a = new ExpandAnimation(expendedWidth, mContentWidth);
+        a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
+        mListener.onCollapse(ExpandablePanel.this);
+        a.setDuration(mAnimationDuration);
+        a.setFillAfter(true);
+        startAnimation(a);
+        invalidate();
+    }
+
+    public void animateExpand(){
+        Animation a;
+        if (mExpanded) {
+            return;
 /*                a = new ExpandAnimation(expendedWidth, mContentWidth);
                 a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
                 mListener.onCollapse(ExpandablePanel.this);*/
-            } else {
-                a = new ExpandAnimation(mContentWidth, expendedWidth);
-                a.initialize(mContentWidth, mContentWidth, mContentWidth, mContentWidth);
+        } else {
+            a = new ExpandAnimation(mContentWidth, expendedWidth);
+            a.initialize(mContentWidth, mContentWidth, mContentWidth, mContentWidth);
 
-            }
-            a.setDuration(mAnimationDuration);
-            a.setFillAfter(true);
-            startAnimation(a);
-            invalidate();
+        }
+        a.setDuration(mAnimationDuration);
+        a.setFillAfter(true);
+        startAnimation(a);
+        invalidate();
+    }
+
+    private class PanelToggler implements OnClickListener {
+        public void onClick(View v) {
+            animateExpand();
         }
     }
 
@@ -239,7 +258,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
             mExpanded = !mExpanded;
             if(mExpanded){
                 mListener.onExpand(ExpandablePanel.this);
-                if (!pivot.isGlammed()) {
+                if (!pivot.isGlammed() && !ownPost) {
                     GlamTask task = new GlamTask(ExpandablePanel.this,pivot.getId(), pivot.getGlamCount());
                     task.execute();
                 }

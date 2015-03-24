@@ -154,8 +154,6 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                     BaseActivity.this.finish();
                     if(actionName.equals(getString(R.string.title_section2))){
                         Intent intent = new Intent(BaseActivity.this, UsersActivity.class);
-                        //this.finish();
-                        //menu.det
                         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         BaseActivity.this.startActivity(intent);
                         //overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
@@ -177,14 +175,14 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                         BaseActivity.this.startActivity(intent);
                     }
                     setTranslateAnimation(BaseActivity.this);
-
                 }
             });
         }
-
     }
 
     public static void setTranslateAnimation(Activity activity){
-        activity.overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+        activity.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_left);
+        //(R.anim.activity_open_scale, R.anim.activity_close_translate);
+        //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
     }
 }

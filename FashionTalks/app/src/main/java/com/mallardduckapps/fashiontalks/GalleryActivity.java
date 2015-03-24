@@ -22,6 +22,7 @@ public class GalleryActivity extends ActionBarActivity {
     ActionBar actionBar;
     int galleryId;
     FashionTalksApp app;
+    String galleryName = "FASHIONTALKS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class GalleryActivity extends ActionBarActivity {
         setContentView(R.layout.activity_posts);
 
         galleryId = getIntent().getIntExtra("GALLERY_ID", 0);
+        galleryName = getIntent().getStringExtra("GALLERY_NAME");
         //positionIndex = getIntent().getIntExtra("POST_INDEX", -1);
         Log.d(TAG, "GALLERY ID: " + galleryId);
         app = (FashionTalksApp) getApplication();
@@ -39,21 +41,23 @@ public class GalleryActivity extends ActionBarActivity {
         actionBar.setHomeButtonEnabled(true);
 
         TextView tvName = (TextView) findViewById(R.id.toolbarName);
+        tvName.setText(galleryName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         PopularPostsFragment galleryFragment = new PopularPostsFragment();
         //galleryFragment.setActivity(activity);
         Bundle bundle = new Bundle();
         bundle.putInt("LOADER_ID", Constants.GALLERY_POSTS_LOADER_ID);
         bundle.putInt("GALLERY_ID", galleryId);
+        bundle.putString("GALLERY_NAME", galleryName);
         galleryFragment.setArguments(bundle);
 
         FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
-        fragmentTx.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+        //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left);
+        //fragmentTx.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         fragmentTx.replace(R.id.container, galleryFragment, galleryFragment.TAG);
         fragmentTx.commit();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

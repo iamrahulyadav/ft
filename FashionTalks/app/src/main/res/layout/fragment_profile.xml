@@ -85,8 +85,7 @@
             android:background="@drawable/gallery_card_drawable"
             android:text="@string/follow"
             android:layout_marginLeft="2dp"
-            android:textSize="10dp"
-            android:padding="2dp"
+            android:textSize="12dp"
             android:layout_alignParentLeft="true"
             />
         <Button
@@ -95,7 +94,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="@string/followers"
-            android:textSize="10dp"
+            android:textSize="13dp"
             android:padding="3dp"
             android:layout_marginLeft="7dp"
             android:layout_alignParentRight="true"
@@ -106,7 +105,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="@string/following"
-            android:textSize="10dp"
+            android:textSize="13dp"
             android:padding="3dp"
             android:layout_toLeftOf="@+id/followersButton"/>
         </RelativeLayout>

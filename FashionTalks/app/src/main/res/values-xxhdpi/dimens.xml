@@ -19,4 +19,6 @@
 
     <dimen name="new_style_photo_button">45dp</dimen>
 
+    <dimen name="popular_people_style_image_width">32dp</dimen>
+
 </resources>

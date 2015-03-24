@@ -12,6 +12,8 @@ import org.joda.time.PeriodType;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
@@ -21,12 +23,21 @@ public class TimeUtil {
 
     //2014-09-27 13:45:57
     public final static Locale localeTr = new Locale("tr");
+    public final static String GLAM_PATTERN = "###,###";
     public final static DateTimeFormatter dtfIn = DateTimeFormat.forPattern(
             "yyyy-MM-dd HH:mm:ss").withLocale(localeTr);
     public final static DateTimeFormatter dtfOut = DateTimeFormat.forPattern(
             "dd MMMM yyyy").withLocale(localeTr);
     public static DurationFieldType[] fields = {DurationFieldType.years(), DurationFieldType.months(), DurationFieldType.days(), DurationFieldType.hours(), DurationFieldType.minutes()};
     private static final String TAG = "TimeUtil";
+
+    public static String getPatternedInteger(int number){
+        DecimalFormat decimalFormat = (DecimalFormat)
+                NumberFormat.getNumberInstance(TimeUtil.localeTr);
+        decimalFormat.applyPattern(GLAM_PATTERN);
+
+        return decimalFormat.format(number);
+    }
 
     public static String getTodayJoda() {
         DateTime dt = DateTime.now();
@@ -86,7 +97,7 @@ public class TimeUtil {
                 }
             }
         }
-        Log.d(TAG, "RESULT TIME: " + result.toString());
+        //Log.d(TAG, "RESULT TIME: " + result.toString());
         return result.toString();
     }
 }

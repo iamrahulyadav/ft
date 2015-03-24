@@ -37,6 +37,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.media.ExifInterface;
 import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.Build;
@@ -44,7 +45,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -114,7 +117,7 @@ public class CropImage extends MonitoredActivity {
         mImageView = (CropImageView) findViewById(R.id.image);
 
         showStorageToast(this);
-        Log.d(TAG, "ON CREATE CROP IMAGE");
+        Log.d(TAG, "ON CREATE CROP IMAGE + path: " + mImagePath);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -132,9 +135,12 @@ public class CropImage extends MonitoredActivity {
 
             mImagePath = extras.getString(IMAGE_PATH);
 
+
+        ///////
+       // orientation = Util.getOrientationInDegree(mImagePath);
             mSaveUri = getImageUri(mImagePath);
             mBitmap = getBitmap(mImagePath);
-            Log.d(TAG, "ON CREATE BITMAP CREATED");
+            Log.d(TAG, "ON CREATE BITMAP CREATED : " + Util.getExifRotation(mImagePath));
 
             if (extras.containsKey(ASPECT_X) && extras.get(ASPECT_X) instanceof Integer) {
 
@@ -195,6 +201,9 @@ public class CropImage extends MonitoredActivity {
                         RotateBitmap rotateBitmap = new RotateBitmap(mBitmap);
                         mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
                         mRunFaceDetection.run();
+                        generateTouchEvent();
+                        //mImageView.center(true, true);
+
                     }
                 });
         View right = findViewById(R.id.rotateRight);
@@ -206,6 +215,7 @@ public class CropImage extends MonitoredActivity {
                         RotateBitmap rotateBitmap = new RotateBitmap(mBitmap);
                         mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
                         mRunFaceDetection.run();
+                        generateTouchEvent();
                     }
                 });
         right.performClick();
@@ -215,6 +225,33 @@ public class CropImage extends MonitoredActivity {
     private Uri getImageUri(String path) {
 
         return Uri.fromFile(new File(path));
+    }
+
+    private void generateTouchEvent(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                // Obtain MotionEvent object
+                long downTime = SystemClock.uptimeMillis();
+                long eventTime = SystemClock.uptimeMillis() + 100;
+                float x = mImageView.getWidth() / 2;
+                float y = mImageView.getHeight() /2;
+                // List of meta states found here: developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
+                int metaState = 0;
+                MotionEvent motionEvent = MotionEvent.obtain(
+                        downTime,
+                        eventTime,
+                        MotionEvent.ACTION_UP,
+                        x,
+                        y,
+                        metaState
+                );
+
+                // Dispatch touch event to view
+                mImageView.dispatchTouchEvent(motionEvent);
+            }
+        }, 100);
     }
 
     private Bitmap getBitmap(String path) {
@@ -231,6 +268,32 @@ public class CropImage extends MonitoredActivity {
             BitmapFactory.decodeStream(in, null, o);
             in.close();
 
+            ///////////
+//            int rotatedWidth, rotatedHeight;
+//            int orientation = Util.getExifRotation(mImagePath);//getOrientation(this, mSaveUri);
+//
+//            if (orientation == 90 || orientation == 270) {
+//                rotatedWidth = o.outHeight;
+//                rotatedHeight = o.outWidth;
+//            } else {
+//                rotatedWidth = o.outWidth;
+//                rotatedHeight = o.outHeight;
+//            }
+
+            /////
+//            int width = o.outWidth;//bitmap.getWidth();
+//            int height= o.outHeight;//bitmap.getHeight();
+//            boolean rotateLeft = false;
+//            ExifInterface exif = new ExifInterface(path);
+//            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+            //
+//            Log.d(TAG, "IMAGE WIDTH HEIGHT: " + width + " - height: " + height + " orientation:  " + orientation);
+//            if(width > height){
+//
+//                rotateLeft = true;
+//            }
+
+
             int scale = 1;
             if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
                 scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
@@ -240,6 +303,13 @@ public class CropImage extends MonitoredActivity {
             o2.inSampleSize = scale;
             in = mContentResolver.openInputStream(uri);
             Bitmap b = BitmapFactory.decodeStream(in, null, o2);
+            //
+//            if(rotateLeft){
+//                b = Util.rotateImage(b, 90);
+//                RotateBitmap rotateBitmap = new RotateBitmap(b);
+//                mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
+//            }
+            //
             in.close();
 
             return b;

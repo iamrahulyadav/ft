@@ -14,10 +14,13 @@ import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.tasks.GCMTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
+import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 
 public class MainActivity extends BaseActivity
@@ -37,10 +40,10 @@ public class MainActivity extends BaseActivity
         regId = getRegistrationId(getApplicationContext());
         Log.d(TAG, "REGISTRATION ID: " + regId);
 
-        if (regId.isEmpty()) {
+        //if (regId.equals("")) {
             GCMTask task = new GCMTask(this, app.dataSaver);
             task.registerInBackground();
-        }
+        //}
     }
 
     @Override
@@ -88,6 +91,7 @@ public class MainActivity extends BaseActivity
         }else*/
         if(id == R.id.action_search){
             Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            testNotification();
             intent.putExtra("OPENS_USER_SEARCH", false);
             startActivity(intent);
             BaseActivity.setTranslateAnimation(this);
@@ -119,7 +123,7 @@ public class MainActivity extends BaseActivity
                 String response = "";
                 RestClient client = new RestClient();
                 try {
-                    response = client.doGetRequest(Constants.TEST_NOTIFICATIONS,null);
+                    response = client.doGetRequestTest(Constants.TEST_NOTIFICATIONS,null);
                     Log.d("TEST NOTIF", "RESPONSE: " + response);
                 } catch (IOException e) {
                     e.printStackTrace();

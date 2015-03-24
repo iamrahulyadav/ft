@@ -24,6 +24,10 @@ public class GalleryItem {
         return Integer.toString(position);
     }
 
+    public int getPosition(){
+        return position;
+    }
+
     public int getId(){ return id;}
 
     public String getTitle(){return title;}

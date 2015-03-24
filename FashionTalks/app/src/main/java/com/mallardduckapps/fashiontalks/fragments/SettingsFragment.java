@@ -58,6 +58,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                 //if(actionName.equals(getString(R.string.logout))){
                 FashionTalksApp app = (FashionTalksApp)getActivity().getApplication();
                 app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, "");
+                app.dataSaver.putString("REGISTRATION_ID", "");
                 app.dataSaver.save();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

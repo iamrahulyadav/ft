@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -162,15 +163,29 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 act.openFollowListScreen(false);
             }
         });
-
+        //TODO REVISIT 100x100
         String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").append(user.getPhotoPath()).toString();
         ImageLoader.getInstance().displayImage(url, profileImage, app.options);
         nameTv.setText(user.getFirstName() +" " + user.getLastName());
         userNameTv.setText(user.getUserName());
         aboutMeTv.setText(user.getAbout());
-        glamCountTv.setText(Integer.toString(user.getGlamCount()).concat(" Glam"));
+        glamCountTv.setText(user.getGlamCountPattern().concat(" Glam"));
         loadMoreFooterView = getLoadMoreView(inflater);
+        Log.d(TAG, "ON CREATE VIEW: galleryChanged " + ProfileActivity.imageGalleryChanged);
+        if(ProfileActivity.imageGalleryChanged){
+            useLoader();
+        }
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "ON RESUME galleryChanged " + ProfileActivity.imageGalleryChanged);
+        if(ProfileActivity.imageGalleryChanged){
+            dataList = null;
+            useLoader();
+        }
     }
 
     @Override
@@ -244,8 +259,9 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     }
 
     public boolean canLoadMoreData() {
-        if(loader == null)
+        if(loader == null || ProfileActivity.imageGalleryChanged)
             return true;
+
         return loader.perPage > itemCountPerLoad  ? false : true;//listData.size() < getMaxAllowedItems();
     }
 
@@ -273,7 +289,8 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         intent.putExtra("POST_INDEX", postItemPosition);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
-        this.getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+        BaseActivity.setTranslateAnimation(getActivity());
+        //this.getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
 
     public void useLoader() {
@@ -287,6 +304,11 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
             }else{
                 Log.d(TAG, "USE LOADER FRAGMENT Profile Fragment - ON CONTENT CHANGEDD");
+                if(ProfileActivity.imageGalleryChanged){
+                    loader = (PostsLoader) getActivity().getLoaderManager()
+                            .restartLoader(loaderId, null, this);
+                    ProfileActivity.imageGalleryChanged = false;
+                }
                 //loader.startLoading(); //= (PopularPostsLoader) getActivity().getLoaderManager()
                 // .restartLoader(Constants.POPULAR_POSTS_LOADER_ID, null, this);
                 // loader.onContentChanged();

@@ -107,7 +107,6 @@
     <string name="email_send_report_subject">FashionTalks - Report</string>
     <string name="email_send_report_content">I would like to report this photo.</string>
 
-
     <!-- Upload Screens -->
     <string name="upload_select_or_shoot">Yeni bir resim çekin veya albümden bir resim seçin.</string>
     <string name="upload_edit_title_hint">Bir metin ekleyin (Başlık, Not, Yorum)</string>
@@ -126,4 +125,10 @@
     <string name="search_user">Kullanıcı Ara</string>
     <string name="search_brand">Marka Ara</string>
     <string name="title_activity_search">SearchActivity</string>
+
+    <string name="login_with_fb">Login with Facebook</string>
+    <string name="login_with_fb_subtitle">We don\'t post anything to your facebook page</string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="signup">Sign Up</string>
+    <string name="terms_privacy_warning">By joining FashionTalks you agree the Terms of Service and Privacy Policy</string>
 </resources>

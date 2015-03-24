@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.mallardduckapps.fashiontalks.fragments.PostFragment;
 import com.mallardduckapps.fashiontalks.objects.Post;
@@ -36,6 +37,7 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
         bundle.putInt("POST_ID", postArrayList.get(position).getId());
         bundle.putInt("POST_INDEX", position);
         postFragment.setArguments(bundle);
+        Log.d(TAG, "Pager data 0 name: " + ( postArrayList.get(0)).getUser().getUserName());
         return postFragment;
     }
 

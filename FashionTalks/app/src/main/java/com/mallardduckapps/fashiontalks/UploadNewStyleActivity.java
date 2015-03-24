@@ -194,6 +194,8 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
                 fragment.setArguments(bundle);
                 //Log.d(TAG, "DATA GET DATA IMAGE PATH: " + selectedImagePath);
                 FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
+                fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+                //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left);
                 //fragmentTx.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 fragmentTx.replace(R.id.container, fragment)//.addToBackStack(fragment.TAG)
                         .commitAllowingStateLoss();
@@ -257,7 +259,8 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
             UploadNewStyleTitleFragment fragment = new UploadNewStyleBrandFragment();
             fragment.setArguments(bundle);
             FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
-            fragmentTx.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+            //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left);//android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             fragmentTx
                     .replace(R.id.container, fragment).addToBackStack(fragment.TAG)
                     .commit();

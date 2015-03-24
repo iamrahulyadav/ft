@@ -21,6 +21,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
+
+import java.util.ArrayList;
+
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
  * the user's scroll progress.
@@ -58,8 +63,11 @@ public class SlidingTabLayout extends HorizontalScrollView {
     }
 
     private static final int TITLE_OFFSET_DIPS = 4;
-    private static final int TAB_VIEW_PADDING_DIPS = 16;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 10;
+    private static final int TAB_VIEW_PADDING_DIPS = 10;//7//16
+    private static final int TAB_VIEW_PADDING_TOP_DIPS = 4;//4;
+    private static final int TAB_VIEW_HORIZONTAL_PADDING_DIPS = 8;
+    private static final int TAB_VIEW_TEXT_SIZE_SP = 11;
+    private static final int TAB_VIEW_SELECTED_TEXT_SIZE_SP = 13;
 
     private TabType tabType = TabType.TEXT;
 
@@ -74,10 +82,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
     private boolean mDistributeEvenly;
     private final SlidingTabStrip mTabStrip;
+    //private ArrayList<TextView> titles;
 
     public SlidingTabLayout(Context context) {
         this(context, null);
-        Log.d("TAG", "1rd CONSTRUCTOR");
         setFillViewport(true);
     }
 
@@ -91,9 +99,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         setHorizontalScrollBarEnabled(false);
         // Make sure that the Tab Strips fills this View
         setFillViewport(true);
-
         mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
-
         mTabStrip = new SlidingTabStrip(context);
         addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     }
@@ -219,9 +225,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
                     outValue, true);
             tabIconImageView.setBackgroundResource(outValue.resourceId);
         }
-
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
-        tabIconImageView.setPadding(padding, padding, padding, padding);
+        int paddingTop = (int) (TAB_VIEW_PADDING_TOP_DIPS * getResources().getDisplayMetrics().density);
+        int sidePadding = (int) (TAB_VIEW_HORIZONTAL_PADDING_DIPS * getResources().getDisplayMetrics().density);
+        tabIconImageView.setPadding(sidePadding, paddingTop, sidePadding, padding);
 
         return tabIconImageView;
     }
@@ -234,7 +241,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
-        //textView.setTypeface(Typeface.DEFAULT_BOLD);
+        textView.setTypeface(FTUtils.loadFont(context.getAssets(),context.getString(R.string.font_helvatica_lt)));
 
         //TODO
 //        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -254,11 +261,13 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             // If we're running on ICS or newer, enable all-caps to match the Action Bar tab style
-            textView.setAllCaps(true);
+            //textView.setAllCaps(true);
         }
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
-        textView.setPadding(padding, padding, padding, padding);
+        int sidePadding = (int) (TAB_VIEW_HORIZONTAL_PADDING_DIPS * getResources().getDisplayMetrics().density);
+        int paddingTop = (int) (TAB_VIEW_PADDING_TOP_DIPS * getResources().getDisplayMetrics().density);
+        textView.setPadding(sidePadding, paddingTop, sidePadding, padding);
 
         System.out.println("c " + titleColor);
         if (titleColor != null) {
@@ -272,7 +281,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private void populateTabStrip() {
         final PagerAdapter adapter = mViewPager.getAdapter();
         final View.OnClickListener tabClickListener = new TabClickListener();
-
+        //titles = new ArrayList<>(adapter.getCount());
         for (int i = 0; i < adapter.getCount(); i++) {
             View tabView = null;
             TextView tabTitleView = null;
@@ -287,10 +296,13 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             if (tabView == null) {
-                if (tabType.equals(TabType.TEXT))
+                if (tabType.equals(TabType.TEXT)){
                     tabView = createDefaultTextTabView(getContext());
-                else if (tabType.equals(TabType.ICON))
+                    //titles.add((TextView)tabView);
+                }
+                else if (tabType.equals(TabType.ICON)) {
                     tabView = createDefaultIconTabView(getContext());
+                }
             }
 
             if (tabTitleView == null && TextView.class.isInstance(tabView)) {
@@ -301,7 +313,6 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 lp.width = 0;
                 lp.weight = 1;
             }
-
             // setting title to tabView or its' child
             if (tabTitleView != null) {
                 // if tabTitleView could be found in tabView, then set title to it
@@ -340,9 +351,11 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if(view instanceof TextView){
                 if(i == selectedViewOrder){
                     ((TextView) view).setTextColor(titleColor);
+                    ((TextView) view).setTextSize(TAB_VIEW_SELECTED_TEXT_SIZE_SP);
                     ((TextView) view).setTypeface(null, Typeface.BOLD);
                 }else{
                     ((TextView) view).setTextColor(unSelectedTitleColor);
+                    ((TextView) view).setTextSize(TAB_VIEW_TEXT_SIZE_SP);
                     ((TextView) view).setTypeface(null, Typeface.NORMAL);
                 }
             }

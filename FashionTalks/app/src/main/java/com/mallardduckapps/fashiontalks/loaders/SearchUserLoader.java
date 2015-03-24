@@ -37,7 +37,7 @@ public class SearchUserLoader extends AsyncTaskLoader<ArrayList<User>> {
     public ArrayList<User> loadInBackground() {
         String response = "";
         RestClient restClient = new RestClient();
-        Log.d(TAG, "TAsK START");
+        Log.d(TAG, "TASK START");
         try {
             String url = new StringBuilder(Constants.SEARCH_USERS).append(searchText).toString();
             response = restClient.doGetRequest(url, null);

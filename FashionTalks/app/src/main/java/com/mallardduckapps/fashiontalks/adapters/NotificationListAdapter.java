@@ -54,6 +54,10 @@ public class NotificationListAdapter extends BaseAdapter {
         return data.size();
     }
 
+    public ArrayList<Notification> getList(){
+        return data;
+    }
+
     @Override
     public Object getItem(int position) {
         return data.get(position);

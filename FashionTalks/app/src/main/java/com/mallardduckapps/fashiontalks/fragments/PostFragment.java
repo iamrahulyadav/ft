@@ -3,7 +3,9 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,12 +22,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.makeramen.RoundedImageView;
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
+import com.mallardduckapps.fashiontalks.loaders.PostLoader;
 import com.mallardduckapps.fashiontalks.objects.Pivot;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.Tag;
@@ -38,10 +44,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends BasicFragment{
+public class PostFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Post>{
 
     int postId;
     int postIndex = -1;
@@ -52,13 +62,31 @@ public class PostFragment extends BasicFragment{
     RelativeLayout bottomBar;
     ProgressBar progressBarMain;
     LinearLayout shareMenu;
+    ImageView postPhoto;
     boolean shareMenuVisible = false;
+    boolean ownPost;
 
     int finalImageWidth;
     int finalImageHeight;
     int imageTopMargin = 0;
-
+    PostLoader loader;
     User user;
+
+    TextView tvUserName;
+    TextView tvName;
+    TextView tvGlamCount;
+    TextView tvChatText;
+    TextView tvPostTime;
+
+    ProgressBar progressBar;
+    ImageButton shareButton;
+    LinearLayout chatLayout;
+    LinearLayout glamLayout;
+
+    ViewSwitcher switcher;
+    boolean openComment = false;
+
+    RoundedImageView thumbnailView;
 
     public PostFragment() {
         // Required empty public constructor
@@ -76,24 +104,34 @@ public class PostFragment extends BasicFragment{
         TAG = "Post_Fragment";
     }
 
+    private void showNextView(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switcher.showNext();
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.post_layout, container, false);
+        switcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
         layout = (RelativeLayout) rootView.findViewById(R.id.mainPostLayout);
         bottomBar = (RelativeLayout) rootView.findViewById(R.id.bottomBar);
-        final RoundedImageView thumbnailView = (RoundedImageView)rootView.findViewById(R.id.thumbnail);
-        final ImageView postPhoto = (ImageView)rootView.findViewById(R.id.postImage);
-        final TextView tvUserName = (TextView) rootView.findViewById(R.id.userName);
-        final TextView tvName = (TextView) rootView.findViewById(R.id.name);
-        final TextView tvGlamCount = (TextView) rootView.findViewById(R.id.glamCount);
-        final TextView tvChatText = (TextView) rootView.findViewById(R.id.chatText);
-        final TextView tvPostTime = (TextView) rootView.findViewById(R.id.postTime);
+        thumbnailView = (RoundedImageView)rootView.findViewById(R.id.thumbnail);
+        postPhoto = (ImageView)rootView.findViewById(R.id.postImage);
+        tvUserName = (TextView) rootView.findViewById(R.id.userName);
+        tvName = (TextView) rootView.findViewById(R.id.name);
+        tvGlamCount = (TextView) rootView.findViewById(R.id.glamCount);
+        tvChatText = (TextView) rootView.findViewById(R.id.chatText);
+        tvPostTime = (TextView) rootView.findViewById(R.id.postTime);
 
-        final ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        final ImageButton shareButton = (ImageButton) rootView.findViewById(R.id.shareButton);
-        final LinearLayout chatLayout = (LinearLayout) rootView.findViewById(R.id.chatLayout);
-        final LinearLayout glamLayout = (LinearLayout) rootView.findViewById(R.id.glamLayout);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        shareButton = (ImageButton) rootView.findViewById(R.id.shareButton);
+        chatLayout = (LinearLayout) rootView.findViewById(R.id.chatLayout);
+        glamLayout = (LinearLayout) rootView.findViewById(R.id.glamLayout);
 
         Activity activity = getActivity();
         tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_thin)));
@@ -107,125 +145,42 @@ public class PostFragment extends BasicFragment{
         postId = getArguments().getInt("POST_ID");
         postIndex = getArguments().getInt("POST_INDEX");
         loaderId = getArguments().getInt("LOADER_ID");
+        openComment = getArguments().getBoolean("OPEN_COMMENT", false);
 
        // Log.d(TAG, "POST FR: POST ID: " + postId);
         final Post post = getPost();
 
         if(loaderId == Constants.MY_POSTS_LOADER_ID){
             user = app.getMe();
+            ownPost = true;
             shareButton.setImageResource(R.drawable.delete_icon);
         }else if(loaderId == Constants.USER_POSTS_LOADER_ID){
             user = app.getOther();
+            ownPost = false;
             shareButton.setImageResource(R.drawable.report_icon);
-        }else{
+        }else if(loaderId == Constants.NOTIFICATION_MY_POST_LOADER_ID){
+            user = app.getMe();
+            ownPost = true;
+            shareButton.setImageResource(R.drawable.delete_icon);
+        }
+        else if(loaderId == Constants.NOTIFICATION_OTHER_POST_LOADER_ID){
+            user = app.getOther();
+            ownPost = false;
+            shareButton.setImageResource(R.drawable.report_icon);
+        }
+        else{
             user = post.getUser();
+            ownPost = false;
             shareButton.setImageResource(R.drawable.report_icon);
         }
 
-        String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
-        String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(40).append("x").append(40).append("/").append(user.getPhotoPath()).toString();
-        tvUserName.setText(user.getUserName());
-        tvName.setText(post.getTitle());
-        tvGlamCount.setText(new StringBuilder(Integer.toString(post.getGlamCount())).append(" Glam").toString());
-        //Log.d(TAG, "POST CREATED AT: " + post.getCreatedAt());
-        tvPostTime.setText(TimeUtil.compareDateWithToday(post.getCreatedAt(), getResources()));
-        glamLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GlammersFragment fragment = GlammersFragment.newInstance(Integer.toString(postId));
-                //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, fragment).addToBackStack(fragment.getTag())
-                        .commit();
-            }
-        });
-        tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(" Konuşma").toString());
-        chatLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(post.getCommentCount() != 0){
-                    Bundle bundle = new Bundle();
-                    bundle.putString("POST_ID", Integer.toString(postId));
-                    CommentsFragment fragment = new CommentsFragment();
-                    fragment.setArguments(bundle);
-
-                    //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.container, fragment).addToBackStack(fragment.getTag())
-                            .commit();
-                }
-
-            }
-        });
-
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                app.setOther(user);
-                intent.putExtra("PROFILE_ID", user.getId());
-                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
-            }
-        };
-        tvUserName.setOnClickListener(onClickListener);
-        tvName.setOnClickListener(onClickListener);
-        ImageLoader.getInstance().displayImage(thumbPath, thumbnailView,app.options);
-        finalImageWidth = 0;
-        ImageLoader.getInstance()
-                .displayImage(path, postPhoto, app.options, new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        final ViewTreeObserver vto = postPhoto.getViewTreeObserver();
-                        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                            public boolean onPreDraw() {
-                                if(finalImageWidth == 0){
-                                    finalImageHeight = postPhoto.getHeight();
-                                    finalImageWidth = postPhoto.getWidth();
-                                    imageTopMargin = (int)postPhoto.getY();
-                                    Log.e("IMAGE","Height: " + finalImageHeight + " Width: " + finalImageWidth + " - imageTopMargin : " + imageTopMargin);
-                                    setGlamPosition(post);
-                                }
-
-//                    Log.d(TAG, "POSX " + posX/1.5 + " - POSY: " + posY/1.5);
-                                return true;
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-        //Log.d(TAG, "POST FR: SELECTeD POST ID: " + post.getTag());
-        shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"ON CLICK");
-                // Share Menu is not active now
-                //shareMenuOnClick();
-                if(user != app.getMe()){
-                    // REPORT
-                    FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
-                }else{
-
-                    //DELETE
-                    DeleteTask task = new DeleteTask();
-                    task.execute(Integer.toString(postId));
-                }
-            }
-        });
-
+        if(post != null){
+            fillPost(post);
+            showNextView();
+        }else{
+            progressBar.setVisibility(View.VISIBLE);
+            useLoader();
+        }
         return rootView;
         //listView = (ListView) rootView.findViewById(R.id.galleryList);
     }
@@ -269,18 +224,124 @@ public class PostFragment extends BasicFragment{
             case Constants.MY_POSTS_LOADER_ID:
                 post = app.getMyPostArrayList().get(postIndex);
                 break;
+            case Constants.NOTIFICATIONS_LOADER_ID:
+                post = null;
+                break;
         }
         return post;
     }
 
+    private void fillPost(final Post post){
+        String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
+        //TODO change 40x40
+        String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(40).append("x").append(40).append("/").append(user.getPhotoPath()).toString();
+        tvUserName.setText(user.getUserName());
+        tvName.setText(post.getTitle());
+        tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(" Glam").toString());
+        //Log.d(TAG, "POST CREATED AT: " + post.getCreatedAt());
+        tvPostTime.setText(TimeUtil.compareDateWithToday(post.getCreatedAt(), getResources()));
+        glamLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GlammersFragment fragment = GlammersFragment.newInstance(Integer.toString(postId));
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, fragment).addToBackStack(fragment.getTag())
+                        .commit();
+            }
+        });
+        tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(" Konuşma").toString());
+        chatLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if(post.getCommentCount() != 0){
+                Bundle bundle = new Bundle();
+                bundle.putString("POST_ID", Integer.toString(postId));
+                CommentsFragment fragment = new CommentsFragment();
+                fragment.setArguments(bundle);
+                //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, fragment).addToBackStack(fragment.getTag())
+                        .commit();
+                //}
+            }
+        });
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                app.setOther(user);
+                intent.putExtra("PROFILE_ID", user.getId());
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                BaseActivity.setTranslateAnimation(getActivity());
+                //getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+            }
+        };
+        tvUserName.setOnClickListener(onClickListener);
+        tvName.setOnClickListener(onClickListener);
+        ImageLoader.getInstance().displayImage(thumbPath, thumbnailView,app.options);
+        finalImageWidth = 0;
+        ImageLoader.getInstance()
+                .displayImage(path, postPhoto, app.options, new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        final ViewTreeObserver vto = postPhoto.getViewTreeObserver();
+                        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                            public boolean onPreDraw() {
+                                if(finalImageWidth == 0){
+                                    finalImageHeight = postPhoto.getHeight();
+                                    finalImageWidth = postPhoto.getWidth();
+                                    imageTopMargin = (int)postPhoto.getY();
+                                    Log.e("IMAGE","Height: " + finalImageHeight + " Width: " + finalImageWidth + " - imageTopMargin : " + imageTopMargin);
+                                    setGlamPosition(post);
+                                }
+//                    Log.d(TAG, "POSX " + posX/1.5 + " - POSY: " + posY/1.5);
+                                return true;
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+        //Log.d(TAG, "POST FR: SELECTeD POST ID: " + post.getTag());
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"ON CLICK");
+                // Share Menu is not active now
+                //shareMenuOnClick();
+                if(user != app.getMe()){
+                    // REPORT
+                    FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
+                }else{
+                    //DELETE
+                    DeleteTask task = new DeleteTask();
+                    task.execute(Integer.toString(postId));
+                }
+            }
+        });
+    }
+
     private void setGlamPosition(Post post){
-//        LayoutInflater inflater = (LayoutInflater) getActivity()
-//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        final ArrayList<ExpandablePanel> panels = new ArrayList<>(post.getTags().size());
         for (Tag tag : post.getTags()){
             final Pivot pivot = tag.getPivot();
             int x = getRealX(pivot.getX());
-            ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, false);
-            panel.setTagText(new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(tag.getTag()).append(" ").toString());
+            ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, ownPost);
+            panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString());
             panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
                 @Override
@@ -293,8 +354,22 @@ public class PostFragment extends BasicFragment{
 
                 }
             });
+            if(ownPost){
+                panel.animateExpand();
+            }
+            panels.add(panel);
             layout.addView(panel);
         }
+
+        postPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Log.d(TAG, "ON CLICK TO LAYOUT SHRINK ALL ANIMS");
+                for(ExpandablePanel panel : panels){
+                    panel.runShrinkAnimation();
+                }
+            }
+        });
 
         shareMenu.bringToFront();
         bottomBar.bringToFront();
@@ -307,6 +382,38 @@ public class PostFragment extends BasicFragment{
     //TODO it was height before, control the height
     private int getRealY(int y){
         return finalImageHeight*y/Constants.VIRTUAL_HEIGHT + imageTopMargin;
+    }
+
+    @Override
+    public Loader<Post> onCreateLoader(int id, Bundle args) {
+        loader = new PostLoader(getActivity().getApplicationContext(), Constants.NOTIFICATIONS_LOADER_ID, postId);
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Post> loader, Post data) {
+        if(data != null){
+            progressBar.setVisibility(View.GONE);
+            fillPost(data);
+            if(openComment){
+                chatLayout.performClick();
+            }else{
+                showNextView();
+            }
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Post> loader) {
+
+    }
+
+    private void useLoader() {
+        if (loader == null) {
+            loader = (PostLoader) getActivity().getLoaderManager()
+                    .initLoader(loaderId, null, this);
+            loader.forceLoad();
+        }
     }
 
     public class DeleteTask extends AsyncTask<String, Void, String> {
@@ -331,7 +438,8 @@ public class PostFragment extends BasicFragment{
                 String url = new StringBuilder(Constants.POST_DELETE).append(params[0]).toString();
                 response = restClient.doGetRequest(url, null);
                 Log.d(TAG, "User REQUEST RESPONSE: " + response);
-
+                JSONObject object = new JSONObject(response);
+                status = object.getInt("status");
 
             } catch (Exception e) {
                 response = "NO_CONNECTION";
@@ -344,7 +452,12 @@ public class PostFragment extends BasicFragment{
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
             progressBarMain.setVisibility(View.GONE);
-            getActivity().finish();
+            if(status == 0){
+                ProfileActivity.imageGalleryChanged = true;
+                getActivity().finish();
+            }else{
+                Toast.makeText(PostFragment.this.getActivity(),"Bir sorun oluştu! Tekrar dene!", Toast.LENGTH_SHORT).show();
+            }
 
         }
     }

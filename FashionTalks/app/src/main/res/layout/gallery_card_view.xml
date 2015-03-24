@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/white"
-        android:shadowColor="@color/gray"
+        android:shadowColor="@color/black"
         android:textSize="15dp"
         android:textStyle="bold"
         android:text="HELLO TV" />

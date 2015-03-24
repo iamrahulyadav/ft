@@ -33,7 +33,8 @@
         android:textSize="10dp"
         android:textColor="@color/gray"
         android:text="Name" />
-    <com.rockerhieu.emojicon.EmojiconTextView
+    <!--com.rockerhieu.emojicon.EmojiconTextView-->
+    <TextView
         android:id="@+id/commentTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

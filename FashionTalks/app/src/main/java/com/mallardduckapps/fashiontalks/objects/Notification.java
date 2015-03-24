@@ -12,7 +12,7 @@ public class Notification {
     private int userId;
     @SerializedName("source_id")
     private int sourceId;
-    @SerializedName("targer_action")
+    @SerializedName("target_action")
     private String targetAction;
     @SerializedName("target_id")
     private int targetId;

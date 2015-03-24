@@ -18,8 +18,14 @@ package eu.janmuller.android.simplecropimage;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.*;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
@@ -234,7 +240,7 @@ public class Util {
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
         int degrees = 0;
-        Log.d(TAG, "GET ORIENTATION");
+
         switch (rotation) {
             case Surface.ROTATION_0:
                 degrees = 0;
@@ -248,8 +254,57 @@ public class Util {
             case Surface.ROTATION_270:
                 degrees = 270;
                 break;
+            default: return 0;
         }
+        Log.d(TAG, "GET ORIENTATION : " + degrees);
 
         return degrees;
+    }
+
+    public static int getOrientation(Context context, Uri photoUri) {
+        /* it's on the external media. */
+        Cursor cursor = context.getContentResolver().query(photoUri,
+                new String[] { MediaStore.Images.ImageColumns.ORIENTATION }, null, null, null);
+
+        if (cursor.getCount() != 1) {
+            return -1;
+        }
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    public static int getExifRotation(String imgPath)
+    {
+        try
+        {
+            ExifInterface exif = new ExifInterface(imgPath);
+            String rotationAmount = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+            if (!TextUtils.isEmpty(rotationAmount))
+            {
+                int rotationParam = Integer.parseInt(rotationAmount);
+                switch (rotationParam)
+                {
+                    case ExifInterface.ORIENTATION_NORMAL:
+                        return 0;
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        return 90;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        return 180;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        return 270;
+                    default:
+                        return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
     }
 }

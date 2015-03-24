@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -75,7 +76,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
             adapter.addData(dataList);
             setListAdapter(adapter);
         }
-        loadMoreFooterView =getLoadMoreView(inflater);
+        loadMoreFooterView = getLoadMoreView(inflater);
 
         return view;
     }
@@ -112,7 +113,8 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
             intent.putExtra("PROFILE_ID", user.getId());
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+            BaseActivity.setTranslateAnimation(getActivity());
+            //getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
         }
     }
 

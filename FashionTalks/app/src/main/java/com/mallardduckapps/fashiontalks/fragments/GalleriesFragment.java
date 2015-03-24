@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
@@ -33,7 +34,6 @@ public class GalleriesFragment extends BasicFragment implements
     GalleriesLoader loader;
     boolean loading;
     //private final String TAG = "GalleriesFragment";
-
     private ListView listView;
     private ArrayList<GalleryItem> dataList;
     private GalleryGridAdapter listAdapter;
@@ -50,10 +50,6 @@ public class GalleriesFragment extends BasicFragment implements
     public GalleriesFragment() {
         // Required empty public constructor
     }
-
-   // public void setActivity(MainActivity activity) {
-    //    this.activity = activity;
-    //}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,11 +97,11 @@ public class GalleriesFragment extends BasicFragment implements
             dataList = new ArrayList<GalleryItem>(items.size());
             //StringBuilder builder = ;
             for (Gallery gallery : items){
-                Log.d(TAG, "COVER PATH: " + gallery.getCover());
+                //Log.d(TAG, "COVER PATH: " + gallery.getCover());
                 //ImagePathTask task = new ImagePathTask("galleries/1419693538.203064jpg");
                 //String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/300x300/").append(gallery.getCover()).toString();
                 GalleryItem galleryItem = new GalleryItem(index, gallery.getId(), gallery.getTitle(), gallery.getCover());
-                Log.d(TAG, "GALLERY IDs: " + galleryItem.getId() + " - GalleryName: " + galleryItem.getTitle());
+                //Log.d(TAG, "GALLERY IDs: " + galleryItem.getId() + " - GalleryName: " + galleryItem.getTitle());
                 index ++;
                 dataList.add(galleryItem);
             }
@@ -119,7 +115,7 @@ public class GalleriesFragment extends BasicFragment implements
 
     }
     public void useLoader() {
-        Log.d(TAG, "USE LOADER FRAGMENT GALLERIES");
+        //Log.d(TAG, "USE LOADER FRAGMENT GALLERIES");
         loading = true;
         loader = (GalleriesLoader) getActivity().getLoaderManager()
                 .initLoader(Constants.GALLERIES_LOADER_ID, null, this);
@@ -127,14 +123,16 @@ public class GalleriesFragment extends BasicFragment implements
     }
 
     @Override
-    public void galleryOnItemClicked(int galleryId, int galleryItemPosition) {
+    public void galleryOnItemClicked(int galleryId, String galleryName, int galleryItemPosition) {
         Log.d(TAG, "SEND GALLERY ID TO ACTIVITY: " + galleryId);
         //Intent intent = new Intent(getActivity(), PostsActivity.class);
         Intent intent = new Intent(getActivity(), GalleryActivity.class);
         intent.putExtra("GALLERY_ID", galleryId);
+        intent.putExtra("GALLERY_NAME", galleryName);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
-        getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
+        BaseActivity.setTranslateAnimation(getActivity());
+        //getActivity().overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
 /*        PopularPostsFragment galleryFragment = new PopularPostsFragment();
         galleryFragment.setActivity(activity);
         Bundle bundle = new Bundle();
@@ -144,7 +142,6 @@ public class GalleriesFragment extends BasicFragment implements
         android.app.FragmentTransaction transaction = activity.getChildFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.products_list_linear, productDetailFragment).commit();
-
         replaceFragment(true, null, galleryFragment);*/
 
     }

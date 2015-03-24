@@ -68,6 +68,12 @@ public class GCMIntentService extends IntentService {
 //                }
                 //Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
+
+                //Received: Bundle[{custom={"notification":{"type":"x","target_id":1}},
+                // from=337533113430,
+                // message=This is a test message from FashionTalks,
+                // android.support.content.wakelockid=1, collapse_key=do_not_collapse}]
+
                 sendNotification("Received: " + parseMessage(extras));
                 Log.i(TAG, "Received: " + extras.toString());
             }
@@ -77,7 +83,7 @@ public class GCMIntentService extends IntentService {
     }
 
     private String parseMessage(Bundle bundle){
-        return bundle.getString("alert");
+        return bundle.getString("message");
         //Log.d(TAG, "")
     }
 
@@ -90,7 +96,7 @@ public class GCMIntentService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.abc_btn_radio_material)
+                        .setSmallIcon(R.drawable.app_logo)
                         .setContentTitle("GCM Notification")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
