@@ -18,6 +18,7 @@ import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
+import com.mallardduckapps.fashiontalks.components.BounceListView;
 import com.mallardduckapps.fashiontalks.components.GridListOnScrollListener;
 import com.mallardduckapps.fashiontalks.loaders.PopularPostsLoader;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
@@ -34,7 +35,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
 
     PopularPostsLoader loader;
     boolean loading;
-    private ListView listView;
+    private BounceListView listView;
     private ArrayList<GalleryItem> dataList;
     private GalleryGridAdapter listAdapter;
     //private ArrayList<Gallery> items;
@@ -71,7 +72,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
-        listView = (ListView) rootView.findViewById(R.id.galleryList);
+        listView = (BounceListView) rootView.findViewById(R.id.galleryList);
         listView.setOnScrollListener(new GridListOnScrollListener(this));
         if(dataList != null){
             listAdapter.addItemsInGrid(dataList);

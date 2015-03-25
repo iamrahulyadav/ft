@@ -18,6 +18,6 @@
 
     <dimen name="new_style_photo_button">90dp</dimen>
     <dimen name="glam_width">28dp</dimen>
-    <dimen name="popular_people_style_image_width">63dp</dimen>
+    <dimen name="popular_people_style_image_width">64dp</dimen>
 
 </resources>

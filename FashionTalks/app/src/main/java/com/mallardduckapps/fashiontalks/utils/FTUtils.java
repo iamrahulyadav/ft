@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -221,7 +222,7 @@ public class FTUtils {
         View v;
         for (int i = 0; i < count; i++) {
             v = group.getChildAt(i);
-            if (v instanceof TextView || v instanceof Button /*etc.*/)
+            if (v instanceof TextView || v instanceof Button || v instanceof EditText/*etc.*/)
                 ((TextView) v).setTypeface(font);
             else if (v instanceof ViewGroup)
                 setFont((ViewGroup) v, font);

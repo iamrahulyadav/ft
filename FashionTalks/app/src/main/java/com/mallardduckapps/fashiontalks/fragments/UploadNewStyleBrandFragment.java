@@ -35,6 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
@@ -547,6 +548,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
+                BaseActivity.setTranslateAnimation(getActivity());
             }else{
                 Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), "Bir sorun oluştu! Tekrar dene!", Toast.LENGTH_SHORT).show();
             }

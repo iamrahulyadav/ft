@@ -16,6 +16,7 @@ import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
+import com.mallardduckapps.fashiontalks.components.BounceListView;
 import com.mallardduckapps.fashiontalks.loaders.GalleriesLoader;
 import com.mallardduckapps.fashiontalks.objects.Gallery;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
@@ -34,7 +35,8 @@ public class GalleriesFragment extends BasicFragment implements
     GalleriesLoader loader;
     boolean loading;
     //private final String TAG = "GalleriesFragment";
-    private ListView listView;
+//    private ListView listView;
+    private BounceListView listView;
     private ArrayList<GalleryItem> dataList;
     private GalleryGridAdapter listAdapter;
     private ArrayList<Gallery> items;
@@ -68,7 +70,7 @@ public class GalleriesFragment extends BasicFragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
-        listView = (ListView) rootView.findViewById(R.id.galleryList);
+        listView = (BounceListView) rootView.findViewById(R.id.galleryList);
         if(dataList != null){
             listAdapter.addItemsInGrid(dataList);
             listView.setAdapter(listAdapter);

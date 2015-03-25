@@ -9,6 +9,8 @@ public class Constants {
     public final static int AUTHENTICATION_FAILED = 0;
     public final static int AUTHENTICATION_CANCELED = 1;
     public final static int AUTHENTICATION_SUCCESSFUL = 2;
+    public final static int PROFILE_EDIT_SUCCESSFUL = 4;
+    public final static int PROFILE_EDIT_UNSUCCESSFUL = 5;
     public final static int WRONG_CREDENTIALS = 3;
 
     public final static int TOOLBAR_WITH_TITLE = 0;

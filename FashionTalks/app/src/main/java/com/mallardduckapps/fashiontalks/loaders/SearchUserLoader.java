@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.loaders;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -14,6 +15,9 @@ import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.lang.reflect.Type;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,11 +30,17 @@ public class SearchUserLoader extends AsyncTaskLoader<ArrayList<User>> {
     int loaderId;
     ArrayList<User> userList;
     String searchText;
+    URI uri;
 
     public SearchUserLoader(Context context, int loaderId, String searchText) {
         super(context);
         this.loaderId = loaderId;
         this.searchText = searchText;
+        try {
+            uri = new URI(searchText.replace(" ", "%20"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -39,7 +49,7 @@ public class SearchUserLoader extends AsyncTaskLoader<ArrayList<User>> {
         RestClient restClient = new RestClient();
         Log.d(TAG, "TASK START");
         try {
-            String url = new StringBuilder(Constants.SEARCH_USERS).append(searchText).toString();
+            String url = new StringBuilder(Constants.SEARCH_USERS).append(uri).toString();
             response = restClient.doGetRequest(url, null);
             //Log.d(TAG, "User REQUEST RESPONSE: " + response);
             Gson gson = new GsonBuilder().create();

@@ -185,4 +185,10 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         //(R.anim.activity_open_scale, R.anim.activity_close_translate);
         //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
     }
+
+    public static void setBackwardsTranslateAnimation(Activity activity){
+        activity.overridePendingTransition(R.anim.enter_from_left,R.anim.exit_from_right);//,);
+        //(R.anim.activity_open_scale, R.anim.activity_close_translate);
+        //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+    }
 }

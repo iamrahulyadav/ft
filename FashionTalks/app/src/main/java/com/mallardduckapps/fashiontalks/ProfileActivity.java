@@ -38,12 +38,6 @@ public class ProfileActivity extends ActionBarActivity {
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         if (savedInstanceState == null) {
             ProfileFragment fragment = ProfileFragment.newInstance(userId);
-            //ProfileFragment fragment = new ProfileFragment();
-            //Bundle bundle = new Bundle();
-           // bundle.putInt("PROFILE_ID", userId);
-//            if(userId != 0){
-//                fragment.setArguments(bundle);
-//            }
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, fragment)
                     .commit();
@@ -108,6 +102,7 @@ public class ProfileActivity extends ActionBarActivity {
                     //BaseActivity.setTranslateAnimation(this);
                 }
                 finish();
+                BaseActivity.setBackwardsTranslateAnimation(this);
             }
         }else if(id == R.id.action_home){
             if(userId == 0){
@@ -116,8 +111,11 @@ public class ProfileActivity extends ActionBarActivity {
                 //BaseActivity.setTranslateAnimation(this);
             }
             finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
         }else if(id == R.id.action_edit_profile){
-
+            Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+            BaseActivity.setTranslateAnimation(this);
         }
         return false; //super.onOptionsItemSelected(item);
     }
@@ -128,8 +126,9 @@ public class ProfileActivity extends ActionBarActivity {
         if(userId == 0){
             Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
             startActivity(intent);
-            //BaseActivity.setTranslateAnimation(this);
+
         }
         finish();
+        BaseActivity.setBackwardsTranslateAnimation(this);
     }
 }

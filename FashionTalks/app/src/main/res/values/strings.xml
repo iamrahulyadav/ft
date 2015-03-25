@@ -131,4 +131,5 @@
     <string name="login_with_email">Login with Email</string>
     <string name="signup">Sign Up</string>
     <string name="terms_privacy_warning">By joining FashionTalks you agree the Terms of Service and Privacy Policy</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
 </resources>

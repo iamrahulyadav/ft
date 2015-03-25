@@ -24,11 +24,13 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
     private int authStatus;
     RegisterTaskCallback callBack;
     String[] tokens;
+    final boolean editProfile;
 //    String json;
 
-    public RegisterTask(RegisterFragment fragment){
+    public RegisterTask(RegisterFragment fragment, final boolean editProfile){
         //this.activity = activity;
         callBack = (RegisterTaskCallback) fragment;
+        this.editProfile = editProfile;
     }
 
     @Override
@@ -36,7 +38,11 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
         String response = "";
         RestClient restClient = new RestClient();
         try {
-            response = restClient.doPostRequestWithJSON(Constants.REGISTER_PREFIX,null,param);
+            if(!editProfile) {
+                response = restClient.doPostRequestWithJSON(Constants.REGISTER_PREFIX, null, param);
+            }else{
+                response = restClient.doPostRequestWithJSON(Constants.GET_USER_PREFIX, null, param);
+            }
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch ( Exception e) {
             response = "NO_CONNECTION";
@@ -81,12 +87,18 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
         JsonObject dataObject = object.getAsJsonObject("data");
         JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
         JsonObject userObject = dataObject.getAsJsonObject("User");
-        accessToken = oauthObject.get("access_token").getAsString();
-        refreshToken = oauthObject.get("refresh_token").getAsString();
+
         User me = gson.fromJson(userObject, User.class);
 
-        Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
 
-        callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
+        if(!editProfile){
+            Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
+            accessToken = oauthObject.get("access_token").getAsString();
+            refreshToken = oauthObject.get("refresh_token").getAsString();
+            callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
+        }else{
+            callBack.getAuthStatus(Constants.PROFILE_EDIT_SUCCESSFUL,null, null, null);
+        }
+
     }
 }

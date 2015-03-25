@@ -26,8 +26,11 @@ import java.util.ArrayList;
  * Created by oguzemreozcan on 23/02/15.
  */
 public class UserSettingsFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Settings>, ToggleButton.OnCheckedChangeListener {
+
     ToggleButton talksToggle, newsToggle, newGlamEmailToggle, newGlamNotificationToggle,
-            newTalkEmailToggle, newTalkNotificationToggle, newMentionEmailToggle, newMentionNotificationToggle, newFollowerEmailToggle, newFollowerNotificationToggle;
+            newTalkEmailToggle, newTalkNotificationToggle, newMentionEmailToggle,
+            newMentionNotificationToggle, newFollowerEmailToggle, newFollowerNotificationToggle;
+
     GetSettingsLoader loader;
     final String NOTIFY_GLAM_EMAIL = "notify_glam_email";
     final String NOTIFY_GLAM_PUSH = "notify_glam_push";
@@ -73,7 +76,6 @@ public class UserSettingsFragment extends BasicFragment implements LoaderManager
         newMentionNotificationToggle.setOnCheckedChangeListener(this);
         newFollowerEmailToggle.setOnCheckedChangeListener(this);
         newFollowerNotificationToggle.setOnCheckedChangeListener(this);
-
         //TODO NEWS TOGGLE TALKS TOGGLE
 
         return rootView;

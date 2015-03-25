@@ -56,7 +56,6 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
         return view;
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

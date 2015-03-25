@@ -98,6 +98,7 @@ public class LoginActivity extends ActionBarActivity{
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
         this.finish();
+        BaseActivity.setTranslateAnimation(this);
     }
 
     public void saveTokens(String...tokens){

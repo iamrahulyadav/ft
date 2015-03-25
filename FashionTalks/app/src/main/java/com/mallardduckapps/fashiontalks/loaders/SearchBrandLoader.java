@@ -14,6 +14,8 @@ import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,11 +28,18 @@ public class SearchBrandLoader extends AsyncTaskLoader<ArrayList<Tag>> {
     int loaderId;
     ArrayList<Tag> tagList;
     String searchText;
+    URI uri;
 
     public SearchBrandLoader(Context context, int loaderId, String searchText) {
         super(context);
         this.loaderId = loaderId;
+        try {
+            uri = new URI(searchText.replace(" ", "%20"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         this.searchText = searchText;
+        Log.d(TAG, "SEARCH TEXT: " + searchText + " - uri: " + uri);
     }
 
     @Override
@@ -39,7 +48,7 @@ public class SearchBrandLoader extends AsyncTaskLoader<ArrayList<Tag>> {
         RestClient restClient = new RestClient();
         Log.d(TAG, "TAsK START");
         try {
-            String url = new StringBuilder(Constants.GLAM_AC_TAG_PREFIX).append(searchText).toString();
+            String url = new StringBuilder(Constants.GLAM_AC_TAG_PREFIX).append(uri).toString();
             response = restClient.doGetRequest(url, null);
             Gson gson = new GsonBuilder().create();
             Type collectionType = new TypeToken<Collection<Tag>>(){}.getType();

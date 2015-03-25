@@ -175,8 +175,8 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
 
     @Override
     protected void setRowView(View rowView, int arg1) {
-  //      rowView.setBackgroundColor(getContext().getResources().getColor(
-    //            R.color.simplest_list_background));
+        rowView.setBackgroundColor(getContext().getResources().getColor(
+                R.color.white));
     }
 
     public interface GalleryItemClicked{

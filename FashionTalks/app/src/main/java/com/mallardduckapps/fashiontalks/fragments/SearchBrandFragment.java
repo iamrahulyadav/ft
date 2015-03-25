@@ -25,6 +25,7 @@ import com.mallardduckapps.fashiontalks.loaders.SearchBrandLoader;
 import com.mallardduckapps.fashiontalks.objects.Tag;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
@@ -88,7 +89,11 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
 
             @Override
             public void afterTextChanged(Editable s) {
-                text = s.toString().trim().toLowerCase(Locale.getDefault());
+                String t = s.toString().trim();
+                if(t.equals(text)){
+                    return;
+                }
+                text = t.toLowerCase(Locale.getDefault());
                 Log.d(TAG, "TEXT: " + text);
                 if (text.length() > 1) {
                     xTv.setVisibility(View.VISIBLE);
@@ -110,6 +115,7 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
                     }, DELAY);
                 } else {
                     xTv.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -209,6 +215,7 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
     public android.content.Loader<ArrayList<Tag>> onCreateLoader(int id, Bundle args) {
         String text = args.getString("SEARCH_KEY");
         Log.d(TAG, "ON CREATE LOADER: with text " + text );
+
         loader = new SearchBrandLoader(getActivity(), Constants.SEARCH_TAG_LOADER, text);
         getActivity().runOnUiThread(new Runnable() {
             @Override

@@ -109,12 +109,15 @@
             android:padding="3dp"
             android:layout_toLeftOf="@+id/followersButton"/>
         </RelativeLayout>
-    <ListView
+    <com.mallardduckapps.fashiontalks.components.BounceListView
         android:id="@+id/uploadsList"
         android:layout_marginTop="5dp"
         android:background="@color/white"
+        android:dividerHeight="0dp"
+        android:divider="@color/white"
         android:layout_below="@+id/buttonsLayout"
         android:layout_width="match_parent"
+        android:overScrollMode="always"
         android:layout_height="match_parent">
-    </ListView>
+    </com.mallardduckapps.fashiontalks.components.BounceListView>
 </RelativeLayout>

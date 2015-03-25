@@ -213,9 +213,11 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             //    getSupportFragmentManager().popBackStack();
             //} else {
                 finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
             //}
         }else if(id == R.id.action_home){
             finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
         }
 
         return true;
@@ -228,6 +230,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             getSupportFragmentManager().popBackStack();
         } else {
             finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
         }
     }
 

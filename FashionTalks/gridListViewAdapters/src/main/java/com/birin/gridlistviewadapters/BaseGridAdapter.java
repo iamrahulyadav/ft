@@ -503,8 +503,8 @@ abstract class BaseGridAdapter<E, CVH> extends BaseAdapter {
 	 *            the position of row.
 	 */
 	protected void setRowView(View rowView, int position) {
-		rowView.setBackgroundColor(Color.LTGRAY);
-	}
+		rowView.setBackgroundColor(Color.WHITE);
+	}//LTGRAY
 
 	/**
 	 * Sets the on load more request listener to get events of load more on

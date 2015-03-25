@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-    <ListView
+    <com.mallardduckapps.fashiontalks.components.BounceListView
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone"
         android:background="@color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="?actionBarSize">
         <!--com.rockerhieu.emojicon.Emojicon-->
         <EditText
             android:id="@+id/textField"
@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/sendButton"
+            android:layout_centerVertical="true"
             android:background="@drawable/big_text_area_shape"
             android:maxLines="3"
             android:lines="3"
@@ -56,10 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="4dp"
             android:text="Gönder"
             android:textStyle="bold"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:background="@android:color/transparent"/>
         </RelativeLayout>
 

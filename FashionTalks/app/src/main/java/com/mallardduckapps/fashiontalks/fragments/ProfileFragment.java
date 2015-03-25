@@ -21,6 +21,7 @@ import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
+import com.mallardduckapps.fashiontalks.components.BounceListView;
 import com.mallardduckapps.fashiontalks.components.GridListOnScrollListener;
 import com.mallardduckapps.fashiontalks.loaders.PostsLoader;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
@@ -44,7 +45,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     private int profileId;
     private RoundedImageView profileImage;
     int itemCountPerLoad = 0;
-    private ListView listView;
+    private BounceListView listView;
     private ArrayList<GalleryItem> dataList;
     private GalleryGridAdapter listAdapter;
     protected View loadMoreFooterView;
@@ -120,7 +121,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         glamCountTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_bold)));
         
         profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
-        listView = (ListView) rootView.findViewById(R.id.uploadsList);
+        listView = (BounceListView) rootView.findViewById(R.id.uploadsList);
         listView.setOnScrollListener(new GridListOnScrollListener(this));
         if(myProfile){
             followButton.setVisibility(View.INVISIBLE);

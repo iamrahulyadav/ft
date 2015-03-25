@@ -455,6 +455,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             if(status == 0){
                 ProfileActivity.imageGalleryChanged = true;
                 getActivity().finish();
+                BaseActivity.setBackwardsTranslateAnimation(getActivity());
             }else{
                 Toast.makeText(PostFragment.this.getActivity(),"Bir sorun oluştu! Tekrar dene!", Toast.LENGTH_SHORT).show();
             }

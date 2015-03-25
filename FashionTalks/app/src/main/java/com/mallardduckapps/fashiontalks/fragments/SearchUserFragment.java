@@ -87,7 +87,11 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
 
             @Override
             public void afterTextChanged(Editable s) {
-                text = s.toString().trim().toLowerCase(Locale.getDefault());
+                String t = s.toString().trim();
+                if(t.equals(text)){
+                    return;
+                }
+                text = t.toLowerCase(Locale.getDefault());
                 Log.d(TAG, "TEXT: " + text);
                 if(text.length() > 1){
                     xTv.setVisibility(View.VISIBLE);
@@ -109,6 +113,7 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
                     }, DELAY);
                 }else{
                     xTv.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });

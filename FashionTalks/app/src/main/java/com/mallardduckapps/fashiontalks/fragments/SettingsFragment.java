@@ -64,6 +64,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                BaseActivity.setTranslateAnimation(getActivity());
 
             }
         });
