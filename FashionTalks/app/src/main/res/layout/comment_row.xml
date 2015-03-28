@@ -30,7 +30,7 @@
         android:layout_alignTop="@id/thumbnailImage"
         android:layout_margin="4dp"
         android:layout_marginBottom="2dp"
-        android:textSize="10dp"
+        android:textSize="12dp"
         android:textColor="@color/gray"
         android:text="Name" />
     <!--com.rockerhieu.emojicon.EmojiconTextView-->
@@ -41,7 +41,7 @@
         android:layout_toRightOf="@+id/thumbnailImage"
         android:layout_below="@+id/nameTv"
         android:layout_margin="4dp"
-        android:textSize="12dp"
+        android:textSize="14dp"
         android:textColor="@color/black"/>
   <!--  <TextView
         android:id="@+id/commentTv"

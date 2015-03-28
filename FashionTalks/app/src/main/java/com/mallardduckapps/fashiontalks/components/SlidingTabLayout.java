@@ -66,8 +66,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private static final int TAB_VIEW_PADDING_DIPS = 10;//7//16
     private static final int TAB_VIEW_PADDING_TOP_DIPS = 4;//4;
     private static final int TAB_VIEW_HORIZONTAL_PADDING_DIPS = 8;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 11;
-    private static final int TAB_VIEW_SELECTED_TEXT_SIZE_SP = 13;
+    private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
+    private static final int TAB_VIEW_SELECTED_TEXT_SIZE_SP = 14;
 
     private TabType tabType = TabType.TEXT;
 

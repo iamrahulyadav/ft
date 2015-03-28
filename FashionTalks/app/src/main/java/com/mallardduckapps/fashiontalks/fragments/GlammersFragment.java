@@ -6,6 +6,7 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,6 +128,19 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<ArrayList<User>> loader, ArrayList<User> data) {
+
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openNoConnectionDialog(GlammersFragment.this.getActivity(), GlammersFragment.this);
+                }
+            });
+
+            return;
+        }
         getListView().setOnScrollListener(this);
         itemCountPerLoad = data.size();
         Log.d(TAG, "LOAD SIZE: " + itemCountPerLoad);

@@ -4,7 +4,7 @@
     android:id="@+id/card1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/gallery_card_drawable"
     card_view:cardCornerRadius="0dp"
     card_view:cardElevation="0dp">
 
@@ -12,9 +12,9 @@
         android:id="@+id/coverPhoto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gallery_card_drawable"
+
         android:adjustViewBounds="true"
-        android:scaleType="centerInside"/> <!--"centerCrop"-->
+        android:scaleType="centerInside"/> <!--"centerCrop"  android:background="@color/white"-->
 
     <TextView
         android:id="@+id/titleText"
@@ -24,6 +24,9 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
         android:textSize="15dp"
         android:textStyle="bold"
         android:text="HELLO TV" />

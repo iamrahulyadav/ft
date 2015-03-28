@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,11 +40,37 @@ public class MainActivity extends BaseActivity
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         regId = getRegistrationId(getApplicationContext());
         Log.d(TAG, "REGISTRATION ID: " + regId);
+        getDensity();
 
         //if (regId.equals("")) {
             GCMTask task = new GCMTask(this, app.dataSaver);
             task.registerInBackground();
         //}
+    }
+
+    private void getDensity(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        switch(metrics.densityDpi){
+            case DisplayMetrics.DENSITY_LOW:
+                Log.e(TAG, "DENSITY LOW");
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                Log.e(TAG, "DENSITY MEDIUM");
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+                Log.e(TAG, "DENSITY HIGH");
+                break;
+            case DisplayMetrics.DENSITY_XHIGH:
+                Log.e(TAG, "DENSITY XHIGH");
+                break;
+            case DisplayMetrics.DENSITY_XXHIGH:
+                Log.e(TAG, "DENSITY XXHIGH");
+                break;
+            case DisplayMetrics.DENSITY_XXXHIGH:
+                Log.e(TAG, "DENSITY XXXHIGH");
+                break;
+        }
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UsersActivity;
+import com.mallardduckapps.fashiontalks.fragments.FacebookFriendsFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularUsersFragment;
 
 import java.util.Locale;
@@ -33,7 +34,7 @@ import java.util.Locale;
                     Log.d("USERS PAGER ADAPTER", "POPULER KULLANICILAR LOAD");
                     return PopularUsersFragment.newInstance("");
                 case 1:
-                    return new Fragment();
+                    return FacebookFriendsFragment.newInstance();
             }
 
             return new Fragment();

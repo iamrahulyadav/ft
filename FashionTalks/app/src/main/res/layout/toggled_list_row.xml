@@ -31,17 +31,17 @@
         android:layout_margin="4dp"
         android:text="NAME"
         android:textStyle="bold" />
-
+<!--30dp-->
     <ToggleButton
         android:id="@+id/followButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/toggle_follow_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/toggle_follow_selector"
+        android:background="@android:color/transparent"
         android:focusable="false"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:textOff=""
         android:textOn=""
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginLeft="10dp" />
 </RelativeLayout>

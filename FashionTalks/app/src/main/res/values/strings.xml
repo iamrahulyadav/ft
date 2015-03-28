@@ -33,7 +33,6 @@
     <string name="users_tab1">Popüler Kullanıcılar</string>
     <string name="users_tab2">Facebook Arkadaşları</string>
     <string name="title_activity_posts">PostsActivity</string>
-    <string name="hello_world">Hello world!</string>
     <!-- Settings -->
     <string name="send_posting_codes">Stil Giriş Kodu Gönder</string>
     <string name="user_settings">Kullanıcı Ayarları</string>
@@ -52,8 +51,11 @@
     <string name="title_activity_notification">NotificationActivity</string>
 
     <!-- Dialogs -->
+    <string name="no_connection_title">Bağlantı Hatası!</string>
     <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="no_brand">Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.</string>
+    <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="title_activity_profile">ProfileActivity</string>
 
     <!-- Profile -->
@@ -70,11 +72,11 @@
     <string name="after_day"> Gün Sonra </string>
     <string name="after_month"> Ay Sonra </string>
     <string name="after_year"> Yıl Sonra </string>
-    <string name="before_minute"> Dakika Önce</string>
-    <string name="before_hour"> Saat Önce</string>
-    <string name="before_day"> Gün Önce </string>
-    <string name="before_month"> Ay Önce </string>
-    <string name="before_year"> Yıl Önce </string>
+    <string name="before_minute"> d </string>
+    <string name="before_hour"> s </string>
+    <string name="before_day"> g </string>
+    <string name="before_month"> a </string>
+    <string name="before_year"> y </string>
     <string name="day_today"> Bugün </string>
     <string name="now"> Şimdi </string>
     <string name="title_activity_web">WebActivity</string>
@@ -126,10 +128,13 @@
     <string name="search_brand">Marka Ara</string>
     <string name="title_activity_search">SearchActivity</string>
 
-    <string name="login_with_fb">Login with Facebook</string>
-    <string name="login_with_fb_subtitle">We don\'t post anything to your facebook page</string>
-    <string name="login_with_email">Login with Email</string>
-    <string name="signup">Sign Up</string>
-    <string name="terms_privacy_warning">By joining FashionTalks you agree the Terms of Service and Privacy Policy</string>
+    <string name="no_conection_with_fb">Facebook\'a bağlı değilsiniz</string>
+    <string name="connect_to_fb">Facebook\'a bağlan</string>
+    <string name="login_with_fb">Facebook ile Giriş</string>
+    <string name="login_with_fb_subtitle">Facebook sayfanıza hiçbir şey post etmiyoruz</string>
+    <string name="login_with_email">Email ile Giriş</string>
+    <string name="forget_password">Şifremi Unuttum</string>
+    <string name="signup">Kayıt Ol</string>
+    <string name="terms_privacy_warning">By joining FashionTalks you agree the \n Terms of Service and Privacy Policy</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
 </resources>

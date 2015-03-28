@@ -83,7 +83,7 @@ public class UploadNewStyleTitleFragment extends BasicFragment {
         imagePath = getArguments().getString("IMAGE_PATH");
         mImageUri = Uri.parse(imagePath);
 
-        Log.d(TAG, "IMAGE PATH FILE CONVERTED " + UploadNewStyleActivity.mFileTemp.getPath());
+        //Log.d(TAG, "IMAGE PATH FILE CONVERTED " + UploadNewStyleActivity.mFileTemp.getPath());
         Log.d(TAG, "IMAGE PATH URI CONVERTED " + mImageUri);
 
         Bitmap bitmap = BitmapFactory.decodeFile(mImageUri.getPath());

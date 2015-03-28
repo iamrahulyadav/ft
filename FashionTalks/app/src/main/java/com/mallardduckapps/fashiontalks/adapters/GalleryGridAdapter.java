@@ -128,6 +128,8 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         cardViewHolder.progressBar.setVisibility(View.GONE);
+                        cardViewHolder.imageView.setBackgroundResource(R.drawable.gallery_card_drawable);
+                        //@drawable/gallery_card_drawable
                         item.setLoadingFailed(false);
                     }
                 }, new ImageLoadingProgressListener() {

@@ -56,7 +56,7 @@ public class NavigationDrawerFragment extends BasicFragment {
             R.drawable.discover_icon,
             R.drawable.find_users_icon,
             R.drawable.notifications_icon,
-            R.drawable.settings_icon,
+            R.drawable.self_profile_settings_icon,
     };
 
     public NavigationDrawerFragment() {

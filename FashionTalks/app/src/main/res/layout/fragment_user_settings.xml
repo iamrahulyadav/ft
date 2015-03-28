@@ -30,7 +30,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
                 android:checked="true"
-                android:background="@drawable/toggle_switch"
+                android:button="@drawable/toggle_switch"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -55,7 +56,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/toggle_switch"
+                android:button="@drawable/toggle_switch"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -106,7 +108,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_switch"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -119,7 +122,8 @@
                 android:layout_marginRight="30dp"
                 android:layout_toLeftOf="@+id/newGlamEmailToggle"
                 android:checked="true"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_switch"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -144,7 +148,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_switch"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -157,7 +162,8 @@
                 android:layout_marginRight="30dp"
                 android:layout_toLeftOf="@+id/newTalkEmailToggle"
                 android:checked="true"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_follow_selector"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -182,7 +188,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_follow_selector"
+                android:background="@android:color/transparent"
+
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -195,7 +203,8 @@
                 android:checked="true"
                 android:layout_marginRight="30dp"
                 android:layout_toLeftOf="@+id/newMentionEmailToggle"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_follow_selector"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -220,7 +229,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_follow_selector"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:textOff=""
                 android:textOn="" />
@@ -232,7 +242,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
                 android:layout_toLeftOf="@+id/newFollowerEmailToggle"
-                android:background="@drawable/toggle_follow_selector"
+                android:button="@drawable/toggle_follow_selector"
+                android:background="@android:color/transparent"
                 android:focusable="false"
                 android:checked="true"
                 android:textOff=""

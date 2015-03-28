@@ -20,11 +20,11 @@
             android:id="@+id/sendPostingCodeLayout"
             android:layout_width="match_parent"
             android:layout_height="48dp">
-
+            <!--35dp-->
             <ImageView
                 android:id="@+id/icon1"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/send_invitation_icon" />
@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="@dimen/navmenuitem_font_size"
                 android:layout_toRightOf="@+id/icon1"
                 android:text="@string/send_posting_codes" />
 
@@ -49,7 +50,7 @@
                 style="@style/Divider1"
                 android:layout_alignParentBottom="true"></View>
         </RelativeLayout>
-        <!---->
+        <!--35dp-->
         <RelativeLayout
             android:id="@+id/userSettingsLayout"
             android:layout_width="match_parent"
@@ -57,8 +58,8 @@
 
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/user_settings_icon" />
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="@dimen/navmenuitem_font_size"
                 android:layout_toRightOf="@+id/icon2"
                 android:text="@string/user_settings" />
 
@@ -91,8 +93,8 @@
 
             <ImageView
                 android:id="@+id/icon3"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/posting_rules_icon" />
@@ -102,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="@dimen/navmenuitem_font_size"
                 android:layout_toRightOf="@+id/icon3"
                 android:text="@string/posting_rules" />
 
@@ -127,8 +130,8 @@
 
             <ImageView
                 android:id="@+id/icon4"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/contact_icon" />
@@ -138,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="@dimen/navmenuitem_font_size"
                 android:layout_toRightOf="@+id/icon4"
                 android:text="@string/contact" />
 
@@ -180,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="@dimen/navmenuitem_font_size"
                 android:layout_toRightOf="@+id/icon5"
                 android:text="@string/privacy_policy" />
 
@@ -214,6 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="@dimen/navmenuitem_font_size"
                 android:layout_toRightOf="@+id/icon6"
                 android:text="@string/terms_of_service" />
 
@@ -249,6 +255,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
+            android:textSize="@dimen/navmenuitem_font_size"
             android:layout_toRightOf="@+id/icon7"
             android:text="@string/logout" />
 

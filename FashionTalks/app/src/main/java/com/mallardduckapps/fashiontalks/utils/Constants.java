@@ -5,7 +5,7 @@ package com.mallardduckapps.fashiontalks.utils;
  */
 public class Constants {
 
-    public final static int NO_CONNECTION = -1;
+    public final static int NO_CONNECTION = -99;
     public final static int AUTHENTICATION_FAILED = 0;
     public final static int AUTHENTICATION_CANCELED = 1;
     public final static int AUTHENTICATION_SUCCESSFUL = 2;

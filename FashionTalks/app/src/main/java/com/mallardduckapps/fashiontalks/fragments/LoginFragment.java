@@ -30,12 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.mallardduckapps.fashiontalks.LoginActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.tasks.LoginTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,28 +51,26 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private LoginActivity activity;
+    OnLoginFragmentInteractionListener mListener;
     public ViewSwitcher switcher;
     boolean loggedInBefore = false;
 //    private View container;
 
     @Override
     public void setTag() {
-        TAG = "Login";
+        TAG = "Giriş";
     }
 
-    public void setActivity(LoginActivity activity) {
-        this.activity = activity;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if(app.dataSaver != null){
             String accessToken = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
             Log.d(TAG, "ACCESS TOKEN: " + accessToken);
             if(!accessToken.equals("")){
-                if(activity != null){
+                if(mListener != null){
                     //showProgress(true);
                     loggedInBefore = true;
                     hideKeyboard();
@@ -87,17 +85,35 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnLoginFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnLoginFragmentInteractionListener");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
         switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
-        if(loggedInBefore){
-            switcher.setDisplayedChild(0);
-            activity.mainToolbar.setVisibility(View.GONE);
-        }else{
+//        if(loggedInBefore){
+//            switcher.setDisplayedChild(0);
+//            activity.mainToolbar.setVisibility(View.GONE);
+//        }else{
             switcher.setDisplayedChild(1);
-            activity.mainToolbar.setVisibility(View.VISIBLE);
-        }
+//            activity.mainToolbar.setVisibility(View.VISIBLE);
+//        }
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) rootView.findViewById(R.id.email);
         populateAutoComplete();
@@ -122,14 +138,25 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                 attemptLogin();
             }
         });
+        final Button forgetPasswordButton = (Button) rootView.findViewById(R.id.forgetPassword);
+        forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        mEmailSignInButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_md)));
+        forgetPasswordButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_md)));
+        /*
         Button mRegisterButton = (Button) rootView.findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideKeyboard();
-                activity.goRegistrationPage();
+                mListener.goRegistrationPage();
             }
-        });
+        });*/
 
         mLoginFormView = rootView.findViewById(R.id.login_form);
         mProgressView = rootView.findViewById(R.id.login_progress);
@@ -145,12 +172,6 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         return rootView;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        //((LoginActivity) activity).onSectionAttached();
-    }
-
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
@@ -162,7 +183,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
      */
     public void attemptLogin() {
         switcher.setDisplayedChild(0);
-        activity.mainToolbar.setVisibility(View.GONE);
+        mListener.setToolbarVisibility(false);
         hideKeyboard();
         if (authTask != null) {
             return;
@@ -197,7 +218,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             switcher.setDisplayedChild(1);
-            activity.mainToolbar.setVisibility(View.VISIBLE);
+            mListener.setToolbarVisibility(true);
             //focusView.requestFocus();
             showKeyboard(focusView);
 
@@ -313,7 +334,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(activity,
+                new ArrayAdapter<String>(getActivity(),
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
         mEmailView.setAdapter(adapter);
     }
@@ -342,8 +363,8 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                 switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
-                activity.saveTokens(tokens);
-                activity.goToMainActivity();
+                mListener.saveTokens(tokens);
+                mListener.goToMainActivity();
                 break;
         }
     }
@@ -353,7 +374,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         //TODO handle errors
         if(user != null && authStatus == Constants.AUTHENTICATION_SUCCESSFUL){
             app.setMe(user);
-            activity.goToMainActivity();
+            mListener.goToMainActivity();
             //activity.finish();
         }
 

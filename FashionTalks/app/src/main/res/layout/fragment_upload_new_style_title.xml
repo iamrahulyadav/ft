@@ -11,13 +11,13 @@
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="?listPreferredItemHeight"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
         android:background="@color/white">
         <EditText
             android:id="@+id/titleEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_toLeftOf="@+id/tickIcon"
             android:layout_marginLeft="20dp"
             android:hint="@string/upload_edit_title_hint"

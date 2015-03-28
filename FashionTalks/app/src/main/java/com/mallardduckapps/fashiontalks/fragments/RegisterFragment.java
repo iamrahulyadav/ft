@@ -30,10 +30,6 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class RegisterFragment extends BasicFragment implements RegisterTask.RegisterTaskCallback {
 
-//    public static RegisterFragment newInstance() {
-//        return new RegisterFragment();
-//    }
-
     private Button registerButton;
     private EditText userNameEdit;
     private EditText emailEdit;
@@ -50,29 +46,31 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     Button genderFemale;
     boolean isMale;
     View focusView = null;
-    LoginActivity activity;
+
     boolean isEditProfile;
     FashionTalksApp app;
+    OnLoginFragmentInteractionListener mListener;
 
     public RegisterFragment() {
     }
 
-    public void setActivity(LoginActivity activity){
-        this.activity = activity;
+    @Override
+    public void setTag() {
+        TAG = "Kayıt";
     }
 
     @Override
-    public void setTag() {
-        TAG = "Register";
-    }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.register_layout, container, false);
         FTUtils.setFont(container,FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_thin)));
-        isEditProfile = getArguments().getBoolean("EDIT_PROFILE", false);
+
         profilePic = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
         registerButton = (Button) rootView.findViewById(R.id.registerButton);
         userNameEdit = (EditText) rootView.findViewById(R.id.userName);
@@ -87,6 +85,10 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         aboutEdit = (EditText) rootView.findViewById(R.id.about);
         genderMale = (Button) rootView.findViewById(R.id.maleButton);
         genderFemale = (Button) rootView.findViewById(R.id.femaleButton);
+        genderMale.setTypeface(genderMale.getTypeface(), Typeface.BOLD);
+        genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.BOLD);
+        isEditProfile = getArguments().getBoolean("EDIT_PROFILE", false);
+
         genderMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +96,9 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
                     return;
                 }
                 isMale = true;
-                genderMale.setTypeface(genderMale.getTypeface(), Typeface.BOLD);
-                genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.NORMAL);
+                genderMale.setTextColor(getResources().getColor(R.color.black));
+                genderFemale.setTextColor(getResources().getColor(R.color.gray));
+
             }
         });
         genderFemale.setOnClickListener(new View.OnClickListener() {
@@ -105,8 +108,8 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
                     return;
                 }
                 isMale = false;
-                genderMale.setTypeface(genderMale.getTypeface(), Typeface.NORMAL);
-                genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.BOLD);
+                genderMale.setTextColor(getResources().getColor(R.color.gray));
+                genderFemale.setTextColor(getResources().getColor(R.color.black));
             }
         });
 
@@ -135,7 +138,12 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //((LoginActivity) activity).onSectionAttached();
+        try {
+            mListener = (OnLoginFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnLoginFragmentInteractionListener");
+        }
     }
 
     public boolean controlFields() {
@@ -212,11 +220,11 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         emailEdit.setEnabled(false);
         isMale = me.getGender().equals("M") ? true :false;
         if(isMale){
-            genderMale.setTypeface(genderMale.getTypeface(), Typeface.BOLD);
-            genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.NORMAL);
+            genderMale.setTextColor(getResources().getColor(R.color.black));
+            genderFemale.setTextColor(getResources().getColor(R.color.gray));
         }else{
-            genderMale.setTypeface(genderMale.getTypeface(), Typeface.NORMAL);
-            genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.BOLD);
+            genderMale.setTextColor(getResources().getColor(R.color.gray));
+            genderFemale.setTextColor(getResources().getColor(R.color.black));
         }
 
         firstNameEdit.setText(me.getFirstName());
@@ -250,8 +258,8 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
                 //authTask = null;
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
-                activity.saveTokens(tokens);
-                activity.goToMainActivity();
+                mListener.saveTokens(tokens);
+                mListener.goToMainActivity();
 
                 break;
             case Constants.PROFILE_EDIT_SUCCESSFUL:

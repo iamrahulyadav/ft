@@ -35,22 +35,22 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
     boolean getUserInfo = false;
    // String loginUrl;
 
-    public LoginTask(LoginFragment fragment, String email, String password){
+    public LoginTask(LoginTaskCallback fragment, String email, String password){
        // this.activity = activity;
         this.email = email;
         this.password = password;
-        context = fragment.getActivity();
+        //context = fragment.getActivity();
         //this.loginUrl = loginUrl;
         callBack = (LoginTaskCallback) fragment;
     }
 
-    public LoginTask(LoginFragment fragment){
+    public LoginTask(LoginTaskCallback fragment){
         // this.activity = activity;
         this.email = email;
         this.password = password;
         //this.loginUrl = loginUrl;
         getUserInfo = true;
-        callBack = (LoginTaskCallback) fragment;
+        callBack = fragment;
     }
 
     @Override
@@ -107,7 +107,6 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
 
             }
         }
-
     }
 
     public interface LoginTaskCallback {

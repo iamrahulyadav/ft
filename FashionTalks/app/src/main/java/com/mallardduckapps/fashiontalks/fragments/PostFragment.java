@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -150,6 +152,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
        // Log.d(TAG, "POST FR: POST ID: " + postId);
         final Post post = getPost();
 
+        //openComment = post.getCanComment() == 1 ? true: false;
+
         if(loaderId == Constants.MY_POSTS_LOADER_ID){
             user = app.getMe();
             ownPost = true;
@@ -236,7 +240,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         //TODO change 40x40
         String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(40).append("x").append(40).append("/").append(user.getPhotoPath()).toString();
         tvUserName.setText(user.getUserName());
-        tvName.setText(post.getTitle());
+        tvName.setText(StringEscapeUtils.unescapeJson(post.getTitle()));
         tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(" Glam").toString());
         //Log.d(TAG, "POST CREATED AT: " + post.getCreatedAt());
         tvPostTime.setText(TimeUtil.compareDateWithToday(post.getCreatedAt(), getResources()));
@@ -244,9 +248,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             @Override
             public void onClick(View v) {
                 GlammersFragment fragment = GlammersFragment.newInstance(Integer.toString(postId));
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, fragment).addToBackStack(fragment.getTag())
+                FragmentTransaction fragmentTx = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+                fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.getTag())
                         .commit();
             }
         });
@@ -255,14 +259,17 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             @Override
             public void onClick(View v) {
                 //if(post.getCommentCount() != 0){
+                if(post.getCanComment() == 0){
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("POST_ID", Integer.toString(postId));
                 CommentsFragment fragment = new CommentsFragment();
                 fragment.setArguments(bundle);
                 //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, fragment).addToBackStack(fragment.getTag())
+                FragmentTransaction fragmentTx = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+                        fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.getTag())
                         .commit();
                 //}
             }

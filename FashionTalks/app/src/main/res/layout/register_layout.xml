@@ -137,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:text="@string/male"
+                android:textColor="@color/gray"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textSize="17dp"
@@ -148,6 +149,7 @@
                 android:background="@android:color/transparent"
                 android:text="@string/female"
                 android:textSize="17dp"
+                android:textColor="@color/gray"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/maleButton"/>
@@ -162,6 +164,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textStyle="bold"
+
             android:textSize="25dp"
             android:text="@string/register"
             android:layout_marginLeft="15dp"

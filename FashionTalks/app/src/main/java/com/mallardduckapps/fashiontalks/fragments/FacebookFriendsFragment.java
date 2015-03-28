@@ -5,7 +5,8 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
-import android.app.ListFragment;
+
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.FacebookFriendsLoader;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,7 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
     protected View loadMoreFooterView;
     int itemCountPerLoad = 0;
     FacebookFriendsLoader loader;
+
     //private OnFragmentInteractionListener mListener;
 
     public static FacebookFriendsFragment newInstance() {
@@ -76,6 +79,8 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
         }
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noDataTv = (TextView) view.findViewById(R.id.noDataTv);
+        noDataTv.setText(getString(R.string.no_conection_with_fb));
+        noDataTv.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
         loadMoreFooterView = getLoadMoreView(inflater);
         return view;
     }

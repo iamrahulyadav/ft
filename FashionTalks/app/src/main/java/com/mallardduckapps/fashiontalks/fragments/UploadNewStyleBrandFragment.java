@@ -65,6 +65,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     RelativeLayout topBar;
     EditText brandEdit;
     TextView okTV;
+    TextView noBrand;
     ProgressBar progressBar;
     ProgressBar progressBarMain;
     boolean sendActive = true;
@@ -112,6 +113,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_upload_new_style_brand, container, false);
         lv = (ListView) rootView.findViewById(R.id.tagsListView);
+        noBrand = (TextView) rootView.findViewById(R.id.noBrandTv);
         lv.setVisibility(View.GONE);
         layout = (RelativeLayout) rootView.findViewById(R.id.mainPostLayout);
         bottomBar = (RelativeLayout) rootView.findViewById(R.id.bottomBar);
@@ -156,6 +158,10 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             @Override
             public void afterTextChanged(Editable s) {
                 //String text =
+                String t = s.toString().trim();
+                if(t.equals(text)){
+                    return;
+                }
                 text = s.toString().trim().toLowerCase(Locale.getDefault());
                 Log.d(TAG, "TEXT: " + text);
                 if(text.length() > 1){
@@ -479,6 +485,10 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             @Override
             public void run() {
                 progressBar.setVisibility(View.VISIBLE);
+
+                if(noBrand.getVisibility() == View.VISIBLE){
+                    noBrand.setVisibility(View.GONE);
+                }
             }
         });
         return loader;
@@ -487,7 +497,19 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     @Override
     public void onLoadFinished(Loader<ArrayList<Tag>> loader, ArrayList<Tag> data) {
         Log.d(TAG, "ON LOAD FINISHED: " + data.size());
+        if(data.size() == 0){
+            //no_brand text
+            lv.setVisibility(View.GONE);
+            String noBrandTxt = noBrand.getText().toString();
+            noBrandTxt = noBrandTxt.replace("|" , brandEdit.getText().toString());
+            noBrand.setText(noBrandTxt);
+            noBrand.setVisibility(View.VISIBLE);
+        }else{
+            lv.setVisibility(View.VISIBLE);
+            noBrand.setVisibility(View.GONE);
+        }
         tags = data;
+
         progressBar.setVisibility(View.GONE);
         filter();
     }

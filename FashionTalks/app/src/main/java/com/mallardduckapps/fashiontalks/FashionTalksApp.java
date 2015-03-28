@@ -1,11 +1,17 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.app.Activity;
 import android.app.Application;
+import android.app.DialogFragment;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.mallardduckapps.fashiontalks.fragments.NoConnectionDialog;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.User;
+import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.DataSaver;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -52,6 +58,17 @@ public class FashionTalksApp extends Application {
 
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         //menu.setMenu(R.layout.menu);
+    }
+
+
+    public void openNoConnectionDialog(Activity activity, Fragment fragment){
+        DialogFragment dialog = new NoConnectionDialog();
+        Bundle args = new Bundle();
+        args.putString("title", getString(R.string.no_connection_title));
+        args.putString("message", getString(R.string.no_connection));
+        dialog.setArguments(args);
+        //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        dialog.show(activity.getFragmentManager(), "tag");
     }
 
     @Override

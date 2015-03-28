@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -83,10 +84,9 @@ public class ProfileActivity extends ActionBarActivity {
             name = "following/"+userId;
         }
         FollowFragment fragment = FollowFragment.newInstance(userId, followers);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, fragment).addToBackStack(name)
-                .commit();
-        //TODO add animation;
+        FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
+        fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+        fragmentTx.add(R.id.container, fragment).addToBackStack(name).commit();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ProfileActivity extends ActionBarActivity {
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {
-                if(userId == 0){
+                if(userId == 0 ){ // || app.getMe().getId() == userId
                     Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                     startActivity(intent);
                     //BaseActivity.setTranslateAnimation(this);
@@ -122,13 +122,17 @@ public class ProfileActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if(userId == 0){
-            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-            startActivity(intent);
+        //super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+            getSupportFragmentManager().popBackStack();
+        } else {
+            if (userId == 0 ) { // || app.getMe().getId() == userId
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
 
+            }
+            finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
         }
-        finish();
-        BaseActivity.setBackwardsTranslateAnimation(this);
     }
 }

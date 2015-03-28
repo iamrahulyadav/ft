@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.objects.Notification;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -22,7 +23,7 @@ import com.mallardduckapps.fashiontalks.R;
  */
 public class GCMIntentService extends IntentService {
 
-    public static final int NOTIFICATION_ID = 1;
+    public static int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
    // NotificationCompat.Builder builder;
     final static String TAG = "GCMIntentService";
@@ -74,7 +75,7 @@ public class GCMIntentService extends IntentService {
                 // message=This is a test message from FashionTalks,
                 // android.support.content.wakelockid=1, collapse_key=do_not_collapse}]
 
-                sendNotification("Received: " + parseMessage(extras));
+                sendNotification(parseMessage(extras));
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
@@ -93,16 +94,25 @@ public class GCMIntentService extends IntentService {
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
-
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.app_logo)
-                        .setContentTitle("GCM Notification")
+                        .setContentTitle("FashionTalks")
+                        .setAutoCancel(true)
+                        .setDefaults(android.app.Notification.DEFAULT_SOUND | android.app.Notification.DEFAULT_VIBRATE)
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
 
         mBuilder.setContentIntent(contentIntent);
+        try{
+            mNotificationManager.cancel(NOTIFICATION_ID - 1);
+        }catch(Exception e){
+            Log.e(TAG, "Exception on cancelling previous notification");
+        }
+//TODO android:launchMode="singleTop" try this for opening in the same instance
+        //TODO id sets a new notification rather than putting in notification stack
         mNotificationManager.notify("FASHION_TALKS", NOTIFICATION_ID, mBuilder.build());
+        NOTIFICATION_ID++;
     }
 }

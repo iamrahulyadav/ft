@@ -31,4 +31,13 @@ public abstract class BasicFragment extends Fragment {
         public void onFragmentInteraction(String tag);
         public void onToolbarThemeChange(int themeId);
     }
+
+    public interface OnLoginFragmentInteractionListener {
+        // TODO: Update argument type and name
+        public void onFragmentInteraction(String tag);
+        public void goToMainActivity();
+        public void saveTokens(String... tokens);
+        public void setToolbarVisibility(boolean visible);
+        public void goRegistrationPage();
+    }
 }
