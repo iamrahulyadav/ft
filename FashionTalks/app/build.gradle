@@ -12,11 +12,7 @@ android {
         versionName "1.0"
     }
     android {
-        sourceSets {
-            main {
-                manifest.srcFile 'FashionTalks/app/src/main/AndroidManifest.xml'
-            }
-        }
+
         signingConfigs {
             config {
                 keyAlias 'fashiontalks'

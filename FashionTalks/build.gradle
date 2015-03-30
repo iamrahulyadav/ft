@@ -25,6 +25,11 @@ android {
     defaultConfig {
         minSdkVersion 14
     }
+        sourceSets {
+            main {
+                manifest.srcFile 'app/src/main/AndroidManifest.xml'
+            }
+        }
     productFlavors {
     }
 }

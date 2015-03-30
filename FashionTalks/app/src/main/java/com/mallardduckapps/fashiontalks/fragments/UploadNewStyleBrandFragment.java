@@ -89,6 +89,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     private int imageHeight;
     private ArrayList<Glam> glamList;
     String postTitle;
+    boolean deleteActionInProgress;
     //SearchTask task;
     SearchBrandLoader loader;
 
@@ -259,7 +260,6 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         //Log.d(TAG, "JSON title: " + object.getString("title"));
         SendPhotoTask task = new SendPhotoTask();
         task.execute(object.toString());
-
     }
 
     private void glamReady(String tagName){
@@ -320,7 +320,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         keyboardOpen = true;
     }
 
-    private void placeGlam(int x, int y, final int leftBorder, final int topBorder, final int imageWidth, final int imageHeight) {
+    private void placeGlam(final int x, final int y, final int leftBorder, final int topBorder, final int imageWidth, final int imageHeight) {
         final ExpandablePanel glam = new ExpandablePanel(getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? true : false, true);
         final int rightBorder = leftBorder + imageWidth - glam.getWidth();
         final int bottomBorder = topBorder + imageHeight - (int)getResources().getDimension(R.dimen.glam_width);
@@ -334,6 +334,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             int status = -1;
             float dx;
             float dy;
+
             boolean moveEnabled = true;
             RelativeLayout.LayoutParams lp;
             @Override
@@ -346,6 +347,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                         break;
                     case MotionEvent.ACTION_MOVE:
                         lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
+                       // dif  = (int) (Math.abs(event.getX() - dx) + Math.abs(event.getY() - dy));
                         int left = lp.leftMargin + ((int) (event.getX() - dx));
                         int top = lp.topMargin + ((int) (event.getY() - dy));
                         if (left > leftBorder && left < rightBorder && top > topBorder && top < bottomBorder) {
@@ -358,19 +360,26 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                         }else{
                             glam.setLhsAnimation(true);
                         }
+
                         status = 1;
                         break;
                     case MotionEvent.ACTION_UP:
                         if(glam.isReadyToDelete()){
                             layout.removeView(glam);
                             if(glamList != null){
-                                glamList.remove(glam);
+                                if(glamList.size() != 0){
+                                    glamList.remove(glamList.size() - 1 );
+                                }
                             }
                             break;
                         }
-                        if(status != 1 ){
-                            if(newGlamReadyToAdd)
+                        //int dif = (int) (Math.abs(event.getX() - lp.leftMargin) + Math.abs(event.getY() - lp.topMargin));
+                        //Log.d(TAG, "ACTION UP: " + dif);
+                        if(status != 1 ){//|| dif < 15
+                            if(newGlamReadyToAdd){
                                 glam.setReadyToDelete(true);
+                            }
+
                             //glam.setReadyToDelete(glam.isReadyToDelete());
                         }
                         //Log.d(TAG, "DROP ID: " + v.getgetId());
@@ -524,14 +533,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     private int getVirtualX(int x){
         Log.d(TAG, "REAL X: " + x  + " - Image Width: " + imageWidth + " - postPhotoX: " + postPhoto.getX());
         return Constants.VIRTUAL_WIDTH*x/imageWidth;
-
     }
 
     private int getVirtualY(int y){
         Log.d(TAG, "REAL Y: " + y  + " - Image Height: " + imageHeight + "- postPhotoY: " + postPhoto.getY());
         return (int)(Constants.VIRTUAL_HEIGHT*(y - postPhoto.getY()))/imageHeight;
     }
-
 
     public class SendPhotoTask extends AsyncTask<String, Void, String> {
         private final String TAG = "SendPhotoTask";

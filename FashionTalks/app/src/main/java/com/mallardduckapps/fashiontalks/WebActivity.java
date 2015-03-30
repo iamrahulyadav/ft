@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class WebActivity extends ActionBarActivity {
@@ -65,6 +66,23 @@ public class WebActivity extends ActionBarActivity {
         if(id == android.R.id.home){
             onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
+        return false;
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        BaseActivity.setBackwardsTranslateAnimation(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 }

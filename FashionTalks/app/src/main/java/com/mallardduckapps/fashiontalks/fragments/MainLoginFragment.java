@@ -2,9 +2,17 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +22,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
+import com.mallardduckapps.fashiontalks.tasks.ConnectFBTask;
+import com.mallardduckapps.fashiontalks.tasks.LoginFBTask;
 import com.mallardduckapps.fashiontalks.tasks.LoginTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
+
 public class MainLoginFragment extends BasicFragment implements LoginTask.LoginTaskCallback{
 
     TextView loginWithFbTv;
@@ -38,11 +57,16 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     ViewSwitcher switcher;
     OnLoginFragmentInteractionListener mListener;
     boolean loggedInBefore = false;
+    CallbackManager callbackManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = (FashionTalksApp) getActivity().getApplication();
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        showHashKey(getActivity());
+
         if(app.dataSaver != null){
             String accessToken = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
             Log.d(TAG, "ACCESS TOKEN: " + accessToken);
@@ -51,12 +75,29 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 loggedInBefore = true;
 //                hideKeyboard();
                 RestClient.setAccessToken(accessToken);
-                LoginTask authTask = new LoginTask(this);
+                LoginTask authTask = new LoginTask(this, getActivity());
                 authTask.execute();
                // }
             }else{
                 loggedInBefore = false;
             }
+        }
+    }
+
+    public static void showHashKey(Context context) {
+        //TODO
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.i("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("Exception", "NAME NOT FOUND EXCEPTION KEYHASH");
+        } catch (NoSuchAlgorithmException e) {
+            Log.d("EXception", "No such algorith EXCEPTION KEYHASH");
         }
     }
 
@@ -87,6 +128,44 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main_login, container, false);
+        final LoginButton loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add("user_friends");
+        permissions.add("public_profile");
+        permissions.add("email");
+        permissions.add("user_birthday");
+        permissions.add("user_location");
+
+        loginButton.setReadPermissions(permissions);
+
+        mListener.setToolbarVisibility(false);
+        // If using in a fragment
+        loginButton.setFragment(this);
+        // Other app specific specialization
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                String accessToken = loginResult.getAccessToken().getToken();
+                Log.d(TAG, "FB ON SUCCESS + " + accessToken);
+                LoginFBTask task = new LoginFBTask(getActivity(), MainLoginFragment.this, accessToken);
+                //ConnectFBTask task = new ConnectFBTask(accessToken, true);
+                task.execute();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.d(TAG, "FB ON ERROR");
+
+            }
+        });
         switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
         if(loggedInBefore){
             switcher.setDisplayedChild(0);
@@ -95,8 +174,6 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             switcher.setDisplayedChild(1);
            // activity.mainToolbar.setVisibility(View.VISIBLE);
         }
-
-
         loginWithFbTv = (TextView) rootView.findViewById(R.id.loginWithFB);
         loginwithFbSubtitleTv = (TextView) rootView.findViewById(R.id.loginWithFBSubtitle);
         signUpTv = (TextView) rootView.findViewById(R.id.signUp);
@@ -109,6 +186,9 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         loginWithEmailTv.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_thin)));
         termsAndPrivacyTv.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_thin)));
 
+        termsAndPrivacyTv.setMovementMethod(LinkMovementMethod.getInstance());
+        termsAndPrivacyTv.setText(Html.fromHtml(getResources().getString(R.string.terms_privacy_warning)));
+
         loginWithEmailTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +200,8 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             @Override
             public void onClick(View v) {
                 mListener.onFragmentInteraction("FBLogin");
+
+                loginButton.performClick();
             }
         });
 
@@ -133,6 +215,11 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         return rootView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {

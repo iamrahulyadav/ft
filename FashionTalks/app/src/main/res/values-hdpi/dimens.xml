@@ -15,7 +15,7 @@
     <dimen name="page_margin">25dp</dimen>
     <dimen name="thumbnail_width">50dp</dimen>
     <dimen name="thumbnail_height">50dp</dimen>
-
+    <dimen name = "postitem_font_size">13dp</dimen>
     <dimen name="new_style_photo_button">90dp</dimen>
     <dimen name="glam_width">26dp</dimen>
     <dimen name="popular_people_style_image_width">64dp</dimen>

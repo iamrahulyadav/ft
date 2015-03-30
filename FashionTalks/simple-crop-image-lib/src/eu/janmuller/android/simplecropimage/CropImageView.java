@@ -113,7 +113,7 @@ class CropImageView extends ImageViewTouchBase {
             return false;
         }
 
-        Log.d("ON TOUCH", "ON TOUCH EVENT TRIGGERED");
+        //Log.d("ON TOUCH", "ON TOUCH EVENT TRIGGERED");
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:

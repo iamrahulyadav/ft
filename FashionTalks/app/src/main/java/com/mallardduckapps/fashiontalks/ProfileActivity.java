@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.fragments.FollowFragment;
 import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
@@ -46,16 +47,15 @@ public class ProfileActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        //Log.d(TAG, "ON NEW INTENT: ");
-        //userId = intent.getIntExtra("PROFILE_ID", 0);
-        //onNewIntent = true;
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        AppEventsLogger.activateApp(this);
         if(onNewIntent){
             ProfileFragment fragment = ProfileFragment.newInstance(userId);
             getSupportFragmentManager().beginTransaction()

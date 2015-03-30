@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +36,7 @@ public class UploadNewStyleTitleFragment extends BasicFragment {
     Uri mImageUri;
     UploadNewStyleMainFragment.OnFragmentInteractionListener mListener;
     EditText titleEditText;
+    ImageView tickIcon;
 
     public UploadNewStyleTitleFragment() {
         // Required empty public constructor
@@ -52,9 +54,18 @@ public class UploadNewStyleTitleFragment extends BasicFragment {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_upload_new_style_title, container, false);
+        FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
         layout = (RelativeLayout) rootView.findViewById(R.id.mainPostLayout);
         bottomBar = (RelativeLayout) rootView.findViewById(R.id.bottomBar);
         titleEditText = (EditText) rootView.findViewById(R.id.titleEditText);
+        tickIcon = (ImageView) rootView.findViewById(R.id.tickIcon);
+        tickIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard();
+                mListener.onFragmentInteraction("CONTINUE", titleEditText.getText().toString());
+            }
+        });
         final ImageView postPhoto = (ImageView)rootView.findViewById(R.id.postImage);
         postPhoto.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,6 +24,10 @@ public class Constants {
     public final static String LOGIN_PREFIX = "/users/login";
     public final static String GET_USER_PREFIX = "/members/profile";
     public final static String REGISTER_PREFIX = "/users/register";
+    public final static String CONNECT_FB = "/connect/facebook";
+    public final static String LOGIN_FB = "/users/facebook";
+    public final static String RESET_PASS = "/users/reset";
+
     public final static String REGISTER_GCM_TOKEN = "/members/android-token";
     public final static String TEST_NOTIFICATIONS = "/members/test-push-notification";
 
@@ -101,7 +105,6 @@ public class Constants {
     public final static String TARGET_POST = "post";
     public final static String TARGET_COMMENT = "comment";
     public final static String TARGET_CODE_REQUEST = "code-request";
-
 
     public static final int VIRTUAL_WIDTH = 320;
     public static final int VIRTUAL_HEIGHT = 320;

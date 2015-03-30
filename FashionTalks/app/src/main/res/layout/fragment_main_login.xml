@@ -37,16 +37,38 @@
             android:layout_height="match_parent"
             android:background="@drawable/splash_portrait" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4DFFFFFF"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/ft_logo"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft = "12dp"
+            android:layout_marginRight = "12dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
             <TextView
                 android:id="@+id/loginWithFB"
                 android:layout_width="match_parent"
@@ -54,8 +76,9 @@
                 android:layout_marginBottom="4dp"
                 android:gravity="center_horizontal"
                 android:text="@string/login_with_fb"
+                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/loginWithFBSubtitle"
@@ -74,8 +97,9 @@
                 android:layout_marginBottom="22dp"
                 android:gravity="center_horizontal"
                 android:text="@string/login_with_email"
+                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/signUp"
@@ -85,16 +109,18 @@
                 android:gravity="center_horizontal"
                 android:text="@string/signup"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="21dp" />
 
             <TextView
                 android:id="@+id/termsAndPrivacy"
+                android:linksClickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:gravity="center_horizontal"
                 android:text="@string/terms_privacy_warning"
                 android:textColor="@color/black"
+                android:textColorLink="#000000"
                 android:textSize="16dp" />
 
         </LinearLayout>

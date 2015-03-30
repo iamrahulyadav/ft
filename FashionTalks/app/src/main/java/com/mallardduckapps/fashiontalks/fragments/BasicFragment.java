@@ -39,5 +39,6 @@ public abstract class BasicFragment extends Fragment {
         public void saveTokens(String... tokens);
         public void setToolbarVisibility(boolean visible);
         public void goRegistrationPage();
+        public void setTitleName(String name);
     }
 }

@@ -1,10 +1,13 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,12 +16,14 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-public class EditProfileActivity extends ActionBarActivity {
+public class EditProfileActivity extends ActionBarActivity implements BasicFragment.OnLoginFragmentInteractionListener {
 
     Toolbar mainToolbar;
     FashionTalksApp app;
@@ -44,8 +49,9 @@ public class EditProfileActivity extends ActionBarActivity {
             Bundle bundle = new Bundle();
             bundle.putBoolean("EDIT_PROFILE", true);
             editProfileFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, editProfileFragment)
+            FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
+            fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+            fragmentTx.add(R.id.container, editProfileFragment)
                     .commit();
         }
     }
@@ -79,4 +85,45 @@ public class EditProfileActivity extends ActionBarActivity {
         BaseActivity.setBackwardsTranslateAnimation(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    public void onFragmentInteraction(String tag) {
+
+    }
+
+    @Override
+    public void goToMainActivity() {
+
+    }
+
+    @Override
+    public void saveTokens(String... tokens) {
+
+    }
+
+    @Override
+    public void setToolbarVisibility(boolean visible) {
+
+    }
+
+    @Override
+    public void goRegistrationPage() {
+
+    }
+
+    @Override
+    public void setTitleName(String name) {
+
+    }
 }

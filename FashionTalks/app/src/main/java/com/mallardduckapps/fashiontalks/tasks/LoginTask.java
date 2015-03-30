@@ -35,17 +35,18 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
     boolean getUserInfo = false;
    // String loginUrl;
 
-    public LoginTask(LoginTaskCallback fragment, String email, String password){
+    public LoginTask(Context context, LoginTaskCallback fragment, String email, String password){
        // this.activity = activity;
         this.email = email;
         this.password = password;
-        //context = fragment.getActivity();
+        this.context = context;
         //this.loginUrl = loginUrl;
         callBack = (LoginTaskCallback) fragment;
     }
 
-    public LoginTask(LoginTaskCallback fragment){
+    public LoginTask(LoginTaskCallback fragment, Context context){
         // this.activity = activity;
+        this.context = context;
         this.email = email;
         this.password = password;
         //this.loginUrl = loginUrl;

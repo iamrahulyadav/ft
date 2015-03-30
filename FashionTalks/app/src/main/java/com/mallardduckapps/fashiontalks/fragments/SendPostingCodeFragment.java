@@ -164,7 +164,7 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
             //dataList.add(app.getOther());
             //setListAdapter(adapter);
             progressBar.setVisibility(View.GONE);
-            noDataTv.setVisibility(View.VISIBLE);
+            //noDataTv.setVisibility(View.VISIBLE);
         }
         loading = false;
     }

@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.fragments.SendPostingCodeFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
@@ -42,7 +43,30 @@ public class SendPostingCodeActivity extends ActionBarActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+        BaseActivity.setBackwardsTranslateAnimation(this);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return false;//super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
+        }
+        return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 }

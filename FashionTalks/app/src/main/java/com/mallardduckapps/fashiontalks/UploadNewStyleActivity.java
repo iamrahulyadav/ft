@@ -32,9 +32,12 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     public final static int REQ_PICK_IMAGE = 0;
     public final static int REQ_CAMERA = 1;
     public final static int REQ_CROP = 2;
+    public final static int REQ_PICK_IMAGE_CALL = 10;
+    public final static int REQ_CAMERA_CALL = 11;
+    public final static int REQ_CROP_CALL = 12;
+
     //Uri mImageUri;
     TextView tvName;
-    public static String mCurrentPhotoPath;
     public static int width;
     public static int height;
 
@@ -65,10 +68,10 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         mainFragment = new UploadNewStyleMainFragment();
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            UploadNewStyleActivity.mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
+            mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
         }
         else {
-            UploadNewStyleActivity.mFileTemp = new File(getFilesDir(), TEMP_PHOTO_FILE_NAME);
+            mFileTemp = new File(getFilesDir(), TEMP_PHOTO_FILE_NAME);
         }
 /*        mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
         setSupportActionBar(mainToolbar);

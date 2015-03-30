@@ -75,7 +75,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                     loggedInBefore = true;
                     hideKeyboard();
                     RestClient.setAccessToken(accessToken);
-                    LoginTask authTask = new LoginTask(this);
+                    LoginTask authTask = new LoginTask(this, getActivity());
                     authTask.execute();
                 }
             }else{
@@ -106,6 +106,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
+        mListener.setTitleName(TAG);
         switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
 //        if(loggedInBefore){
 //            switcher.setDisplayedChild(0);
@@ -142,24 +143,15 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mListener.onFragmentInteraction("password");
             }
         });
 
         mEmailSignInButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_md)));
         forgetPasswordButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_md)));
-        /*
-        Button mRegisterButton = (Button) rootView.findViewById(R.id.register_button);
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
-                mListener.goRegistrationPage();
-            }
-        });*/
-
         mLoginFormView = rootView.findViewById(R.id.login_form);
         mProgressView = rootView.findViewById(R.id.login_progress);
+        mListener.setToolbarVisibility(true);
         Handler handler = new Handler();
         final Runnable r = new Runnable() {
             public void run() {
@@ -224,7 +216,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 
         } else {
             showProgress(true);
-            authTask = new LoginTask(this, email, password);
+            authTask = new LoginTask(getActivity(),this, email, password);
             authTask.execute();
         }
     }

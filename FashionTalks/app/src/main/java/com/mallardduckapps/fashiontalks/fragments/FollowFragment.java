@@ -170,6 +170,11 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
         if(dataList.size() == 0){
             progressBar.setVisibility(View.GONE);
             noDataTv.setVisibility(View.VISIBLE);
+            if(followers){
+                noDataTv.setText(getString(R.string.no_followers));
+            }else{
+                noDataTv.setText(getString(R.string.no_following));
+            }
         }
         loading = false;
     }

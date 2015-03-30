@@ -308,6 +308,9 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 if(ProfileActivity.imageGalleryChanged){
                     loader = (PostsLoader) getActivity().getLoaderManager()
                             .restartLoader(loaderId, null, this);
+                    //TODO Control this
+                    dataList = null;
+                    listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
                     ProfileActivity.imageGalleryChanged = false;
                 }
                 //loader.startLoading(); //= (PopularPostsLoader) getActivity().getLoaderManager()

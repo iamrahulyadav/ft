@@ -18,8 +18,11 @@
             android:id="@+id/titleEditText"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:layout_toLeftOf="@+id/tickIcon"
             android:layout_marginLeft="20dp"
+            android:textSize="14dp"
             android:hint="@string/upload_edit_title_hint"
             android:maxLines="2"
             android:background="@color/white"/>

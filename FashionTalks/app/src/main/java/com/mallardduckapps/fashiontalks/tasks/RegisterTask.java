@@ -95,9 +95,10 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
             Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
             accessToken = oauthObject.get("access_token").getAsString();
             refreshToken = oauthObject.get("refresh_token").getAsString();
-            callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
+            callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,me, accessToken, refreshToken);
         }else{
-            callBack.getAuthStatus(Constants.PROFILE_EDIT_SUCCESSFUL,null, null, null);
+
+            callBack.getAuthStatus(Constants.PROFILE_EDIT_SUCCESSFUL,me, null, null);
         }
 
     }

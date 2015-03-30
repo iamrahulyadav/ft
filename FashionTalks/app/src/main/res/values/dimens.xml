@@ -18,6 +18,6 @@
 
     <dimen name = "title_font_size">16dp</dimen>
     <dimen name = "navmenuitem_font_size">15dp</dimen>
-    <dimen name = "postitem_font_size">14dp</dimen>
+    <dimen name = "postitem_font_size">13dp</dimen>
 
 </resources>

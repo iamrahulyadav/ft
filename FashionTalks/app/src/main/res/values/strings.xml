@@ -56,13 +56,19 @@
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="no_brand">Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.</string>
     <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
+    <string name="password_error_dialog">Şifre gönderilirken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="password_success_dialog">Şifreniz Email adresinize gönderildi. Lütfen Email adresinizi kontrol ediniz.</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="success">Başarılı</string>
+    <string name="unsuccessful">Başarısız</string>
 
     <!-- Profile -->
     <string name="follow">Takip Et</string>
     <string name="unfollow">Takibi Bırak</string>
     <string name="followers">Takip Edenler</string>
     <string name="following">Takip Ediyor</string>
+    <string name="no_followers">Kimseyi Takip Etmiyor</string>
+    <string name="no_following">Kimse Takip Etmiyor</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_style_upload">StyleUploadActivity</string>
 
@@ -110,6 +116,7 @@
     <string name="email_send_report_content">I would like to report this photo.</string>
 
     <!-- Upload Screens -->
+    <string name = "upload_title">Kaynak Seç</string>
     <string name="upload_select_or_shoot">Yeni bir resim çekin veya albümden bir resim seçin.</string>
     <string name="upload_edit_title_hint">Bir metin ekleyin (Başlık, Not, Yorum)</string>
     <string name="upload_brand_hint">Bir kıyafete tıklayarak markasını ekleyebilir, etiketini sürükleyebilir veya silebilirsiniz.</string>
@@ -123,11 +130,9 @@
     <string name="title_activity_cam_test">CamTestActivity</string>
     <string name="camera_not_found">Kamera Bulunamadı.</string>
 
-
     <string name="search_user">Kullanıcı Ara</string>
     <string name="search_brand">Marka Ara</string>
     <string name="title_activity_search">SearchActivity</string>
-
     <string name="no_conection_with_fb">Facebook\'a bağlı değilsiniz</string>
     <string name="connect_to_fb">Facebook\'a bağlan</string>
     <string name="login_with_fb">Facebook ile Giriş</string>
@@ -135,6 +140,9 @@
     <string name="login_with_email">Email ile Giriş</string>
     <string name="forget_password">Şifremi Unuttum</string>
     <string name="signup">Kayıt Ol</string>
-    <string name="terms_privacy_warning">By joining FashionTalks you agree the \n Terms of Service and Privacy Policy</string>
+    <string name="send_password">Şifre Gönder</string>
+    <string name="terms_privacy_warning">By joining FashionTalks you agree the <![CDATA[<a href="http://www.fashiontalks.org/terms-of-use.html"> <br> <b>Terms of Service</b></a>]]> and
+        <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="fbId">340890866061812</string>
 </resources>

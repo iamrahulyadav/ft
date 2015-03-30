@@ -135,7 +135,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    app.openNoConnectionDialog(GlammersFragment.this.getActivity(), GlammersFragment.this);
+                    app.openOKDialog(GlammersFragment.this.getActivity(), GlammersFragment.this, "no_connection");
                 }
             });
 

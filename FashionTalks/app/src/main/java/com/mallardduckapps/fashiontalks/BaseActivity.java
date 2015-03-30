@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.components.SlidingTabLayout;
 import com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment;
@@ -94,7 +95,13 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     protected void onResume() {
         super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     protected void setSlidingStrips(){

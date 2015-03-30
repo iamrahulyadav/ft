@@ -107,27 +107,22 @@ public class CropImage extends MonitoredActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
-
         super.onCreate(icicle);
         mContentResolver = getContentResolver();
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.cropimage);
-
         mImageView = (CropImageView) findViewById(R.id.image);
 
         showStorageToast(this);
-        Log.d(TAG, "ON CREATE CROP IMAGE + path: " + mImagePath);
+        //Log.d(TAG, "ON CREATE CROP IMAGE + path: " + mImagePath);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-
             if (extras.getString(CIRCLE_CROP) != null) {
 
         	if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             		mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         	}
-
                 mCircleCrop = true;
                 mAspectX = 1;
                 mAspectY = 1;

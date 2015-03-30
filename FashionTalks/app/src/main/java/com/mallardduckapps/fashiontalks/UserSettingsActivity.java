@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.fragments.UserSettingsFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
@@ -47,7 +48,25 @@ public class UserSettingsActivity extends ActionBarActivity {
         if(item.getItemId() == android.R.id.home){
             onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        BaseActivity.setBackwardsTranslateAnimation(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 }

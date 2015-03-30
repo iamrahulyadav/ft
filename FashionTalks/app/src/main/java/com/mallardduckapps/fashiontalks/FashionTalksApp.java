@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.NoConnectionDialog;
+import com.mallardduckapps.fashiontalks.fragments.UploadPicDialog;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -27,6 +29,7 @@ public class FashionTalksApp extends Application {
     public DataSaver dataSaver;
     private final String TAG = "FashionTalksApp";
     public DisplayImageOptions options;
+    //public DisplayImageOptions optionsNoCache;
     //ArrayList<Gallery> galleryArrayList;
     ArrayList<Post> popularPostArrayList;
     ArrayList<Post> feedPostArrayList;
@@ -54,21 +57,41 @@ public class FashionTalksApp extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .defaultDisplayImageOptions(options).build();
         ImageLoader.getInstance().init(config);
-
-
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         //menu.setMenu(R.layout.menu);
     }
 
 
-    public void openNoConnectionDialog(Activity activity, Fragment fragment){
+    public void openOKDialog(Activity activity, Fragment fragment, String dialogType){
         DialogFragment dialog = new NoConnectionDialog();
         Bundle args = new Bundle();
-        args.putString("title", getString(R.string.no_connection_title));
-        args.putString("message", getString(R.string.no_connection));
+        if(dialogType.equals("no_connection")){
+            args.putString("title", getString(R.string.no_connection_title));
+            args.putString("message", getString(R.string.no_connection));
+        }else if(dialogType.equals("send_password_success")){
+            args.putString("title", getString(R.string.send_password));
+            args.putString("message", getString(R.string.password_success_dialog));
+        }else if(dialogType.equals("send_password_unsuccessful")){
+            args.putString("title", getString(R.string.send_password));
+            args.putString("message", getString(R.string.password_error_dialog));
+        }
+
         dialog.setArguments(args);
         //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
-        dialog.show(activity.getFragmentManager(), "tag");
+        dialog.show(activity.getFragmentManager(), fragment.getTag());
+    }
+
+    public void openUploadPicDialog(Activity activity, BasicFragment fragment){
+        UploadPicDialog dialog = new UploadPicDialog();
+        Bundle args = new Bundle();
+        args.putString("title", getString(R.string.upload_title));
+        args.putString("message", getString(R.string.upload_select_or_shoot));
+        args.putString("positive_button", getString(R.string.upload_shoot));
+        args.putString("negative_button", getString(R.string.upload_select));
+        dialog.setArguments(args);
+        dialog.setTargetFragment(fragment);
+        //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        dialog.show(activity.getFragmentManager(), fragment.getTag());
     }
 
     @Override

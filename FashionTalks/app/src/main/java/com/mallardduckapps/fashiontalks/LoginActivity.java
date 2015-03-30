@@ -14,7 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.ForgetPasswordFragment;
 import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
 import com.mallardduckapps.fashiontalks.fragments.MainLoginFragment;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
@@ -30,10 +35,12 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
     private MainLoginFragment mainLoginFragment;
+    private ForgetPasswordFragment forgetPasswordFragment;
     FragmentManager fragmentManager;
     public Toolbar mainToolbar;
     FashionTalksApp app;
     TextView tvName;
+
     //CharSequence mTitle;
 
     @Override
@@ -45,7 +52,10 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment();
         mainLoginFragment = new MainLoginFragment();
+        forgetPasswordFragment = new ForgetPasswordFragment();
 
+       // LoginButton loginButton = (LoginButton) view.findViewById(R.id.usersettings_fragment_login_button);
+        //loginButton.registerCallback(callbackManager, new LoginButton.Callback() {  });
        // registerFragment.setActivity(this);
         mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
         tvName = (TextView) findViewById(R.id.toolbarName);
@@ -60,6 +70,18 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         //actionBar.setDisplayShowTitleEnabled(true);
         //goLoginPage();
         goMainLoginPage();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
@@ -82,7 +104,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     public void onBackPressed() {
 
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
-                setToolbarVisibility(false);
+
                 getSupportFragmentManager().popBackStack();
             } else {
                 finish();
@@ -101,6 +123,11 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         tvName.setText(registerFragment.TAG);
         mainToolbar.setVisibility(View.VISIBLE);
         //mainToolbar.setTag(registerFragment.TAG);
+    }
+
+    @Override
+    public void setTitleName(String name) {
+        tvName.setText(name);
     }
 
     public void goLoginPage(){
@@ -123,8 +150,17 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         //mainToolbar.setTag(loginFragment.TAG);
     }
 
-    public void goToMainActivity(){
+    public void goToResetPasswordPage(){
+        FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
+        fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+        fragmentTx.replace(R.id.container, forgetPasswordFragment ).addToBackStack(forgetPasswordFragment.TAG)
+                .commit();
+        tvName.setText(getString(R.string.forget_password));
+        //tvName.setText(loginFragment.TAG);
+        mainToolbar.setVisibility(View.VISIBLE);
+    }
 
+    public void goToMainActivity(){
         Log.d("LOGIN_ACTIVITY", "GOTO MAIN ACTIVITY");
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -133,7 +169,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         BaseActivity.setTranslateAnimation(this);
     }
 
-    public void saveTokens(String...tokens){
+    public void saveTokens( String...tokens){
         app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, tokens[0]);
         app.dataSaver.putString(Constants.REFRESH_TOKEN_KEY, tokens[1]);
         RestClient.setAccessToken(tokens[0]);
@@ -157,6 +193,8 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
             goRegistrationPage();
         }else if(tag.equals("FBLogin")){
 
+        }else if(tag.equals("password")){
+            goToResetPasswordPage();
         }
     }
 

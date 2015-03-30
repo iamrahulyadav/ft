@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;
@@ -126,6 +127,17 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -184,12 +196,6 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 break;
         }
         return list;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "ON RESUME");
     }
 
     @Override

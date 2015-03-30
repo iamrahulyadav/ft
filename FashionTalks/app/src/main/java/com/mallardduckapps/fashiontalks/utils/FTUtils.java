@@ -59,7 +59,9 @@ public class FTUtils {
             return null;
         }
         for (BasicNameValuePair param : params) {
-            object.put(param.getName(), param.getValue());
+            if(param != null){
+                object.put(param.getName(), param.getValue());
+            }
         }
         Log.d("JSON", "JSON: " + object.toString());
         return object.toString();

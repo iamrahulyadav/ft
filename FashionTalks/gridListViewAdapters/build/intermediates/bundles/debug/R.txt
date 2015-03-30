@@ -1,0 +1,2 @@
+int string key_click_event_id 0x7f020000
+int string key_view_position 0x7f020001

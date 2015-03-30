@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/FashionTalks.iml" filepath="$PROJECT_DIR$/FashionTalks.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/emojiTextView/emojiTextView.iml" filepath="$PROJECT_DIR$/emojiTextView/emojiTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/gridListViewAdapters/gridListViewAdapters.iml" filepath="$PROJECT_DIR$/gridListViewAdapters/gridListViewAdapters.iml" />
