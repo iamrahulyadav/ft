@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,18 @@ public class UserSettingsFragment extends BasicFragment implements LoaderManager
     @Override
     public void onLoadFinished(Loader<Settings> loader, Settings data) {
         Log.d(TAG, "SETTINGS LOADED");
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(UserSettingsFragment.this.getActivity(), UserSettingsFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
         // talksToggle.setChecked(data.get);
         newGlamEmailToggle.setChecked(data.getIsGlamEmailOn() == 1 ? true : false);
         newGlamNotificationToggle.setChecked(data.getIsGlamPushOn() == 1 ? true : false);

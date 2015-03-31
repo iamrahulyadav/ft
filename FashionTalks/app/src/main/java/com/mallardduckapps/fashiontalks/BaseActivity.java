@@ -119,18 +119,28 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(menu.isMenuShowing()){
+            app.exitDialog(this);
+            //finish();
+        }else{
+            menu.toggle();
+        }
+       // if(menu.isMenuShowing()){
+           // menu.toggle();
+        //}
     }
 
     @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-
-       // if(menu.isMenuShowing()){
-            menu.toggle();
-        //}
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "EXIT MESSAGE: " + requestCode + " - resultCode: " + resultCode);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == 666){
+                finish();
+            }
+        }
     }
 
     @Override

@@ -61,6 +61,8 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="success">Başarılı</string>
     <string name="unsuccessful">Başarısız</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
 
     <!-- Profile -->
     <string name="follow">Takip Et</string>

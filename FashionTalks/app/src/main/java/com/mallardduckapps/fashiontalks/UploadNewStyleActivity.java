@@ -200,7 +200,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
                 fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
                 //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left);
                 //fragmentTx.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                fragmentTx.replace(R.id.container, fragment)//.addToBackStack(fragment.TAG)
+                fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.TAG)
                         .commitAllowingStateLoss();
                 tvName.setText(getResources().getString(R.string.upload_new_title));
 

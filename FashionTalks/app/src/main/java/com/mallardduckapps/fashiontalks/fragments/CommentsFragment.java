@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.CommentListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.CommentListLoader;
@@ -46,6 +48,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     ArrayList<Comment> dataList;
     EditText editText;
     boolean sendingMessage;
+    FashionTalksApp app;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
@@ -68,7 +71,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        app = (FashionTalksApp) getActivity().getApplication();
         if (getArguments() != null) {
             paramPostId = getArguments().getString(POST_ID);
         }
@@ -140,6 +143,20 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Comment>> loader, ArrayList<Comment> data) {
+
+        if(data == null){
+            Log.d("Comments Fragment", "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(CommentsFragment.this.getActivity(), CommentsFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
+
         if(adapter == null){
             dataList = data;
             adapter = new CommentListAdapter(getActivity(),dataList);

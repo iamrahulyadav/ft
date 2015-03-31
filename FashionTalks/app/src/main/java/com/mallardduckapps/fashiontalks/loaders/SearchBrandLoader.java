@@ -58,6 +58,7 @@ public class SearchBrandLoader extends AsyncTaskLoader<ArrayList<Tag>> {
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
         return tagList;
     }

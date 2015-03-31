@@ -49,6 +49,7 @@ public class GetSettingsLoader extends AsyncTaskLoader<Settings> {
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
         return settings;
     }

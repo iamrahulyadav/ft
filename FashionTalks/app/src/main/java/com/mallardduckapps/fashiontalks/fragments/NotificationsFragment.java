@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,6 +137,19 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Notification>> loader, ArrayList<Notification> data) {
+
+        if(data == null){
+            Log.d("NotificationsFragment", "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(NotificationsFragment.this.getActivity(), NotificationsFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
         adapter = new NotificationListAdapter(getActivity(),data);
         setListAdapter(adapter);
         if(data.size() == 0){

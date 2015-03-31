@@ -45,6 +45,7 @@ public class NotificationListLoader extends AsyncTaskLoader<ArrayList<Notificati
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
         //String object = new JSONObject(response).getJSONObject("data").toString();
         JsonElement element = new JsonParser().parse(response).getAsJsonObject().get("data");

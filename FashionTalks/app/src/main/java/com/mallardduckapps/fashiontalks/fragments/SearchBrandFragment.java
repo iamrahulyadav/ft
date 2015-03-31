@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -228,6 +229,19 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
 
     @Override
     public void onLoadFinished(android.content.Loader<ArrayList<Tag>> loader, ArrayList<Tag> data) {
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(SearchBrandFragment.this.getActivity(), SearchBrandFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
+
         Log.d(TAG, "ON LOAD FINISHED: " + data.size());
         tags = data;
         progressBar.setVisibility(View.GONE);

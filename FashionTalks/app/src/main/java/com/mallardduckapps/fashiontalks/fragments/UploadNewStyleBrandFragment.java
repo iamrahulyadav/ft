@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -530,6 +531,19 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Tag>> loader, ArrayList<Tag> data) {
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(UploadNewStyleBrandFragment.this.getActivity(), UploadNewStyleBrandFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
+
         Log.d(TAG, "ON LOAD FINISHED: " + data.size());
         if(data.size() == 0){
             //no_brand text

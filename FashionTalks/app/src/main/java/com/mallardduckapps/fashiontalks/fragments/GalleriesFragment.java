@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -92,6 +93,19 @@ public class GalleriesFragment extends BasicFragment implements
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Gallery>> loader, ArrayList<Gallery> data) {
+
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(GalleriesFragment.this.getActivity(), GalleriesFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
         Log.d(TAG, "ON LOAD FINISHED");
         items = data;
         int index = 0;

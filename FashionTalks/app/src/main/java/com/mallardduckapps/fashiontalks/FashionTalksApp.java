@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.ExitDialog;
 import com.mallardduckapps.fashiontalks.fragments.NoConnectionDialog;
 import com.mallardduckapps.fashiontalks.fragments.UploadPicDialog;
 import com.mallardduckapps.fashiontalks.objects.Post;
@@ -91,7 +92,21 @@ public class FashionTalksApp extends Application {
         dialog.setArguments(args);
         dialog.setTargetFragment(fragment);
         //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        //TOdo control if tag is right?
         dialog.show(activity.getFragmentManager(), fragment.getTag());
+    }
+
+    public void exitDialog(Activity activity){
+        ExitDialog dialog = new ExitDialog();
+        Bundle args = new Bundle();
+        args.putString("title", getString(R.string.logout));
+        args.putString("message", getString(R.string.logout_alert));
+        args.putString("positive_button", getString(R.string.yes));
+        args.putString("negative_button", getString(R.string.no));
+        dialog.setArguments(args);
+        //dialog.setTargetFragment(fragment);
+        //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        dialog.show(activity.getFragmentManager(), "Exit_Dialog");
     }
 
     @Override

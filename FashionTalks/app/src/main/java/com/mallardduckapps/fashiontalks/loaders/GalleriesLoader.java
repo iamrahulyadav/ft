@@ -45,6 +45,7 @@ public class GalleriesLoader extends AsyncTaskLoader<ArrayList<Gallery>> {
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
         JsonObject object = new JsonParser().parse(response).getAsJsonObject();
         Gson gson = new GsonBuilder().create();

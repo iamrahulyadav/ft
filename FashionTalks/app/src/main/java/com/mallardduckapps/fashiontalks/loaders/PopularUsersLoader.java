@@ -43,6 +43,7 @@ public class PopularUsersLoader extends AsyncTaskLoader<ArrayList<PopularUser>> 
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
 
         JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");

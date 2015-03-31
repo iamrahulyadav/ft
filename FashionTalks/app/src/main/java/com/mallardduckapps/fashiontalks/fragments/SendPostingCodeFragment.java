@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.SendPostingCodeActivity;
 import com.mallardduckapps.fashiontalks.adapters.SendCodeListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.SendCodeListLoader;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -146,6 +148,19 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
         //getListView().setOnScrollListener(this);
         //itemCountPerLoad = data.size();
         //Log.d(TAG, "LOAD SIZE: " + itemCountPerLoad);
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(SendPostingCodeFragment.this.getActivity(), SendPostingCodeFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
+
         ListView listView = getListView();
         if(dataList == null){
             adapter.addData(data);

@@ -53,6 +53,7 @@ public class PostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
         //HANDLE THIS
         //Caused by: java.lang.IllegalStateException: Not a JSON Object: "NO_CONNECTION"

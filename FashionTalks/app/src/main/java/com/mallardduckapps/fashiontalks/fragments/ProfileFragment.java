@@ -6,6 +6,7 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -198,6 +199,19 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Post>> loader, ArrayList<Post> data) {
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(ProfileFragment.this.getActivity(), ProfileFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
+
         Log.d(TAG, "ON LOAD FINISHED: " + data.size() + " - profileId: " + profileId);
         itemCountPerLoad = 0;
         if(dataList == null){

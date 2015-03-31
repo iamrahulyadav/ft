@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -200,6 +201,18 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(Loader<ArrayList<User>> loader, ArrayList<User> data) {
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(SearchUserFragment.this.getActivity(), SearchUserFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
         Log.d(TAG, "ON LOAD FINISHED: " + data.size());
         userList = data;
         progressBar.setVisibility(View.GONE);

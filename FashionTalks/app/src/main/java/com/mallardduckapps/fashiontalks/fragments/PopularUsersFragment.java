@@ -6,6 +6,7 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,7 +128,20 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
     @Override
     public void onLoadFinished(Loader<ArrayList<PopularUser>> loader, ArrayList<PopularUser> data) {
         ListView listView = getListView();
-        if(data == null || data.size() == 0){
+
+        if(data == null){
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(PopularUsersFragment.this.getActivity(), PopularUsersFragment.this, "no_connection");
+                }
+            });
+
+            return;
+        }
+        if( data.size() == 0){
 
             progressBar.setVisibility(View.GONE);
             emptyTv.setVisibility(View.VISIBLE);

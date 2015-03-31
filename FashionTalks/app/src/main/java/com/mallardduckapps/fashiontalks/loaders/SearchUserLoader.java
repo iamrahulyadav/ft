@@ -59,6 +59,7 @@ public class SearchUserLoader extends AsyncTaskLoader<ArrayList<User>> {
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return null;
         }
         return userList;
     }

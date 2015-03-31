@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -413,6 +414,18 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             }else{
                 showNextView();
             }
+        }
+        else{
+            Log.d(TAG, "DATA IS NULL");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    app.openOKDialog(PostFragment.this.getActivity(), PostFragment.this, "no_connection");
+                }
+            });
+
+            return;
         }
     }
 
