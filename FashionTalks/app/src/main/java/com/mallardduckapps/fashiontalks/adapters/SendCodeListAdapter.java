@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -36,12 +38,16 @@ public class SendCodeListAdapter extends BaseAdapter {
     DisplayImageOptions options;
     String pathMainUrl;
     int[] selectedUserIds;
+    AssetManager manager;
+    String font;
 
     public SendCodeListAdapter(Activity act, ArrayList<User> userList){
 
         this.activity = act;
         data = userList;
         res = act.getResources();
+        manager = activity.getAssets();
+        font = activity.getString(R.string.font_helvatica_lt);
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
@@ -94,6 +100,7 @@ public class SendCodeListAdapter extends BaseAdapter {
                     false);
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
+            holder.nameTv.setTypeface(FTUtils.loadFont(manager, font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
             holder.button = (ToggleButton) vi.findViewById(R.id.followButton);
             vi.setTag(holder);

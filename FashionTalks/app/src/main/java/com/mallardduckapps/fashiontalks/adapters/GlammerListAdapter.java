@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -35,11 +37,15 @@ public class GlammerListAdapter extends BaseAdapter {
     Resources res;
     DisplayImageOptions options;
     String pathMainUrl;
+    AssetManager manager;
+    String font;
 
     public GlammerListAdapter(Activity act, ArrayList<User> glammerList){
 
         this.activity = act;
         data = glammerList;
+        manager = activity.getAssets();
+        font = activity.getString(R.string.font_helvatica_lt);
         res = act.getResources();
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,6 +90,7 @@ public class GlammerListAdapter extends BaseAdapter {
                     false);
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
+            holder.nameTv.setTypeface(FTUtils.loadFont(manager, font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
             holder.button = (ToggleButton) vi.findViewById(R.id.followButton);
             vi.setTag(holder);

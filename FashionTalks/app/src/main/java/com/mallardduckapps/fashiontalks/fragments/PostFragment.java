@@ -149,6 +149,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         loaderId = getArguments().getInt("LOADER_ID");
         openComment = getArguments().getBoolean("OPEN_COMMENT", false);
 
+        bottomBar.setVisibility(View.VISIBLE);
        // Log.d(TAG, "POST FR: POST ID: " + postId);
         final Post post = getPost();
 
@@ -264,8 +265,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("POST_ID", Integer.toString(postId));
-                CommentsFragment fragment = new CommentsFragment();
+                CommentsFragment fragment = CommentsFragment.newInstance(Integer.toString(postId));
                 fragment.setArguments(bundle);
+                //bottomBar.setVisibility(View.GONE);
                 //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
                 FragmentTransaction fragmentTx = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
@@ -347,8 +349,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         for (Tag tag : post.getTags()){
             final Pivot pivot = tag.getPivot();
             int x = getRealX(pivot.getX());
-            ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, ownPost);
-            panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString());
+            final ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, ownPost, false);
+            panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString() ,false);
             panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
                 @Override
@@ -361,6 +363,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
                 }
             });
+
+
             if(ownPost){
                 panel.animateExpand();
             }
@@ -373,7 +377,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             public void onClick(View v) {
                 //Log.d(TAG, "ON CLICK TO LAYOUT SHRINK ALL ANIMS");
                 for(ExpandablePanel panel : panels){
-                    panel.runShrinkAnimation();
+                    if(panel.mExpanded){
+                        panel.runShrinkAnimation();
+                    }
                 }
             }
         });

@@ -84,6 +84,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 user = app.getMe();
             }else{
                 myProfile = false;
+                app.setUserPostArrayList(null);
                 user = app.getOther();
                 loaderId = Constants.USER_POSTS_LOADER_ID;
             }

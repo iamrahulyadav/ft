@@ -2,11 +2,13 @@ package com.mallardduckapps.fashiontalks.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
@@ -15,6 +17,7 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Notification;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -34,15 +37,20 @@ public class NotificationListAdapter extends BaseAdapter {
     Resources res;
     DisplayImageOptions options;
     String pathMainUrl;
+    AssetManager manager;
+    String font;
 
     public NotificationListAdapter(Activity act, ArrayList<Notification> notificationList){
 
         this.activity = act;
+        manager = activity.getAssets();
+        font = activity.getString(R.string.font_helvatica_lt);
         data = notificationList;
         res = act.getResources();
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
+        //TODO
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
     }
 
@@ -74,14 +82,17 @@ public class NotificationListAdapter extends BaseAdapter {
         ViewHolder holder;
         final Notification notification = data.get(position);
         final User source = notification.getSource();
+        String photoUrl = notification.getPhoto();
         String path ="";
         String message = notification.getContent();
         if (vi == null) {
-            vi = inflater.inflate(R.layout.list_row, parent,
+            vi = inflater.inflate(R.layout.notification_list_row, parent,
                     false);
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
+            holder.nameTv.setTypeface(FTUtils.loadFont(manager,font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
+            holder.postImage = (ImageView) vi.findViewById(R.id.postImage);
             vi.setTag(holder);
         }
         else {
@@ -95,9 +106,14 @@ public class NotificationListAdapter extends BaseAdapter {
             path = new StringBuilder(pathMainUrl).append(source.getPhotoPath()).toString();
         }
 
-
+        if(photoUrl != null){
+            photoUrl = new StringBuilder(pathMainUrl).append(photoUrl).toString();
+            ImageLoader.getInstance()
+                    .displayImage(photoUrl, holder.postImage, options);
+        }
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);
+
 
         return vi;
     }
@@ -105,6 +121,7 @@ public class NotificationListAdapter extends BaseAdapter {
     public static class ViewHolder {
         RoundedImageView thumbView;
         TextView nameTv;
+        ImageView postImage;
     }
 }
 

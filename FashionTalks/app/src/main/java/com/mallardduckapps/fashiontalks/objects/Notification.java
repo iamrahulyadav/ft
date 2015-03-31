@@ -23,6 +23,7 @@ public class Notification {
     private String createdAt;
     @SerializedName("updated_at")
     private String updatedAt;
+    private String photo;
     private User source;
 
     public int getId() {
@@ -103,6 +104,14 @@ public class Notification {
 
     public void setSource(User source) {
         this.source = source;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
 

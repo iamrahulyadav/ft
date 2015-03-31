@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Comment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -37,10 +39,14 @@ public class CommentListAdapter extends BaseAdapter {
     Resources res;
     DisplayImageOptions options;
     String pathMainUrl;
+    String font;
+    AssetManager manager;
 
     public CommentListAdapter(Activity act, ArrayList<Comment> commentsList){
 
         this.activity = act;
+        manager = activity.getAssets();
+        font = activity.getString(R.string.font_helvatica_thin);
         data = commentsList;
         res = act.getResources();
         inflater = (LayoutInflater) act
@@ -80,6 +86,8 @@ public class CommentListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
             holder.comment = (TextView) vi.findViewById(R.id.commentTv);
+            holder.nameTv.setTypeface(FTUtils.loadFont(manager, font));
+            holder.comment.setTypeface(FTUtils.loadFont(manager,font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
 
             vi.setTag(holder);

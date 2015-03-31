@@ -60,6 +60,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                 app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, "");
                 app.dataSaver.putString("REGISTRATION_ID", "");
                 app.dataSaver.save();
+                app.flushAllData();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

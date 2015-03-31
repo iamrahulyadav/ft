@@ -184,6 +184,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             @Override
             public void onAnimationStart(Animation animation) {
                 sendMessageLayout.setVisibility(View.VISIBLE);
+                sendMessageLayout.invalidate();
                 Log.d("ANIM", "ANIM VISIBLE");
             }
 
@@ -204,7 +205,9 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
                 Log.d("ANIM","ON CLICK - start animation");
                 sendMessageLayout.clearAnimation();
                 slide.setAnimationListener(animationListener);
+                slide.setFillAfter(true);
                 sendMessageLayout.startAnimation(slide);
+                sendMessageLayout.invalidate();
             }
         }
     }

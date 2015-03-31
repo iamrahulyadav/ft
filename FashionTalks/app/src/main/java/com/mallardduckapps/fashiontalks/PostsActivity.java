@@ -208,36 +208,29 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d(TAG, "ON BACK MENU BUTTON PRESSED");
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         super.onOptionsItemSelected(item);
         //noinspection SimplifiableIfStatement
         if(id == android.R.id.home){
-            //if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
-            //    getSupportFragmentManager().popBackStack();
-            //} else {
-                finish();
-            BaseActivity.setBackwardsTranslateAnimation(this);
-            //}
-        }else if(id == R.id.action_home){
-            finish();
-            BaseActivity.setBackwardsTranslateAnimation(this);
-        }
+            close();
 
+        }
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.d(TAG, "On BACK PRESSED - getFragmentManager().getBackStackEntryCount(): " + getFragmentManager().getBackStackEntryCount());
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+    private void close(){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !openComment){
             getSupportFragmentManager().popBackStack();
         } else {
             finish();
             BaseActivity.setBackwardsTranslateAnimation(this);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "On BACK PRESSED - getFragmentManager().getBackStackEntryCount(): " + getFragmentManager().getBackStackEntryCount());
+        close();
     }
 
     @Override

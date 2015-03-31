@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-    <com.mallardduckapps.fashiontalks.components.BounceListView
+    <ListView
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/sendMessageLayout"
+        android:descendantFocusability="beforeDescendants"
         android:background="@color/white"
         android:transcriptMode="alwaysScroll"
         android:dividerHeight="0dp"
-        android:divider="@color/white"
-        android:drawSelectorOnTop="false" />
+        android:divider="@color/white" />
     <RelativeLayout
         android:id="@id/android:empty"
         android:visibility="gone"
@@ -28,11 +28,10 @@
     <RelativeLayout
         android:id="@+id/sendMessageLayout"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/white"
-        android:layout_height="?actionBarSize">
+        android:layout_height="50dp">
         <!--com.rockerhieu.emojicon.Emojicon-->
         <EditText
             android:id="@+id/textField"
@@ -57,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:gravity="center"
             android:padding="4dp"
             android:text="Gönder"

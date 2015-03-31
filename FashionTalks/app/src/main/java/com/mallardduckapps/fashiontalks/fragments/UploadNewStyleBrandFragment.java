@@ -88,8 +88,10 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     private int imageWidth;
     private int imageHeight;
     private ArrayList<Glam> glamList;
+    private ArrayList<ExpandablePanel> panels;
     String postTitle;
     boolean deleteActionInProgress;
+    int itemToBeDeleted;
     //SearchTask task;
     SearchBrandLoader loader;
 
@@ -135,7 +137,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
 //                if(task != null){
 //                    task.cancel(true);
 //                }
-                currentGlam.setText(listData.get(position) + extraField);//" ".concat(listData.get(position)).concat("  ")
+                currentGlam.setTagText(listData.get(position) + extraField, true);//" ".concat(listData.get(position)).concat("  ")
                 glamReady(listData.get(position));
             }
         });
@@ -193,7 +195,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 if(brandEdit.getText().length() > 1){
                     //terminateTask();
                     //resetLoader(brandEdit.getText().toString());
-                    currentGlam.setText(brandEdit.getText().toString()+"  ");
+                    currentGlam.setTagText(brandEdit.getText().toString()+"  ", true);
                     glamReady(brandEdit.getText().toString());
                 }
             }
@@ -208,6 +210,14 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 }
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        if(deleteActionInProgress){
+                           // panels.get(itemToBeDeleted).setReadyToDelete(false);
+                            for(ExpandablePanel panel : panels){
+                                panel.setReadyToDelete(false);
+                            }
+                            deleteActionInProgress = false;
+                            return false;
+                        }
                         posX = (int) event.getX();
                         posY = (int) event.getY();
                         topBar.setVisibility(View.VISIBLE);
@@ -278,6 +288,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         if(glamList == null){
             glamList = new ArrayList<>();
         }
+
         glamList.add(glamItem);
         brandEdit.setText("");
     }
@@ -321,7 +332,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     private void placeGlam(final int x, final int y, final int leftBorder, final int topBorder, final int imageWidth, final int imageHeight) {
-        final ExpandablePanel glam = new ExpandablePanel(getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? true : false, true);
+        final ExpandablePanel glam = new ExpandablePanel(getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? true : false, true, true);
         final int rightBorder = leftBorder + imageWidth - glam.getWidth();
         final int bottomBorder = topBorder + imageHeight - (int)getResources().getDimension(R.dimen.glam_width);
         currentGlam = glam;
@@ -329,6 +340,13 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         glam.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
         glam.setTag("ExpandablePanel");
         layout.addView(glam);
+        if(panels == null){
+            panels = new ArrayList<>();
+            itemToBeDeleted = 0;
+        }
+        panels.add(itemToBeDeleted,glam);
+        itemToBeDeleted ++;
+
         newGlamReadyToAdd = false;
         glam.setOnTouchListener(new View.OnTouchListener() {
             int status = -1;
@@ -371,12 +389,19 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                                     glamList.remove(glamList.size() - 1 );
                                 }
                             }
+
+                            if(panels != null){
+                                if(panels.size() != 0){
+                                    panels.remove(glam);
+                                }
+                            }
                             break;
                         }
                         //int dif = (int) (Math.abs(event.getX() - lp.leftMargin) + Math.abs(event.getY() - lp.topMargin));
                         //Log.d(TAG, "ACTION UP: " + dif);
                         if(status != 1 ){//|| dif < 15
                             if(newGlamReadyToAdd){
+                                deleteActionInProgress = true;
                                 glam.setReadyToDelete(true);
                             }
 

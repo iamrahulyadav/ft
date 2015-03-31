@@ -56,7 +56,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         super.onCreate(savedInstanceState);
         loaderId = getArguments().getInt("LOADER_ID");
         galleryId = getArguments().getInt("GALLERY_ID");
-
+        resetGlobalLists();
         listAdapter = new GalleryGridAdapter(getActivity(),this,MAX_CARDS, galleryId == 0 ? false : true );
         //Log.d(TAG, "POPULAR POSTS FRAGMENT-LoaderId: " + loaderId + " - GalleryId: " + galleryId);
         useLoader();
@@ -155,6 +155,20 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         itemCountPerLoad = data.size();
         listAdapter.addItemsInGrid(dataList);
         addToGlobalLists(data);
+    }
+
+    private void resetGlobalLists(){
+        switch (loaderId){
+            case Constants.FEED_POSTS_LOADER_ID:
+                app.setFeedPostArrayList(null);
+                break;
+            case Constants.POPULAR_POSTS_LOADER_ID:
+                app.setPopularPostArrayList(null);
+                break;
+            case Constants.GALLERY_POSTS_LOADER_ID:
+                app.setGalleryPostArrayList(null);
+                break;
+        }
     }
 
     private void addToGlobalLists(ArrayList<Post> data){

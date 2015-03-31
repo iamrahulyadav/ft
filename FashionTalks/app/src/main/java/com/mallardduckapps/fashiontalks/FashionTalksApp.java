@@ -199,4 +199,13 @@ public class FashionTalksApp extends Application {
         this.other = other;
 
     }
+
+    public void flushAllData(){
+        popularPostArrayList = null;
+        feedPostArrayList = null;
+        galleryPostArrayList = null;
+        userPostArrayList = null;
+        myPostArrayList = null;
+        lastGalleryId = 0;
+    }
 }
