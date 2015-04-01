@@ -10,7 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/emojiTextView" />
             <option value="$PROJECT_DIR$/gridListViewAdapters" />
             <option value="$PROJECT_DIR$/simple-crop-image-example" />
             <option value="$PROJECT_DIR$/simple-crop-image-lib" />

@@ -33,6 +33,6 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:layout_below="@+id/mainToolbar"
-        android:src="@drawable/posting_rules"/>
+        android:src="@drawable/posting_rules_tr"/>
 
 </RelativeLayout>

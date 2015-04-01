@@ -40,6 +40,8 @@ public class Post {
     @SerializedName("tags")
     private ArrayList<Tag> tags;
 
+    private boolean invalid = false;
+
     private User user;
 
     public int getId() {
@@ -176,5 +178,13 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isInvalid() {
+        return invalid;
+    }
+
+    public void setInvalid(boolean invalid) {
+        this.invalid = invalid;
     }
 }

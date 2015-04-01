@@ -264,9 +264,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
             FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
             fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
             //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left);//android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            fragmentTx
-                    .replace(R.id.container, fragment).addToBackStack(fragment.TAG)
-                    .commit();
+            fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.TAG).commit();
             //actionBar.setHomeAsUpIndicator(null);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(false);

@@ -55,7 +55,6 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         topDivider = findViewById(R.id.divider);
         TextView tvName = (TextView) findViewById(R.id.toolbarName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(),getString(R.string.font_avantgarde_bold)));
-
 /*        if(TAG.equals("MAIN_ACTIVITY")){
             mViewPager.setAdapter(new GalleriesPagerAdapter(getSupportFragmentManager(), this));
         }else{
@@ -123,13 +122,11 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         //super.onBackPressed();
         if(menu.isMenuShowing()){
             app.exitDialog(this);
-            //finish();
+
+            //finish(); menu.toggle();
         }else{
             menu.toggle();
         }
-       // if(menu.isMenuShowing()){
-           // menu.toggle();
-        //}
     }
 
     @Override

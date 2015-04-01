@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">FASHIONTALKS</string>
+    <string name="app_name">FashionTalks</string>
     <string name="title_section1">Stil Keşfet</string>
     <string name="title_section2">Kullanıcı Bul</string>
     <string name="title_section3">Bildirimler</string>
@@ -56,6 +56,8 @@
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="no_brand">Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.</string>
     <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
+    <string name="delete_post_alert">Gönderinizi silmek istediğinize emin misiniz?</string>
+    <string name="invalid_post_alert">Gönderi silinmiş ya da artık geçerli değil.</string>
     <string name="password_error_dialog">Şifre gönderilirken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="password_success_dialog">Şifreniz Email adresinize gönderildi. Lütfen Email adresinizi kontrol ediniz.</string>
     <string name="title_activity_profile">ProfileActivity</string>
@@ -63,14 +65,15 @@
     <string name="unsuccessful">Başarısız</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
+    <string name="erase"> Sil ?</string>
 
     <!-- Profile -->
     <string name="follow">Takip Et</string>
     <string name="unfollow">Takibi Bırak</string>
     <string name="followers">Takip Edenler</string>
     <string name="following">Takip Ediyor</string>
-    <string name="no_followers">Kimseyi Takip Etmiyor</string>
-    <string name="no_following">Kimse Takip Etmiyor</string>
+    <string name="no_followers">Kimse Takip Etmiyor</string>
+    <string name="no_following">Kimseyi Takip Etmiyor</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_style_upload">StyleUploadActivity</string>
 
@@ -147,4 +150,5 @@
         <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="fbId">340890866061812</string>
+
 </resources>

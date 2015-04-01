@@ -16,6 +16,9 @@ import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -51,10 +54,27 @@ public class PostLoader extends AsyncTaskLoader<Post> {
             return null;
         }
         //HANDLE THIS
+        int status = -1;
+        //TODO {"status":404,"msg":"post deleted"
+        JSONObject object;
+        try {
+            object = new JSONObject(response);
+            String msg = object.getString("msg");
+            status = object.getInt("status");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         //Caused by: java.lang.IllegalStateException: Not a JSON Object: "NO_CONNECTION"
-        JsonElement dataObject = new JsonParser().parse(response).getAsJsonObject().getAsJsonObject("data");
-        Gson gson = new Gson();
-        post = gson.fromJson(dataObject, Post.class);
+        if(status == 0){
+            JsonElement dataObject = new JsonParser().parse(response).getAsJsonObject().getAsJsonObject("data");
+            Gson gson = new Gson();
+            post = gson.fromJson(dataObject, Post.class);
+        }else{
+            Post invalidPost = new Post();
+            invalidPost.setInvalid(true);
+            return invalidPost;
+        }
+
         return post;
     }
 

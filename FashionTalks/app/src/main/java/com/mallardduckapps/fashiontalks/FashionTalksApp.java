@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.DeletePhotoDialog;
 import com.mallardduckapps.fashiontalks.fragments.ExitDialog;
 import com.mallardduckapps.fashiontalks.fragments.NoConnectionDialog;
 import com.mallardduckapps.fashiontalks.fragments.UploadPicDialog;
@@ -49,7 +50,7 @@ public class FashionTalksApp extends Application {
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.gallery_card_drawable)
                 .showImageForEmptyUri(R.drawable.ic_empty)
-                .showImageOnFail(R.drawable.reload_small)
+                .showImageOnFail(R.drawable.reload_2x)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
@@ -89,6 +90,20 @@ public class FashionTalksApp extends Application {
         args.putString("message", getString(R.string.upload_select_or_shoot));
         args.putString("positive_button", getString(R.string.upload_shoot));
         args.putString("negative_button", getString(R.string.upload_select));
+        dialog.setArguments(args);
+        dialog.setTargetFragment(fragment);
+        //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        //TOdo control if tag is right?
+        dialog.show(activity.getFragmentManager(), fragment.getTag());
+    }
+
+    public void openErasePicDialog(Activity activity, BasicFragment fragment){
+        DeletePhotoDialog dialog = new DeletePhotoDialog();
+        Bundle args = new Bundle();
+        args.putString("title", getString(R.string.erase));
+        args.putString("message", getString(R.string.delete_post_alert));
+        args.putString("positive_button", getString(R.string.yes));
+        args.putString("negative_button", getString(R.string.no));
         dialog.setArguments(args);
         dialog.setTargetFragment(fragment);
         //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);

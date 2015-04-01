@@ -105,7 +105,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        Button followButton = (Button) rootView.findViewById(R.id.followButton);
+        final Button followButton = (Button) rootView.findViewById(R.id.followButton);
         Button followingButton = (Button) rootView.findViewById(R.id.followingButton);
         Button followersButton = (Button) rootView.findViewById(R.id.followersButton);
         TextView nameTv = (TextView) rootView.findViewById(R.id.nameTv);
@@ -140,7 +140,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                     if(isFollowing){
 
                     }
-                    FollowTask task = new FollowTask(!isFollowing, user.getId());
+                    FollowTask task = new FollowTask(getActivity(),!isFollowing, user.getId(), followButton);
                     task.execute();
                 }
             });

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Pivot;
 import com.mallardduckapps.fashiontalks.tasks.GlamTask;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 
 public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse {
@@ -51,6 +52,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 .getDisplayMetrics());
         setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9, res.getDisplayMetrics()));
+        setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_helvatica_thin)));
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
         //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);

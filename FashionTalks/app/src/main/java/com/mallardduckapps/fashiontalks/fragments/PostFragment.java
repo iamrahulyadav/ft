@@ -88,6 +88,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
     ViewSwitcher switcher;
     boolean openComment = false;
+    public final static int DELETE_POST = 667;
 
     RoundedImageView thumbnailView;
 
@@ -337,11 +338,20 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                     FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
                 }else{
                     //DELETE
-                    DeleteTask task = new DeleteTask();
-                    task.execute(Integer.toString(postId));
+                    app.openErasePicDialog(PostFragment.this.getActivity(), PostFragment.this);
+
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == DELETE_POST && resultCode == 1){
+            DeleteTask task = new DeleteTask();
+            task.execute(Integer.toString(postId));
+        }
     }
 
     private void setGlamPosition(Post post){
@@ -352,19 +362,16 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             int x = getRealX(pivot.getX());
             final ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, ownPost, false);
             panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString() ,false);
-            panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
+            //panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
                 @Override
                 public void onExpand(View handle) {
-
                 }
 
                 @Override
                 public void onCollapse(View handle) {
-
                 }
             });
-
 
             if(ownPost){
                 panel.animateExpand();
@@ -407,6 +414,14 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Post> loader, Post data) {
         if(data != null){
+
+            if(data.isInvalid()){
+                Toast.makeText(PostFragment.this.getActivity().getApplicationContext(), getString(R.string.invalid_post_alert), Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+                BaseActivity.setBackwardsTranslateAnimation(PostFragment.this.getActivity());
+                return;
+            }
+
             progressBar.setVisibility(View.GONE);
             fillPost(data);
             if(openComment){
@@ -414,6 +429,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             }else{
                 showNextView();
             }
+
         }
         else{
             Log.d(TAG, "DATA IS NULL");
@@ -431,7 +447,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoaderReset(Loader<Post> loader) {
-
     }
 
     private void useLoader() {

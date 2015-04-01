@@ -20,7 +20,6 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.rockerhieu.emojicon.EmojiconTextView;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 

@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="FTTheme" parent="@style/Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="contentInsetStart">0dp</item>
@@ -9,7 +10,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
     </style>
-    <style name="MyActionBarTabText"
+    <style name="FTActionBarTabText"
         parent="@style/Widget.AppCompat.ActionBar.TabText">
         <item name="android:textColor">@color/black</item>
         <!-- The textColor property is backward compatible with the Support Library -->

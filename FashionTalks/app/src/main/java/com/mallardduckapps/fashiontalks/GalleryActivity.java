@@ -77,7 +77,7 @@ public class GalleryActivity extends ActionBarActivity {
 /*            if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {*/
-                finish();
+            finish();
             BaseActivity.setBackwardsTranslateAnimation(this);
          //   }
         }

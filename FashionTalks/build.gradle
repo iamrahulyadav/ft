@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply plugin: 'com.android.application'
 
+
 buildscript {
     repositories {
         jcenter()
@@ -24,6 +25,7 @@ android {
     buildToolsVersion '21.1.2'
     defaultConfig {
         minSdkVersion 14
+        targetSdkVersion 21
     }
         sourceSets {
             main {
@@ -34,5 +36,3 @@ android {
     }
 }
 repositories { mavenCentral() }
-dependencies {
-}
