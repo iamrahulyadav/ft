@@ -1,5 +1,6 @@
 package com.mallardduckapps.fashiontalks.loaders;
 
+import android.app.Activity;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
@@ -27,9 +29,11 @@ public class FacebookFriendsLoader extends AsyncTaskLoader<ArrayList<User>> {
     boolean loadingInProgress;
     public int startIndex = 0;
     public int perPage = 50;
+    FashionTalksApp app;
 
-    public FacebookFriendsLoader(Context context, int loaderId){
+    public FacebookFriendsLoader(Activity context, int loaderId){
         super(context);
+        app = (FashionTalksApp) context.getApplication();
         this.loaderId = loaderId;
     }
 
@@ -52,7 +56,11 @@ public class FacebookFriendsLoader extends AsyncTaskLoader<ArrayList<User>> {
         Gson gson = new Gson();
         for (JsonElement item : dataObjects) {
             PopularUser user = gson.fromJson(item, PopularUser.class);
-            usersList.add(user);
+            //TODO look if followed
+            if(user.getIsFollowing() != 1){
+                usersList.add(user);
+            }
+
         }
         return usersList;
     }

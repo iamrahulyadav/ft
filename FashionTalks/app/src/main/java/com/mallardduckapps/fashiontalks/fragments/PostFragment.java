@@ -54,7 +54,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Post>{
+public class PostFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Post>, CommentsFragment.CommentIsMade{
 
     int postId;
     int postIndex = -1;
@@ -92,6 +92,10 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
     RoundedImageView thumbnailView;
 
+    int glamCount;
+    int commentCount;
+    Post post;
+
     public PostFragment() {
         // Required empty public constructor
     }
@@ -101,6 +105,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
         width = PostsActivity.width;
         height = PostsActivity.height;
+
     }
 
     @Override
@@ -153,32 +158,42 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
         bottomBar.setVisibility(View.VISIBLE);
        // Log.d(TAG, "POST FR: POST ID: " + postId);
-        final Post post = getPost();
+        post = getPost();
 
         //openComment = post.getCanComment() == 1 ? true: false;
 
-        if(loaderId == Constants.MY_POSTS_LOADER_ID){
+//        if(loaderId == Constants.MY_POSTS_LOADER_ID){
+//            user = app.getMe();
+//            ownPost = true;
+//            //shareButton.setImageResource(R.drawable.delete_icon);
+//        }else if(loaderId == Constants.USER_POSTS_LOADER_ID){
+//            user = app.getOther();
+//            ownPost = false;
+//            //shareButton.setImageResource(R.drawable.report_icon);
+//        }else if(loaderId == Constants.NOTIFICATION_MY_POST_LOADER_ID){
+//            user = app.getMe();
+//            ownPost = true;
+//            //shareButton.setImageResource(R.drawable.delete_icon);
+//        }
+//        else if(loaderId == Constants.NOTIFICATION_OTHER_POST_LOADER_ID){
+//            user = app.getOther();
+//            ownPost = false;
+//            //shareButton.setImageResource(R.drawable.report_icon);
+//        }
+//        else{
+//            user = post.getUser();
+//            ownPost = false;
+//            //shareButton.setImageResource(R.drawable.report_icon);
+//        }
+
+        if(post.getUser().getId() == app.getMe().getId()){
+            shareButton.setImageResource(R.drawable.delete_icon);
             user = app.getMe();
             ownPost = true;
-            shareButton.setImageResource(R.drawable.delete_icon);
-        }else if(loaderId == Constants.USER_POSTS_LOADER_ID){
-            user = app.getOther();
-            ownPost = false;
+        }else{
             shareButton.setImageResource(R.drawable.report_icon);
-        }else if(loaderId == Constants.NOTIFICATION_MY_POST_LOADER_ID){
-            user = app.getMe();
-            ownPost = true;
-            shareButton.setImageResource(R.drawable.delete_icon);
-        }
-        else if(loaderId == Constants.NOTIFICATION_OTHER_POST_LOADER_ID){
-            user = app.getOther();
-            ownPost = false;
-            shareButton.setImageResource(R.drawable.report_icon);
-        }
-        else{
             user = post.getUser();
             ownPost = false;
-            shareButton.setImageResource(R.drawable.report_icon);
         }
 
         if(post != null){
@@ -188,6 +203,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             progressBar.setVisibility(View.VISIBLE);
             useLoader();
         }
+        glamCount = post.getGlamCount();
+        commentCount = post.getCommentCount();
         return rootView;
         //listView = (ListView) rootView.findViewById(R.id.galleryList);
     }
@@ -238,10 +255,57 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         return post;
     }
 
+    private void setPost(Post post){
+        switch (loaderId){
+            case Constants.FEED_POSTS_LOADER_ID:
+                app.getFeedPostArrayList().set(postIndex, post);
+                break;
+            case Constants.POPULAR_POSTS_LOADER_ID:
+                app.getPopularPostArrayList().set(postIndex, post);
+                break;
+            case Constants.GALLERY_POSTS_LOADER_ID:
+                app.getGalleryPostArrayList().set(postIndex, post);
+                break;
+            case Constants.USER_POSTS_LOADER_ID:
+                app.getUserPostArrayList().set(postIndex, post);
+                break;
+            case Constants.MY_POSTS_LOADER_ID:
+                app.getMyPostArrayList().set(postIndex, post);
+                break;
+
+        }
+    }
+
+    public void incrementGlamCount(final int newGlamCount){
+        //int glamCount = post.getGlamCount();
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "NEW GLAM COUNT : " + newGlamCount);
+                post.setGlamCount(newGlamCount);
+                tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(" Glam").toString());
+                setPost(post);
+                tvGlamCount.invalidate();
+            }
+        });
+
+
+    }
+
+    public void incrementCommentCount(){
+        int comment = post.getCommentCount();
+        post.setCommentCount(comment++);
+        if(tvChatText != null){
+            tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(" Konuşma").toString());
+        }
+        setPost(post);
+    }
+
     private void fillPost(final Post post){
         String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
         //TODO change 40x40
-        String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(40).append("x").append(40).append("/").append(user.getPhotoPath()).toString();
+        String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(80).append("x").append(80).append("/").append(user.getPhotoPath()).toString();
         tvUserName.setText(user.getUserName());
         tvName.setText(StringEscapeUtils.unescapeJson(post.getTitle()));
         tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(" Glam").toString());
@@ -292,6 +356,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             }
         };
         tvUserName.setOnClickListener(onClickListener);
+        thumbnailView.setOnClickListener(onClickListener);
         tvName.setOnClickListener(onClickListener);
         ImageLoader.getInstance().displayImage(thumbPath, thumbnailView,app.options);
         finalImageWidth = 0;
@@ -371,11 +436,17 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 @Override
                 public void onCollapse(View handle) {
                 }
+
+                @Override
+                public void onTagGlammed(int glamCount, int totalGlamCount) {
+                    Log.d(TAG, "ON GLAM COUNT INCREASED"+totalGlamCount);
+                    incrementGlamCount(totalGlamCount);
+                }
             });
 
-            if(ownPost){
-                panel.animateExpand();
-            }
+           // if(ownPost){
+                //panel.animateExpand();
+           // }
             panels.add(panel);
             layout.addView(panel);
         }
@@ -384,8 +455,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             @Override
             public void onClick(View v) {
                 //Log.d(TAG, "ON CLICK TO LAYOUT SHRINK ALL ANIMS");
-                for(ExpandablePanel panel : panels){
-                    if(panel.mExpanded){
+                for (ExpandablePanel panel : panels) {
+                    if (panel.mExpanded) {
                         panel.runShrinkAnimation();
                     }
                 }
@@ -455,6 +526,11 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                     .initLoader(loaderId, null, this);
             loader.forceLoad();
         }
+    }
+
+    @Override
+    public void onNewComment(int commentCount) {
+        incrementCommentCount();
     }
 
     public class DeleteTask extends AsyncTask<String, Void, String> {

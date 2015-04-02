@@ -49,7 +49,7 @@ public class PopularUserListAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
         //TODO
-        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/60x60/").toString();
+        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").toString();
     }
 
     public void addData(ArrayList<PopularUser> data){

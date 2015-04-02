@@ -28,13 +28,6 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import java.util.ArrayList;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class FacebookFriendsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<ArrayList<User>>, AbsListView.OnScrollListener{
 
     boolean loading;
@@ -106,7 +99,7 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
 
     @Override
     public Loader<ArrayList<User>> onCreateLoader(int id, Bundle args) {
-        loader = new FacebookFriendsLoader(getActivity().getApplicationContext(), Constants.FB_FRIENDS_LOADER);
+        loader = new FacebookFriendsLoader(getActivity(), Constants.FB_FRIENDS_LOADER);
         return loader;
     }
 

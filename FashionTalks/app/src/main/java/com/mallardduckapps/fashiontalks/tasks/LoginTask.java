@@ -41,7 +41,7 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
         this.password = password;
         this.context = context;
         //this.loginUrl = loginUrl;
-        callBack = (LoginTaskCallback) fragment;
+        callBack = fragment;
     }
 
     public LoginTask(LoginTaskCallback fragment, Context context){
@@ -98,13 +98,13 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
             }catch(IllegalStateException e){
                 Log.d(TAG, "EXCEPTION: " );
                 e.printStackTrace();
-                if(FTUtils.isNetworkAvailable(context)){
-                    Log.d(TAG, "FAILED CONNECTION: " );
-                    callBack.getUser(Constants.AUTHENTICATION_FAILED,null);
-                }else{
+                //if(!FTUtils.isNetworkAvailable(context)){
+                //    Log.d(TAG, "FAILED CONNECTION: " );
+                //    callBack.getUser(Constants.AUTHENTICATION_FAILED,null);
+                //}else{
                     Log.d(TAG, "NO CONNECTION: " );
                     callBack.getUser(Constants.NO_CONNECTION, null);
-                }
+                //}
 
             }
         }

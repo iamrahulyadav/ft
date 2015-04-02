@@ -102,9 +102,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
 
     @Override
     public void onBackPressed() {
-
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
-
                 getSupportFragmentManager().popBackStack();
             } else {
                 finish();

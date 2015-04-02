@@ -51,7 +51,7 @@ public class NotificationListAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
         //TODO
-        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
+        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/80x80/").toString();
     }
 
     @Override

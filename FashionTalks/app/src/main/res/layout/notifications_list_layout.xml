@@ -8,7 +8,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_section3"
-        android:layout_margin="5dp"/>
+
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="14dp"/>
     <View
         style="@style/Divider1"
         android:layout_marginBottom="5dp"/>

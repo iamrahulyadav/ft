@@ -213,7 +213,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         //noinspection SimplifiableIfStatement
         if(id == android.R.id.home){
             close();
-
+        }else if(id == R.id.action_home){
+            finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
         }
         return true;
     }

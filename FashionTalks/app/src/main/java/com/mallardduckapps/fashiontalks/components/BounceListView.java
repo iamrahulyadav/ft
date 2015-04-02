@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ListView;
 
 public class BounceListView extends ListView {
@@ -16,6 +17,9 @@ public class BounceListView extends ListView {
 
     private Context mContext;
     private int mMaxYOverscrollDistance;
+    private int refreshBoundary;
+    private RefreshListener callback;
+    private boolean refresh = false;
 
     public BounceListView(Context context) {
         super(context);
@@ -36,16 +40,16 @@ public class BounceListView extends ListView {
     }
 
     private void initBounceListView() {
-        // get the density of the screen and do some maths with it on the max
-        // overscroll distance
-        // variable so that you get similar behaviors no matter what the screen
-        // size
-
         final DisplayMetrics metrics = mContext.getResources()
                 .getDisplayMetrics();
         final float density = metrics.density;
 
         mMaxYOverscrollDistance = (int) (density * MAX_Y_OVERSCROLL_DISTANCE);
+        refreshBoundary = ((mMaxYOverscrollDistance + 15)/2)*-1;
+    }
+
+    public void setRefreshListener(RefreshListener callback){
+        this.callback = callback;
     }
 
     @SuppressLint("NewApi")
@@ -55,9 +59,25 @@ public class BounceListView extends ListView {
                                    int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
         // This is where the magic happens, we have replaced the incoming
         // maxOverScrollY with our own custom variable mMaxYOverscrollDistance;
-        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY,
+        boolean overScroll = super.overScrollBy(deltaX, deltaY, scrollX, scrollY,
                 scrollRangeX, scrollRangeY, maxOverScrollX,
                 mMaxYOverscrollDistance, isTouchEvent);
+
+        if(refreshBoundary > scrollY ){
+            if(callback != null && !refresh){
+            refresh = true;
+            callback.onRefreshList();
+            Log.d("BOUNCELISTVIEW", "OVER SCROLL: " + mMaxYOverscrollDistance + " - refreshBoundary: " + refreshBoundary + " - scrollY: " + scrollY );
+            }
+        }else if(scrollY == 0){
+            refresh = false;
+        }
+
+        return overScroll;
+    }
+
+    public interface RefreshListener{
+        public void onRefreshList();
     }
 
 }

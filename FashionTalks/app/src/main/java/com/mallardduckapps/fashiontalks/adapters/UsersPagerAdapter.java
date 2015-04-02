@@ -31,7 +31,6 @@ import java.util.Locale;
             // getItem is called to instantiate the fragment for the given page.
             switch(position){
                 case 0:
-                    Log.d("USERS PAGER ADAPTER", "POPULER KULLANICILAR LOAD");
                     return PopularUsersFragment.newInstance("");
                 case 1:
                     return FacebookFriendsFragment.newInstance();

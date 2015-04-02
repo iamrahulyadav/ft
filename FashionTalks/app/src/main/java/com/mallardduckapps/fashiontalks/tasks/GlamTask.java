@@ -18,6 +18,7 @@ public class GlamTask extends AsyncTask<Void, Void, Integer> {
     private final int glamCount;
     private AsyncResponse callback;
     private final String TAG = "GlamTask";
+    private int totalGlamCount;
 
     public GlamTask(AsyncResponse panel, int pivotId, int glamCount){
         this.pivotId = pivotId;
@@ -38,6 +39,7 @@ public class GlamTask extends AsyncTask<Void, Void, Integer> {
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
+            return glamCount;
         }
         Log.d(TAG, "GLAM RESPONSE: " + response);
         JSONObject object = null;
@@ -45,6 +47,7 @@ public class GlamTask extends AsyncTask<Void, Void, Integer> {
         try {
             object = new JSONObject(response);
             newGlamCount = object.getJSONObject("data").getInt("glam_count");
+            totalGlamCount = object.getJSONObject("data").getInt("total_glam");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -56,12 +59,12 @@ public class GlamTask extends AsyncTask<Void, Void, Integer> {
         super.onPostExecute(newGlamCount);
         if(newGlamCount > glamCount){
             Log.d(TAG, "GLAM COUNT INCREASED call process finish");
-            callback.processFinish(newGlamCount);
+            callback.processFinish(newGlamCount, totalGlamCount);
         }
     }
 
     public interface AsyncResponse {
-        void processFinish(int glamCount);
+        void processFinish(int glamCount, int totalGlamCount);
     }
 }
 

@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class PopularPostsFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<ArrayList<Post>>
-        ,GridListOnScrollListener.OnScrolledToBottom, GalleryGridAdapter.PostItemClicked {
+        ,GridListOnScrollListener.OnScrolledToBottom, GalleryGridAdapter.PostItemClicked, BounceListView.RefreshListener {
 
     PopularPostsLoader loader;
     boolean loading;
@@ -47,6 +47,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     int loaderId;
     int galleryId = 0; //Gallery ID if there is one
     //MainActivity activity;
+    boolean resetLoader;
 
     public PopularPostsFragment() {
         // Required empty public constructor
@@ -75,6 +76,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
         listView = (BounceListView) rootView.findViewById(R.id.galleryList);
         listView.setOnScrollListener(new GridListOnScrollListener(this));
+        listView.setRefreshListener(this);
         if(dataList != null){
             listAdapter.addItemsInGrid(dataList);
             listView.setAdapter(listAdapter);
@@ -87,12 +89,17 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         if (this.canLoadMoreData() && !loading) {
            // Log.d(TAG, "USE LOADER FRAGMENT POPULAR POSTS");
             loading = true;
-            if(loader == null ){
+            if(loader == null && !resetLoader){
                 loader = (PopularPostsLoader) getActivity().getLoaderManager()
                         .initLoader(loaderId, null, this);
                 loader.forceLoad();
 
-            }else{
+            }else if(loader == null && resetLoader){
+                loader = (PopularPostsLoader) getActivity().getLoaderManager()
+                        .restartLoader(loaderId, null, this);
+                loader.forceLoad();
+            }
+            else{
                 //Log.d(TAG, "USE LOADER FRAGMENT POPULAR POSTS - ON CONTENT CHANGEDD");
                 //loader.startLoading(); //= (PopularPostsLoader) getActivity().getLoaderManager()
                        // .restartLoader(Constants.POPULAR_POSTS_LOADER_ID, null, this);
@@ -122,7 +129,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                     app.openOKDialog(PopularPostsFragment.this.getActivity(), PopularPostsFragment.this, "no_connection");
                 }
             });
-
             return;
         }
 
@@ -130,9 +136,13 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         itemCountPerLoad = 0;
         if(dataList == null){
             index = 0;
+            if(resetLoader){
+                resetLoader = false;
+
+            }
             loadData(data);
             if(listView != null)
-            listView.setAdapter(listAdapter);
+                listView.setAdapter(listAdapter);
             if(canLoadMoreData()){
                 listView.addFooterView(loadMoreFooterView);
                 loadMoreFooterView.setVisibility(View.VISIBLE);
@@ -146,7 +156,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
 
         if(!canLoadMoreData()){
             if(listView != null) {
-
                 listView.removeFooterView(loadMoreFooterView);
                 loadMoreFooterView.setVisibility(View.INVISIBLE);
             }
@@ -208,6 +217,9 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     @Override
     public void onLoaderReset(Loader<ArrayList<Post>> loader) {
         dataList = null;
+        calculateLoadValues();
+        resetGlobalLists();
+        Log.d(TAG, "ON LOADER RESET");
         index = 0;
         loading = false;
     }
@@ -259,6 +271,24 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             BaseActivity.setTranslateAnimation(getActivity());
             //getActivity().overridePendingTransition(setTranslateAnimation(BaseActivity.this);, R.anim.activity_close_translate);
         }
+    }
 
+    @Override
+    public void onRefreshList() {
+        if(resetLoader && loading){
+            return;
+        }
+        Log.d(TAG, "ON REFRESH LIST");
+        dataList = null;
+        //calculateLoadValues();
+        resetGlobalLists();
+        Log.d(TAG, "ON LOADER RESET");
+        index = 0;
+        loading = false;
+
+        loader = null;
+        listAdapter = new GalleryGridAdapter(getActivity(),this,MAX_CARDS, galleryId == 0 ? false : true );
+        resetLoader = true;
+        useLoader();
     }
 }

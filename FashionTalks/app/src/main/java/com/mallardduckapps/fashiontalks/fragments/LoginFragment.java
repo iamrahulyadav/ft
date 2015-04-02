@@ -348,7 +348,16 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 //                switcher.setDisplayedChild(1);
                 break;
             case Constants.NO_CONNECTION:
-                Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "OK DIALOG");
+                        app.openOKDialog(getActivity(), LoginFragment.this, "no_connection");
+                        switcher.setDisplayedChild(1);
+                    }
+                });
+
                 break;
             case Constants.AUTHENTICATION_CANCELED:
                 authTask = null;

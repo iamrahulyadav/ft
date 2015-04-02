@@ -165,13 +165,14 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     }
 
     @Override
-    public void processFinish(int glamCount) {
+    public void processFinish(int glamCount, int totalGlamCount) {
         //Log.d(TAG, "PROCESS FINISH: " + glamCount);
 
         if (text.startsWith(pivot.getGlamCountPattern() + " | ")) {
             text = text.replaceFirst(pivot.getGlamCountPattern(), TimeUtil.getPatternedInteger(glamCount));
             pivot.setGlamCount(glamCount);
             setText(text);
+            mListener.onTagGlammed(glamCount, totalGlamCount);
         }
         //new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(pivot.getTag()).toString();
     }
@@ -295,8 +296,8 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
 
     public interface OnExpandListener {
         public void onExpand(View view);
-
         public void onCollapse(View view);
+        public void onTagGlammed(int glamCount, int totalGlamCount);
     }
 
 /*    private class DefaultOnExpandListener implements OnExpandListener {

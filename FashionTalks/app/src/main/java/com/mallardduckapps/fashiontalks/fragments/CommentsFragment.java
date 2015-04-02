@@ -47,8 +47,9 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     CommentListAdapter adapter;
     ArrayList<Comment> dataList;
     EditText editText;
-    boolean sendingMessage;
+    boolean sendingMessage = false;
     FashionTalksApp app;
+    CommentIsMade callback;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
@@ -92,6 +93,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         //editText.setText("U+1F601" + "-" +"\ue32d" + " " + "\ud83d" + "-" + "\udc4d" + "-" + "\uef0f" + " - " + "\u2764");
         sendButton = (Button) view.findViewById(R.id.sendButton);
         sendButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_md)));
+        sendingMessage = false;
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +191,6 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             loader = (CommentListLoader) getActivity().getLoaderManager()
                     .restartLoader(Constants.COMMENTS_LOADER_ID, null, this);
             loader.forceLoad();
-
         }
     }
 
@@ -229,6 +230,10 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         }
     }
 
+    public interface CommentIsMade{
+        public void onNewComment(int commentCount);
+    }
+
     public class SendCommentTask extends AsyncTask<BasicNameValuePair, Void, String> {
 
         private final String TAG = "SendCommentTask";
@@ -242,6 +247,12 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             super.onPreExecute();
             sendingMessage = true;
             //progressBarMain.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            sendingMessage = false;
         }
 
         @Override
@@ -281,7 +292,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             if(status == 0){
                 sendingMessage = false;
                 editText.setText("");
-                status = -1;
+
                 JsonArray dataObjects = new JsonParser().parse(text).getAsJsonObject().getAsJsonArray("data");
                 Gson gson = new Gson();
                 Comment comment = gson.fromJson(dataObjects.get(0), Comment.class);
@@ -289,8 +300,12 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
                 dataList.add(comment);
                 if(adapter != null){
                     adapter.notifyDataSetChanged();
+                    status = -1;
                     Log.d(TAG, "ADD COMMENT SUCCESS: notified data size: " + dataList.size() );
                 }
+
+            }else{
+                app.openOKDialog(CommentsFragment.this.getActivity(), CommentsFragment.this, "no_connection");
             }
 
         }

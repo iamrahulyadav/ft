@@ -22,6 +22,7 @@ import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.PopularUserListAdapter;
+import com.mallardduckapps.fashiontalks.components.BounceListView;
 import com.mallardduckapps.fashiontalks.loaders.PopularUsersLoader;
 import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -30,7 +31,7 @@ import com.mallardduckapps.fashiontalks.utils.Constants;
 import java.util.ArrayList;
 
 
-public class PopularUsersFragment extends ListFragment implements LoaderManager.LoaderCallbacks<ArrayList<PopularUser>>,AbsListView.OnScrollListener {
+public class PopularUsersFragment extends ListFragment implements LoaderManager.LoaderCallbacks<ArrayList<PopularUser>>,AbsListView.OnScrollListener, BounceListView.RefreshListener {
 
     private BasicFragment.OnFragmentInteractionListener mListener;
     private PopularUsersLoader loader;
@@ -99,7 +100,6 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
         mListener = null;
     }
 
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -142,7 +142,6 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
             return;
         }
         if( data.size() == 0){
-
             progressBar.setVisibility(View.GONE);
             emptyTv.setVisibility(View.VISIBLE);
         }
@@ -239,5 +238,10 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
             //Log.d(TAG, "ON REACHED TO END " + firstVisibleItem +" - visibleItemCount: " + visibleItemCount + " - totalItemCount: " + totalItemCount );
             useLoader();
         }
+    }
+
+    @Override
+    public void onRefreshList() {
+        Log.d(TAG, "LIST REFRESHED");
     }
 }

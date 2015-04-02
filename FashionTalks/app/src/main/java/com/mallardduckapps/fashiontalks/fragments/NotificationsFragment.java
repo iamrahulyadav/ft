@@ -155,7 +155,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
         if(data.size() == 0){
             progressBar.setVisibility(View.GONE);
             noDataTv.setVisibility(View.VISIBLE);
-            noDataTv.setText(" Bildiriminiz Yok");
+            noDataTv.setText("  Bildiriminiz Yok");
         }
     }
 
@@ -167,7 +167,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
     private void useLoader() {
         if (loader == null) {
             loader = (NotificationListLoader) getActivity().getLoaderManager()
-                    .initLoader(Constants.NOTIFICATIONS_LOADER_ID, null, this);
+                    .restartLoader(Constants.NOTIFICATIONS_LOADER_ID, null, this);
             loader.forceLoad();
         }
     }

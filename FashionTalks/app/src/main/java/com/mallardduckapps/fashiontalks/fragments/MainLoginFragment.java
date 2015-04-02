@@ -65,8 +65,8 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         app = (FashionTalksApp) getActivity().getApplication();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        showHashKey(getActivity());
-
+        //showHashKey(getActivity());
+//TODO internet yokken back yapınca switcher geliyor
         if(app.dataSaver != null){
             String accessToken = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
             Log.d(TAG, "ACCESS TOKEN: " + accessToken);
@@ -226,7 +226,18 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         //showProgress(false);
         switch (authStatus) {
             case Constants.NO_CONNECTION:
-                Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "OK DIALOG");
+
+                        //Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
+                        app.openOKDialog(getActivity(), MainLoginFragment.this, "no_connection");
+                        switcher.setDisplayedChild(1);
+                    }
+                });
+
                 break;
             case Constants.AUTHENTICATION_CANCELED:
                 //authTask = null;
@@ -247,6 +258,9 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             app.setMe(user);
             mListener.goToMainActivity();
             //activity.finish();
+        }else{
+            app.openOKDialog(getActivity(), MainLoginFragment.this, "no_connection");
+            switcher.setDisplayedChild(1);
         }
     }
 }
