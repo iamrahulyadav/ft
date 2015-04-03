@@ -130,7 +130,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
         ListView listView = getListView();
 
         if(data == null){
-            Log.d(TAG, "DATA IS NULL");
+            //Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override

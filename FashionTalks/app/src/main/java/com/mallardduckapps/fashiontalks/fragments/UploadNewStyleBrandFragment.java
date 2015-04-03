@@ -618,7 +618,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 getActivity().finish();
                 BaseActivity.setTranslateAnimation(getActivity());
             }else{
-                Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), "Bir sorun oluştu! Tekrar dene!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
             }
 
 

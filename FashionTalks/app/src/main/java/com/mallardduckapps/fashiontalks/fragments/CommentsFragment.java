@@ -40,6 +40,8 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
 
     private static final String POST_ID = "POST_ID";
     private String paramPostId;
+    private int postLoaderId;
+    private int postIndex = -1;
     CommentListLoader loader;
     Button sendButton;
     RelativeLayout sendMessageLayout;
@@ -54,10 +56,12 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     private BasicFragment.OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
-    public static CommentsFragment newInstance(String param1) {
+    public static CommentsFragment newInstance(String postId, int loaderId, int postIndex) {
         CommentsFragment fragment = new CommentsFragment();
         Bundle args = new Bundle();
-        args.putString(POST_ID, param1);
+        args.putString(POST_ID, postId);
+        args.putInt("POST_LOADER_ID", loaderId);
+        args.putInt("POST_INDEX", postIndex);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +79,8 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         app = (FashionTalksApp) getActivity().getApplication();
         if (getArguments() != null) {
             paramPostId = getArguments().getString(POST_ID);
+            postLoaderId = getArguments().getInt("POST_LOADER_ID");
+            postIndex = getArguments().getInt("POST_INDEX");
         }
         dataList = new ArrayList<>();
         useLoader();
@@ -114,6 +120,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         super.onAttach(activity);
         try {
             mListener = (BasicFragment.OnFragmentInteractionListener) activity;
+            callback = (CommentIsMade)activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -124,6 +131,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        callback = null;
     }
 
     @Override
@@ -155,7 +163,6 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
                     app.openOKDialog(CommentsFragment.this.getActivity(), CommentsFragment.this, "no_connection");
                 }
             });
-
             return;
         }
 
@@ -231,7 +238,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     }
 
     public interface CommentIsMade{
-        public void onNewComment(int commentCount);
+        public void onNewComment(int postLoaderId, int postId, int postIndex);
     }
 
     public class SendCommentTask extends AsyncTask<BasicNameValuePair, Void, String> {
@@ -296,10 +303,11 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
                 JsonArray dataObjects = new JsonParser().parse(text).getAsJsonObject().getAsJsonArray("data");
                 Gson gson = new Gson();
                 Comment comment = gson.fromJson(dataObjects.get(0), Comment.class);
-                Log.d(TAG, "ADD COMMENT SUCCESS: old data size: " + dataList.size());
+                //Log.d(TAG, "ADD COMMENT SUCCESS: old data size: " + dataList.size());
                 dataList.add(comment);
                 if(adapter != null){
                     adapter.notifyDataSetChanged();
+                    callback.onNewComment(postLoaderId, Integer.parseInt(paramPostId), postIndex);
                     status = -1;
                     Log.d(TAG, "ADD COMMENT SUCCESS: notified data size: " + dataList.size() );
                 }

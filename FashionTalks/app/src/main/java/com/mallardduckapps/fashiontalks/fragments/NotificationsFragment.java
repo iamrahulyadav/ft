@@ -155,7 +155,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
         if(data.size() == 0){
             progressBar.setVisibility(View.GONE);
             noDataTv.setVisibility(View.VISIBLE);
-            noDataTv.setText("  Bildiriminiz Yok");
+            noDataTv.setText(getString(R.string.no_notification));
         }
     }
 

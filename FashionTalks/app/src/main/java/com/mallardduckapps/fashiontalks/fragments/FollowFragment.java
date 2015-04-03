@@ -142,7 +142,7 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     public void onLoadFinished(Loader<ArrayList<User>> loader, ArrayList<User> data) {
 
         if(data == null){
-            Log.d(TAG, "DATA IS NULL");
+            //Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override

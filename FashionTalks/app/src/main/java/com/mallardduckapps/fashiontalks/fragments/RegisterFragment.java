@@ -154,7 +154,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         });
         app = (FashionTalksApp) getActivity().getApplication();
         if (isEditProfile) {
-            registerButton.setText("Kaydet");
+            registerButton.setText(getString(R.string.save));
             fillValues();
         }
         registerButton.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_md)));

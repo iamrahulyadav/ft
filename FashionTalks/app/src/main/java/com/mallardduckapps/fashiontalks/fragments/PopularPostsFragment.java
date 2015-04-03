@@ -121,7 +121,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     @Override
     public void onLoadFinished(Loader<ArrayList<Post>> loader, ArrayList<Post> data) {
         if(data == null){
-            Log.d(TAG, "DATA IS NULL");
+            //Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
@@ -203,7 +203,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                 app.addPopularPostArrayList(data);
                 break;
             case Constants.GALLERY_POSTS_LOADER_ID:
-                Log.d(TAG, "FILL GALLERY POSTS LIST: " +loaderId + " - " + data.size() + " - data 0 name : " + data.get(0).getUser().getUserName());
+                //Log.d(TAG, "FILL GALLERY POSTS LIST: " +loaderId + " - " + data.size() + " - data 0 name : " + data.get(0).getUser().getUserName());
                 if(data != null){
                     app.addGalleryPostArrayList(data, galleryId);
                     app.lastGalleryId = galleryId;

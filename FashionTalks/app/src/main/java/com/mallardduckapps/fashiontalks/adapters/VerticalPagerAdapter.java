@@ -37,7 +37,7 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
         bundle.putInt("POST_ID", postArrayList.get(position).getId());
         bundle.putInt("POST_INDEX", position);
         postFragment.setArguments(bundle);
-        Log.d(TAG, "Pager data 0 name: " + ( postArrayList.get(0)).getUser().getUserName());
+        //Log.d(TAG, "Pager data 0 name: " + ( postArrayList.get(0)).getUser().getUserName());
         return postFragment;
     }
 

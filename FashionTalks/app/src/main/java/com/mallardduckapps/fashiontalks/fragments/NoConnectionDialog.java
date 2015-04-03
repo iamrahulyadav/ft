@@ -6,15 +6,23 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 
 /**
  * Created by oguzemreozcan on 27/03/15.
  */
 public class NoConnectionDialog extends DialogFragment {
+    Fragment targetFragment;
+    int requestCode;
 
     public NoConnectionDialog(){
 
+    }
+
+    public void setTargetFragment(Fragment fragment, int requestCode){
+        targetFragment = fragment;
+        this.requestCode = requestCode;
     }
 
     @Override
@@ -32,6 +40,10 @@ public class NoConnectionDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        if(targetFragment != null){
+                            targetFragment.onActivityResult(requestCode,1, null);
+                        }
+
                         //getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                     }
                 })

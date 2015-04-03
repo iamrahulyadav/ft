@@ -51,7 +51,7 @@ public class SendCodeListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
-        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/40x40/").toString();
+        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/80x80/").toString();
         if(data != null){
             if(data.size() != 0){
                 selectedUserIds = new int[data.size()];
@@ -116,7 +116,7 @@ public class SendCodeListAdapter extends BaseAdapter {
         holder.button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "BUTTON CHECKED is " + isChecked);
+                //Log.d(TAG, "BUTTON CHECKED is " + isChecked);
                 if(isChecked){
                     selectedUserIds[position] = user.getId();
                 }else{

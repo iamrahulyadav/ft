@@ -78,7 +78,7 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
         sendPermission.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_md)));
         codesLeft.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
         //loadMoreFooterView = getLoadMoreView(inflater);
-        codesLeft.setText(me.getInvitesLeft() + " Davet Kaldı.");
+        codesLeft.setText(me.getInvitesLeft() + getString(R.string.left_invite));
 
         if(me.getInvitesLeft() > 0){
             sendPermission.setOnClickListener(new View.OnClickListener() {

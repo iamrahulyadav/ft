@@ -43,7 +43,7 @@ public class EditProfileActivity extends ActionBarActivity implements BasicFragm
         actionBar.setHomeButtonEnabled(true);
         TextView tvName = (TextView) findViewById(R.id.toolbarName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
-        tvName.setText("Profil Düzenle");
+        tvName.setText(getString(R.string.edit_profile));
         if (savedInstanceState == null) {
             RegisterFragment editProfileFragment = new RegisterFragment();
             Bundle bundle = new Bundle();

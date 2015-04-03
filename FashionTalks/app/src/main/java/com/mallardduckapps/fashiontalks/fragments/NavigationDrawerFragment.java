@@ -119,7 +119,7 @@ public class NavigationDrawerFragment extends BasicFragment {
                     getString(R.string.title_section4)
         };
 
-        String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/80x80/").append(me.getPhotoPath()).toString();
+        String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/90x90/").append(me.getPhotoPath()).toString();
         ImageLoader.getInstance().displayImage(url, thumbnailImage, app.options);
         userNameTv.setText(me.getFirstName() +" " + me.getLastName());
         FTUtils.setLayoutFont(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)),userNameTv, styleTv);

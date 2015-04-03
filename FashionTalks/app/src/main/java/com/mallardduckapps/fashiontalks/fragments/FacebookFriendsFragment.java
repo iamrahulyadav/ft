@@ -106,7 +106,7 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
     @Override
     public void onLoadFinished(Loader<ArrayList<User>> loader, ArrayList<User> data) {
         if(data == null){
-            Log.d(TAG, "DATA IS NULL");
+            //Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
@@ -161,7 +161,7 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
 
     private void useLoader(){
         if (this.canLoadMoreData() && !loading) {
-            Log.d(TAG, "USE LOADER FRAGMENT FOLLOWER ");
+            Log.d(TAG, "USE LOADER FRAGMENT FB FRIENDS ");
             loading = true;
             if (loader == null) {
                 loader = (FacebookFriendsLoader) getActivity().getLoaderManager()

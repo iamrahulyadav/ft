@@ -65,7 +65,7 @@ public class FashionTalksApp extends Application {
 
 
     public void openOKDialog(Activity activity, Fragment fragment, String dialogType){
-        DialogFragment dialog = new NoConnectionDialog();
+        NoConnectionDialog dialog = new NoConnectionDialog();
         Bundle args = new Bundle();
         if(dialogType.equals("no_connection")){
             args.putString("title", getString(R.string.no_connection_title));
@@ -79,7 +79,7 @@ public class FashionTalksApp extends Application {
         }
 
         dialog.setArguments(args);
-        //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
         dialog.show(activity.getFragmentManager(), fragment.getTag());
     }
 

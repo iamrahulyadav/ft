@@ -51,7 +51,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                 .getDisplayMetrics());
         mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 .getDisplayMetrics());
-        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9, res.getDisplayMetrics()));
+        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, res.getDisplayMetrics()));
         setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_helvatica_thin)));
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
@@ -128,7 +128,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
             img = getResources().getDrawable(
                     R.drawable.delete_circle);
             setBackgroundResource(R.drawable.glam_shape_delete);
-            setText(" Sil? ");
+            setText(getContext().getString(R.string.erase));
         }
         try {
             img.setBounds(0, 0, mContentWidth, mContentWidth);
@@ -226,7 +226,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
 
     private class PanelToggler implements OnClickListener {
         public void onClick(View v) {
-            Log.d(TAG, "ANIMATE EXPAND");
+            //Log.d(TAG, "ANIMATE EXPAND");
             animateExpand();
         }
     }

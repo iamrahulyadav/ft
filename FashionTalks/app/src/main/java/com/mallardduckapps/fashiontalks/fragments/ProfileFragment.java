@@ -172,7 +172,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         nameTv.setText(user.getFirstName() +" " + user.getLastName());
         userNameTv.setText(user.getUserName());
         aboutMeTv.setText(user.getAbout());
-        glamCountTv.setText(user.getGlamCountPattern().concat(" Glam"));
+        glamCountTv.setText(user.getGlamCountPattern().concat(getString(R.string.glam)));
         loadMoreFooterView = getLoadMoreView(inflater);
         Log.d(TAG, "ON CREATE VIEW: galleryChanged " + ProfileActivity.imageGalleryChanged);
         if(ProfileActivity.imageGalleryChanged){

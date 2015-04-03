@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Post>, CommentsFragment.CommentIsMade{
+public class PostFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Post>{
 
     int postId;
     int postIndex = -1;
@@ -93,7 +94,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     RoundedImageView thumbnailView;
 
     int glamCount;
-    int commentCount;
+    public static int commentCount;
     Post post;
 
     public PostFragment() {
@@ -105,7 +106,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
         width = PostsActivity.width;
         height = PostsActivity.height;
-
     }
 
     @Override
@@ -125,6 +125,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Log.d(TAG, "LIFETIME ON CREATEVIEW");
         View rootView = inflater.inflate(R.layout.post_layout, container, false);
         switcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
         layout = (RelativeLayout) rootView.findViewById(R.id.mainPostLayout);
@@ -158,8 +160,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
         bottomBar.setVisibility(View.VISIBLE);
        // Log.d(TAG, "POST FR: POST ID: " + postId);
-        post = getPost();
 
+        post = getPost();
+        Log.d(TAG, "GET POSTT COMMETN COUNT: " + post.getCommentCount());
         //openComment = post.getCanComment() == 1 ? true: false;
 
 //        if(loaderId == Constants.MY_POSTS_LOADER_ID){
@@ -272,7 +275,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             case Constants.MY_POSTS_LOADER_ID:
                 app.getMyPostArrayList().set(postIndex, post);
                 break;
-
         }
     }
 
@@ -284,22 +286,44 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             public void run() {
                 Log.d(TAG, "NEW GLAM COUNT : " + newGlamCount);
                 post.setGlamCount(newGlamCount);
-                tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(" Glam").toString());
+                tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(getString(R.string.glam)).toString());
                 setPost(post);
                 tvGlamCount.invalidate();
             }
         });
-
-
     }
 
     public void incrementCommentCount(){
         int comment = post.getCommentCount();
         post.setCommentCount(comment++);
         if(tvChatText != null){
-            tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(" Konuşma").toString());
+            tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(getString(R.string.comment)).toString());
         }
         setPost(post);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "LIFE TIME ON PAUSE");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.d(TAG, "LIFE TIME ON VIEW STATE RESTORED");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "LIFE TIME ON RESUME " +commentCount);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d(TAG, "LIFE TIME ON ATTACH " + commentCount);
     }
 
     private void fillPost(final Post post){
@@ -308,7 +332,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(80).append("x").append(80).append("/").append(user.getPhotoPath()).toString();
         tvUserName.setText(user.getUserName());
         tvName.setText(StringEscapeUtils.unescapeJson(post.getTitle()));
-        tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(" Glam").toString());
+        tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(getString(R.string.glam)).toString());
         //Log.d(TAG, "POST CREATED AT: " + post.getCreatedAt());
         tvPostTime.setText(TimeUtil.compareDateWithToday(post.getCreatedAt(), getResources()));
         glamLayout.setOnClickListener(new View.OnClickListener() {
@@ -321,7 +345,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                         .commit();
             }
         });
-        tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(" Konuşma").toString());
+        tvChatText.setText(new StringBuilder(Integer.toString(post.getCommentCount())).append(getString(R.string.comment)).toString());
         chatLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -329,10 +353,11 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 if(post.getCanComment() == 0){
                     return;
                 }
-                Bundle bundle = new Bundle();
-                bundle.putString("POST_ID", Integer.toString(postId));
-                CommentsFragment fragment = CommentsFragment.newInstance(Integer.toString(postId));
-                fragment.setArguments(bundle);
+                //Bundle bundle = new Bundle();
+                //bundle.putString("POST_ID", Integer.toString(postId));
+                //bundle.putInt("POST_LOADER_ID", loaderId);
+                CommentsFragment fragment = CommentsFragment.newInstance(Integer.toString(postId), loaderId, postIndex);
+                //fragment.setArguments(bundle);
                 //bottomBar.setVisibility(View.GONE);
                 //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
                 FragmentTransaction fragmentTx = getActivity().getSupportFragmentManager().beginTransaction();
@@ -528,11 +553,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         }
     }
 
-    @Override
-    public void onNewComment(int commentCount) {
-        incrementCommentCount();
-    }
-
     public class DeleteTask extends AsyncTask<String, Void, String> {
 
         private final String TAG = "SendPhotoTask";
@@ -574,7 +594,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 getActivity().finish();
                 BaseActivity.setBackwardsTranslateAnimation(getActivity());
             }else{
-                Toast.makeText(PostFragment.this.getActivity(),"Bir sorun oluştu! Tekrar dene!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostFragment.this.getActivity(),getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
             }
 
         }

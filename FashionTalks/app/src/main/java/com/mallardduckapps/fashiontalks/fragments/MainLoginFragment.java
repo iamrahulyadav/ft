@@ -66,7 +66,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         //showHashKey(getActivity());
-//TODO internet yokken back yapınca switcher geliyor
+        //TODO internet yokken back yapınca switcher geliyor
         if(app.dataSaver != null){
             String accessToken = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
             Log.d(TAG, "ACCESS TOKEN: " + accessToken);
@@ -219,6 +219,9 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Constants.NO_CONNECTION && resultCode == 1){
+            getActivity().finish();
+        }
     }
 
     @Override
@@ -226,12 +229,10 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         //showProgress(false);
         switch (authStatus) {
             case Constants.NO_CONNECTION:
-
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Log.d(TAG, "OK DIALOG");
-
                         //Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
                         app.openOKDialog(getActivity(), MainLoginFragment.this, "no_connection");
                         switcher.setDisplayedChild(1);

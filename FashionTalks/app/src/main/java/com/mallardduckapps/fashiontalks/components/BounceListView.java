@@ -45,10 +45,10 @@ public class BounceListView extends ListView {
         final float density = metrics.density;
 
         mMaxYOverscrollDistance = (int) (density * MAX_Y_OVERSCROLL_DISTANCE);
-        refreshBoundary = ((mMaxYOverscrollDistance + 15)/2)*-1;
+        refreshBoundary = ((mMaxYOverscrollDistance + 15) / 2) * -1;
     }
 
-    public void setRefreshListener(RefreshListener callback){
+    public void setRefreshListener(RefreshListener callback) {
         this.callback = callback;
     }
 
@@ -63,20 +63,20 @@ public class BounceListView extends ListView {
                 scrollRangeX, scrollRangeY, maxOverScrollX,
                 mMaxYOverscrollDistance, isTouchEvent);
 
-        if(refreshBoundary > scrollY ){
-            if(callback != null && !refresh){
-            refresh = true;
-            callback.onRefreshList();
-            Log.d("BOUNCELISTVIEW", "OVER SCROLL: " + mMaxYOverscrollDistance + " - refreshBoundary: " + refreshBoundary + " - scrollY: " + scrollY );
+        if (refreshBoundary > scrollY) {
+            if (callback != null && !refresh) {
+                refresh = true;
+                callback.onRefreshList();
+                //Log.d("BOUNCELISTVIEW", "OVER SCROLL: " + mMaxYOverscrollDistance + " - refreshBoundary: " + refreshBoundary + " - scrollY: " + scrollY );
             }
-        }else if(scrollY == 0){
+        } else if (scrollY == 0) {
             refresh = false;
         }
 
         return overScroll;
     }
 
-    public interface RefreshListener{
+    public interface RefreshListener {
         public void onRefreshList();
     }
 

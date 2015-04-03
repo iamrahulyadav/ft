@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.CommentsFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;
 import com.mallardduckapps.fashiontalks.fragments.PostFragment;
 import com.mallardduckapps.fashiontalks.objects.Post;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
-public class PostsActivity extends ActionBarActivity implements BasicFragment.OnFragmentInteractionListener {
+public class PostsActivity extends ActionBarActivity implements BasicFragment.OnFragmentInteractionListener, CommentsFragment.CommentIsMade {
 
     Toolbar mainToolbar;
     FashionTalksApp app;
@@ -44,8 +45,6 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     public static int width;
     public static int height;
     boolean openComment = false;
-
-    //TODO Changed so it doesnt open galleries now
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,6 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                     if (position < -1) { // [-Infinity,-1)
                         // This page is way off-screen to the left.
                         view.setAlpha(0);
-
                     } else if (position <= 1) { // [-1,1]
                         // Modify the default slide transition to shrink the page as well
                         float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
@@ -243,5 +241,61 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     public void onToolbarThemeChange(int themeId) {
 
+    }
+
+    @Override
+    public void onNewComment(int postLoaderId,int postId, int postIndex) {
+        Post post = getPost(postLoaderId, postIndex);
+        int commentCount = post.getCommentCount();
+        commentCount ++;
+        Log.d(TAG, "INCREMENT COMMENT. " + commentCount );
+        post.setCommentCount(commentCount);
+        setPost(post, postIndex);
+        PostFragment.commentCount = commentCount;
+    }
+
+    private Post getPost(int loaderId, int postIndex){
+        Post post = null;
+        switch (loaderId){
+            case Constants.FEED_POSTS_LOADER_ID:
+                post = app.getFeedPostArrayList().get(postIndex);
+                break;
+            case Constants.POPULAR_POSTS_LOADER_ID:
+                post = app.getPopularPostArrayList().get(postIndex);
+                break;
+            case Constants.GALLERY_POSTS_LOADER_ID:
+                post = app.getGalleryPostArrayList().get(postIndex);
+                break;
+            case Constants.USER_POSTS_LOADER_ID:
+                post = app.getUserPostArrayList().get(postIndex);
+                break;
+            case Constants.MY_POSTS_LOADER_ID:
+                post = app.getMyPostArrayList().get(postIndex);
+                break;
+            case Constants.NOTIFICATIONS_LOADER_ID:
+                post = null;
+                break;
+        }
+        return post;
+    }
+
+    private void setPost(Post post, int postIndex){
+        switch (loaderId){
+            case Constants.FEED_POSTS_LOADER_ID:
+                app.getFeedPostArrayList().set(postIndex, post);
+                break;
+            case Constants.POPULAR_POSTS_LOADER_ID:
+                app.getPopularPostArrayList().set(postIndex, post);
+                break;
+            case Constants.GALLERY_POSTS_LOADER_ID:
+                app.getGalleryPostArrayList().set(postIndex, post);
+                break;
+            case Constants.USER_POSTS_LOADER_ID:
+                app.getUserPostArrayList().set(postIndex, post);
+                break;
+            case Constants.MY_POSTS_LOADER_ID:
+                app.getMyPostArrayList().set(postIndex, post);
+                break;
+        }
     }
 }

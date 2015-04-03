@@ -35,7 +35,7 @@ public class GridListOnScrollListener implements AbsListView.OnScrollListener {
                 final int lastItem = firstVisibleItem + visibleItemCount;
                 if(lastItem == totalItemCount) {
                     if(preLast!=lastItem){ //to avoid multiple calls for last item
-                        Log.d("Last", "Last");
+                        //Log.d("Last", "Last");
                         preLast = lastItem;
                         callback.reachedToEnd();
                     }

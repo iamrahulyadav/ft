@@ -6,12 +6,22 @@
     <string name="title_section2">Kullanıcı Bul</string>
     <string name="title_section3">Bildirimler</string>
     <string name="title_section4">Ayarlar</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Ayarlar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data">No Data</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Kullanıcı Adı veya Email Adresi</string>
+    <string name="prompt_password">Şifre</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Giriş Yap</string>
+    <string name="action_forget_pass">Şifremi Unuttum</string>
+    <string name="action_register_short">Kayıt Ol</string>
+    <string name="error_invalid_email">Email Adresi Geçersiz</string>
+    <string name="error_invalid_password">Şifre Geçersiz</string>
+    <string name="error_incorrect_password">Şifre Yanlış</string>
+    <string name="error_field_required">Alan gerekli</string>
+
     <!-- Register Ekranı -->
     <string name="userName">Kullanıcı Adı</string>
     <string name="email">Email</string>
@@ -44,64 +54,19 @@
     <string name="upload_new_style">Yeni Stil Yükle</string>
     <string name="logout">"Çıkış Yap"</string>
 
-    <!-- Activity Names -->
+    <!-- Activity Names  No need to change those -->
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_users">UsersActivity</string>
     <string name="title_activity_notification">NotificationActivity</string>
-
-    <!-- Dialogs -->
-    <string name="no_connection_title">Bağlantı Hatası!</string>
-    <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
-    <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
-    <string name="no_brand">Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.</string>
-    <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
-    <string name="delete_post_alert">Gönderinizi silmek istediğinize emin misiniz?</string>
-    <string name="invalid_post_alert">Gönderi silinmiş ya da artık geçerli değil.</string>
-    <string name="password_error_dialog">Şifre gönderilirken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz.</string>
-    <string name="password_success_dialog">Şifreniz Email adresinize gönderildi. Lütfen Email adresinizi kontrol ediniz.</string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="success">Başarılı</string>
-    <string name="unsuccessful">Başarısız</string>
-    <string name="yes">Evet</string>
-    <string name="no">Hayır</string>
-    <string name="erase"> Sil ?</string>
-
-    <!-- Profile -->
-    <string name="follow">Takip Et</string>
-    <string name="unfollow">Takibi Bırak</string>
-    <string name="followers">Takip Edenler</string>
-    <string name="following">Takip Ediyor</string>
-    <string name="no_followers">Kimse Takip Etmiyor</string>
-    <string name="no_following">Kimseyi Takip Etmiyor</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_style_upload">StyleUploadActivity</string>
-
-    <!-- Time Util -->
-    <string name="after_minute"> Dakika Sonra</string>
-    <string name="after_hour"> Saat Sonra</string>
-    <string name="after_day"> Gün Sonra </string>
-    <string name="after_month"> Ay Sonra </string>
-    <string name="after_year"> Yıl Sonra </string>
-    <string name="before_minute"> d </string>
-    <string name="before_hour"> s </string>
-    <string name="before_day"> g </string>
-    <string name="before_month"> a </string>
-    <string name="before_year"> y </string>
-    <string name="day_today"> Bugün </string>
-    <string name="now"> Şimdi </string>
+    <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_web">WebActivity</string>
     <string name="title_activity_send_posting_code">SendPostingCodeActivity</string>
-
-    <!-- User Settings -->
-    <string name="permission_talks">Konuşmalara izin ver</string>
-    <string name="permission_news">Haber Maili Al</string>
-    <string name="permission_new_glam">Yeni Glam</string>
-    <string name="permission_new_talk">Yeni Konuşma</string>
-    <string name="permission_new_mention">Yeni Bahsetme</string>
-    <string name="permission_new_follower">Yeni Takipçi</string>
-    <string name="notification">Bildirim</string>
-
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- FontNames -->
     <string name="font_avantgarde_bold">ITC-Avant-Garde-bold.otf</string>
     <string name="font_avantgarde_regular">ITC-Avant-Garde-regular.otf</string>
@@ -120,6 +85,63 @@
     <string name="email_send_report_subject">FashionTalks - Report</string>
     <string name="email_send_report_content">I would like to report this photo.</string>
 
+    <!-- Dialogs -->
+    <string name="no_connection_title">Bağlantı Hatası!</string>
+    <string name="problem_occured">Bir sorun oluştu! Tekrar dene!</string>
+    <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="no_brand">Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.</string>
+    <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
+    <string name="delete_post_alert">Gönderinizi silmek istediğinize emin misiniz?</string>
+    <string name="invalid_post_alert">Gönderi silinmiş ya da artık geçerli değil.</string>
+    <string name="password_error_dialog">Şifre gönderilirken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="password_success_dialog">Şifreniz Email adresinize gönderildi. Lütfen Email adresinizi kontrol ediniz.</string>
+
+    <string name="success">Başarılı</string>
+    <string name="unsuccessful">Başarısız</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="erase"> Sil ? </string>
+    <string name="glam"> Glam</string>
+    <string name="comment"> Konuşma</string>
+    <string name="save">Kaydet</string>
+
+    <!-- Profile -->
+    <string name="follow">Takip Et</string>
+    <string name="unfollow">Takibi Bırak</string>
+    <string name="followers">Takip Edenler</string>
+    <string name="following">Takip Ediyor</string>
+    <string name="no_followers">Kimse Takip Etmiyor</string>
+    <string name="no_following">Kimseyi Takip Etmiyor</string>
+    <string name="no_notification">  Bildiriminiz Yok</string>
+    <string name="left_invite">  Davet Kaldı.</string>
+    <string name="edit_profile">Profil Düzenle</string>
+
+    <!-- Time Util -->
+    <string name="after_minute"> Dakika Sonra</string>
+    <string name="after_hour"> Saat Sonra</string>
+    <string name="after_day"> Gün Sonra </string>
+    <string name="after_month"> Ay Sonra </string>
+    <string name="after_year"> Yıl Sonra </string>
+    <string name="before_minute"> d </string>
+    <string name="before_hour"> s </string>
+    <string name="before_day"> g </string>
+    <string name="before_month"> a </string>
+    <string name="before_year"> y </string>
+    <string name="day_today"> Bugün </string>
+    <string name="now"> Şimdi </string>
+
+
+    <!-- User Settings -->
+    <string name="permission_talks">Konuşmalara izin ver</string>
+    <string name="permission_news">Haber Maili Al</string>
+    <string name="permission_new_glam">Yeni Glam</string>
+    <string name="permission_new_talk">Yeni Konuşma</string>
+    <string name="permission_new_mention">Yeni Bahsetme</string>
+    <string name="permission_new_follower">Yeni Takipçi</string>
+    <string name="notification">Bildirim</string>
+
+
     <!-- Upload Screens -->
     <string name = "upload_title">Kaynak Seç</string>
     <string name="upload_select_or_shoot">Yeni bir resim çekin veya albümden bir resim seçin.</string>
@@ -132,7 +154,6 @@
     <string name="upload_brand_name">Marka Adı</string>
     <string name="upload_menu_continue">Devam</string>
     <string name="upload_menu_send">Gönder</string>
-    <string name="title_activity_cam_test">CamTestActivity</string>
     <string name="camera_not_found">Kamera Bulunamadı.</string>
 
     <string name="search_user">Kullanıcı Ara</string>
@@ -148,7 +169,7 @@
     <string name="send_password">Şifre Gönder</string>
     <string name="terms_privacy_warning">By joining FashionTalks you agree the <![CDATA[<a href="http://www.fashiontalks.org/terms-of-use.html"> <br> <b>Terms of Service</b></a>]]> and
         <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
-    <string name="title_activity_edit_profile">EditProfileActivity</string>
+
     <string name="fbId">340890866061812</string>
 
 </resources>
