@@ -104,7 +104,6 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
         final Button followButton = (Button) rootView.findViewById(R.id.followButton);
         Button followingButton = (Button) rootView.findViewById(R.id.followingButton);
         Button followersButton = (Button) rootView.findViewById(R.id.followersButton);
@@ -132,13 +131,16 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             final boolean isFollowing = user.getIsFollowing() == 1 ? true: false;
             if(isFollowing){
                 followButton.setText(getString(R.string.unfollow));
+                followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
             }
             followButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "BUTTON FOLLOW is clicked ");
                     if(isFollowing){
-
+                        followButton.setBackgroundResource(R.drawable.follow_button_drawable);
+                    }else{
+                        followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
                     }
                     FollowTask task = new FollowTask(getActivity(),!isFollowing, user.getId(), followButton);
                     task.execute();
@@ -175,7 +177,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         glamCountTv.setText(user.getGlamCountPattern().concat(getString(R.string.glam)));
         loadMoreFooterView = getLoadMoreView(inflater);
         Log.d(TAG, "ON CREATE VIEW: galleryChanged " + ProfileActivity.imageGalleryChanged);
-        if(ProfileActivity.imageGalleryChanged){
+        if(ProfileActivity.imageGalleryChanged ){ // || ProfileActivity.userInfoChanged
             useLoader();
         }
         return rootView;
@@ -185,7 +187,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     public void onResume() {
         super.onResume();
         Log.d(TAG, "ON RESUME galleryChanged " + ProfileActivity.imageGalleryChanged);
-        if(ProfileActivity.imageGalleryChanged){
+        if(ProfileActivity.imageGalleryChanged ){ //|| ProfileActivity.userInfoChanged
             dataList = null;
             useLoader();
         }
@@ -275,7 +277,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     }
 
     public boolean canLoadMoreData() {
-        if(loader == null || ProfileActivity.imageGalleryChanged)
+        if(loader == null || ProfileActivity.imageGalleryChanged ) // || ProfileActivity.userInfoChanged
             return true;
 
         return loader.perPage > itemCountPerLoad  ? false : true;//listData.size() < getMaxAllowedItems();
@@ -320,13 +322,19 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
             }else{
                 Log.d(TAG, "USE LOADER FRAGMENT Profile Fragment - ON CONTENT CHANGEDD");
-                if(ProfileActivity.imageGalleryChanged){
+                if(ProfileActivity.imageGalleryChanged ){ //|| ProfileActivity.userInfoChanged
                     loader = (PostsLoader) getActivity().getLoaderManager()
                             .restartLoader(loaderId, null, this);
                     //TODO Control this
                     dataList = null;
                     listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
-                    ProfileActivity.imageGalleryChanged = false;
+                    if(ProfileActivity.imageGalleryChanged){
+                        ProfileActivity.imageGalleryChanged = false;
+                    }
+
+//                    if(ProfileActivity.userInfoChanged){
+//                        ProfileActivity.userInfoChanged = false;
+//                    }
                 }
                 //loader.startLoading(); //= (PopularPostsLoader) getActivity().getLoaderManager()
                 // .restartLoader(Constants.POPULAR_POSTS_LOADER_ID, null, this);

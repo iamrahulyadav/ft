@@ -364,7 +364,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                 switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
-                mListener.saveTokens(tokens);
+                mListener.saveTokens(true,tokens);
                 mListener.goToMainActivity();
                 break;
         }

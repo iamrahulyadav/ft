@@ -58,6 +58,9 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         super.onCreate(savedInstanceState);
         loaderId = getArguments().getInt("LOADER_ID");
         galleryId = getArguments().getInt("GALLERY_ID");
+        if(loaderId == Constants.GALLERY_POSTS_BY_TAG_LOADER_ID){
+            dataList = null;
+        }
         resetGlobalLists();
         listAdapter = new GalleryGridAdapter(getActivity(),this,MAX_CARDS, galleryId == 0 ? false : true );
         //Log.d(TAG, "POPULAR POSTS FRAGMENT-LoaderId: " + loaderId + " - GalleryId: " + galleryId);
@@ -138,7 +141,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             index = 0;
             if(resetLoader){
                 resetLoader = false;
-
             }
             loadData(data);
             if(listView != null)
@@ -151,9 +153,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             Log.d(TAG, "LOAD MORE DATA TO THE ADAPTER: ");
             loadData(data);
             listAdapter.notifyDataSetChanged();
-
         }
-
         if(!canLoadMoreData()){
             if(listView != null) {
                 listView.removeFooterView(loadMoreFooterView);
@@ -167,7 +167,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     private void loadData(ArrayList<Post> data){
         dataList = new ArrayList<GalleryItem>();
         for (Post post : data){
-            //Log.d(TAG, "COVER PATH: " + post.getPhoto());
             //ImagePathTask task = new ImagePathTask("galleries/1419693538.203064jpg");
             //String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/300x300/").append(post.getPhoto()).toString();
             GalleryItem galleryItem = new GalleryItem(index, post.getId(), "", post.getPhoto());
@@ -191,6 +190,9 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             case Constants.GALLERY_POSTS_LOADER_ID:
                 app.setGalleryPostArrayList(null);
                 break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                app.setBrandGalleryPostList(null);
+                break;
         }
     }
 
@@ -209,6 +211,14 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                     app.lastGalleryId = galleryId;
                 }else{
                     app.setGalleryPostArrayList(null);
+                }
+                break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                if(data != null){
+                    app.addBrandGalleryPostList(data, galleryId);
+                    app.lastBrandId = galleryId;
+                }else{
+                    app.setBrandGalleryPostList(null);
                 }
                 break;
         }

@@ -264,29 +264,28 @@ public class CropImage extends MonitoredActivity {
             in.close();
 
             ///////////
-//            int rotatedWidth, rotatedHeight;
-//            int orientation = Util.getExifRotation(mImagePath);//getOrientation(this, mSaveUri);
-//
-//            if (orientation == 90 || orientation == 270) {
-//                rotatedWidth = o.outHeight;
-//                rotatedHeight = o.outWidth;
-//            } else {
-//                rotatedWidth = o.outWidth;
-//                rotatedHeight = o.outHeight;
-//            }
+            int rotatedWidth, rotatedHeight;
+            int orientation = Util.getExifRotation(mImagePath);//getOrientation(this, mSaveUri);
+
+            if (orientation == 0 || orientation == 180) { // orientation == 90 || orientation == 270
+                rotatedWidth = o.outHeight;
+                rotatedHeight = o.outWidth;
+            } else {
+                rotatedWidth = o.outWidth;
+                rotatedHeight = o.outHeight;
+            }
 
             /////
-//            int width = o.outWidth;//bitmap.getWidth();
-//            int height= o.outHeight;//bitmap.getHeight();
-//            boolean rotateLeft = false;
-//            ExifInterface exif = new ExifInterface(path);
-//            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-            //
-//            Log.d(TAG, "IMAGE WIDTH HEIGHT: " + width + " - height: " + height + " orientation:  " + orientation);
-//            if(width > height){
-//
-//                rotateLeft = true;
-//            }
+            //int width = o.outWidth;//bitmap.getWidth();
+            //int height= o.outHeight;//bitmap.getHeight();
+            boolean rotateLeft = false;
+            //ExifInterface exif = new ExifInterface(path);
+            //int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            Log.d(TAG, "IMAGE WIDTH HEIGHT: " + rotatedWidth + " - height: " + rotatedHeight + " orientation:  " + orientation);
+            if(rotatedWidth > rotatedHeight){
+                rotateLeft = true;
+            }
 
 
             int scale = 1;
@@ -299,11 +298,11 @@ public class CropImage extends MonitoredActivity {
             in = mContentResolver.openInputStream(uri);
             Bitmap b = BitmapFactory.decodeStream(in, null, o2);
             //
-//            if(rotateLeft){
-//                b = Util.rotateImage(b, 90);
-//                RotateBitmap rotateBitmap = new RotateBitmap(b);
-//                mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
-//            }
+            if(rotateLeft){
+                b = Util.rotateImage(b, -90);
+                RotateBitmap rotateBitmap = new RotateBitmap(b);
+                mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
+            }
             //
             in.close();
 

@@ -23,7 +23,8 @@ public class GalleryActivity extends ActionBarActivity {
     ActionBar actionBar;
     int galleryId;
     FashionTalksApp app;
-    String galleryName = "FASHIONTALKS";
+    String galleryName = "FashionTalks";
+    int loaderId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class GalleryActivity extends ActionBarActivity {
 
         galleryId = getIntent().getIntExtra("GALLERY_ID", 0);
         galleryName = getIntent().getStringExtra("GALLERY_NAME");
+        loaderId = getIntent().getIntExtra("LOADER_ID", -1);
         //positionIndex = getIntent().getIntExtra("POST_INDEX", -1);
         Log.d(TAG, "GALLERY ID: " + galleryId);
         app = (FashionTalksApp) getApplication();
@@ -47,7 +49,12 @@ public class GalleryActivity extends ActionBarActivity {
         PopularPostsFragment galleryFragment = new PopularPostsFragment();
         //galleryFragment.setActivity(activity);
         Bundle bundle = new Bundle();
-        bundle.putInt("LOADER_ID", Constants.GALLERY_POSTS_LOADER_ID);
+        if(loaderId == -1){
+            bundle.putInt("LOADER_ID", Constants.GALLERY_POSTS_LOADER_ID);
+        }else{
+            bundle.putInt("LOADER_ID", loaderId);
+        }
+
         bundle.putInt("GALLERY_ID", galleryId);
         bundle.putString("GALLERY_NAME", galleryName);
         galleryFragment.setArguments(bundle);
@@ -80,6 +87,9 @@ public class GalleryActivity extends ActionBarActivity {
             finish();
             BaseActivity.setBackwardsTranslateAnimation(this);
          //   }
+        }else if(id == R.id.action_home){
+            finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
         }
 
 

@@ -24,6 +24,7 @@ import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.LoginActivity;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -154,6 +155,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         });
         app = (FashionTalksApp) getActivity().getApplication();
         if (isEditProfile) {
+            Log.d(TAG, "FILL VALUES");
             registerButton.setText(getString(R.string.save));
             fillValues();
         }
@@ -321,6 +323,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         countryEdit.setText(me.getCountry());
         cityEdit.setText(me.getCity());
         aboutEdit.setText(me.getAbout());
+        Log.d(TAG, "ABOUT ME: " + me.getAbout());
         birthDateEdit.setText(me.getBirthDateTxt());
 
         if (me.getPhotoPath() != null) {
@@ -351,14 +354,19 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
             case Constants.AUTHENTICATION_SUCCESSFUL:
                 if(user != null)
                     app.setMe(user);
-                mListener.saveTokens(tokens);
+                mListener.saveTokens(true,tokens);
                 mListener.goToMainActivity();
                 break;
             case Constants.PROFILE_EDIT_SUCCESSFUL:
-                if(user != null)
+                if(user != null){
                     app.setMe(user);
-                getActivity().finish();
-                BaseActivity.setBackwardsTranslateAnimation(getActivity());
+                    //ProfileActivity.userInfoChanged = true;
+                    Log.d(TAG, "USER UPDATED: " + app.getMe().getAbout());
+                }
+
+                mListener.goToMainActivity();
+                //getActivity().finish();
+                //BaseActivity.setBackwardsTranslateAnimation(getActivity());
         }
     }
 

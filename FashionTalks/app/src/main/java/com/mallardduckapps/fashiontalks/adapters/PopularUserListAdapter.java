@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -97,7 +98,7 @@ public class PopularUserListAdapter extends BaseAdapter {
             holder.column2Image = (ImageView) vi.findViewById(R.id.imageColumn2);
             holder.column3Image = (ImageView) vi.findViewById(R.id.imageColumn3);
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
-            holder.button = (ToggleButton) vi.findViewById(R.id.followButton);
+            holder.button = (CheckBox) vi.findViewById(R.id.followButton);
             vi.setTag(holder);
         }
         else {
@@ -143,7 +144,7 @@ public class PopularUserListAdapter extends BaseAdapter {
         ImageView column3Image;
         TextView nameTv;
         TextView glamTv;
-        ToggleButton button;
+        CheckBox button;
     }
 }
 

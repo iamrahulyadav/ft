@@ -40,6 +40,8 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     boolean nameGiven = false;
     private boolean selected = false;
     private boolean readyToDelete = false;
+    private int tagId;
+    private String brandName;
 
     public ExpandablePanel(final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost) {
         super(context);
@@ -177,13 +179,29 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         //new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(pivot.getTag()).toString();
     }
 
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     public void runShrinkAnimation() {
         if (!mExpanded) {
             return;
         }
         Animation a = new ExpandAnimation(expendedWidth, mContentWidth);
         a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
-        mListener.onCollapse(ExpandablePanel.this);
+        //mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
         a.setDuration(mAnimationDuration);
         a.setFillAfter(true);
         startAnimation(a);
@@ -209,10 +227,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     public void animateExpand() {
         Animation a;
         if (mExpanded) {
-          //  return;
-                a = new ExpandAnimation(expendedWidth, mContentWidth);
-                a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
-                mListener.onCollapse(ExpandablePanel.this);
+            mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
+            return;
+          //      a = new ExpandAnimation(expendedWidth, mContentWidth);
+          //      a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
+          //      mListener.onCollapse(ExpandablePanel.this);
         } else {
             a = new ExpandAnimation(mContentWidth, expendedWidth);
             a.initialize(mContentWidth, mContentWidth, mContentWidth, mContentWidth);
@@ -251,7 +270,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
             }
             param.width = (int) (mStartWidth + mDeltaWidth *
                     interpolatedTime);
-            if (delta != 0 && lhsAnimation) {
+            if (delta != 0 && !lhsAnimation) {
                 delta = (int) (mStartWidth + mDeltaWidth *
                         interpolatedTime) - delta;
                 param.leftMargin -= delta;
@@ -284,7 +303,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                     task.execute();
                 }
             } else {
-                mListener.onCollapse(ExpandablePanel.this);
+                mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
             }
         }
 
@@ -296,7 +315,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
 
     public interface OnExpandListener {
         public void onExpand(View view);
-        public void onCollapse(View view);
+        public void onCollapse(View view, int tagId, String brandName);
         public void onTagGlammed(int glamCount, int totalGlamCount);
     }
 

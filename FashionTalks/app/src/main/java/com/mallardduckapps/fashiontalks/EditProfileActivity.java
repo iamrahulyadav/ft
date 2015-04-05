@@ -21,6 +21,7 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
+import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class EditProfileActivity extends ActionBarActivity implements BasicFragment.OnLoginFragmentInteractionListener {
@@ -104,11 +105,15 @@ public class EditProfileActivity extends ActionBarActivity implements BasicFragm
 
     @Override
     public void goToMainActivity() {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra("URL", Constants.TERMS_OF_USE_URL);
+        startActivity(intent);
+        this.finish();
+        BaseActivity.setBackwardsTranslateAnimation(this);
     }
 
     @Override
-    public void saveTokens(String... tokens) {
+    public void saveTokens(boolean normalLogin,String... tokens) {
 
     }
 

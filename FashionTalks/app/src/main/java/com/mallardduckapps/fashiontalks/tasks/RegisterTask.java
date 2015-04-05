@@ -19,7 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
 
-    public static final String TAG = "LOGIN_TASK";
+    public static final String TAG = "REGISTER_TASK";
     //LoginActivity activity;
     private int authStatus;
     RegisterTaskCallback callBack;
@@ -88,16 +88,16 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
         JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
         JsonObject userObject = dataObject.getAsJsonObject("User");
 
-        User me = gson.fromJson(userObject, User.class);
-
-
+        User me = null;
         if(!editProfile){
-            Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
+            me = gson.fromJson(userObject, User.class);
+           // Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
             accessToken = oauthObject.get("access_token").getAsString();
             refreshToken = oauthObject.get("refresh_token").getAsString();
             callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,me, accessToken, refreshToken);
         }else{
-
+            me = gson.fromJson(dataObject, User.class);
+            //Log.d(TAG, "USER NAME UPDATE: " + me.getFirstName() + "lastName: " + me.getLastName() + " - about: " + me.getAbout());
             callBack.getAuthStatus(Constants.PROFILE_EDIT_SUCCESSFUL,me, null, null);
         }
 

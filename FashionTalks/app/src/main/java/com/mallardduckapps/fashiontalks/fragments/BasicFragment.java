@@ -36,7 +36,7 @@ public abstract class BasicFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(String tag);
         public void goToMainActivity();
-        public void saveTokens(String... tokens);
+        public void saveTokens(boolean normalLogin,String... tokens);
         public void setToolbarVisibility(boolean visible);
         public void goRegistrationPage();
         public void setTitleName(String name);

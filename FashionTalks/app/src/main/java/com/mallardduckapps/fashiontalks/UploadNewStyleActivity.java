@@ -100,6 +100,15 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         //actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+    }
+
+    private void onBackToMainScreen(){
+        tvName.setText(getResources().getString(R.string.app_name));
+        getSupportFragmentManager().popBackStack();
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(false);
     }
 
@@ -107,9 +116,12 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+            if (getSupportFragmentManager().getBackStackEntryCount() == 2 ){
                 onBackToTitleScreen();
-            } else {
+            }else if(getSupportFragmentManager().getBackStackEntryCount() == 1 ){
+                onBackToMainScreen();
+            }
+            else {
                 menu.toggle();
                 //finish();
             }
@@ -120,9 +132,12 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+        if (getSupportFragmentManager().getBackStackEntryCount() == 2 ){
             onBackToTitleScreen();
-        } else {
+        }else if(getSupportFragmentManager().getBackStackEntryCount() == 1 ){
+            onBackToMainScreen();
+        }
+        else {
             menu.toggle();
             //finish();
         }
@@ -203,6 +218,9 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
                 fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.TAG)
                         .commitAllowingStateLoss();
                 tvName.setText(getResources().getString(R.string.upload_new_title));
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setDisplayShowHomeEnabled(false);
+                actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
                 //bitmap = BitmapFactory.decodeFile(mFileTemp.getPath());
                 //mImageView.setImageBitmap(bitmap);

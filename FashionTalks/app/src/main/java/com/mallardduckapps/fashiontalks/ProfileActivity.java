@@ -24,6 +24,7 @@ public class ProfileActivity extends ActionBarActivity {
     final String TAG = "ProfileActivity";
     boolean onNewIntent = false;
     public static boolean imageGalleryChanged;
+    //public static boolean userInfoChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

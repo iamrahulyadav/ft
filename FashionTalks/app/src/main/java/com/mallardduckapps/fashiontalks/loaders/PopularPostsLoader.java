@@ -11,10 +11,14 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -56,7 +60,16 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         //Caused by: java.lang.IllegalStateException: Not a JSON Object: "NO_CONNECTION"
         JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
         Gson gson = new Gson();
-        if(galleryId == 0){
+
+        if (loaderId == Constants.GALLERY_POSTS_BY_TAG_LOADER_ID) {
+            for (JsonElement item : dataObjects) {
+                JsonObject object = item.getAsJsonObject();
+                String json = object.get("post").toString();
+               // Log.d(TAG, "POST: " + json);
+                Post post = gson.fromJson(json, Post.class);
+                popularPostItems.add(post);
+            }
+        } else if (galleryId == 0) {
             for (JsonElement item : dataObjects) {
                 Post post = gson.fromJson(item, Post.class);
                 popularPostItems.add(post);
@@ -64,7 +77,7 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
             //popularPostItems = gson.fromJson(dataObjects, popularPostItems.getClass() );
             //System.out.println(gson.toJson(popularPostItems));
 
-        }else{
+        } else {
             JsonArray postObjects = dataObjects.get(0).getAsJsonObject().getAsJsonArray("posts");
             for (JsonElement item : postObjects) {
                 Post post = gson.fromJson(item, Post.class);
@@ -74,11 +87,11 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         return popularPostItems;
     }
 
-    protected String getLoaderPrefix(){
+    protected String getLoaderPrefix() {
         String prefix = "";
-        switch (loaderId){
+        switch (loaderId) {
             case Constants.POPULAR_POSTS_LOADER_ID:
-                prefix =Constants.POPULAR_PREFIX;
+                prefix = Constants.POPULAR_PREFIX;
                 break;
             case Constants.FEED_POSTS_LOADER_ID:
                 prefix = Constants.FEED_PREFIX;
@@ -86,6 +99,8 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
             case Constants.GALLERY_POSTS_LOADER_ID:
                 prefix = Constants.GALLERY_POSTS_PREFIX + "/" + galleryId;
                 break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                prefix = Constants.GALLERY_POSTS_BY_TAG_PREFIX + galleryId;
 
         }
         return prefix;
@@ -94,20 +109,20 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
     @Override
     public void deliverResult(ArrayList<Post> data) {
 
-      //  Log.d(TAG, "LOADER DELIVER LOADER RESULT");
+        //  Log.d(TAG, "LOADER DELIVER LOADER RESULT");
         if (isReset()) {
             // The Loader has been reset; ignore the result and invalidate the
             // data.
 //			Log.d(TAG, "IS RESET TRUE: ");
             Log.d(TAG, "DELIVER LOADER RESET");
-           // releaseResources(data);
+            // releaseResources(data);
             return;
         }
         // Hold a reference to the old data so it doesn't get garbage collected.
         // We must protect it until the new data has been delivered.
         // if(!refreshData){
         //ArrayList<Post> oldData = popularPostItems;
-       // popularPostItems = data;
+        // popularPostItems = data;
         if (isStarted()) {
             // If the Loader is in a started state, deliver the results to the
             // client. The superclass method does this for us.
@@ -116,9 +131,9 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         }
         // Invalidate the old data as we don't need it any more.
 
-      //  if (oldData != null && oldData != data) {
-           // releaseResources(oldData);
-       // }
+        //  if (oldData != null && oldData != data) {
+        // releaseResources(oldData);
+        // }
         //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.size() );
         //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.get(0).getTag() );
         //Log.d(TAG, "DELIVER LOADER RESULT FINAL :" + data.get(data.size()-1).getTag() );
@@ -140,8 +155,8 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         onStopLoading();
         // At this point we can release the resources associated with
         // 'contacts'.
-       // if (expenseItems != null) {
-       //     releaseResources(expenseItems);
+        // if (expenseItems != null) {
+        //     releaseResources(expenseItems);
         //    expenseItems = null;
         //}
 

@@ -30,6 +30,7 @@ import android.widget.ViewSwitcher;
 
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
+import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -254,6 +255,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             case Constants.NOTIFICATIONS_LOADER_ID:
                 post = null;
                 break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                post = app.getBrandGalleryPostList().get(postIndex);
+                break;
         }
         return post;
     }
@@ -274,6 +278,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 break;
             case Constants.MY_POSTS_LOADER_ID:
                 app.getMyPostArrayList().set(postIndex, post);
+                break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                app.getBrandGalleryPostList().set(postIndex, post);
                 break;
         }
     }
@@ -305,25 +312,25 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "LIFE TIME ON PAUSE");
+        //Log.d(TAG, "LIFE TIME ON PAUSE");
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.d(TAG, "LIFE TIME ON VIEW STATE RESTORED");
+        //Log.d(TAG, "LIFE TIME ON VIEW STATE RESTORED");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "LIFE TIME ON RESUME " +commentCount);
+        //Log.d(TAG, "LIFE TIME ON RESUME " +commentCount);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.d(TAG, "LIFE TIME ON ATTACH " + commentCount);
+        //Log.d(TAG, "LIFE TIME ON ATTACH " + commentCount);
     }
 
     private void fillPost(final Post post){
@@ -397,7 +404,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                                     finalImageHeight = postPhoto.getHeight();
                                     finalImageWidth = postPhoto.getWidth();
                                     imageTopMargin = (int)postPhoto.getY();
-                                    Log.e("IMAGE","Height: " + finalImageHeight + " Width: " + finalImageWidth + " - imageTopMargin : " + imageTopMargin);
+                                    Log.e("IMAGE","(GLAM) Image Height: " + finalImageHeight + " Width: " + finalImageWidth + " - imageTopMargin : " + imageTopMargin);
                                     setGlamPosition(post);
                                 }
 //                    Log.d(TAG, "POSX " + posX/1.5 + " - POSY: " + posY/1.5);
@@ -450,16 +457,34 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         for (Tag tag : post.getTags()){
             final Pivot pivot = tag.getPivot();
             int x = getRealX(pivot.getX());
-            final ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , getRealY(pivot.getY()), x > PostsActivity.width/2 ? true:false, ownPost, false);
-            panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString() ,false);
+            int y = getRealY(pivot.getY());
+            int tagId = tag.getId();
+            String brandName = tag.getTag();
+            final ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , y, x > PostsActivity.width/2 ? false:true, ownPost, false);
+            panel.setTagId(tagId);
+            panel.setBrandName(brandName);
+            if(panel.isLhsAnimation()){
+                panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString() ,false);
+            }else{
+                panel.setTagText(new StringBuilder(tag.getTag()).append(" | ").append(pivot.getGlamCountPattern()).toString() ,false);
+            }
+
             //panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
+            Log.d(TAG, "GLAM X: " + x + " - GLAM Y: " + y);
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
                 @Override
                 public void onExpand(View handle) {
                 }
 
                 @Override
-                public void onCollapse(View handle) {
+                public void onCollapse(View handle, int tagId, String brandName) {
+                    Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                    intent.putExtra("GALLERY_ID", tagId);
+                    intent.putExtra("GALLERY_NAME", brandName);
+                    intent.putExtra("LOADER_ID", Constants.GALLERY_POSTS_BY_TAG_LOADER_ID);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    PostFragment.this.getActivity().startActivity(intent);
+                    BaseActivity.setTranslateAnimation(getActivity());
                 }
 
                 @Override

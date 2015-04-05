@@ -200,8 +200,17 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             @Override
             public void onClick(View v) {
                 mListener.onFragmentInteraction("FBLogin");
-
-                loginButton.performClick();
+                //TODO
+                String fbToken = app.dataSaver.getString(Constants.FB_ACCESS_TOKEN_KEY);
+                if(fbToken.equals("")){
+                    loginButton.performClick();
+                }else{
+                    app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, fbToken);
+                    loggedInBefore = true;
+                    RestClient.setAccessToken(fbToken);
+                    LoginTask authTask = new LoginTask(MainLoginFragment.this, getActivity());
+                    authTask.execute();
+                }
             }
         });
 
@@ -245,7 +254,11 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
-                mListener.saveTokens(tokens);
+                mListener.saveTokens(true, tokens);
+                mListener.goToMainActivity();
+                break;
+            case Constants.FB_AUTHENTICATION_SUCCESSFUL:
+                mListener.saveTokens(false,tokens);
                 mListener.goToMainActivity();
                 break;
         }
@@ -259,7 +272,8 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             app.setMe(user);
             mListener.goToMainActivity();
             //activity.finish();
-        }else{
+        }
+        else{
             app.openOKDialog(getActivity(), MainLoginFragment.this, "no_connection");
             switcher.setDisplayedChild(1);
         }

@@ -38,9 +38,11 @@
             android:id="@+id/nameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:text="NAME"/>
         <TextView
             android:id="@+id/userNameTv"
+            android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="USERNAME"/>
@@ -67,14 +69,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:inputType="textMultiLine"
         android:ellipsize="end"
-        android:maxEms="40"
+        android:maxEms="70"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="2dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:maxLines="2"/>
+        android:maxLines="3"/>
     <RelativeLayout
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

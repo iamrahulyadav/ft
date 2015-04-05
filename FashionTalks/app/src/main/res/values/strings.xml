@@ -26,7 +26,7 @@
     <string name="userName">Kullanıcı Adı</string>
     <string name="email">Email</string>
     <string name="password">Şifre</string>
-    <string name="passwordAgain"> / Şifre Tekrar</string>
+    <string name="passwordAgain">&#160;/ Şifre Tekrar</string>
     <string name="name">Ad</string>
     <string name="lastName">Soyad</string>
     <string name="birthDate">Doğum Tarihi (Opsiyonel)</string>
@@ -39,7 +39,7 @@
     <string name="register">Kayıt Ol</string>
     <string name="main_tab1">Takipteki Stiller</string>
     <string name="main_tab2">Popüler Stiller</string>
-    <string name="main_tab3">   Galeriler   </string>
+    <string name="main_tab3">&#160;&#160;&#160;Galeriler&#160;&#160;&#160;</string>
     <string name="users_tab1">Popüler Kullanıcılar</string>
     <string name="users_tab2">Facebook Arkadaşları</string>
     <string name="title_activity_posts">PostsActivity</string>
@@ -101,9 +101,9 @@
     <string name="unsuccessful">Başarısız</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
-    <string name="erase"> Sil ? </string>
-    <string name="glam"> Glam</string>
-    <string name="comment"> Konuşma</string>
+    <string name="erase">&#160;Sil ?&#160;</string>
+    <string name="glam">&#160;Glam</string>
+    <string name="comment">&#160;Konuşma</string>
     <string name="save">Kaydet</string>
 
     <!-- Profile -->
@@ -114,7 +114,7 @@
     <string name="no_followers">Kimse Takip Etmiyor</string>
     <string name="no_following">Kimseyi Takip Etmiyor</string>
     <string name="no_notification">  Bildiriminiz Yok</string>
-    <string name="left_invite">  Davet Kaldı.</string>
+    <string name="left_invite">&#160; &#160;Davet Kaldı.</string>
     <string name="edit_profile">Profil Düzenle</string>
 
     <!-- Time Util -->
@@ -169,7 +169,7 @@
     <string name="send_password">Şifre Gönder</string>
     <string name="terms_privacy_warning">By joining FashionTalks you agree the <![CDATA[<a href="http://www.fashiontalks.org/terms-of-use.html"> <br> <b>Terms of Service</b></a>]]> and
         <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
-
     <string name="fbId">340890866061812</string>
+
 
 </resources>

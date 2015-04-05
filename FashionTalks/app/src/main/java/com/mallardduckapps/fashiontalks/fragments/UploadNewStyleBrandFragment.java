@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mallardduckapps.fashiontalks.BaseActivity;
+import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
@@ -88,13 +90,15 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     String encodedImage;
     private int imageWidth;
     private int imageHeight;
-    private ArrayList<Glam> glamList;
+    //private ArrayList<Glam> glamList;
     private ArrayList<ExpandablePanel> panels;
     String postTitle;
     boolean deleteActionInProgress;
     int itemToBeDeleted;
+    public final int SCROLL_THRESHOLD = 10;
     //SearchTask task;
     SearchBrandLoader loader;
+    int glamWidth;
 
     ImageView postPhoto;
 
@@ -125,12 +129,14 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         progressBarMain = (ProgressBar) rootView.findViewById(R.id.progressBar1);
         progressBarMain.setVisibility(View.GONE);
+        glamWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDimension(R.dimen.glam_width),
+                getResources().getDisplayMetrics());
         toggleTopBar();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "LIST SELECTED TEXT: " + listData.get(position));
-                String extraField = " ";
+                String extraField = "  ";
                 if(listData.get(position).equals("")){
                     extraField = "";
                 }
@@ -138,8 +144,13 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
 //                if(task != null){
 //                    task.cancel(true);
 //                }
-                currentGlam.setTagText(listData.get(position) + extraField, true);//" ".concat(listData.get(position)).concat("  ")
-                glamReady(listData.get(position));
+                if(currentGlam.isLhsAnimation()){
+                    currentGlam.setTagText(listData.get(position) + extraField, true);
+                }else{
+                    currentGlam.setTagText(extraField + listData.get(position), true);
+                }
+                //" ".concat(listData.get(position)).concat("  ")
+                glamReady(listData.get(position), position);
             }
         });
         okTV = (TextView) rootView.findViewById(R.id.okTv);
@@ -196,8 +207,13 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 if(brandEdit.getText().length() > 1){
                     //terminateTask();
                     //resetLoader(brandEdit.getText().toString());
-                    currentGlam.setTagText(brandEdit.getText().toString()+"  ", true);
-                    glamReady(brandEdit.getText().toString());
+                    if(currentGlam.isLhsAnimation()){
+                        currentGlam.setTagText(brandEdit.getText().toString()+"  ", true);
+                    }else{
+                        currentGlam.setTagText("  "+brandEdit.getText().toString(), true);
+                    }
+
+                    glamReady(brandEdit.getText().toString(),0);
                 }
             }
         });
@@ -219,12 +235,17 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                             deleteActionInProgress = false;
                             return false;
                         }
-                        posX = (int) event.getX();
+                        posX = (int) event.getX() ;
                         posY = (int) event.getY();
+                        if(posX < 0 || posY < 0){
+                            return false;
+                        }
                         topBar.setVisibility(View.VISIBLE);
                         imageWidth = postPhoto.getWidth();
                         imageHeight = postPhoto.getHeight();
-                        placeGlam(posX, posY, (int)postPhoto.getX(),
+
+
+                        placeGlam(posX - glamWidth/2, posY + glamWidth/2, (int)postPhoto.getX(),
                                 (int)postPhoto.getY(), imageWidth, imageHeight);
                         toggleTopBar();
                         //showKeyboard(brandEdit);
@@ -259,13 +280,29 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         object.put("image", encodedImage);
         object.put("title", postTitle);
         JSONArray array = new JSONArray();
-        for(int i = 0; i < glamList.size(); i ++){
+        for(int i = 0; i <panels.size(); i ++){
+            ExpandablePanel panel = panels.get(i);
+            if(panel != null){
+                JSONObject glamObject = new JSONObject();
+                glamObject.put("tag", panel.getText().toString().trim());
+                glamObject.put("x", getVirtualX((int)panel.getX()));
+                if(panel.isLhsAnimation()){
+                    glamObject.put("y", getVirtualY((int)panel.getY()));
+                }else{
+                    glamObject.put("y", getVirtualY((int)panel.getY() - 5));
+                }
+
+                array.put(i, glamObject);
+            }
+        }
+
+/*        for(int i = 0; i < glamList.size(); i ++){
             JSONObject glamObject = new JSONObject();
             glamObject.put("tag", glamList.get(i).getTag());
             glamObject.put("x", glamList.get(i).getX());
             glamObject.put("y", glamList.get(i).getY());
             array.put(i, glamObject);
-        }
+        }*/
         object.put("tags", array);
         Log.d(TAG, "JSON: " + object.toString(1));
         //Log.d(TAG, "JSON title: " + object.getString("title"));
@@ -273,24 +310,29 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         task.execute(object.toString());
     }
 
-    private void glamReady(String tagName){
+    private void glamReady(String tagName, int index){
         lv.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         toggleTopBar();
         newGlamReadyToAdd = true;
         hideKeyboard();
         Log.d(TAG, "GLAM TEXT: " + tagName);
-        //String glamText = glam.getText().trim();
-        int x = (int)currentGlam.getX();
-        if(!currentGlam.isLhsAnimation()){
-            x += currentGlam.getWidth();
+        if(currentGlam != null){
+            currentGlam.setBrandName(tagName);
+            currentGlam.setTagId(tags.get(index).getId());
         }
-        Glam glamItem = new Glam(getVirtualX(x), getVirtualY((int)currentGlam.getY()), tagName);
+        //String glamText = glam.getText().trim();
+        //int x = (int)currentGlam.getX();
+        //TODO
+        //if(!currentGlam.isLhsAnimation()){
+        //    x += currentGlam.getWidth();
+        //}
+/*        Glam glamItem = new Glam(getVirtualX(x), getVirtualY((int)currentGlam.getY()), tagName);
         if(glamList == null){
             glamList = new ArrayList<>();
         }
 
-        glamList.add(glamItem);
+        glamList.add(glamItem);*/
         brandEdit.setText("");
     }
 
@@ -333,21 +375,45 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     private void placeGlam(final int x, final int y, final int leftBorder, final int topBorder, final int imageWidth, final int imageHeight) {
-        final ExpandablePanel glam = new ExpandablePanel(getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? true : false, true, true);
+        final ExpandablePanel glam = new ExpandablePanel(getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? false : true, true, true);
         final int rightBorder = leftBorder + imageWidth - glam.getWidth();
         final int bottomBorder = topBorder + imageHeight - (int)getResources().getDimension(R.dimen.glam_width);
         currentGlam = glam;
         //panel.setTagText(new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(tag.getTag()).append(" ").toString());
         glam.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
         glam.setTag("ExpandablePanel");
+        currentGlam.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
+            @Override
+            public void onExpand(View handle) {
+            }
+
+            @Override
+            public void onCollapse(View handle, int tagId, String brandName) {
+                Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                intent.putExtra("GALLERY_ID", tagId);
+                intent.putExtra("GALLERY_NAME", brandName);
+                intent.putExtra("LOADER_ID", Constants.GALLERY_POSTS_BY_TAG_LOADER_ID);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                UploadNewStyleBrandFragment.this.getActivity().startActivity(intent);
+                BaseActivity.setTranslateAnimation(getActivity());
+            }
+
+            @Override
+            public void onTagGlammed(int glamCount, int totalGlamCount) {
+                //Log.d(TAG, "ON GLAM COUNT INCREASED"+totalGlamCount);
+                //incrementGlamCount(totalGlamCount);
+            }
+        });
+
         layout.addView(glam);
         if(panels == null){
             panels = new ArrayList<>();
             itemToBeDeleted = 0;
         }
-        panels.add(itemToBeDeleted,glam);
-        itemToBeDeleted ++;
-
+        //panels.add(itemToBeDeleted,glam);
+        //itemToBeDeleted ++;
+        panels.add(glam);
+        //itemToBeDeleted ++;
         newGlamReadyToAdd = false;
         glam.setOnTouchListener(new View.OnTouchListener() {
             int status = -1;
@@ -365,31 +431,35 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                         status = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                       // dif  = (int) (Math.abs(event.getX() - dx) + Math.abs(event.getY() - dy));
-                        int left = lp.leftMargin + ((int) (event.getX() - dx));
-                        int top = lp.topMargin + ((int) (event.getY() - dy));
-                        if (left > leftBorder && left < rightBorder && top > topBorder && top < bottomBorder) {
-                            lp.leftMargin = left;
-                            lp.topMargin = top ;
-                            v.setLayoutParams(lp);
+                        if((Math.abs(dx - event.getX()) > SCROLL_THRESHOLD || Math.abs(dy - event.getY()) > SCROLL_THRESHOLD)){
+                            lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
+                            // dif  = (int) (Math.abs(event.getX() - dx) + Math.abs(event.getY() - dy));
+                            int left = lp.leftMargin + ((int) (event.getX() - dx));
+                            int top = lp.topMargin + ((int) (event.getY() - dy));
+                            if (left > leftBorder && left < rightBorder && top > topBorder && top < bottomBorder) {
+                                lp.leftMargin = left;
+                                lp.topMargin = top ;
+                                v.setLayoutParams(lp);
+                                Log.d(TAG, "GLAM MOVE X: " + lp.leftMargin + " - GLAM MOVE Y: " + lp.topMargin);
+                            }
+                            if(lp.leftMargin > UploadNewStyleActivity.width/2){
+                                glam.setLhsAnimation(false);
+                            }else{
+                                glam.setLhsAnimation(true);
+                            }
+                            status = 1;
                         }
-                        if(lp.leftMargin > UploadNewStyleActivity.width/2){
-                            glam.setLhsAnimation(false);
-                        }else{
-                            glam.setLhsAnimation(true);
-                        }
-
-                        status = 1;
                         break;
                     case MotionEvent.ACTION_UP:
                         if(glam.isReadyToDelete()){
                             layout.removeView(glam);
-                            if(glamList != null){
+
+                            //itemToBeDeleted--;
+   /*                         if(glamList != null){
                                 if(glamList.size() != 0){
                                     glamList.remove(glamList.size() - 1 );
                                 }
-                            }
+                            }*/
 
                             if(panels != null){
                                 if(panels.size() != 0){
@@ -400,7 +470,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                         }
                         //int dif = (int) (Math.abs(event.getX() - lp.leftMargin) + Math.abs(event.getY() - lp.topMargin));
                         //Log.d(TAG, "ACTION UP: " + dif);
-                        if(status != 1 ){//|| dif < 15
+                        if(status != 1  ){
                             if(newGlamReadyToAdd){
                                 deleteActionInProgress = true;
                                 glam.setReadyToDelete(true);
@@ -409,7 +479,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                             //glam.setReadyToDelete(glam.isReadyToDelete());
                         }
                         //Log.d(TAG, "DROP ID: " + v.getgetId());
-                        status = 2;
+                       // status = 2;
                         break;
                     case MotionEvent.ACTION_OUTSIDE:
                         moveEnabled = false;

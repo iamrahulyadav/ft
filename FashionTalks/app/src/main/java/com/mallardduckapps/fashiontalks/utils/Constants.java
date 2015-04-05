@@ -11,6 +11,7 @@ public class Constants {
     public final static int AUTHENTICATION_SUCCESSFUL = 2;
     public final static int PROFILE_EDIT_SUCCESSFUL = 4;
     public final static int PROFILE_EDIT_UNSUCCESSFUL = 5;
+    public final static int FB_AUTHENTICATION_SUCCESSFUL = 6;
     public final static int WRONG_CREDENTIALS = 3;
 
     public final static int TOOLBAR_WITH_TITLE = 0;
@@ -33,6 +34,7 @@ public class Constants {
 
     public final static String GALLERIES_PREFIX = "/posts/galleries";
     public final static String GALLERY_POSTS_PREFIX = "/posts/gallery-posts";
+    public final static String GALLERY_POSTS_BY_TAG_PREFIX ="/posts/tag/";
     public final static String CATEGORY_POSTS_PREFIX ="";
     public final static String POPULAR_PREFIX = "/posts/popular";
     public final static String FEED_PREFIX = "/posts/feed";
@@ -77,10 +79,12 @@ public class Constants {
     public final static String CLIENT_SECRET = "ZtqYh3hkF6v=mn";
 
     public final static String ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
+    public final static String FB_ACCESS_TOKEN_KEY = "FB_ACCESS_TOKEN";
     public final static String REFRESH_TOKEN_KEY = "REFRESH_TOKEN";
 
     public final static String SENDER_ID = "337533113430";
 
+    public final static int GALLERY_POSTS_BY_TAG_LOADER_ID = 21;
     public final static int SETTINGS_LOADER_ID = 20;
     public final static int NOTIFICATION_MY_POST_LOADER_ID = 18;
     public final static int NOTIFICATION_OTHER_POST_LOADER_ID = 19;

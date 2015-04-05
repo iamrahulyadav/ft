@@ -120,7 +120,7 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
 
         Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
         callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
-        callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
+        callBack.getAuthStatus(Constants.FB_AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
     }
 }
 

@@ -38,7 +38,9 @@ public class FashionTalksApp extends Application {
     ArrayList<Post> galleryPostArrayList;
     ArrayList<Post> userPostArrayList;
     ArrayList<Post> myPostArrayList;
+    ArrayList<Post> brandGalleryPostList;
     public int lastGalleryId;
+    public int lastBrandId;
     SlidingMenu menu;
     User me;
     User other;
@@ -143,6 +145,22 @@ public class FashionTalksApp extends Application {
             this.galleryPostArrayList = galleryPostArrayList;
         }else{
             this.galleryPostArrayList.addAll(galleryPostArrayList);
+        }
+    }
+
+    public ArrayList<Post> getBrandGalleryPostList() {
+        return brandGalleryPostList;
+    }
+
+    public void setBrandGalleryPostList(ArrayList<Post> brandGalleryPostList) {
+        this.brandGalleryPostList = brandGalleryPostList;
+    }
+
+    public void addBrandGalleryPostList(ArrayList<Post> brandGalleryPostList, int brandId) {
+        if(this.brandGalleryPostList == null || lastBrandId != brandId){
+            this.brandGalleryPostList = brandGalleryPostList;
+        }else{
+            this.brandGalleryPostList.addAll(brandGalleryPostList);
         }
     }
 

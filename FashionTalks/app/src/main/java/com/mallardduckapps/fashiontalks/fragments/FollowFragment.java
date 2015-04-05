@@ -116,7 +116,6 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
         //if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
@@ -128,7 +127,6 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
             intent.putExtra("PROFILE_ID", user.getId());
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-
        // }
     }
 

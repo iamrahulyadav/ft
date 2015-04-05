@@ -192,6 +192,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             case Constants.MY_POSTS_LOADER_ID:
                 list = app.getMyPostArrayList();
                 break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                list = app.getBrandGalleryPostList();
+                break;
         }
         return list;
     }
@@ -205,13 +208,16 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(TAG, "ON BACK MENU BUTTON PRESSED");
+        //Log.d(TAG, "ON BACK MENU BUTTON PRESSED");
         int id = item.getItemId();
         super.onOptionsItemSelected(item);
         //noinspection SimplifiableIfStatement
         if(id == android.R.id.home){
             close();
         }else if(id == R.id.action_home){
+            Intent intent = new Intent(PostsActivity.this, MainActivity.class);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(intent);
             finish();
             BaseActivity.setBackwardsTranslateAnimation(this);
         }
@@ -229,7 +235,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
 
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "On BACK PRESSED - getFragmentManager().getBackStackEntryCount(): " + getFragmentManager().getBackStackEntryCount());
+        //Log.d(TAG, "On BACK PRESSED - getFragmentManager().getBackStackEntryCount(): " + getFragmentManager().getBackStackEntryCount());
         close();
     }
 
@@ -275,6 +281,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             case Constants.NOTIFICATIONS_LOADER_ID:
                 post = null;
                 break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                post = app.getBrandGalleryPostList().get(postIndex);
+                break;
         }
         return post;
     }
@@ -295,6 +304,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 break;
             case Constants.MY_POSTS_LOADER_ID:
                 app.getMyPostArrayList().set(postIndex, post);
+                break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                app.getBrandGalleryPostList().set(postIndex, post);
                 break;
         }
     }

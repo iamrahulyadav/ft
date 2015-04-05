@@ -167,9 +167,12 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         BaseActivity.setTranslateAnimation(this);
     }
 
-    public void saveTokens( String...tokens){
+    public void saveTokens(boolean normalLogin, String...tokens){
         app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, tokens[0]);
         app.dataSaver.putString(Constants.REFRESH_TOKEN_KEY, tokens[1]);
+        if(!normalLogin){
+            app.dataSaver.putString(Constants.FB_ACCESS_TOKEN_KEY, tokens[0]);
+        }
         RestClient.setAccessToken(tokens[0]);
         app.dataSaver.save();
     }
