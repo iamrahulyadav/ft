@@ -225,6 +225,12 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     private void close(){
+
+        if(loaderId == Constants.NOTIFICATION_MY_POST_LOADER_ID || loaderId == Constants.NOTIFICATION_OTHER_POST_LOADER_ID){
+            finish();
+            BaseActivity.setBackwardsTranslateAnimation(this);
+            return;
+        }
         if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !openComment){
             getSupportFragmentManager().popBackStack();
         } else {

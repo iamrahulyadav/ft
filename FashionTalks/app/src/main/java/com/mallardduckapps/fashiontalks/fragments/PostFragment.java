@@ -163,7 +163,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
        // Log.d(TAG, "POST FR: POST ID: " + postId);
 
         post = getPost();
-        Log.d(TAG, "GET POSTT COMMETN COUNT: " + post.getCommentCount());
+        //Log.d(TAG, "GET POSTT COMMETN COUNT: " + post.getCommentCount());
         //openComment = post.getCanComment() == 1 ? true: false;
 
 //        if(loaderId == Constants.MY_POSTS_LOADER_ID){
@@ -190,6 +190,22 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 //            //shareButton.setImageResource(R.drawable.report_icon);
 //        }
 
+        if(post != null){
+            fillPost(post);
+            showNextView();
+            setPostUserDrawables();
+        }else{
+            progressBar.setVisibility(View.VISIBLE);
+            shareButton.setImageResource(R.drawable.delete_icon);
+            user = app.getMe();
+            ownPost = true;
+            useLoader();
+        }
+        return rootView;
+        //listView = (ListView) rootView.findViewById(R.id.galleryList);
+    }
+
+    private void setPostUserDrawables(){
         if(post.getUser().getId() == app.getMe().getId()){
             shareButton.setImageResource(R.drawable.delete_icon);
             user = app.getMe();
@@ -199,18 +215,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             user = post.getUser();
             ownPost = false;
         }
-
-        if(post != null){
-            fillPost(post);
-            showNextView();
-        }else{
-            progressBar.setVisibility(View.VISIBLE);
-            useLoader();
-        }
         glamCount = post.getGlamCount();
         commentCount = post.getCommentCount();
-        return rootView;
-        //listView = (ListView) rootView.findViewById(R.id.galleryList);
     }
 
     private void shareMenuOnClick(){
@@ -542,7 +548,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 BaseActivity.setBackwardsTranslateAnimation(PostFragment.this.getActivity());
                 return;
             }
-
+            post = data;
+            setPostUserDrawables();
             progressBar.setVisibility(View.GONE);
             fillPost(data);
             if(openComment){
