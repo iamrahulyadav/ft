@@ -88,6 +88,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        hideKeyboard();
     }
 
     @Override
@@ -331,6 +332,15 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         mEmailView.setAdapter(adapter);
     }
 
+    private void showToastMessage(final String text){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
         showProgress(false);
@@ -339,13 +349,17 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 showKeyboard(mPasswordView);
                 switcher.setDisplayedChild(1);
+                showToastMessage(getString(R.string.error_incorrect_password));
+                mListener.setToolbarVisibility(true);
                 break;
             case Constants.AUTHENTICATION_FAILED:
-                Toast.makeText(getActivity(), getString(R.string.connection_failed), Toast.LENGTH_LONG).show();
+
+                showToastMessage(getString(R.string.connection_failed));
+                mListener.setToolbarVisibility(true);
 //                mPasswordView.setError(getString(R.string.error_incorrect_password));
 //                showKeyboard(mPasswordView);
 //                mPasswordView.requestFocus();
-//                switcher.setDisplayedChild(1);
+                switcher.setDisplayedChild(1);
                 break;
             case Constants.NO_CONNECTION:
                 //Toast.makeText(getActivity(), getString(R.string.no_connection), Toast.LENGTH_LONG).show();
@@ -362,6 +376,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
             case Constants.AUTHENTICATION_CANCELED:
                 authTask = null;
                 switcher.setDisplayedChild(1);
+                mListener.setToolbarVisibility(true);
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
                 mListener.saveTokens(true,tokens);
@@ -378,7 +393,5 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
             mListener.goToMainActivity();
             //activity.finish();
         }
-
     }
-
 }

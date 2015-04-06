@@ -19,7 +19,7 @@
     <string name="action_register_short">Kayıt Ol</string>
     <string name="error_invalid_email">Email Adresi Geçersiz</string>
     <string name="error_invalid_password">Şifre Geçersiz</string>
-    <string name="error_incorrect_password">Şifre Yanlış</string>
+    <string name="error_incorrect_password">Kullanıcı Adı ve/ya Şifre Yanlış</string>
     <string name="error_field_required">Alan gerekli</string>
 
     <!-- Register Ekranı -->
@@ -75,6 +75,7 @@
     <string name="font_helvatica_thin">HelveticaNeueLTPro-Th.otf</string>
     <string name="font_helvatica_roman">HelveticaNeueLTPro-Roman.otf</string>
     <string name="font_helvatica_bold">HelveticaNeueLTPro-Bd.otf</string>
+    <string name="font_times_new_roman">TimesNewRoman.ttf</string>
     <string name="title_activity_user_settings">UserSettingsActivity</string>
     <string name="title_activity_upload_new_style">UploadNewStyleActivity</string>
 
@@ -90,7 +91,9 @@
     <string name="problem_occured">Bir sorun oluştu! Tekrar dene!</string>
     <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
-    <string name="no_brand">Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.</string>
+    <!--Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.-->
+    <string name="no_brand">| sistemde bulunamamıştır. Lütefen | markasının doğru yazıldığından emin olun. Yanlış yazılmış etiketler glamleri ile beraber silinecektir.</string>
+
     <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="delete_post_alert">Gönderinizi silmek istediğinize emin misiniz?</string>
     <string name="invalid_post_alert">Gönderi silinmiş ya da artık geçerli değil.</string>
@@ -149,8 +152,8 @@
     <string name="upload_brand_hint">Bir kıyafete tıklayarak markasını ekleyebilir, etiketini sürükleyebilir veya silebilirsiniz.</string>
     <string name="upload_shoot">Resim Çek</string>
     <string name="upload_select">Albümden</string>
-    <string name="upload_new_title">BAŞLIK GİR</string>
-    <string name="upload_new_brand">MARKA EKLE</string>
+    <string name="upload_new_title">Başlık Gir</string>
+    <string name="upload_new_brand">Marka Ekle</string>
     <string name="upload_brand_name">Marka Adı</string>
     <string name="upload_menu_continue">Devam</string>
     <string name="upload_menu_send">Gönder</string>
@@ -162,7 +165,7 @@
     <string name="no_conection_with_fb">Facebook\'a bağlı değilsiniz</string>
     <string name="connect_to_fb">Facebook\'a bağlan</string>
     <string name="login_with_fb">Facebook ile Giriş</string>
-    <string name="login_with_fb_subtitle">Facebook sayfanıza hiçbir şey post etmiyoruz</string>
+    <string name="login_with_fb_subtitle">Facebook sayfanıza hiçbir şey post etmiyoruz.</string>
     <string name="login_with_email">Email ile Giriş</string>
     <string name="forget_password">Şifremi Unuttum</string>
     <string name="signup">Kayıt Ol</string>

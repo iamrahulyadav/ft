@@ -54,7 +54,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 .getDisplayMetrics());
         setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, res.getDisplayMetrics()));
-        setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_helvatica_thin)));
+        setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_times_new_roman)));
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
         //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);

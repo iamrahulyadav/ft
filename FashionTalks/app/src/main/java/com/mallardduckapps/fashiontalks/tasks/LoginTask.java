@@ -16,6 +16,7 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -118,6 +119,18 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
     private void parseToken(String response){
         String accessToken = null;
         String refreshToken = null;
+        JSONObject loginObject = null;
+        int status = -1;
+        try {
+           loginObject = new JSONObject(response);
+           status = loginObject.getInt("status");
+           if(status == 1011){
+               callBack.getAuthStatus(Constants.WRONG_CREDENTIALS, null, null);
+               return;
+           }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         JsonObject object = null;
         try{
@@ -125,7 +138,6 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
         }catch(IllegalStateException ex){
             callBack.getAuthStatus(Constants.NO_CONNECTION, null, null);
         }
-
         Gson gson = new GsonBuilder().create();
 
         JsonObject dataObject = object.getAsJsonObject("data");

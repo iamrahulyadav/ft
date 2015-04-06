@@ -161,7 +161,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
         bottomBar.setVisibility(View.VISIBLE);
        // Log.d(TAG, "POST FR: POST ID: " + postId);
-
         post = getPost();
         //Log.d(TAG, "GET POSTT COMMETN COUNT: " + post.getCommentCount());
         //openComment = post.getCanComment() == 1 ? true: false;
@@ -191,9 +190,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 //        }
 
         if(post != null){
+            setPostUserDrawables();
             fillPost(post);
             showNextView();
-            setPostUserDrawables();
         }else{
             progressBar.setVisibility(View.VISIBLE);
             shareButton.setImageResource(R.drawable.delete_icon);

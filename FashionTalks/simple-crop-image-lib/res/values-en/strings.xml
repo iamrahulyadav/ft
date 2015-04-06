@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">Again</string>
+    <string name="save">Use</string>
+    <string name="saving_image">Saving Image</string>
+    <string name="preparing_card">Preparing Card</string>
+    <string name="no_storage_card">No SD Card</string>
+    <string name="not_enough_space">Insufficient Space</string>
+</resources>

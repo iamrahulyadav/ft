@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FashionTalks</string>
+    <string name="title_section1">Discover Looks</string>
+    <string name="title_section2">Find Users</string>
+    <string name="title_section3">Notifications</string>
+    <string name="title_section4">Settings</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_data">No Data</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email Address</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or Register</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="action_forget_pass">Forgot my Password</string>
+    <string name="action_register_short">Sign Up</string>
+    <string name="error_invalid_email">Invalid Email Address</string>
+    <string name="error_invalid_password">Invalid Password</string>
+    <string name="error_incorrect_password">Wrong Username and/or Password</string>
+    <string name="error_field_required">Required Field</string>
+
+    <!-- Register Ekranı -->
+    <string name="userName">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="passwordAgain">&#160;/ Password Repeat</string>
+    <string name="name">Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="birthDate">Date of Birth (Optional)</string>
+    <string name="country">Country (Optional)</string>
+    <string name="city">City (Optional)</string>
+    <string name="about">About Me (160 Characters) (Optional)</string>
+    <string name="sex">Sex</string>
+    <string name="male">M</string>
+    <string name="female">F</string>
+    <string name="register">Sign Up</string>
+    <string name="main_tab1">Followed Looks</string>
+    <string name="main_tab2">Popular Looks</string>
+    <string name="main_tab3">&#160;&#160;&#160;Galleries&#160;&#160;&#160;</string>
+    <string name="users_tab1">Popular Users</string>
+    <string name="users_tab2">Facebook Friends</string>
+    <string name="title_activity_posts">PostsActivity</string>
+    <!-- Settings -->
+    <string name="send_posting_codes">Send Posting Code</string>
+    <string name="user_settings">User Settings</string>
+    <string name="posting_rules">Posting Rules</string>
+    <string name="contact">Contact</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Use</string>
+    <string name="show_my_style">View Lookbook</string>
+    <string name="upload_new_style">Post New Look</string>
+    <string name="logout">"Logout"</string>
+
+    <!-- Activity Names  No need to change those -->
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_users">UsersActivity</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_style_upload">StyleUploadActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_web">WebActivity</string>
+    <string name="title_activity_send_posting_code">SendPostingCodeActivity</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- FontNames -->
+    <string name="font_avantgarde_bold">ITC-Avant-Garde-bold.otf</string>
+    <string name="font_avantgarde_regular">ITC-Avant-Garde-regular.otf</string>
+    <string name="font_helvatica_lt">HelveticaNeueLTPro-Lt.otf</string>
+    <string name="font_helvatica_md">HelveticaNeueLTPro-Md.otf</string>
+    <string name="font_helvatica_thin">HelveticaNeueLTPro-Th.otf</string>
+    <string name="font_helvatica_roman">HelveticaNeueLTPro-Roman.otf</string>
+    <string name="font_helvatica_bold">HelveticaNeueLTPro-Bd.otf</string>
+    <string name="title_activity_user_settings">UserSettingsActivity</string>
+    <string name="title_activity_upload_new_style">UploadNewStyleActivity</string>
+
+    <!--Email -->
+    <string name="email_send_communication_recipient">hello@fashiontalks.org</string>
+    <string name="email_send_communication_subject">FashionTalks - Contact</string>
+    <string name="email_send_report_recipient">hello@fashiontalks.org</string>
+    <string name="email_send_report_subject">FashionTalks - Report</string>
+    <string name="email_send_report_content">I would like to report this photo.</string>
+
+    <!-- Dialogs -->
+    <string name="no_connection_title">Connection Error!</string>
+    <string name="problem_occured">General Error! Please Try Again!</string>
+    <string name="no_connection">Connection Error! Please Try Again.</string>
+    <string name="connection_failed">System Error! Please Try Again.</string>
+    <string name="no_brand">| can\'t be found in our system. Please check if | is correctly typed. Wrongly written tags will be deleted along with their glams</string>
+    <string name="logout_alert">Are you sure you want to logout?</string>
+    <string name="delete_post_alert">Are you sure you want to delete your post?</string>
+    <string name="invalid_post_alert">Post deleted or Invalid.</string>
+    <string name="password_error_dialog">Error while sending password. Please Try Again.</string>
+    <string name="password_success_dialog">Password sent. Please Check Your Email.</string>
+
+    <string name="success">Success</string>
+    <string name="unsuccessful">Failure</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="erase">&#160;Delete ?&#160;</string>
+    <string name="glam">&#160;Glam</string>
+    <string name="comment">&#160;Talks</string>
+    <string name="save">Save</string>
+
+    <!-- Profile -->
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="no_followers">No one is Following</string>
+    <string name="no_following">You are Following no one</string>
+    <string name="no_notification">&#160;No Notifications</string>
+    <string name="left_invite">&#160; &#160;Invitations Left.</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <!-- Time Util -->
+    <string name="after_minute"> Minutes Later</string>
+    <string name="after_hour"> Hour Later</string>
+    <string name="after_day"> Day Later </string>
+    <string name="after_month"> Month Later </string>
+    <string name="after_year"> Year Later </string>
+    <string name="before_minute"> m </string>
+    <string name="before_hour"> h </string>
+    <string name="before_day"> d </string>
+    <string name="before_month"> m </string>
+    <string name="before_year"> y </string>
+    <string name="day_today"> Today </string>
+    <string name="now"> Now </string>
+
+
+    <!-- User Settings -->
+    <string name="permission_talks">Allow Talks</string>
+    <string name="permission_news">Receive Newsletter</string>
+    <string name="permission_new_glam">New Glam</string>
+    <string name="permission_new_talk">New Talk</string>
+    <string name="permission_new_mention">New Mention</string>
+    <string name="permission_new_follower">New Follower</string>
+    <string name="notification">Notification</string>
+
+
+    <!-- Upload Screens -->
+    <string name ="upload_title">Select from </string>
+    <string name="upload_select_or_shoot">Take a Picture or select a previously taken picture from Library.</string>
+    <string name="upload_edit_title_hint">Add a caption (Title, note, comment)</string>
+    <string name="upload_brand_hint">Tap on a piece to add a brand, drag to reposition or tap to remove.</string>
+    <string name="upload_shoot">Take Picture</string>
+    <string name="upload_select">From Library</string>
+    <string name="upload_new_title">Add Title</string>
+    <string name="upload_new_brand">Add Brands</string>
+    <string name="upload_brand_name">Brand Name</string>
+    <string name="upload_menu_continue">Continue</string>
+    <string name="upload_menu_send">Send</string>
+    <string name="camera_not_found">No Camera Found.</string>
+
+    <string name="search_user">Search for Users</string>
+    <string name="search_brand">Search For Brands</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="no_conection_with_fb">You are not connected to Facebook.</string>
+    <string name="connect_to_fb">Connect to Facebook</string>
+    <string name="login_with_fb">Connect with Facebook</string>
+    <string name="login_with_fb_subtitle">We don\'t post anything to your Facebook page</string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="forget_password">Forgot Password</string>
+    <string name="signup">Sign Up</string>
+    <string name="send_password">Send Password</string>
+    <string name="terms_privacy_warning">By joining FashionTalks you agree the <![CDATA[<a href="http://www.fashiontalks.org/terms-of-use.html"> <br> <b>Terms of Service</b></a>]]> and
+        <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
+    <string name="fbId">340890866061812</string>
+
+</resources>
+
