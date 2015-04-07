@@ -10,6 +10,7 @@
         android:id="@+id/profileClickLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <com.makeramen.RoundedImageView
@@ -55,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="45dp">
+        android:layout_marginTop="80dp">
 
         <View
             android:id="@+id/divider"
@@ -80,10 +81,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="29dp"
-            android:layout_toRightOf="@+id/icon"
             android:gravity="center_vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/divider"
+            android:layout_marginTop="43dp"
+            android:layout_toRightOf="@+id/icon"
             android:text="@string/upload_new_style"
             android:textColor="@color/black" />
     </RelativeLayout>

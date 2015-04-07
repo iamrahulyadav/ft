@@ -114,8 +114,8 @@ class CropImageView extends ImageViewTouchBase {
         }
 
         //Log.d("ON TOUCH", "ON TOUCH EVENT TRIGGERED");
-
         switch (event.getAction()) {
+            //case MotionEvent.Action_P
             case MotionEvent.ACTION_DOWN:
                 if (cropImage.mWaitingToPick) {
                     recomputeFocus(event);

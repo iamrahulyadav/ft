@@ -127,10 +127,7 @@ public class CropImage extends MonitoredActivity {
                 mAspectX = 1;
                 mAspectY = 1;
             }
-
             mImagePath = extras.getString(IMAGE_PATH);
-
-
         ///////
        // orientation = Util.getOrientationInDegree(mImagePath);
             mSaveUri = getImageUri(mImagePath);
@@ -255,14 +252,11 @@ public class CropImage extends MonitoredActivity {
         InputStream in = null;
         try {
             in = mContentResolver.openInputStream(uri);
-
             //Decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
-
             BitmapFactory.decodeStream(in, null, o);
             in.close();
-
             ///////////
             int rotatedWidth, rotatedHeight;
             int orientation = Util.getExifRotation(mImagePath);//getOrientation(this, mSaveUri);
@@ -275,7 +269,6 @@ public class CropImage extends MonitoredActivity {
                 rotatedHeight = o.outHeight;
             }
 
-            /////
             //int width = o.outWidth;//bitmap.getWidth();
             //int height= o.outHeight;//bitmap.getHeight();
             boolean rotateLeft = false;
@@ -286,8 +279,6 @@ public class CropImage extends MonitoredActivity {
             if(rotatedWidth > rotatedHeight){
                 rotateLeft = true;
             }
-
-
             int scale = 1;
             if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
                 scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
@@ -305,7 +296,6 @@ public class CropImage extends MonitoredActivity {
             }
             //
             in.close();
-
             return b;
         } catch (FileNotFoundException e) {
             Log.e(TAG, "file " + path + " not found");
@@ -321,9 +311,7 @@ public class CropImage extends MonitoredActivity {
         if (isFinishing()) {
             return;
         }
-
         mImageView.setImageBitmapResetBase(mBitmap, true);
-
         Util.startBackgroundJob(this, null,
                 "Please wait\u2026",
                 new Runnable() {
@@ -363,29 +351,22 @@ public class CropImage extends MonitoredActivity {
         if (mSaving) return;
 
         if (mCrop == null) {
-
             return;
         }
-
         mSaving = true;
-
         Rect r = mCrop.getCropRect();
-
         int width = r.width();
         int height = r.height();
-
         // If we are circle cropping, we want alpha channel, which is the
         // third param here.
         Bitmap croppedImage;
         try {
-
             croppedImage = Bitmap.createBitmap(width, height,
                     mCircleCrop ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
         } catch (Exception e) {
             throw e;
         }
         if (croppedImage == null) {
-
             return;
         }
 
@@ -495,7 +476,6 @@ public class CropImage extends MonitoredActivity {
                 finish();
                 return;
             } finally {
-
                 Util.closeSilently(outputStream);
             }
 
@@ -506,7 +486,6 @@ public class CropImage extends MonitoredActivity {
             intent.putExtra(ORIENTATION_IN_DEGREES, Util.getOrientationInDegree(this));
             setResult(RESULT_OK, intent);
         } else {
-
             Log.e(TAG, "not defined image url");
         }
         croppedImage.recycle();
@@ -515,16 +494,13 @@ public class CropImage extends MonitoredActivity {
 
     @Override
     protected void onPause() {
-
         super.onPause();
         BitmapManager.instance().cancelThreadDecoding(mDecodingThreads);
     }
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
-
         if (mBitmap != null && !mBitmap.isRecycled()) {
             mBitmap.recycle();
             mBitmap = null;
@@ -601,10 +577,8 @@ public class CropImage extends MonitoredActivity {
             if (mAspectX != 0 && mAspectY != 0) {
 
                 if (mAspectX > mAspectY) {
-
                     cropHeight = cropWidth * mAspectY / mAspectX;
                 } else {
-
                     cropWidth = cropHeight * mAspectX / mAspectY;
                 }
             }
@@ -625,13 +599,10 @@ public class CropImage extends MonitoredActivity {
         private Bitmap prepareBitmap() {
 
             if (mBitmap == null) {
-
                 return null;
             }
-
             // 256 pixels wide is enough.
             if (mBitmap.getWidth() > 256) {
-
                 mScale = 256.0F / mBitmap.getWidth();
             }
             Matrix matrix = new Matrix();
@@ -643,7 +614,6 @@ public class CropImage extends MonitoredActivity {
 
             mImageMatrix = mImageView.getImageMatrix();
             Bitmap faceBitmap = prepareBitmap();
-
             mScale = 1.0F / mScale;
             if (faceBitmap != null && mDoFaceDetection) {
                 FaceDetector detector = new FaceDetector(faceBitmap.getWidth(),
@@ -693,24 +663,18 @@ public class CropImage extends MonitoredActivity {
     public static void showStorageToast(Activity activity, int remaining) {
 
         String noStorageText = null;
-
         if (remaining == NO_STORAGE_ERROR) {
-
             String state = Environment.getExternalStorageState();
             if (state.equals(Environment.MEDIA_CHECKING)) {
-
                 noStorageText = activity.getString(R.string.preparing_card);
             } else {
-
                 noStorageText = activity.getString(R.string.no_storage_card);
             }
         } else if (remaining < 1) {
-
             noStorageText = activity.getString(R.string.not_enough_space);
         }
 
         if (noStorageText != null) {
-
             Toast.makeText(activity, noStorageText, Toast.LENGTH_LONG).show();
         }
     }

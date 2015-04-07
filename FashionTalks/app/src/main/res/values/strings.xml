@@ -53,6 +53,8 @@
     <string name="show_my_style">Stilimi Görüntüle</string>
     <string name="upload_new_style">Yeni Stil Yükle</string>
     <string name="logout">"Çıkış Yap"</string>
+    <string name="send_mail">Mail Yolla ...</string>
+    <string name="no_mail_app">Mail uygulaması mevcut değil.</string>
 
     <!-- Activity Names  No need to change those -->
     <string name="title_activity_base">BaseActivity</string>

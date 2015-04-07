@@ -31,6 +31,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mallardduckapps.fashiontalks.R;
+
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -168,11 +170,11 @@ public class FTUtils {
         emailIntent.putExtra(Intent.EXTRA_TEXT, email);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         try {
-            activity.startActivity(Intent.createChooser(emailIntent, "Mail Yolla ... "));
+            activity.startActivity(Intent.createChooser(emailIntent, activity.getString(R.string.send_mail)));
             // finish();
             Log.i("Email", "");
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(activity, "Mail uygulaması mevcut degil.",
+            Toast.makeText(activity, activity.getString(R.string.no_mail_app),
                     Toast.LENGTH_SHORT).show();
         }
     }
