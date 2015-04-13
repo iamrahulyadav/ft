@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
+import android.widget.ViewSwitcher;
 
 import com.google.gson.Gson;
 import com.mallardduckapps.fashiontalks.R;
@@ -43,6 +44,7 @@ public class UserSettingsFragment extends BasicFragment implements LoaderManager
     final String NOTIFY_FOLLOWER_PUSH = "notify_follower_push";
 
     boolean settingsReady = false;
+    ViewSwitcher switcher;
 
     @Override
     public void setTag() {
@@ -59,6 +61,7 @@ public class UserSettingsFragment extends BasicFragment implements LoaderManager
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_user_settings, container, false);
+        switcher = (ViewSwitcher)rootView.findViewById(R.id.switcher);
         talksToggle = (ToggleButton) rootView.findViewById(R.id.talksToggle);
         newsToggle = (ToggleButton) rootView.findViewById(R.id.newsToggle);
         newGlamEmailToggle = (ToggleButton) rootView.findViewById(R.id.newGlamEmailToggle);
@@ -78,7 +81,7 @@ public class UserSettingsFragment extends BasicFragment implements LoaderManager
         newFollowerEmailToggle.setOnCheckedChangeListener(this);
         newFollowerNotificationToggle.setOnCheckedChangeListener(this);
         //TODO NEWS TOGGLE TALKS TOGGLE
-
+        switcher.setDisplayedChild(0);
         return rootView;
     }
 
@@ -121,6 +124,7 @@ public class UserSettingsFragment extends BasicFragment implements LoaderManager
         newFollowerNotificationToggle.setChecked(data.getIsFollowerPushOn() == 1 ? true : false);
         newsToggle.setChecked(data.getCanReceiveEmail() == 1 ? true : false);
         settingsReady = true;
+        switcher.setDisplayedChild(1);
     }
 
     @Override

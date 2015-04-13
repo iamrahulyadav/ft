@@ -49,7 +49,7 @@ public class GCMTask {
                     // so it can use GCM/HTTP or CCS to send messages to your app.
                     // The request to your server should be authenticated if your app
                     // is using accounts.
-                    sendRegistrationIdToBackend(context);
+                    sendRegistrationIdToBackend(context, regId);
                     int appVersion = FTUtils.getAppVersion(context);
                     dataSaver.putInt("APP_VERSION", appVersion);
                     dataSaver.putString("REGISTRATION_ID",regId);
@@ -72,12 +72,12 @@ public class GCMTask {
 
     }
 
-    private void sendRegistrationIdToBackend(Context context){
+    private void sendRegistrationIdToBackend(Context context, String regId){
 
         //Toast.makeText(context,"DEVICE REGISTERED: " + regId, Toast.LENGTH_LONG).show();
         String response = "";
         RestClient restClient = new RestClient();
-        String accessToken = dataSaver.getString("accessToken");
+        String accessToken = dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
 //      ArrayList<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(params.length);
         //BasicNameValuePair param = new BasicNameValuePair("Authorization","bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6Im9ndXpAYXJtdXQuY29tIiwicm9sZSI6IkF1dGhvcml6ZWRVc2VycyIsImlzcyI6IkFybXV0V2ViQVBJIiwiYXVkIjoiYjY5Y2ZjNzNjZTk4NDIyMThlODlhNDVjMjhjMmIwYzEiLCJleHAiOjE0NTE5ODcxODUsIm5iZiI6MTQyMDQ1MTE4NX0.qWt-sq2s_NivRaxnp9qv34SqKzE9l0m26stKgct9tD0");
         try {

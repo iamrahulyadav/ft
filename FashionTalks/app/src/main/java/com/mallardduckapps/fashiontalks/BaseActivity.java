@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -165,35 +166,40 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                     if(actionName.equals("NO_ACTION")){
                         return;
                     }
-                    BaseActivity.this.finish();
+
                     if(actionName.equals(getString(R.string.title_section2))){
+                        BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, UsersActivity.class);
                         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         BaseActivity.this.startActivity(intent);
                         //overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
                     }else if(actionName.equals(getString(R.string.title_section1))){
-
+                        BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, MainActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }else if(actionName.equals(getString(R.string.title_section3))){
+                        BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, NotificationActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }else if(actionName.equals("PROFILE")){
+                        BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }else if(actionName.equals(getString(R.string.title_section4))){
+                        BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, SettingsActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }else if(actionName.equals("UPLOAD")){
 
                         if(app.getMe().getCanPost() == 1){
+                            BaseActivity.this.finish();
                             Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
                             BaseActivity.this.startActivity(intent);
                         }else{
                             app.openOKDialog(BaseActivity.this, null, "no_post_access");
+                            //Toast.makeText(getApplicationContext(), getString(R.string.posting_not_allowed), Toast.LENGTH_LONG).show();
                             return;
                         }
-
                     }
                     setTranslateAnimation(BaseActivity.this);
                 }

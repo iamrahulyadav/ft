@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.DeletePhotoDialog;
@@ -21,6 +22,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -262,5 +264,10 @@ public class FashionTalksApp extends Application {
         userPostArrayList = null;
         myPostArrayList = null;
         lastGalleryId = 0;
+        try {
+            GoogleCloudMessaging.getInstance(this).unregister();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -217,15 +217,15 @@ class CropImageView extends ImageViewTouchBase {
                 if(mode == 1){
                     Log.d("DRAG or ZOOM", "ZOOM");
                     float newDist = spacing(event);
-                    Log.d("ZOOM", "newDist=" + newDist);
+                    //Log.d("ZOOM", "newDist=" + newDist);
                     if (newDist > 10f) {
                         //matrix.set(savedMatrix);
                         float scale = newDist / oldDist;
                         Log.d("ZOOM", "scale=" + scale);
                         //ImageViewTouchBase.SCALE_RATE = scale;
                         if(scale >= 1){
-                            zoomTo(scale);
-                            mMotionHighlightView.setMode(HighlightView.ModifyMode.Grow);
+                            //zoomTo(scale);
+                            //mMotionHighlightView.setMode(HighlightView.ModifyMode.Grow);
                             //for (int i = 0; i < mHighlightViews.size(); i++) {
                             //    HighlightView hv = mHighlightViews.get(i);
                             //    hv.handleMotion(hv.G, 0 , 0);

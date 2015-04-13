@@ -1,262 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switcher"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp" />
+    </RelativeLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:background="@color/white">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textColor="@color/black"
-                android:layout_centerVertical="true"
-                android:text="@string/permission_talks" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight">
 
-            <ToggleButton
-                android:id="@+id/talksToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/permission_talks"
+                    android:textColor="@color/black" />
+
+                <ToggleButton
+                    android:id="@+id/talksToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_switch"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/permission_news"
+                    android:textColor="@color/black" />
+
+                <ToggleButton
+                    android:id="@+id/newsToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_switch"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight"
+                android:layout_marginBottom="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
-                android:checked="true"
-                android:button="@drawable/toggle_switch"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
+                android:layout_marginTop="14dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="?listPreferredItemHeight">
+                <TextView
+                    android:id="@+id/emailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/email"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:text="@string/permission_news" />
+                <TextView
+                    android:id="@+id/notificationTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/emailTv"
+                    android:text="@string/notification"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
 
-            <ToggleButton
-                android:id="@+id/newsToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="16dp"
-                android:button="@drawable/toggle_switch"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="14dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/permission_new_glam"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/emailTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:text="@string/email" />
+                <ToggleButton
+                    android:id="@+id/newGlamEmailToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
 
-            <TextView
-                android:id="@+id/notificationTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:layout_toLeftOf="@+id/emailTv"
-                android:textColor="@color/black"
-                android:text="@string/notification" />
-        </RelativeLayout>
+                <ToggleButton
+                    android:id="@+id/newGlamNotificationToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/newGlamEmailToggle"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:text="@string/permission_new_glam" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/permission_new_talk"
+                    android:textColor="@color/black" />
 
-            <ToggleButton
-                android:id="@+id/newGlamEmailToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="16dp"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
+                <ToggleButton
+                    android:id="@+id/newTalkEmailToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
 
-            <ToggleButton
-                android:id="@+id/newGlamNotificationToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:layout_toLeftOf="@+id/newGlamEmailToggle"
-                android:checked="true"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
+                <ToggleButton
+                    android:id="@+id/newTalkNotificationToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/newTalkEmailToggle"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:text="@string/permission_new_talk" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/permission_new_mention"
+                    android:textColor="@color/black" />
 
-            <ToggleButton
-                android:id="@+id/newTalkEmailToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="16dp"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
+                <ToggleButton
+                    android:id="@+id/newMentionEmailToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
 
-            <ToggleButton
-                android:id="@+id/newTalkNotificationToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:layout_toLeftOf="@+id/newTalkEmailToggle"
-                android:checked="true"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight">
+                <ToggleButton
+                    android:id="@+id/newMentionNotificationToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/newMentionEmailToggle"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:text="@string/permission_new_mention" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeight">
 
-            <ToggleButton
-                android:id="@+id/newMentionEmailToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="16dp"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/permission_new_follower"
+                    android:textColor="@color/black" />
 
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
+                <ToggleButton
+                    android:id="@+id/newFollowerEmailToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
 
-            <ToggleButton
-                android:id="@+id/newMentionNotificationToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:checked="true"
-                android:layout_marginRight="30dp"
-                android:layout_toLeftOf="@+id/newMentionEmailToggle"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:text="@string/permission_new_follower" />
-
-            <ToggleButton
-                android:id="@+id/newFollowerEmailToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="16dp"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:textOff=""
-                android:textOn="" />
-
-            <ToggleButton
-                android:id="@+id/newFollowerNotificationToggle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:layout_toLeftOf="@+id/newFollowerEmailToggle"
-                android:button="@drawable/toggle_follow_selector"
-                android:background="@android:color/transparent"
-                android:focusable="false"
-                android:checked="true"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+                <ToggleButton
+                    android:id="@+id/newFollowerNotificationToggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/newFollowerEmailToggle"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/toggle_follow_selector"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</ViewSwitcher>

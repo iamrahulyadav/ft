@@ -46,6 +46,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     UploadNewStyleMainFragment mainFragment;
     public static final Uri CONTENT_URI = Uri.parse("content://eu.janmuller.android.simplecropimage.example/");
     public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
+    static boolean fromGallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,12 +150,14 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     }
 
     public void openGallery() {
+        fromGallery = true;
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, UploadNewStyleActivity.REQ_PICK_IMAGE);
     }
 
     public void takePicture() {
+        fromGallery = false;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
             Uri mImageCaptureUri = null;
@@ -182,7 +185,11 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         Log.d(TAG, "ON ACTIVItY RESULT: result code: " + resultCode + " -requestCode: " + requestCode );
         if(resultCode == CropImage.RESULT_RETRY){
             if(mainFragment != null){
-                takePicture();
+                if(!fromGallery){
+                    takePicture();
+                }else{
+                    openGallery();
+                }
             }
             return;
         }
