@@ -6,6 +6,7 @@ package com.mallardduckapps.fashiontalks.components;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.TypedValue;
@@ -42,6 +43,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     private boolean readyToDelete = false;
     private int tagId;
     private String brandName;
+    private boolean autoClose = false;
 
     public ExpandablePanel(final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost) {
         super(context);
@@ -51,10 +53,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         Resources res = getResources();
         expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, res
                 .getDisplayMetrics());
-        mContentWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
-                .getDisplayMetrics());
-        setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, res.getDisplayMetrics()));
+        mContentWidth = (int) res.getDimension(R.dimen.glam_width);//TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
+                //.getDisplayMetrics());
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
         setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_times_new_roman)));
+        setTextColor(Color.BLACK);
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
         //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
@@ -195,10 +198,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         this.brandName = brandName;
     }
 
-    public void runShrinkAnimation() {
+    public void runShrinkAnimation(boolean autoClose) {
         if (!mExpanded) {
             return;
         }
+        this.autoClose = autoClose;
         Animation a = new ExpandAnimation(expendedWidth, mContentWidth);
         a.initialize(expendedWidth, mContentWidth, expendedWidth, mContentWidth);
         //mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
@@ -303,7 +307,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                     task.execute();
                 }
             } else {
-                mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
+                if(!autoClose){
+                    mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
+                    autoClose = false;
+                }
+
             }
         }
 

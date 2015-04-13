@@ -32,6 +32,7 @@
         android:layout_margin="4dp"
         android:layout_marginTop="12dp"
         android:text="NAME"
+        android:textColor="@color/black"
         android:textStyle="bold" />
 
     <TextView
@@ -43,6 +44,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:text="Glam Count"
+        android:textColor="@color/black"
         android:textStyle="bold" />
 
     <CheckBox
@@ -52,6 +54,7 @@
         android:layout_alignTop="@+id/nameTv"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
         android:focusable="false"
         android:button="@drawable/toggle_follow_selector"
         android:background="@android:color/transparent"

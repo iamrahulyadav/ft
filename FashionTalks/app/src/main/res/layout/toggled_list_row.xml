@@ -29,19 +29,21 @@
         android:layout_toRightOf="@+id/thumbnailImage"
         android:layout_centerVertical="true"
         android:layout_margin="4dp"
+        android:textColor="@color/black"
         android:text="NAME"
         android:textStyle="bold" />
 <!--30dp-->
-    <ToggleButton
+    <CheckBox
         android:id="@+id/followButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@drawable/toggle_follow_selector"
         android:background="@android:color/transparent"
         android:focusable="false"
+
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:textOff=""
         android:textOn=""
-        android:layout_marginLeft="15dp" />
+        android:layout_marginRight="15dp" />
 </RelativeLayout>

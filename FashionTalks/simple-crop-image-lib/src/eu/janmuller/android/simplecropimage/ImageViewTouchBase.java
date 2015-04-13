@@ -305,7 +305,7 @@ abstract class ImageViewTouchBase extends ImageView {
         return mDisplayMatrix;
     }
 
-    static final float SCALE_RATE = 1.25F;
+    public static float SCALE_RATE = 1.25F;
 
     // Sets the maximum zoom, which is a scale relative to the base matrix. It
     // is calculated to show the image at 400% zoom regardless of screen or

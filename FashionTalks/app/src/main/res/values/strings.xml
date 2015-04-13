@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">FashionTalks</string>
+    <string name="app_name_caps">FASHIONTALKS</string>
     <string name="title_section1">Stil Keşfet</string>
     <string name="title_section2">Kullanıcı Bul</string>
     <string name="title_section3">Bildirimler</string>
@@ -9,6 +10,7 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Ayarlar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_page">Giriş</string>
     <string name="no_data">No Data</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Kullanıcı Adı veya Email Adresi</string>
@@ -94,13 +96,20 @@
     <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <!--Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.-->
-    <string name="no_brand">| sistemde bulunamamıştır. Lütefen | markasının doğru yazıldığından emin olun. Yanlış yazılmış etiketler glamleri ile beraber silinecektir.</string>
-
+    <string name="no_brand">| markası sistemde bulunamamıştır. Lütfen | markasının doğru yazıldığından emin olun. Yanlış yazılmış etiketler glamleri ile beraber silinecektir.</string>
     <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="delete_post_alert">Gönderinizi silmek istediğinize emin misiniz?</string>
     <string name="invalid_post_alert">Gönderi silinmiş ya da artık geçerli değil.</string>
     <string name="password_error_dialog">Şifre gönderilirken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="password_success_dialog">Şifreniz Email adresinize gönderildi. Lütfen Email adresinizi kontrol ediniz.</string>
+    <string name="report_subject_title">Şikayet Nedeni</string>
+    <string name="report_subject1">Uygunsuz Fotoğraf</string>
+    <string name="report_subject2">Taklit Ürün</string>
+    <string name="report_subject3">Moda Bağlantısız Resim</string>
+    <string name="report_subject4">Telif Haksız Fotoğraf</string>
+    <string name="report_subject5">Diğer</string>
+
+    <string name="posting_not_allowed">Bu özelliği etkinleştirmeniz gerekmektedir.</string>
 
     <string name="success">Başarılı</string>
     <string name="unsuccessful">Başarısız</string>
@@ -112,8 +121,8 @@
     <string name="save">Kaydet</string>
 
     <!-- Profile -->
-    <string name="follow">Takip Et</string>
-    <string name="unfollow">Takibi Bırak</string>
+    <string name="follow">&#160;Takip Et&#160;</string>
+    <string name="unfollow">&#160;Takibi Bırak&#160;</string>
     <string name="followers">Takip Edenler</string>
     <string name="following">Takip Ediyor</string>
     <string name="no_followers">Kimse Takip Etmiyor</string>

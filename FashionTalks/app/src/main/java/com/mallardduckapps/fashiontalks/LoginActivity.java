@@ -118,7 +118,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
         fragmentTx.replace(R.id.container, registerFragment).addToBackStack(registerFragment.TAG)
                 .commit();
-        tvName.setText(registerFragment.TAG);
+        tvName.setText(getString(R.string.signup));
         mainToolbar.setVisibility(View.VISIBLE);
         //mainToolbar.setTag(registerFragment.TAG);
     }
@@ -133,7 +133,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
         fragmentTx.replace(R.id.container, loginFragment).addToBackStack(loginFragment.TAG)
                 .commit();
-        tvName.setText(loginFragment.TAG);
+        tvName.setText(getString(R.string.login_page));
         mainToolbar.setVisibility(View.VISIBLE);
         //mainToolbar.setTag(loginFragment.TAG);
     }

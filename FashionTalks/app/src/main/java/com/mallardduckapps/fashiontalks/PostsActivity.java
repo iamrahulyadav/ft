@@ -256,10 +256,15 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     @Override
-    public void onNewComment(int postLoaderId,int postId, int postIndex) {
+    public void onNewComment(int postLoaderId,int postId, int postIndex, boolean increment) {
         Post post = getPost(postLoaderId, postIndex);
         int commentCount = post.getCommentCount();
-        commentCount ++;
+        if(increment){
+            commentCount ++;
+        }else{
+            commentCount --;
+        }
+
         Log.d(TAG, "INCREMENT COMMENT. " + commentCount );
         post.setCommentCount(commentCount);
         setPost(post, postIndex);

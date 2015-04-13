@@ -8,17 +8,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_section3"
-
-        android:layout_marginBottom="7dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="14dp"/>
     <View
         style="@style/Divider1"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="1dp"/>
     <com.mallardduckapps.fashiontalks.components.BounceListView
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:scrollingCache="false"
+        android:animationCache="false"
+        android:descendantFocusability="afterDescendants"
         android:dividerHeight="0dp"
         android:drawSelectorOnTop="false" />
     <RelativeLayout
@@ -37,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:textColor="@color/black"
             android:visibility="gone"
             android:text="@string/no_data"/>
     </RelativeLayout>

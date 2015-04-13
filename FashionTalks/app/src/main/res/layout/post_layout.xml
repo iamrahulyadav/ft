@@ -65,6 +65,7 @@
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/postitem_font_size"
                     android:text="Username" />
 
@@ -72,6 +73,7 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/postitem_font_size"
                     android:text="name" />
             </LinearLayout>
@@ -83,6 +85,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="7dp"
+                android:textColor="@color/black"
                 android:layout_marginRight="15dp"
                 android:textSize="@dimen/postitem_font_size"
                 android:text="postTime" />
@@ -101,7 +104,7 @@
             android:layout_below="@+id/topBar"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/splash_portrait" />
 
         <LinearLayout
@@ -170,6 +173,7 @@
                     android:layout_marginBottom="8dp"
                     android:textSize="@dimen/postitem_font_size"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:text="0 Konusma" />
             </LinearLayout>
@@ -195,6 +199,7 @@
                 android:layout_toRightOf="@+id/glamLayout"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 android:textSize="@dimen/postitem_font_size"
                 android:gravity="center"
                 android:text="374 Glam"

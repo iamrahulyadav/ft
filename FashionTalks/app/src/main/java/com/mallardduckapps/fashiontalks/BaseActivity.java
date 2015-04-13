@@ -185,8 +185,15 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                         Intent intent = new Intent(BaseActivity.this, SettingsActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }else if(actionName.equals("UPLOAD")){
-                        Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
-                        BaseActivity.this.startActivity(intent);
+
+                        if(app.getMe().getCanPost() == 1){
+                            Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
+                            BaseActivity.this.startActivity(intent);
+                        }else{
+                            app.openOKDialog(BaseActivity.this, null, "no_post_access");
+                            return;
+                        }
+
                     }
                     setTranslateAnimation(BaseActivity.this);
                 }

@@ -6,9 +6,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+//import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+//import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -36,6 +38,7 @@ public class GCMIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Bundle extras = intent.getExtras();
+
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
@@ -96,7 +99,7 @@ public class GCMIntentService extends IntentService {
                 new Intent(this, MainActivity.class), 0);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.app_logo)
+                        .setSmallIcon(R.drawable.applogo)
                         .setContentTitle("FashionTalks")
                         .setAutoCancel(true)
                         .setDefaults(android.app.Notification.DEFAULT_SOUND | android.app.Notification.DEFAULT_VIBRATE)

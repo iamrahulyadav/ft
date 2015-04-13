@@ -51,7 +51,7 @@ public class GalleriesFragment extends BasicFragment implements
     }
 
     public GalleriesFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

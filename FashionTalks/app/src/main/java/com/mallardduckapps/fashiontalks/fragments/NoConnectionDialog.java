@@ -1,6 +1,5 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -16,18 +15,17 @@ public class NoConnectionDialog extends DialogFragment {
     Fragment targetFragment;
     int requestCode;
 
-    public NoConnectionDialog(){
+    public NoConnectionDialog() {
 
     }
 
-    public void setTargetFragment(Fragment fragment, int requestCode){
+    public void setTargetFragment(Fragment fragment, int requestCode) {
         targetFragment = fragment;
         this.requestCode = requestCode;
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
         String title = args.getString("title", "");
         String message = args.getString("message", "");
@@ -35,26 +33,14 @@ public class NoConnectionDialog extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        if(targetFragment != null){
-                            targetFragment.onActivityResult(requestCode,1, null);
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (targetFragment != null) {
+                            targetFragment.onActivityResult(requestCode, 1, null);
                         }
-
-                        //getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                     }
                 })
-//                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which)
-//                    {
-//                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, null);
-//                    }
-//                })
                 .create();
     }
 }

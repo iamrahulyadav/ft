@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="@string/app_name"/>
+                android:text="@string/app_name_caps"/>
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -44,7 +44,9 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/mainToolbar"
             android:orientation="vertical">
-
+            <View
+                android:id="@+id/divider"
+                style="@style/Divider1"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/secondToolbar"
                 android:layout_width="match_parent"
@@ -60,11 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="38dp">
-                    <View
-                        android:id="@+id/divider"
-                        android:visibility="gone"
-                        android:layout_gravity="top"
-                        style="@style/Divider1"/>
+
                 </FrameLayout>
 
         </LinearLayout>

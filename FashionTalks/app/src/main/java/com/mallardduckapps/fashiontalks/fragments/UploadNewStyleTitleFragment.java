@@ -39,7 +39,6 @@ public class UploadNewStyleTitleFragment extends BasicFragment {
     ImageView tickIcon;
 
     public UploadNewStyleTitleFragment() {
-        // Required empty public constructor
     }
 
     @Override

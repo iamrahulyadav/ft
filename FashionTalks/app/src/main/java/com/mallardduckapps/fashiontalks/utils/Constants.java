@@ -45,6 +45,7 @@ public class Constants {
     public final static String POST_DETAILS_PREFIX = "/posts/view/";
     public final static String POST_COMMENTS = "/comments/comments/";
     public final static String POST_COMMENT = "/comments/comment";
+    public final static String DELETE_COMMENT = "/comments/delete/";
     public final static String GLAMMER_LIST_PREFIX= "/glam/glammers/";
     public final static String GLAM_TAG_PREFIX = "/glam/tag/";
     public final static String GLAM_AC_TAG_PREFIX = "/tags/ac/";
@@ -74,6 +75,7 @@ public class Constants {
     public final static String NOTIFICATION_LIST_PREFIX ="/notifications/list";
     public final static String POSTS_BASE_URL = "http://api.ft-api.com/posts/galleries/";
     public final static String CLOUD_FRONT_URL = "http://d3lhyn1u5tugzg.cloudfront.net";
+    public final static String CLOUD_FRONT_URL_NOTIF = "http://d3lhyn1u5tugzg.cloudfront.net/80x80/";
 
     public final static String CLIENT_ID = "2";
     public final static String CLIENT_SECRET = "ZtqYh3hkF6v=mn";

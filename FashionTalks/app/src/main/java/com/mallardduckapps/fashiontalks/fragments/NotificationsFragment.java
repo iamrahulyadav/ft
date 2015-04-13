@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,10 +22,12 @@ import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.NotificationListAdapter;
+import com.mallardduckapps.fashiontalks.components.BounceListView;
 import com.mallardduckapps.fashiontalks.loaders.NotificationListLoader;
 import com.mallardduckapps.fashiontalks.objects.Notification;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -54,6 +57,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
                 R.layout.notifications_list_layout, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noDataTv = (TextView) view.findViewById(R.id.noDataTv);
+
         return view;
     }
 

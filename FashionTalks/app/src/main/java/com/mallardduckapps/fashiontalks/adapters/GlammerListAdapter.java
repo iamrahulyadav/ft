@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -50,7 +51,7 @@ public class GlammerListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
-        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/80x80/").toString();
+        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").toString();
     }
 
     public void addData(ArrayList<User> data){
@@ -92,7 +93,7 @@ public class GlammerListAdapter extends BaseAdapter {
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
             holder.nameTv.setTypeface(FTUtils.loadFont(manager, font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
-            holder.button = (ToggleButton) vi.findViewById(R.id.followButton);
+            holder.button = (CheckBox) vi.findViewById(R.id.followButton);
             vi.setTag(holder);
         }
         else {
@@ -118,6 +119,6 @@ public class GlammerListAdapter extends BaseAdapter {
     public static class ViewHolder {
         RoundedImageView thumbView;
         TextView nameTv;
-        ToggleButton button;
+        CheckBox button;
     }
 }

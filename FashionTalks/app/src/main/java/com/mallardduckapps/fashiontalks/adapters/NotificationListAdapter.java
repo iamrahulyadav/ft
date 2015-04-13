@@ -2,8 +2,10 @@ package com.mallardduckapps.fashiontalks.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Notification;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -33,12 +37,13 @@ public class NotificationListAdapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<Notification> data;
     private LayoutInflater inflater = null;
-    private final String TAG = "NOTIFICATION_LIST_ADAPTER";
+    private final String TAG = "NOTIF_LIST_ADAPTER";
     Resources res;
     DisplayImageOptions options;
     String pathMainUrl;
     AssetManager manager;
     String font;
+    FashionTalksApp app;
 
     public NotificationListAdapter(Activity act, ArrayList<Notification> notificationList){
 
@@ -50,8 +55,9 @@ public class NotificationListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
+        app = ((FashionTalksApp) activity.getApplication());
         //TODO
-        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/80x80/").toString();
+        pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").toString();
     }
 
     @Override
@@ -82,9 +88,9 @@ public class NotificationListAdapter extends BaseAdapter {
         ViewHolder holder;
         final Notification notification = data.get(position);
         final User source = notification.getSource();
-        String photoUrl = notification.getPhoto();
+        final String photoUrl = notification.getFullPhotoSource();
         String path ="";
-        String message = notification.getContent();
+        final String message = notification.getMessage();//notification.getContent();
         if (vi == null) {
             vi = inflater.inflate(R.layout.notification_list_row, parent,
                     false);
@@ -93,26 +99,40 @@ public class NotificationListAdapter extends BaseAdapter {
             holder.nameTv.setTypeface(FTUtils.loadFont(manager,font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
             holder.postImage = (ImageView) vi.findViewById(R.id.postImage);
+
+            //holder.photoUrl = photoUrl;
             vi.setTag(holder);
         }
         else {
             holder = (ViewHolder) vi.getTag();
         }
 
-        if(source == null){
-            holder.nameTv.setText(message);
+        holder.nameTv.setText(message);
+        if(photoUrl == null){
+            holder.postImage.setVisibility(View.GONE);
         }else{
-            holder.nameTv.setText(new StringBuilder(source.getFirstName()).append(" ").append(source.getLastName()).append(message).toString());
-            path = new StringBuilder(pathMainUrl).append(source.getPhotoPath()).toString();
-        }
-
-        if(photoUrl != null){
-            photoUrl = new StringBuilder(pathMainUrl).append(photoUrl).toString();
+            holder.postImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance()
                     .displayImage(photoUrl, holder.postImage, options);
         }
+
+        if(source != null){
+            path = new StringBuilder(pathMainUrl).append(source.getPhotoPath()).toString();
+            holder.thumbView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, ProfileActivity.class);
+                    intent.putExtra("PROFILE_ID", source.getId());
+                    app.setOther(source);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.startActivity(intent);
+                    BaseActivity.setTranslateAnimation(activity);
+                }
+            });
+        }
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);
+
 
 
         return vi;
@@ -122,6 +142,7 @@ public class NotificationListAdapter extends BaseAdapter {
         RoundedImageView thumbView;
         TextView nameTv;
         ImageView postImage;
+        //String photoUrl;
     }
 }
 

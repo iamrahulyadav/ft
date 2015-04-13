@@ -99,12 +99,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     //SearchTask task;
     SearchBrandLoader loader;
     int glamWidth;
+    boolean postInProgress = false;
 
     ImageView postPhoto;
 
     public UploadNewStyleBrandFragment() {
         setTag();
-        // Required empty public constructor
     }
 
     @Override
@@ -204,6 +204,9 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         okTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(postInProgress){
+                    return;
+                }
                 if(brandEdit.getText().length() > 1){
                     //terminateTask();
                     //resetLoader(brandEdit.getText().toString());
@@ -222,7 +225,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         postPhoto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(!newGlamReadyToAdd){
+                if(!newGlamReadyToAdd || postInProgress){
                     return false;
                 }
                 switch (event.getAction()) {
@@ -260,6 +263,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         Bitmap bitmap = BitmapFactory.decodeFile(mImageUri.getPath());
         postPhoto.setImageBitmap(bitmap);
         initPostForUpload();
+        postInProgress = false;
        // grabImage(postPhoto);
         return rootView;
     }
@@ -424,6 +428,10 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             RelativeLayout.LayoutParams lp;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                if(postInProgress){
+                    return false;
+                }
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         dx = event.getX();
@@ -546,6 +554,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         menu.removeItem(R.id.action_null);
     }
 
+    //Todo check sendActive
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //super.onOptionsItemSelected(item);
@@ -659,6 +668,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         protected void onPreExecute() {
             super.onPreExecute();
             progressBarMain.setVisibility(View.VISIBLE);
+            postInProgress = true;
         }
 
         @Override
@@ -682,6 +692,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         protected void onPostExecute(String text) {
             super.onPostExecute(text);
             progressBarMain.setVisibility(View.GONE);
+            postInProgress = false;
             if(status == 0){
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
@@ -689,8 +700,8 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 BaseActivity.setTranslateAnimation(getActivity());
             }else{
                 Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
-            }
 
+            }
 
         }
     }

@@ -261,13 +261,13 @@ public class CropImage extends MonitoredActivity {
             int rotatedWidth, rotatedHeight;
             int orientation = Util.getExifRotation(mImagePath);//getOrientation(this, mSaveUri);
 
-            if (orientation == 0 || orientation == 180) { // orientation == 90 || orientation == 270
+           // if (orientation == 0 || orientation == 180) { // orientation == 90 || orientation == 270
                 rotatedWidth = o.outHeight;
                 rotatedHeight = o.outWidth;
-            } else {
-                rotatedWidth = o.outWidth;
-                rotatedHeight = o.outHeight;
-            }
+            //} else {
+            //    rotatedWidth = o.outWidth;
+             //   rotatedHeight = o.outHeight;
+            //}
 
             //int width = o.outWidth;//bitmap.getWidth();
             //int height= o.outHeight;//bitmap.getHeight();
@@ -288,6 +288,7 @@ public class CropImage extends MonitoredActivity {
             o2.inSampleSize = scale;
             in = mContentResolver.openInputStream(uri);
             Bitmap b = BitmapFactory.decodeStream(in, null, o2);
+
             //
             if(rotateLeft){
                 b = Util.rotateImage(b, -90);
@@ -705,6 +706,41 @@ public class CropImage extends MonitoredActivity {
             return CANNOT_STAT_ERROR;
         }
     }
+
+    private void makeDefault(Matrix mImageMatrix, int screenWidth, int screenHeight) {
+
+        HighlightView hv = new HighlightView(mImageView);
+
+        int width = mBitmap.getWidth();
+        int height = mBitmap.getHeight();
+
+        Rect imageRect = new Rect(0, 0, width, height);
+
+        // make the default size about 4/5 of the width or height
+        int cropWidth = Math.min(screenWidth, screenHeight);// * 5 / 5; // 4/5
+        int cropHeight = cropWidth;
+
+        if (mAspectX != 0 && mAspectY != 0) {
+
+            if (mAspectX > mAspectY) {
+                cropHeight = cropWidth * mAspectY / mAspectX;
+            } else {
+                cropWidth = cropHeight * mAspectX / mAspectY;
+            }
+        }
+
+        int x = (width - cropWidth) / 2;
+        int y = (height - cropHeight) / 2;
+
+        RectF cropRect = new RectF(x, y, x + cropWidth, y + cropHeight);
+        hv.setup(mImageMatrix, imageRect, cropRect, mCircleCrop,
+                mAspectX != 0 && mAspectY != 0);
+
+        mImageView.mHighlightViews.clear(); // Thong added for rotate
+
+        mImageView.add(hv);
+    }
+
 
 
 }

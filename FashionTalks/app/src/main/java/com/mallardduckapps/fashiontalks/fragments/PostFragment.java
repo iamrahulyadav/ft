@@ -99,7 +99,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     Post post;
 
     public PostFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -150,7 +150,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         tvGlamCount.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
         tvChatText.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
         tvUserName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
-        tvName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
+        tvName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
 
         shareMenu = (LinearLayout) rootView.findViewById(R.id.shareMenuLayout);
         progressBarMain = (ProgressBar) rootView.findViewById(R.id.progressBar1);
@@ -292,7 +292,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
     public void incrementGlamCount(final int newGlamCount){
         //int glamCount = post.getGlamCount();
-
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -341,7 +340,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     private void fillPost(final Post post){
         String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
         //TODO change 40x40
-        String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(80).append("x").append(80).append("/").append(user.getPhotoPath()).toString();
+        String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(100).append("x").append(100).append("/").append(user.getPhotoPath()).toString();
         tvUserName.setText(user.getUserName());
         tvName.setText(StringEscapeUtils.unescapeJson(post.getTitle()));
         tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(getString(R.string.glam)).toString());
@@ -437,7 +436,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 //shareMenuOnClick();
                 if(user != app.getMe()){
                     // REPORT
-                    FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
+                    ReportDialog dialog = new ReportDialog();
+                    dialog.show(getFragmentManager(), "ReportDialog");
+                    //FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
                 }else{
                     //DELETE
                     app.openErasePicDialog(PostFragment.this.getActivity(), PostFragment.this);
@@ -512,7 +513,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 //Log.d(TAG, "ON CLICK TO LAYOUT SHRINK ALL ANIMS");
                 for (ExpandablePanel panel : panels) {
                     if (panel.mExpanded) {
-                        panel.runShrinkAnimation();
+                        panel.runShrinkAnimation(true);
                     }
                 }
             }

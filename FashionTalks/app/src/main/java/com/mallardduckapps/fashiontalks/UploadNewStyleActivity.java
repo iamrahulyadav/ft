@@ -104,7 +104,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     }
 
     private void onBackToMainScreen(){
-        tvName.setText(getResources().getString(R.string.app_name));
+        tvName.setText(getResources().getString(R.string.app_name_caps));
         getSupportFragmentManager().popBackStack();
         actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -138,7 +138,12 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
             onBackToMainScreen();
         }
         else {
-            menu.toggle();
+            if(menu.isMenuShowing()){
+                app.exitDialog(this);
+                //finish(); menu.toggle();
+            }else{
+                menu.toggle();
+            }
             //finish();
         }
     }
@@ -294,7 +299,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }else{
-            title = getResources().getString(R.string.app_name);
+            title = getResources().getString(R.string.app_name_caps);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }

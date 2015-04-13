@@ -43,7 +43,7 @@ public class ForgetPasswordFragment extends BasicFragment implements LoaderManag
     boolean disableButton = false;
 
     public ForgetPasswordFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

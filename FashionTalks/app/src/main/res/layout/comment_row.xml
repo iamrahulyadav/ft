@@ -1,59 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:layout_marginTop="10dp"
-    android:background="@color/white"
-    android:layout_marginBottom="10dp"
-    android:gravity="center_vertical">
+    android:layout_height="wrap_content">
 
-    <com.makeramen.RoundedImageView
-        android:id="@+id/thumbnailImage"
-        android:layout_width="@dimen/thumbnail_width"
-        android:layout_height="@dimen/thumbnail_height"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="11dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/profile"
-        app:riv_corner_radius="30dip"
-        app:riv_mutate_background="true"
-        app:riv_oval="true" />
+    <RelativeLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:tag="back">
+        <Button
+            android:id="@+id/actionButton"
+            android:layout_width="90dp"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:background="@android:color/holo_red_dark"
+            android:text="delete" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/nameTv"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/front"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/thumbnailImage"
-        android:layout_alignTop="@id/thumbnailImage"
-        android:layout_margin="4dp"
-        android:layout_marginBottom="2dp"
-        android:textSize="11dp"
-        android:textColor="@color/gray"
-        android:text="Name" />
-    <!--com.rockerhieu.emojicon.EmojiconTextView-->
-    <TextView
-        android:id="@+id/commentTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight">
 
-        android:layout_toRightOf="@+id/thumbnailImage"
-        android:layout_below="@+id/nameTv"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="10dp"
-        android:textSize="13dp"
-        android:textColor="@color/black"/>
-  <!--  <TextView
-        android:id="@+id/commentTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/thumbnailImage"
-        android:layout_below="@+id/nameTv"
-        android:layout_margin="4dp"
-        android:textSize="12dp"
-        android:textColor="@color/black"
-        android:text="Comment" />-->
-</RelativeLayout>
+        <com.makeramen.RoundedImageView
+            android:id="@+id/thumbnailImage"
+            android:layout_width="@dimen/thumbnail_width"
+            android:layout_height="@dimen/thumbnail_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="11dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/profile"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/thumbnailImage"
+            android:layout_margin="4dp"
+            android:layout_marginBottom="2dp"
+            android:layout_toRightOf="@+id/thumbnailImage"
+            android:text="Name"
+            android:textColor="@color/gray"
+            android:textSize="11dp" />
+        <!--com.rockerhieu.emojicon.EmojiconTextView-->
+        <TextView
+            android:id="@+id/commentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/nameTv"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/thumbnailImage"
+            android:textColor="@color/black"
+            android:textSize="13dp" />
+        <!--  <TextView
+              android:id="@+id/commentTv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@+id/thumbnailImage"
+              android:layout_below="@+id/nameTv"
+              android:layout_margin="4dp"
+              android:textSize="12dp"
+              android:textColor="@color/black"
+              android:text="Comment" />-->
+    </RelativeLayout>
+
+</FrameLayout>

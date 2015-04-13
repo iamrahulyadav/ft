@@ -24,11 +24,11 @@
 
     <application
         android:name=".FashionTalksApp"
+        android:icon="@drawable/applogo"
+
         android:allowBackup="true"
-        android:icon="@drawable/app_logo"
         android:label="@string/app_name"
-        android:theme="@style/FTTheme"
-        tools:replace="android:icon">
+        android:theme="@style/FTTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/fbId" />
@@ -40,8 +40,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
         <activity
             android:name=".LoginActivity"
-            android:icon="@drawable/app_logo"
+            android:icon="@drawable/applogo"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -51,7 +52,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:icon="@drawable/app_logo"
+            android:icon="@drawable/applogo"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- stateHidden|adjustResize -->
@@ -71,29 +73,37 @@
 
         <activity
             android:name=".PostsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_posts" />
         <activity
             android:name=".GalleryActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_gallery" />
         <activity
             android:name=".UsersActivity"
-            android:icon="@drawable/app_logo"
+            android:screenOrientation="portrait"
+            android:icon="@drawable/applogo"
             android:label="@string/app_name" />
         <activity
             android:name=".BaseActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_base" />
         <activity
             android:name=".NotificationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_notification"
             android:launchMode="singleTask" />
         <activity
             android:name=".ProfileActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_profile" />
         <activity
             android:name=".SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".StyleUploadActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_style_upload"
             android:parentActivityName=".SettingsActivity">
             <meta-data
@@ -103,10 +113,12 @@
         </activity>
         <activity
             android:name=".WebActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_web" />
         <activity
             android:name=".SendPostingCodeActivity"
             android:label="@string/title_activity_send_posting_code"
+            android:screenOrientation="portrait"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -114,12 +126,14 @@
         </activity>
         <activity
             android:name=".UserSettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_user_settings" />
         <activity
             android:name=".UploadNewStyleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_upload_new_style"
             android:screenOrientation="portrait"
+
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="eu.janmuller.android.simplecropimage.CropImage"
@@ -127,9 +141,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_search"></activity>
         <activity
             android:name=".EditProfileActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_edit_profile">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

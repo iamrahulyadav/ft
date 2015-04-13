@@ -25,7 +25,6 @@ public class UploadNewStyleMainFragment extends BasicFragment {
 //    public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
 
     public UploadNewStyleMainFragment() {
-        // Required empty public constructor
     }
 
     @Override

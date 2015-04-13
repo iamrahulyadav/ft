@@ -45,10 +45,6 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
     PopularUserListAdapter adapter;
     FashionTalksApp app;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public PopularUsersFragment() {
     }
 
@@ -71,7 +67,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.list_layout, container, false);
+                R.layout.user_list_layout, container, false);
         emptyTv = (TextView) view.findViewById(R.id.noDataTv);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         if(dataList != null){

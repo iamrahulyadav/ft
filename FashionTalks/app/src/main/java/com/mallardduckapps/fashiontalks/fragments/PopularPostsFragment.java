@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter;
 import com.mallardduckapps.fashiontalks.components.BounceListView;
@@ -50,7 +51,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     boolean resetLoader;
 
     public PopularPostsFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -84,6 +85,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             listAdapter.addItemsInGrid(dataList);
             listView.setAdapter(listAdapter);
         }
+
         loadMoreFooterView = getLoadMoreView(inflater);
         return rootView;
     }
@@ -116,6 +118,25 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        if(ProfileActivity.imageGalleryChanged){
+            Log.d(TAG, "ON RESUME - IMAGE GALLERY CHANGED");
+            onRefreshList();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ProfileActivity.imageGalleryChanged = false;
+                    Log.d(TAG, "IMAGE GALLERY CHANGED FALSE");
+                }
+            }, 500);
+
+        }
+    }
+
+    @Override
     public Loader<ArrayList<Post>> onCreateLoader(int id, Bundle args) {
         loader = new PopularPostsLoader(getActivity().getApplicationContext(), id, galleryId);
         return loader;
@@ -139,9 +160,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         itemCountPerLoad = 0;
         if(dataList == null){
             index = 0;
-            if(resetLoader){
-                resetLoader = false;
-            }
             loadData(data);
             if(listView != null)
                 listView.setAdapter(listAdapter);
@@ -153,6 +171,9 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             Log.d(TAG, "LOAD MORE DATA TO THE ADAPTER: ");
             loadData(data);
             listAdapter.notifyDataSetChanged();
+        }
+        if(resetLoader){
+            resetLoader = false;
         }
         if(!canLoadMoreData()){
             if(listView != null) {

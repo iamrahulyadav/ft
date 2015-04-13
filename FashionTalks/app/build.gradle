@@ -1,9 +1,19 @@
 apply plugin: 'com.android.application'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.2"
-
+    buildToolsVersion '21.1.2'
     defaultConfig {
         applicationId "com.mallardduckapps.fashiontalks"
         minSdkVersion 14
@@ -55,9 +65,15 @@ android {
             }
         }
     }
+    productFlavors {
+    }
 }
 
-repositories { mavenCentral() }
+repositories {
+    mavenCentral()
+    maven { url "http://jzaccone.github.io/SlidingMenu-aar" }
+    maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
+}
 
 
 dependencies {
@@ -78,6 +94,9 @@ dependencies {
     compile 'joda-time:joda-time:2.3'
     compile project(':simple-crop-image-lib')
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile ('com.fortysevendeg.swipelistview:swipelistview:1.0-SNAPSHOT@aar') {
+        transitive = true
+    }
 }
 // Find any 3rd party libraries which have released new versions
 // to the central Maven repo since we last upgraded.

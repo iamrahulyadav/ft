@@ -78,6 +78,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             profileId = getArguments().getInt(PROFILE_ID);
+            Log.d(TAG, "PROFILE ID: " + profileId);
             if(app.getMe().getId() == profileId || profileId == 0){
                 myProfile = true;
                 loaderId = Constants.MY_POSTS_LOADER_ID;
@@ -95,15 +96,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             user = app.getMe();
             loaderId = Constants.MY_POSTS_LOADER_ID;
         }
-        profileId = user.getId();
+        if(profileId == 0){
+            profileId = user.getId();
+        }
+
         listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
         useLoader();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+    public View getProfileLayout(LayoutInflater inflater){
+        View rootView = inflater.inflate(R.layout.profile_user_info_layout, null);
+        Activity activity = getActivity();
         final Button followButton = (Button) rootView.findViewById(R.id.followButton);
         Button followingButton = (Button) rootView.findViewById(R.id.followingButton);
         Button followersButton = (Button) rootView.findViewById(R.id.followersButton);
@@ -111,19 +114,14 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         TextView userNameTv = (TextView) rootView.findViewById(R.id.userNameTv);
         TextView glamCountTv = (TextView) rootView.findViewById(R.id.glamCountTv);
         TextView aboutMeTv = (TextView) rootView.findViewById(R.id.aboutMeText);
-        Activity activity = getActivity();
-
-        nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
-        userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
+        profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
+        nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         followButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
         followingButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         followersButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         aboutMeTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         glamCountTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_bold)));
-        
-        profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
-        listView = (BounceListView) rootView.findViewById(R.id.uploadsList);
-        listView.setOnScrollListener(new GridListOnScrollListener(this));
         if(myProfile){
             followButton.setVisibility(View.INVISIBLE);
         }else{
@@ -139,18 +137,16 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                     Log.d(TAG, "BUTTON FOLLOW is clicked ");
                     if(isFollowing){
                         followButton.setBackgroundResource(R.drawable.follow_button_drawable);
+                        followButton.setText(getString(R.string.follow));
                     }else{
                         followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
+                        followButton.setText(getString(R.string.unfollow));
                     }
                     FollowTask task = new FollowTask(getActivity(),!isFollowing, user.getId(), followButton);
                     task.execute();
                 }
             });
-        }
 
-        if(dataList != null){
-            listAdapter.addItemsInGrid(dataList);
-            listView.setAdapter(listAdapter);
         }
 
         followersButton.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +171,25 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         userNameTv.setText(user.getUserName());
         aboutMeTv.setText(user.getAbout());
         glamCountTv.setText(user.getGlamCountPattern().concat(getString(R.string.glam)));
+
+        return rootView;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        View profileView = getProfileLayout(inflater);
+
+        listView = (BounceListView) rootView.findViewById(R.id.uploadsList);
+        listView.setOnScrollListener(new GridListOnScrollListener(this));
+        listView.addHeaderView(profileView);
+
+        if(dataList != null){
+            listAdapter.addItemsInGrid(dataList);
+            listView.setAdapter(listAdapter);
+        }
+
         loadMoreFooterView = getLoadMoreView(inflater);
         Log.d(TAG, "ON CREATE VIEW: galleryChanged " + ProfileActivity.imageGalleryChanged);
         if(ProfileActivity.imageGalleryChanged ){ // || ProfileActivity.userInfoChanged
@@ -233,7 +248,12 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
         if(!canLoadMoreData()){
             if(listView != null) {
-                listView.removeFooterView(loadMoreFooterView);
+                try{
+                    listView.removeFooterView(loadMoreFooterView);
+                }catch(Exception e){
+
+                }
+
                 loadMoreFooterView.setVisibility(View.INVISIBLE);
             }
         }

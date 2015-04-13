@@ -4,7 +4,8 @@
     tools:context="com.mallardduckapps.fashiontalks.SettingsActivity">
     <item
         android:id="@+id/action_null"
-        android:icon="@drawable/empty"
+        android:icon="@drawable/empty_icon"
+        android:title=""
         android:tag=""
         android:visible="true"
         app:showAsAction="always">

@@ -78,11 +78,18 @@ public class FashionTalksApp extends Application {
         }else if(dialogType.equals("send_password_unsuccessful")){
             args.putString("title", getString(R.string.send_password));
             args.putString("message", getString(R.string.password_error_dialog));
+        }else if(dialogType.equals("no_post_access")){
+            args.putString("title", getString(R.string.unsuccessful));
+            args.putString("message", getString(R.string.posting_not_allowed));
+        }
+        String tag ="tag";
+        dialog.setArguments(args);
+        if(fragment != null){
+            dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+            tag = fragment.getTag();
         }
 
-        dialog.setArguments(args);
-        dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
-        dialog.show(activity.getFragmentManager(), fragment.getTag());
+        dialog.show(activity.getFragmentManager(), tag);
     }
 
     public void openUploadPicDialog(Activity activity, BasicFragment fragment){

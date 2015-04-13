@@ -18,6 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:textColor="@color/black"
                 android:layout_centerVertical="true"
                 android:text="@string/permission_talks" />
 
@@ -39,6 +40,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="?listPreferredItemHeight">
 
             <TextView
@@ -46,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:text="@string/permission_news" />
 
             <ToggleButton
@@ -77,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:text="@string/email" />
 
             <TextView
@@ -86,6 +90,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
                 android:layout_toLeftOf="@+id/emailTv"
+                android:textColor="@color/black"
                 android:text="@string/notification" />
         </RelativeLayout>
 
@@ -98,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:text="@string/permission_new_glam" />
 
             <ToggleButton
@@ -138,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:text="@string/permission_new_talk" />
 
             <ToggleButton
@@ -178,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:text="@string/permission_new_mention" />
 
             <ToggleButton
@@ -219,6 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:text="@string/permission_new_follower" />
 
             <ToggleButton

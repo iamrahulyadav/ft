@@ -10,6 +10,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data">No Data</string>
+    <string name="login_page">Login</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email Address</string>
     <string name="prompt_password">Password</string>
@@ -98,6 +100,15 @@
     <string name="invalid_post_alert">Post deleted or Invalid.</string>
     <string name="password_error_dialog">Error while sending password. Please Try Again.</string>
     <string name="password_success_dialog">Password sent. Please Check Your Email.</string>
+
+    <string name="report_subject_title">Report Subject</string>
+    <string name="report_subject1">Improper Picture</string>
+    <string name="report_subject2">Counterfeit Product</string>
+    <string name="report_subject3">Fashion Unrelated Photo</string>
+    <string name="report_subject4">Picture Without Copyright</string>
+    <string name="report_subject5">Other</string>
+
+    <string name="posting_not_allowed">You need to activate this feature.</string>
 
     <string name="success">Success</string>
     <string name="unsuccessful">Failure</string>

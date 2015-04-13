@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider1"
-        android:layout_alignParentTop="true"/>
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -53,7 +49,8 @@
         android:src="@drawable/splash_portrait"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitXY"
+         />
 
     <RelativeLayout
         android:id="@+id/bottomBar"
@@ -70,6 +67,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
+            android:textColor="@color/black"
             android:padding="5dp"
             android:text="@string/upload_brand_hint" />
 
@@ -86,6 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp"
+
         android:layout_centerHorizontal="true"
         android:text="@string/no_brand"
         android:background="#B3FFFFFF"

@@ -1,6 +1,10 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import android.util.Log;
+import android.view.View;
+
 import com.google.gson.annotations.SerializedName;
+import com.mallardduckapps.fashiontalks.utils.Constants;
 
 /**
  * Created by oguzemreozcan on 05/02/15.
@@ -25,6 +29,8 @@ public class Notification {
     private String updatedAt;
     private String photo;
     private User source;
+
+    private String fullMessage;
 
     public int getId() {
         return id;
@@ -99,7 +105,17 @@ public class Notification {
     }
 
     public User getSource() {
+        if(source != null){
+            fullMessage = new StringBuilder(source.getFirstName()).append(" ").append(source.getLastName()).append(content).toString();
+        }else{
+            fullMessage = content;
+        }
+
         return source;
+    }
+
+    public String getMessage(){
+        return fullMessage;
     }
 
     public void setSource(User source) {
@@ -113,6 +129,17 @@ public class Notification {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    public String getFullPhotoSource() {
+       // Log.d("NOTIFICATION", "PHOTO SET: " + photo);
+        if(photo != null){
+            //if(!photo.equals(""))
+            return Constants.CLOUD_FRONT_URL_NOTIF.concat(photo);
+        }
+        return null;
+        //return fullPhotoSource;
+    }
+
 }
 
 

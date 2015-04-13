@@ -1,16 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     android:paddingLeft="20dp">
 
     <LinearLayout
         android:id="@+id/profileClickLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="12dp"
         android:orientation="vertical">
 
         <com.makeramen.RoundedImageView
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:layout_marginTop="10dp"
+            android:textSize="13dp"
             android:textColor="@color/black" />
 
         <TextView
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:textSize="13dp"
             android:text="@string/show_my_style"
             android:textColor="@color/black" />
     </LinearLayout>
@@ -45,6 +47,8 @@
         android:id="@+id/drawerListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/uploadNewStyleLayout"
+        android:layout_below="@+id/profileClickLayout"
         android:layout_marginRight="12dp"
         android:background="@color/white"
         android:choiceMode="singleChoice"
@@ -53,10 +57,11 @@
 
     <RelativeLayout
         android:id="@+id/uploadNewStyleLayout"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="80dp">
+        android:layout_marginBottom="20dp">
 
         <View
             android:id="@+id/divider"
@@ -73,7 +78,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="8dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/post_new_look_icon" />
 
         <TextView
@@ -84,11 +89,12 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="8dp"
             android:layout_below="@+id/divider"
-            android:layout_marginTop="43dp"
             android:layout_toRightOf="@+id/icon"
+            android:layout_alignTop="@+id/icon"
+            android:layout_marginTop="18dp"
             android:text="@string/upload_new_style"
             android:textColor="@color/black" />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>
 
 
