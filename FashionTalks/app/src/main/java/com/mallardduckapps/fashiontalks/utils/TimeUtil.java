@@ -1,7 +1,6 @@
 package com.mallardduckapps.fashiontalks.utils;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.mallardduckapps.fashiontalks.R;
 

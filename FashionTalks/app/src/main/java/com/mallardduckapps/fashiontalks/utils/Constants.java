@@ -12,6 +12,7 @@ public class Constants {
     public final static int PROFILE_EDIT_SUCCESSFUL = 4;
     public final static int PROFILE_EDIT_UNSUCCESSFUL = 5;
     public final static int FB_AUTHENTICATION_SUCCESSFUL = 6;
+    public final static int DUBLICATE_ENTRY = 7;
     public final static int WRONG_CREDENTIALS = 3;
 
     public final static int TOOLBAR_WITH_TITLE = 0;

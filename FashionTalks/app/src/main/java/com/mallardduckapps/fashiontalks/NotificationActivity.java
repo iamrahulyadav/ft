@@ -33,11 +33,9 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
                 .commit();
     }
 
-
     @Override
     public void onNavigationDrawerItemSelected(int position, String actionName) {
         super.onNavigationDrawerItemSelected(position, actionName);
-
     }
 
     @Override

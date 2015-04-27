@@ -5,7 +5,7 @@
     android:clickable="true"
     android:descendantFocusability="afterDescendants"
     android:background="@color/white">
-    <com.fortysevendeg.swipelistview.SwipeListView
+    <com.mallardduckapps.fashiontalks.swipelistview.SwipeListView
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@id/android:list"
         android:animateLayoutChanges="true"
@@ -57,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:visibility="visible"
         android:background="@color/white"
-        android:layout_height="55dp">
+        android:layout_height="65dp">
         <!--com.rockerhieu.emojicon.Emojicon-->
         <EditText
             android:id="@+id/textField"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_height="55dp"
+            android:layout_height="65dp"
             android:gravity="center"
             android:padding="4dp"
             android:text="Gönder"
@@ -90,5 +90,19 @@
             android:textSize="12dp"
             android:background="@android:color/transparent"/>
         </RelativeLayout>
-
+    <RelativeLayout
+        android:id="@+id/progressBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        android:background="#4DFFFFFF">
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp" />
+    </RelativeLayout>
 </RelativeLayout>

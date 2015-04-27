@@ -1,8 +1,5 @@
 package com.mallardduckapps.fashiontalks.objects;
 
-import android.util.Log;
-import android.view.View;
-
 import com.google.gson.annotations.SerializedName;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 

@@ -116,7 +116,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         contactLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FTUtils.sendMail("Email Template", getString(R.string.email_send_communication_recipient), getString(R.string.email_send_communication_subject), getActivity());
+                FTUtils.sendMail("Email Template", getString(R.string.email_send_communication_recipient), getString(R.string.email_send_communication_subject),null, getActivity());
                 BaseActivity.setTranslateAnimation(getActivity());
             }
         });

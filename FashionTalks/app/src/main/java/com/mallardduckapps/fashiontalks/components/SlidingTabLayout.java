@@ -11,7 +11,6 @@ import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,8 +22,6 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
-
-import java.util.ArrayList;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to

@@ -219,7 +219,7 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
         adapter.addData(userList);
         setListAdapter(adapter);
         if(userList.size() == 0){
-            noDataTv.setVisibility(View.VISIBLE);
+            //noDataTv.setVisibility(View.VISIBLE);
         }else{
             noDataTv.setVisibility(View.GONE);
         }

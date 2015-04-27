@@ -17,7 +17,10 @@ import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.MainActivity;
+import com.mallardduckapps.fashiontalks.NotificationActivity;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.SettingsActivity;
+import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.UsersActivity;
 import com.mallardduckapps.fashiontalks.adapters.NavDrawerListAdapter;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -82,6 +85,12 @@ public class NavigationDrawerFragment extends BasicFragment {
             mCurrentSelectedPosition = 0;
         }else if(getActivity() instanceof UsersActivity){
             mCurrentSelectedPosition = 1;
+        }else if(getActivity() instanceof NotificationActivity){
+            mCurrentSelectedPosition = 2;
+        }else if(getActivity() instanceof SettingsActivity){
+            mCurrentSelectedPosition = 3;
+        }else if(getActivity() instanceof UploadNewStyleActivity){
+            mCurrentSelectedPosition = 4;
         }
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition, "");

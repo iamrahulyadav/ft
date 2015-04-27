@@ -23,6 +23,7 @@
     <string name="error_invalid_password">Şifre Geçersiz</string>
     <string name="error_incorrect_password">Kullanıcı Adı ve/ya Şifre Yanlış</string>
     <string name="error_field_required">Alan gerekli</string>
+    <string name="user_name_in_use">Email adresi kullanımda, lütfen başka bir kullanıcı adı seçip tekrar deneyin.</string>
 
     <!-- Register Ekranı -->
     <string name="userName">Kullanıcı Adı</string>
@@ -97,6 +98,7 @@
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <!--Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.-->
     <string name="no_brand">| markası sistemde bulunamamıştır. Lütfen | markasının doğru yazıldığından emin olun. Yanlış yazılmış etiketler glamleri ile beraber silinecektir.</string>
+    <string name="enter_brand_name">Lütfen marka giriniz.</string>
     <string name="logout_alert">Çıkış yapmak istediğinize emin misiniz?</string>
     <string name="delete_post_alert">Gönderinizi silmek istediğinize emin misiniz?</string>
     <string name="invalid_post_alert">Gönderi silinmiş ya da artık geçerli değil.</string>
@@ -184,6 +186,9 @@
     <string name="terms_privacy_warning">By joining FashionTalks you agree the <![CDATA[<a href="http://www.fashiontalks.org/terms-of-use.html"> <br> <b>Terms of Service</b></a>]]> and
         <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
     <string name="fbId">340890866061812</string>
+    <string name="title_activity_new_notification">NewNotificationActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>

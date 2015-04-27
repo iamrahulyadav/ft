@@ -151,7 +151,8 @@ public class CropImage extends MonitoredActivity {
             mOutputX = extras.getInt(OUTPUT_X);
             mOutputY = extras.getInt(OUTPUT_Y);
             mScale = extras.getBoolean(SCALE, true);
-            mScaleUp = extras.getBoolean(SCALE_UP_IF_NEEDED, true);
+            //TODO
+            mScaleUp = extras.getBoolean(SCALE_UP_IF_NEEDED, false);
         }
 
 

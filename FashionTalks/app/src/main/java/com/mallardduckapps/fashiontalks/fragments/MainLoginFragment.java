@@ -8,8 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-
-import android.support.annotation.Nullable;
+import android.os.Handler;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
@@ -19,9 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -30,11 +30,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
-
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
-import com.mallardduckapps.fashiontalks.tasks.ConnectFBTask;
 import com.mallardduckapps.fashiontalks.tasks.LoginFBTask;
 import com.mallardduckapps.fashiontalks.tasks.LoginTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -59,12 +57,22 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     boolean loggedInBefore = false;
     CallbackManager callbackManager;
 
+    AccessTokenTracker accessTokenTracker;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = (FashionTalksApp) getActivity().getApplication();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
+        //callbackManager = CallbackManager.Factory.create();
+        fbLoginManager();
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                Log.d(TAG, "OLD ACCESS TOKEN: " + oldAccessToken + " - newAccessTOken: " + newAccessToken);
+                //updateWithToken(newAccessToken);
+            }
+        };
         //showHashKey(getActivity());
         //TODO internet yokken back yapınca switcher geliyor
         if(app.dataSaver != null){
@@ -82,6 +90,8 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 loggedInBefore = false;
             }
         }
+
+        //updateWithToken(AccessToken.getCurrentAccessToken());
     }
 
     public static void showHashKey(Context context) {
@@ -129,21 +139,21 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main_login, container, false);
         final LoginButton loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
-        ArrayList<String> permissions = new ArrayList<>();
+/*        ArrayList<String> permissions = new ArrayList<>();
         permissions.add("user_friends");
         permissions.add("public_profile");
         permissions.add("email");
         permissions.add("user_birthday");
-        permissions.add("user_location");
+        permissions.add("user_location");*/
 
-        loginButton.setReadPermissions(permissions);
+//        loginButton.setReadPermissions(permissions);
 
         mListener.setToolbarVisibility(false);
         // If using in a fragment
-        loginButton.setFragment(this);
+//        loginButton.setFragment(this);
         // Other app specific specialization
         // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+ /*       loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
@@ -165,7 +175,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 Log.d(TAG, "FB ON ERROR");
 
             }
-        });
+        });*/
         switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
         if(loggedInBefore){
             switcher.setDisplayedChild(0);
@@ -195,8 +205,13 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 mListener.onFragmentInteraction("Login");
             }
         });
-
         loginWithFbTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                facebookLogin();
+            }
+        });
+/*        loginWithFbTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onFragmentInteraction("FBLogin");
@@ -212,7 +227,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                     authTask.execute();
                 }
             }
-        });
+        });*/
 
         signUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +237,70 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         });
 
         return rootView;
+    }
+
+    public void fbLoginManager(){
+        //Create callback manager to handle login response
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.i(TAG, "LoginManager FacebookCallback onSuccess");
+                if(loginResult.getAccessToken() != null) {
+                    Log.i(TAG, "Access Token:: " + loginResult.getAccessToken());
+                    String accessToken = loginResult.getAccessToken().getToken();
+                    Log.d(TAG, "FB ON SUCCESS + " + accessToken);
+                    LoginFBTask task = new LoginFBTask(getActivity(), MainLoginFragment.this, accessToken);
+                    //ConnectFBTask task = new ConnectFBTask(accessToken, true);
+                    task.execute();
+                    //facebookSuccess();
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                Log.i(TAG, "LoginManager FacebookCallback onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Log.i(TAG, "LoginManager FacebookCallback onError");
+            }
+        });
+    }
+
+    private void updateWithToken(AccessToken currentAccessToken) {
+        mListener.onFragmentInteraction("FBLogin");
+        //TODO
+        String fbToken = app.dataSaver.getString(Constants.FB_ACCESS_TOKEN_KEY);
+        if (currentAccessToken != null) {
+            fbToken = currentAccessToken.getToken();
+            Log.d(TAG, "CURRENT FB ACCESS TOKEN NOT NULL");
+            app.dataSaver.putString(Constants.FB_ACCESS_TOKEN_KEY, fbToken);
+        } else {
+            Log.d(TAG, "CURRENT FB ACCESS TOKEN NULL");
+            if(fbToken.equals("")){
+                return;
+            }
+        }
+        app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, fbToken);
+        app.dataSaver.save();
+        loggedInBefore = true;
+        RestClient.setAccessToken(fbToken);
+        LoginTask authTask = new LoginTask(MainLoginFragment.this, getActivity());
+        authTask.execute();
+    }
+
+    public void facebookLogin() {
+        Log.d(TAG, "FB LOGIN BUTTON CLICKED" );
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add("user_friends");
+        permissions.add("public_profile");
+        permissions.add("email");
+        permissions.add("user_birthday");
+        permissions.add("user_location");
+        LoginManager.getInstance().logInWithReadPermissions(this, permissions);
     }
 
     @Override
@@ -259,9 +338,16 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 break;
             case Constants.FB_AUTHENTICATION_SUCCESSFUL:
                 mListener.saveTokens(false,tokens);
-                mListener.goToMainActivity();
+                Log.d(TAG, "FB AUTH SUCCESSFULL - calls go to main activity");
+                //mListener.goToMainActivity();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
     }
 
     @Override
@@ -269,7 +355,9 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
 
         //TODO handle errors
         if(user != null && authStatus == Constants.AUTHENTICATION_SUCCESSFUL){
+
             app.setMe(user);
+            Log.d(TAG, "GET USER AUTH SUCCESSFULL calls go to main activity");
             mListener.goToMainActivity();
             //activity.finish();
         }

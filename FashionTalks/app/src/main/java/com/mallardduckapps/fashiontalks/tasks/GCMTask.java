@@ -3,7 +3,6 @@ package com.mallardduckapps.fashiontalks.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mallardduckapps.fashiontalks.services.RestClient;

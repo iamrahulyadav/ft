@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
@@ -18,12 +19,15 @@ public class NavDrawerListAdapter extends ArrayAdapter<String>{
     private final Activity context;
     private final String[] names;
     private final Integer[] imageId;
+    FashionTalksApp app;
+
     public NavDrawerListAdapter(Activity context,
                       String[] names, Integer[] imageId) {
         super(context, R.layout.navdrawer_row, names);
         this.context = context;
         this.names = names;
         this.imageId = imageId;
+        app = (FashionTalksApp) context.getApplication();
     }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
@@ -31,6 +35,10 @@ public class NavDrawerListAdapter extends ArrayAdapter<String>{
         View rowView= inflater.inflate(R.layout.navdrawer_row, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.text);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        ImageView yellowDot = (ImageView) rowView.findViewById(R.id.yellow_dot);
+        if(position == 2 && app.newNotification){
+            yellowDot.setVisibility(View.VISIBLE);
+        }
         txtTitle.setText(names[position]);
         txtTitle.setTypeface(FTUtils.loadFont(context.getAssets(),context.getString(R.string.font_helvatica_lt)));
         imageView.setImageResource(imageId[position]);

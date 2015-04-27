@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
-import com.mallardduckapps.fashiontalks.SendPostingCodeActivity;
 import com.mallardduckapps.fashiontalks.adapters.SendCodeListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.SendCodeListLoader;
 import com.mallardduckapps.fashiontalks.objects.User;

@@ -13,6 +13,8 @@ import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by oguzemreozcan on 13/01/15.
@@ -92,6 +94,18 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
         if(!editProfile){
             me = gson.fromJson(userObject, User.class);
            // Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
+            JSONObject loginObject = null;
+            int status = -1;
+            try {
+                loginObject = new JSONObject(response);
+                status = loginObject.getInt("status");
+                if(status == 1002){ //DUBLICATE ENTRY
+                    callBack.getAuthStatus(Constants.DUBLICATE_ENTRY, null, null);
+                    return;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             accessToken = oauthObject.get("access_token").getAsString();
             refreshToken = oauthObject.get("refresh_token").getAsString();
             callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,me, accessToken, refreshToken);

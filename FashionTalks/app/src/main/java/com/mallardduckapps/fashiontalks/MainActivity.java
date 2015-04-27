@@ -11,17 +11,15 @@ import android.view.MenuItem;
 
 import com.mallardduckapps.fashiontalks.adapters.GalleriesPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.tasks.GCMTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
-import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 
 public class MainActivity extends BaseActivity
@@ -30,6 +28,7 @@ public class MainActivity extends BaseActivity
 
     String regId;
     protected final String TAG = "MAIN_ACTIVITY";
+    boolean paused;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +40,21 @@ public class MainActivity extends BaseActivity
         regId = getRegistrationId(getApplicationContext());
         Log.d(TAG, "REGISTRATION ID: " + regId);
         getDensity();
-
-        //if (regId.equals("")) {
+        if (regId.equals("")) {
             GCMTask task = new GCMTask(this, app.dataSaver);
             task.registerInBackground();
-        //}
+        }
+/*        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String direction = extras.getString("DIRECTION");
+            Log.d(TAG, "MAIN ACTIVITY DIRECTION: " + direction);
+            if(direction != null){
+                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                this.startActivity(intent);
+                this.finish();
+                BaseActivity.setTranslateAnimation(this);
+            }
+        }*/
     }
 
     private void getDensity(){
@@ -74,9 +83,44 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        paused = true;
+        //Log.d(TAG, "ON PAUSE MAIN");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        //super.onNewIntent(intent);
+        //Log.d(TAG, "ON MAIN ACTIVITY DIRECTION (on NEW INTENT): ");
+        Bundle extras = intent.getExtras();
+        if(extras != null){
+            String direction = extras.getString("DIRECTION");
+            Log.d(TAG, "ON MAIN ACTIVITY DIRECTION (on NEW INTENT): " + direction);
+            this.finish();
+            Intent intent1 = new Intent(MainActivity.this, NotificationActivity.class);
+            this.startActivity(intent1);
+            NavigationDrawerFragment.mCurrentSelectedPosition = 2;
+            //app.direction = "";
+            BaseActivity.setTranslateAnimation(this);
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "ON RESUME");
+        Log.d(TAG, "ON RESUME MAIN");
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String direction = extras.getString("DIRECTION");
+            Log.d(TAG, "MAIN ACTIVITY DIRECTION (on RESUME): " + direction);
+            this.finish();
+            Intent intent1 = new Intent(MainActivity.this, NotificationActivity.class);
+            this.startActivity(intent1);
+            NavigationDrawerFragment.mCurrentSelectedPosition = 2;
+            //app.direction = "";
+            BaseActivity.setTranslateAnimation(this);
+        }
     }
 
     @Override
@@ -118,7 +162,7 @@ public class MainActivity extends BaseActivity
         }else*/
         if(id == R.id.action_search){
             Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-            testNotification();
+            //testNotification();
             intent.putExtra("OPENS_USER_SEARCH", false);
             startActivity(intent);
             BaseActivity.setTranslateAnimation(this);

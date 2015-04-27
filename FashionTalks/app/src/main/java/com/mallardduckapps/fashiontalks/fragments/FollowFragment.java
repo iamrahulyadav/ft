@@ -85,7 +85,7 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.list_layout, container, false);
+                R.layout.follow_list_layout, container, false);
         if(dataList != null){
             adapter.addData(dataList);
             setListAdapter(adapter);

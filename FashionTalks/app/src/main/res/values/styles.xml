@@ -3,17 +3,17 @@
 
     <!-- Base application theme. -->
     <style name="FTTheme" parent="@style/Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+        <!-- Customize your theme here.   Theme.DeviceDefault.Light.DarkActionBar  "android:Theme.Holo.Light.DarkActionBar"-->
         <item name="android:windowNoTitle">true</item>
         <item name="contentInsetStart">0dp</item>
         <!--We will be using the toolbar so no need to show ActionBar-->
         <item name="windowActionBar">false</item>
-        <item name="windowActionModeOverlay">true</item>
+        <!--<item name="windowActionModeOverlay">true</item>-->
     </style>
     <style name="FTActionBarTabText"
-        parent="@style/Widget.AppCompat.ActionBar.TabText">
+        parent="android:Widget.ActionBar.TabText">
         <item name="android:textColor">@color/black</item>
-        <!-- The textColor property is backward compatible with the Support Library -->
+        <!-- The textColor property is backward compatible with the Support Library  @style/Widget.AppCompat.ActionBar.TabText-->
     </style>
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal"/>
 

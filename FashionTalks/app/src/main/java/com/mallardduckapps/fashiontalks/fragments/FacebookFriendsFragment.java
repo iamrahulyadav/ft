@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
-
 import com.mallardduckapps.fashiontalks.adapters.GlammerListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.FacebookFriendsLoader;
 import com.mallardduckapps.fashiontalks.objects.User;

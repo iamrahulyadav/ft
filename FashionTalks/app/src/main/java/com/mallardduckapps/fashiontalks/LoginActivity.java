@@ -2,7 +2,6 @@ package com.mallardduckapps.fashiontalks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -14,10 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.widget.LoginButton;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.ForgetPasswordFragment;
 import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
@@ -40,7 +36,8 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     public Toolbar mainToolbar;
     FashionTalksApp app;
     TextView tvName;
-
+    //DIRECTION is used for notification forwarding
+    String direction = null;
     //CharSequence mTitle;
 
     @Override
@@ -53,7 +50,13 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         registerFragment = new RegisterFragment();
         mainLoginFragment = new MainLoginFragment();
         forgetPasswordFragment = new ForgetPasswordFragment();
+        Bundle extras = getIntent().getExtras();
 
+        if(extras != null){
+            direction = extras.getString("DIRECTION");
+            Log.d("LOGIN ACT", "INTENT" + direction);
+        }
+        //Log.d("LOGIN ACT", "DIRECTION: " + app.direction);
        // LoginButton loginButton = (LoginButton) view.findViewById(R.id.usersettings_fragment_login_button);
         //loginButton.registerCallback(callbackManager, new LoginButton.Callback() {  });
        // registerFragment.setActivity(this);
@@ -82,6 +85,12 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        //super.onNewIntent(intent);
+        Log.d("LOGIN ACT", "ON new intent: " + intent.toString());
     }
 
     @Override
@@ -160,7 +169,16 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
 
     public void goToMainActivity(){
         Log.d("LOGIN_ACTIVITY", "GOTO MAIN ACTIVITY");
+
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        if(direction != null)//app.direction != null
+        if(direction.equals("NOTIFICATION")){
+            Bundle bundle = new Bundle();
+            bundle.putString("DIRECTION", "NOTIFICATION");
+            intent.putExtras(bundle);
+           // Log.d("LOGIN_ACTIVITY", "GOTO NOTIFICATION ACTIVITY" + app.direction);
+            //intent = new Intent(LoginActivity.this, NotificationActivity.class);
+        }
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
         this.finish();

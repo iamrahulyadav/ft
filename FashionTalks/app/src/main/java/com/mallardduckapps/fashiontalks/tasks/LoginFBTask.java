@@ -119,8 +119,9 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
         User me = gson.fromJson(userObject, User.class);
 
         Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
-        callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
         callBack.getAuthStatus(Constants.FB_AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
+        callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
+
     }
 }
 

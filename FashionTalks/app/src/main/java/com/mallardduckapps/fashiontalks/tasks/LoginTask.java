@@ -8,11 +8,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
-import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;

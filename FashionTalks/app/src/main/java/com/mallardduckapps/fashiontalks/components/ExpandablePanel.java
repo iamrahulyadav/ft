@@ -55,7 +55,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                 .getDisplayMetrics());
         mContentWidth = (int) res.getDimension(R.dimen.glam_width);//TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 //.getDisplayMetrics());
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_times_new_roman)));
         setTextColor(Color.BLACK);
         mAnimationDuration = 200;

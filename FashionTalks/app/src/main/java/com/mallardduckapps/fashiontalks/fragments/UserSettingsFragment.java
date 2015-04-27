@@ -13,16 +13,11 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 import android.widget.ViewSwitcher;
 
-import com.google.gson.Gson;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.loaders.GetSettingsLoader;
-import com.mallardduckapps.fashiontalks.loaders.SearchUserLoader;
 import com.mallardduckapps.fashiontalks.objects.Settings;
-import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
-
-import java.util.ArrayList;
 
 /**
  * Created by oguzemreozcan on 23/02/15.

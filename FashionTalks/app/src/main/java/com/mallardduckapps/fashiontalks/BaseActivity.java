@@ -12,11 +12,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -131,11 +129,18 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //app.direction = "";
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "EXIT MESSAGE: " + requestCode + " - resultCode: " + resultCode);
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == 666){
+                //app.direction = "";
                 finish();
             }
         }
@@ -163,6 +168,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
             menu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
                 @Override
                 public void onClosed() {
+                    Log.d(TAG, "actionName: " + actionName);
                     if(actionName.equals("NO_ACTION")){
                         return;
                     }
@@ -175,9 +181,11 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                         //overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
                     }else if(actionName.equals(getString(R.string.title_section1))){
                         BaseActivity.this.finish();
+                        Log.d(TAG, "OPEN MAIN");
                         Intent intent = new Intent(BaseActivity.this, MainActivity.class);
                         BaseActivity.this.startActivity(intent);
                     }else if(actionName.equals(getString(R.string.title_section3))){
+                        Log.d(TAG, "OPEN BILDIRIMLER");
                         BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, NotificationActivity.class);
                         BaseActivity.this.startActivity(intent);

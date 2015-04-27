@@ -9,7 +9,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.objects.Post;
@@ -18,8 +17,6 @@ import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by oguzemreozcan on 15/02/15.

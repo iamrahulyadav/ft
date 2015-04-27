@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +98,6 @@ public class NotificationListAdapter extends BaseAdapter {
             holder.nameTv.setTypeface(FTUtils.loadFont(manager,font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
             holder.postImage = (ImageView) vi.findViewById(R.id.postImage);
-
             //holder.photoUrl = photoUrl;
             vi.setTag(holder);
         }

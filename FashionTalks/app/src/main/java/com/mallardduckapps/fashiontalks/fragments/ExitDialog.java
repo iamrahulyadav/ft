@@ -7,8 +7,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
-
 /**
  * Created by oguzemreozcan on 31/03/15.
  */

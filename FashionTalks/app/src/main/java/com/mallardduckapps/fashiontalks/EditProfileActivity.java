@@ -1,27 +1,18 @@
 package com.mallardduckapps.fashiontalks;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
-import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
-import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
-import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class EditProfileActivity extends ActionBarActivity implements BasicFragment.OnLoginFragmentInteractionListener {

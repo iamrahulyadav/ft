@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.mallardduckapps.fashiontalks">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -24,11 +23,11 @@
 
     <application
         android:name=".FashionTalksApp"
-        android:icon="@drawable/applogo"
-
         android:allowBackup="true"
+        android:icon="@drawable/applogo"
         android:label="@string/app_name"
-        android:theme="@style/FTTheme">
+        android:launchMode="singleInstance"
+        android:theme="@style/FTTheme" >
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/fbId" />
@@ -37,29 +36,32 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:icon="@drawable/applogo"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan|stateHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:icon="@drawable/applogo"
-            android:screenOrientation="portrait"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- stateHidden|adjustResize -->
         <receiver
             android:name=".services.GCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
@@ -73,39 +75,43 @@
 
         <activity
             android:name=".PostsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_posts" />
+            android:label="@string/title_activity_posts"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GalleryActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_gallery" />
+            android:label="@string/title_activity_gallery"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UsersActivity"
-            android:screenOrientation="portrait"
             android:icon="@drawable/applogo"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BaseActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_base" />
+            android:label="@string/title_activity_base"
+
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NotificationActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_notification"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ProfileActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_profile" />
+            android:label="@string/title_activity_profile"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StyleUploadActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_style_upload"
-            android:parentActivityName=".SettingsActivity">
+            android:parentActivityName=".SettingsActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mallardduckapps.fashiontalks.SettingsActivity" />
@@ -113,27 +119,26 @@
         </activity>
         <activity
             android:name=".WebActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_web" />
+            android:label="@string/title_activity_web"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SendPostingCodeActivity"
             android:label="@string/title_activity_send_posting_code"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".SettingsActivity">
+            android:parentActivityName=".SettingsActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mallardduckapps.fashiontalks.SettingsActivity" />
         </activity>
         <activity
             android:name=".UserSettingsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_user_settings" />
+            android:label="@string/title_activity_user_settings"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UploadNewStyleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_upload_new_style"
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="eu.janmuller.android.simplecropimage.CropImage"
@@ -141,16 +146,20 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SearchActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_search"></activity>
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_edit_profile">
+            android:label="@string/title_activity_edit_profile"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mallardduckapps.fashiontalks.ProfileActivity" />
             >
+        </activity>
+        <activity
+            android:name=".NewNotificationActivity"
+            android:label="@string/title_activity_new_notification" >
         </activity>
     </application>
 

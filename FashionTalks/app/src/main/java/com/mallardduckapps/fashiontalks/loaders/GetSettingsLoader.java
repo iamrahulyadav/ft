@@ -6,17 +6,14 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.mallardduckapps.fashiontalks.objects.Settings;
-import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.lang.reflect.Type;
-import java.util.Collection;
 
 /**
  * Created by oguzemreozcan on 23/03/15.

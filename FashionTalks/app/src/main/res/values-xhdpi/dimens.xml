@@ -13,7 +13,7 @@
     <dimen name="slidingmenu_offset">60dp</dimen>
     <dimen name="shadow_width">15dp</dimen>
     <dimen name="page_margin">25dp</dimen>
-    <dimen name="glam_width">26dp</dimen>
+    <dimen name="glam_width">27dp</dimen>
     <dimen name="thumbnail_width">60dp</dimen>
     <dimen name="thumbnail_height">60dp</dimen>
     <dimen name = "postitem_font_size">14dp</dimen>

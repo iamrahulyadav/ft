@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.mallardduckapps.fashiontalks.BaseActivity;
@@ -201,6 +200,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     }
 
     private void resetGlobalLists(){
+        Log.d(TAG, "ON RESET GLOBAL LISTS");
         switch (loaderId){
             case Constants.FEED_POSTS_LOADER_ID:
                 app.setFeedPostArrayList(null);

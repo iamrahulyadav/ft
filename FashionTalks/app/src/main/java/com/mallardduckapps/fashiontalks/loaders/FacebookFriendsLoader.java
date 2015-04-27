@@ -2,7 +2,6 @@ package com.mallardduckapps.fashiontalks.loaders;
 
 import android.app.Activity;
 import android.content.AsyncTaskLoader;
-import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;

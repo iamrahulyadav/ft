@@ -23,6 +23,7 @@
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_incorrect_password">Wrong Username and/or Password</string>
     <string name="error_field_required">Required Field</string>
+    <string name="user_name_in_use">Email is already registered, please select another email and try again.</string>
 
     <!-- Register Ekranı -->
     <string name="userName">Username</string>
@@ -94,6 +95,7 @@
     <string name="problem_occured">General Error! Please Try Again!</string>
     <string name="no_connection">Connection Error! Please Try Again.</string>
     <string name="connection_failed">System Error! Please Try Again.</string>
+    <string name="enter_brand_name">Please enter brand name.</string>
     <string name="no_brand">| can\'t be found in our system. Please check if | is correctly typed. Wrongly written tags will be deleted along with their glams</string>
     <string name="logout_alert">Are you sure you want to logout?</string>
     <string name="delete_post_alert">Are you sure you want to delete your post?</string>

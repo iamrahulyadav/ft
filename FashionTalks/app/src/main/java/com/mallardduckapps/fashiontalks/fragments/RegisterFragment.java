@@ -18,13 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.makeramen.RoundedImageView;
-import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
-import com.mallardduckapps.fashiontalks.LoginActivity;
-import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -340,9 +337,12 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     public void getAuthStatus(int authStatus, User user, String... tokens) {
         // showProgress(false);
         switch (authStatus) {
-            case Constants.WRONG_CREDENTIALS:
+            case Constants.DUBLICATE_ENTRY:
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
+                emailEdit.setError(getString(R.string.error_invalid_email));
+                emailEdit.requestFocus();
+                Toast.makeText(this.getActivity(), getString(R.string.user_name_in_use), Toast.LENGTH_LONG).show();
                 break;
             case Constants.AUTHENTICATION_FAILED:
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -363,7 +363,6 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
                     //ProfileActivity.userInfoChanged = true;
                     Log.d(TAG, "USER UPDATED: " + app.getMe().getAbout());
                 }
-
                 mListener.goToMainActivity();
                 //getActivity().finish();
                 //BaseActivity.setBackwardsTranslateAnimation(getActivity());

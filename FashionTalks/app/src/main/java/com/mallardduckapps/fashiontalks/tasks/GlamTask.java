@@ -58,7 +58,7 @@ public class GlamTask extends AsyncTask<Void, Void, Integer> {
     protected void onPostExecute(Integer newGlamCount) {
         super.onPostExecute(newGlamCount);
         if(newGlamCount > glamCount){
-            Log.d(TAG, "GLAM COUNT INCREASED call process finish");
+            //Log.d(TAG, "GLAM COUNT INCREASED call process finish");
             callback.processFinish(newGlamCount, totalGlamCount);
         }
     }

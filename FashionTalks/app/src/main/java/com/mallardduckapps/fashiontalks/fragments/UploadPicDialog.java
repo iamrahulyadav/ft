@@ -4,7 +4,6 @@ package com.mallardduckapps.fashiontalks.fragments;
  * Created by oguzemreozcan on 29/03/15.
  */
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;

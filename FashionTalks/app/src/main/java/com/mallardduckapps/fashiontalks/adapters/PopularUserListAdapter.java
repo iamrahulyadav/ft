@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;

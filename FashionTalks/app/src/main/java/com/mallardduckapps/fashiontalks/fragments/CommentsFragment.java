@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,14 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
-import com.fortysevendeg.swipelistview.SwipeListView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -30,6 +30,8 @@ import com.mallardduckapps.fashiontalks.adapters.CommentListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.CommentListLoader;
 import com.mallardduckapps.fashiontalks.objects.Comment;
 import com.mallardduckapps.fashiontalks.services.RestClient;
+import com.mallardduckapps.fashiontalks.swipelistview.BaseSwipeListViewListener;
+import com.mallardduckapps.fashiontalks.swipelistview.SwipeListView;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.SwipeListViewSettingsManager;
@@ -48,6 +50,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     CommentListLoader loader;
     Button sendButton;
     RelativeLayout sendMessageLayout;
+    RelativeLayout progressBarLayout;
     ProgressBar progressBar;
     CommentListAdapter adapter;
     ArrayList<Comment> dataList;
@@ -94,6 +97,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         editText = (EditText) view.findViewById(R.id.textField);
         sendMessageLayout = (RelativeLayout) view.findViewById(R.id.sendMessageLayout);
         sendMessageLayout.setVisibility(View.INVISIBLE);
+        progressBarLayout = (RelativeLayout) view.findViewById(R.id.progressBarLayout);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
        // editText.setText();//"\ud83d" #0xd83d    \uD83D\uDE04 = 0xd83d0xde04
@@ -131,6 +135,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
 
     @Override
     public void onDetach() {
+        hideKeyboard();
         super.onDetach();
         mListener = null;
         callback = null;
@@ -274,6 +279,15 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         }
     }
 
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     public void toggleMessageLayout(){
 
         Animation slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
@@ -324,6 +338,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             String userName = dataList.get(position).getUser().getUserName();
             Log.d("COMMENT", "REPLY to "+ userName);
             editText.setText(editText.getText().toString().concat("@").concat(userName));
+            editText.setSelection(editText.length());
             listView.closeAnimate(position);
         }
     }
@@ -344,6 +359,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         protected void onPreExecute() {
             super.onPreExecute();
             sendingMessage = true;
+            progressBarLayout.setVisibility(View.VISIBLE);
             //progressBarMain.setVisibility(View.VISIBLE);
         }
 
@@ -351,6 +367,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         protected void onCancelled() {
             super.onCancelled();
             sendingMessage = false;
+            progressBarLayout.setVisibility(View.GONE);
         }
 
         @Override
@@ -391,6 +408,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             }else{
                 app.openOKDialog(CommentsFragment.this.getActivity(), CommentsFragment.this, "no_connection");
             }
+            progressBarLayout.setVisibility(View.GONE);
 
         }
     }
@@ -411,6 +429,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         protected void onPreExecute() {
             super.onPreExecute();
             deletingMessage = true;
+            progressBarLayout.setVisibility(View.VISIBLE);
             //progressBarMain.setVisibility(View.VISIBLE);
         }
 
@@ -418,6 +437,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         protected void onCancelled() {
             super.onCancelled();
             deletingMessage = false;
+            progressBarLayout.setVisibility(View.GONE);
         }
 
         @Override
@@ -462,7 +482,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             }else{
                 app.openOKDialog(CommentsFragment.this.getActivity(), CommentsFragment.this, "no_connection");
             }
-
+                progressBarLayout.setVisibility(View.GONE);
         }
     }
 }}

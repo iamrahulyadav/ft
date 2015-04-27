@@ -1,5 +1,6 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -88,10 +89,12 @@ public class GalleryActivity extends ActionBarActivity {
             BaseActivity.setBackwardsTranslateAnimation(this);
          //   }
         }else if(id == R.id.action_home){
+            Intent intent = new Intent(GalleryActivity.this, MainActivity.class);
+            startActivity(intent);
+            //BaseActivity.setTranslateAnimation(this);
             finish();
             BaseActivity.setBackwardsTranslateAnimation(this);
         }
-
 
         return super.onOptionsItemSelected(item);
     }

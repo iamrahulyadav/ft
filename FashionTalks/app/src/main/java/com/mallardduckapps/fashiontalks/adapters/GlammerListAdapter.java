@@ -12,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.makeramen.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
@@ -40,6 +39,7 @@ public class GlammerListAdapter extends BaseAdapter {
     String pathMainUrl;
     AssetManager manager;
     String font;
+    FashionTalksApp app;
 
     public GlammerListAdapter(Activity act, ArrayList<User> glammerList){
 
@@ -51,6 +51,7 @@ public class GlammerListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) act
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         options = ((FashionTalksApp) act.getApplication()).options;
+        app = (FashionTalksApp) act.getApplication();
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").toString();
     }
 
@@ -112,6 +113,9 @@ public class GlammerListAdapter extends BaseAdapter {
                 task.execute();
             }
         });
+        if(app.getMe().getId() == user.getId()){
+            holder.button.setVisibility(View.GONE);
+        }
 
         return vi;
     }

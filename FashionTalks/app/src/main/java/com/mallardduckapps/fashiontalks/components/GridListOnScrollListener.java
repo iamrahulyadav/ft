@@ -1,7 +1,6 @@
 package com.mallardduckapps.fashiontalks.components;
 
 
-import android.util.Log;
 import android.widget.AbsListView;
 
 /**

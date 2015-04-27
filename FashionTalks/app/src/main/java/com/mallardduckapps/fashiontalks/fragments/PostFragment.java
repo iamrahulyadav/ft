@@ -7,8 +7,10 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -51,6 +53,10 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -127,7 +133,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d(TAG, "LIFETIME ON CREATEVIEW");
         View rootView = inflater.inflate(R.layout.post_layout, container, false);
         switcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
         layout = (RelativeLayout) rootView.findViewById(R.id.mainPostLayout);
@@ -146,7 +151,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         glamLayout = (LinearLayout) rootView.findViewById(R.id.glamLayout);
 
         Activity activity = getActivity();
-        tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_thin)));
+        tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));//thin
         tvGlamCount.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
         tvChatText.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
         tvUserName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
@@ -161,7 +166,10 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
         bottomBar.setVisibility(View.VISIBLE);
        // Log.d(TAG, "POST FR: POST ID: " + postId);
-        post = getPost();
+        if(app != null){
+            post = getPost();
+        }
+
         //Log.d(TAG, "GET POSTT COMMETN COUNT: " + post.getCommentCount());
         //openComment = post.getCanComment() == 1 ? true: false;
 
@@ -246,6 +254,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 post = app.getFeedPostArrayList().get(postIndex);
                 break;
             case Constants.POPULAR_POSTS_LOADER_ID:
+                Log.d(TAG, "APP me: " + app.getMe().getUserName());
+                //Log.d(TAG, "POPULAR LIST SIZE: " + app.getPopularPostArrayList().size());
                 post = app.getPopularPostArrayList().get(postIndex);
                 break;
             case Constants.GALLERY_POSTS_LOADER_ID:
@@ -436,16 +446,46 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 //shareMenuOnClick();
                 if(user != app.getMe()){
                     // REPORT
+                    Bundle bundle = new Bundle();
+                    bundle.putString("IMAGE_PATH", createImageFile());
                     ReportDialog dialog = new ReportDialog();
+                    dialog.setArguments(bundle);
                     dialog.show(getFragmentManager(), "ReportDialog");
                     //FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
                 }else{
                     //DELETE
                     app.openErasePicDialog(PostFragment.this.getActivity(), PostFragment.this);
-
                 }
             }
         });
+    }
+
+    private String createImageFile(){
+        String TEMP_PHOTO_FILE_NAME = "report_photo.png";
+        File mFileTemp;
+        String state = Environment.getExternalStorageState();
+        Bitmap bitmap = ((BitmapDrawable)postPhoto.getDrawable()).getBitmap();
+       // Log.d(TAG, "BITMAP : " + bitmap.toString());
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
+        }
+        else {
+            mFileTemp = new File(getActivity().getFilesDir(), TEMP_PHOTO_FILE_NAME);
+        }
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(mFileTemp);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "IMAGE PATH TO REPORT: " + mFileTemp.getPath());
+        return mFileTemp.getAbsolutePath();
+
     }
 
     @Override
@@ -458,6 +498,16 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     }
 
     private void setGlamPosition(Post post){
+/*        int x1 = getRealX(0);
+        int y1 = getRealY(0);
+        int tagId1 = 22222;//tag.getId();
+        String brandName1 = "test";//tag.getTag();
+        final ExpandablePanel panel1 = new ExpandablePanel(getActivity(), null, x1 , y1, x1 > PostsActivity.width/2 ? false:true, ownPost, false);
+        panel1.setTagId(tagId1);
+        panel1.setBrandName(brandName1);
+            panel1.setTagText("test" ,false);
+        //panels.add(panel1);
+        layout.addView(panel1);*/
 
         final ArrayList<ExpandablePanel> panels = new ArrayList<>(post.getTags().size());
         for (Tag tag : post.getTags()){
@@ -529,7 +579,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
     //TODO it was height before, control the height
     private int getRealY(int y){
-        return finalImageHeight*y/Constants.VIRTUAL_HEIGHT + imageTopMargin;
+        return finalImageWidth*y/Constants.VIRTUAL_HEIGHT + imageTopMargin + (finalImageHeight - finalImageWidth)/2;
     }
 
     @Override
@@ -541,7 +591,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Post> loader, Post data) {
         if(data != null){
-
             if(data.isInvalid()){
                 Toast.makeText(PostFragment.this.getActivity().getApplicationContext(), getString(R.string.invalid_post_alert), Toast.LENGTH_SHORT).show();
                 getActivity().finish();
@@ -557,7 +606,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             }else{
                 showNextView();
             }
-
         }
         else{
             Log.d(TAG, "DATA IS NULL");

@@ -2,7 +2,6 @@ package com.mallardduckapps.fashiontalks.loaders;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,7 +14,6 @@ import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.lang.reflect.Type;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;

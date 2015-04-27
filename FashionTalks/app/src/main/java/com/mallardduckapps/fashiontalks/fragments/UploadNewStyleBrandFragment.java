@@ -44,7 +44,6 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
 import com.mallardduckapps.fashiontalks.loaders.SearchBrandLoader;
-import com.mallardduckapps.fashiontalks.objects.Glam;
 import com.mallardduckapps.fashiontalks.objects.Tag;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -144,11 +143,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
 //                if(task != null){
 //                    task.cancel(true);
 //                }
-                if(currentGlam.isLhsAnimation()){
-                    currentGlam.setTagText(listData.get(position) + extraField, true);
-                }else{
-                    currentGlam.setTagText(extraField + listData.get(position), true);
-                }
+//                if(currentGlam.isLhsAnimation()){
+//                    currentGlam.setTagText(listData.get(position) + extraField, true);
+//                }else{
+//                    currentGlam.setTagText(extraField + listData.get(position), true);
+//                }
+                currentGlam.setTagText(extraField + listData.get(position) + extraField, true);
                 //" ".concat(listData.get(position)).concat("  ")
                 glamReady(listData.get(position), position);
             }
@@ -323,7 +323,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         Log.d(TAG, "GLAM TEXT: " + tagName);
         if(currentGlam != null){
             currentGlam.setBrandName(tagName);
-            currentGlam.setTagId(tags.get(index).getId());
+            try{
+                currentGlam.setTagId(tags.get(index).getId());
+            }catch(IndexOutOfBoundsException ex){
+                noBrand.setVisibility(View.GONE);
+                Log.e(TAG, ex.getMessage());
+            }
         }
         //String glamText = glam.getText().trim();
         //int x = (int)currentGlam.getX();
@@ -560,13 +565,20 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         //super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_send) {
             Log.d(TAG, "SEND");
-            if (sendActive) {
+            if (sendActive && newGlamReadyToAdd) {
                 try {
                     createPostJson();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 mListener.onFragmentInteraction("SEND", "");
+            }else{
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), getString(R.string.enter_brand_name),Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
         } else if (item.getItemId() == android.R.id.home) {
@@ -610,6 +622,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Tag>> loader, ArrayList<Tag> data) {
+        Log.d(TAG, "ON LOAD FINISHED: ");
         if(data == null){
             Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();

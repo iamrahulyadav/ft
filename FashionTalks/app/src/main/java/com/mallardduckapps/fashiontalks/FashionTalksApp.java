@@ -2,10 +2,10 @@ package com.mallardduckapps.fashiontalks;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -33,6 +33,7 @@ public class FashionTalksApp extends Application {
     public DataSaver dataSaver;
     private final String TAG = "FashionTalksApp";
     public DisplayImageOptions options;
+    public boolean newNotification = false;
     //public DisplayImageOptions optionsNoCache;
     //ArrayList<Gallery> galleryArrayList;
     ArrayList<Post> popularPostArrayList;
@@ -46,10 +47,14 @@ public class FashionTalksApp extends Application {
     SlidingMenu menu;
     User me;
     User other;
+    //USED FOR NOTIFICATION DIRECTION, note that bundle is useless in this specific case
+    // direction can be either NOTIFICATION or MAIN
+    //public String direction = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "APP CREATE");
         dataSaver = new DataSaver(getApplicationContext(), "FashionTalks", false);
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.gallery_card_drawable)

@@ -161,14 +161,23 @@ public class FTUtils {
         return false;
     }
 
-    public static void sendMail(String email, String recipient, String subject, Activity activity) {
+    public static void sendMail(String email, String recipient, String subject, String imagePath, Activity activity) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:")); // .concat(recipient)
+
         emailIntent.setType("message/rfc822");
         //emailIntent.setType("text/plain");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { recipient });
         emailIntent.putExtra(Intent.EXTRA_TEXT, email);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        if(imagePath != null){
+            Uri pngUri = Uri.parse("file://" + imagePath);//Uri.parse(imagePath);
+            emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, pngUri);
+            //emailIntent.setType("application/image");
+        }
+        //i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pic));
+
+       // i.setType("image/png");
         try {
             activity.startActivity(Intent.createChooser(emailIntent, activity.getString(R.string.send_mail)));
             // finish();

@@ -1,6 +1,7 @@
 package com.mallardduckapps.fashiontalks.utils;
 
-import com.fortysevendeg.swipelistview.SwipeListView;
+
+import com.mallardduckapps.fashiontalks.swipelistview.SwipeListView;
 
 /**
  * Created by oguzemreozcan on 12/04/15.

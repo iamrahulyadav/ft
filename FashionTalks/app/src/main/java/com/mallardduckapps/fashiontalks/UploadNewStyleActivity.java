@@ -99,9 +99,13 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         tvName.setText(getResources().getString(R.string.upload_new_title));
         getSupportFragmentManager().popBackStack();
         //actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
+
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setDisplayShowHomeEnabled(true);
+        //actionBar.setDefaultDisplayHomeAsUpEnabled(true);
     }
 
     private void onBackToMainScreen(){

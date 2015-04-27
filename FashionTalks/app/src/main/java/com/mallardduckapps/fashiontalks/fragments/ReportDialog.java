@@ -1,7 +1,6 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -19,6 +18,7 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
  */
 public class ReportDialog extends DialogFragment {
 
+    String imagePath;
     public ReportDialog(){
         //this.fragment = fragment;
     }
@@ -31,6 +31,7 @@ public class ReportDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        imagePath = getArguments().getString("IMAGE_PATH");
     }
 
     @Override
@@ -59,7 +60,7 @@ public class ReportDialog extends DialogFragment {
         @Override
         public void onClick(View v) {
             String subject = ((Button) v).getText().toString();
-            FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), subject, getActivity());
+            FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), subject,imagePath, getActivity());
             ReportDialog.this.dismiss();
         }
     };

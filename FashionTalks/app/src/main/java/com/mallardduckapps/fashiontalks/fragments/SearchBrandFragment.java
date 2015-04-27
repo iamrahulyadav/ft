@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
@@ -20,13 +21,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
+import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.loaders.SearchBrandLoader;
 import com.mallardduckapps.fashiontalks.objects.Tag;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
@@ -95,7 +97,7 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
                     return;
                 }
                 text = t.toLowerCase(Locale.getDefault());
-                Log.d(TAG, "TEXT: " + text);
+                //Log.d(TAG, "TEXT: " + text);
                 if (text.length() > 1) {
                     xTv.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -134,6 +136,14 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Log.d(TAG, "ITEM CLICKED " + position);
+        Intent intent = new Intent(getActivity(), GalleryActivity.class);
+        intent.putExtra("GALLERY_ID", tags.get(position).getId());
+        intent.putExtra("GALLERY_NAME", listData.get(position));
+        intent.putExtra("LOADER_ID", Constants.GALLERY_POSTS_BY_TAG_LOADER_ID);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        getActivity().startActivity(intent);
+        BaseActivity.setTranslateAnimation(getActivity());
+
 /*        Intent intent = new Intent(getActivity(), ProfileActivity.class);
         User user = userList.get(position);
         app.setOther(user);
@@ -179,7 +189,7 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
         listData.clear();
         //lv.setVisibility(View.GONE);
         if(tags.size() == 0){
-            noDataTv.setVisibility(View.VISIBLE);
+            //noDataTv.setVisibility(View.VISIBLE);
             return;
         }else{
             noDataTv.setVisibility(View.GONE);
