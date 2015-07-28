@@ -10,20 +10,27 @@ import java.text.NumberFormat;
  * Created by oguzemreozcan on 12/01/15.
  */
 public class User {
+    @SerializedName("id")
     private int id;
     @SerializedName("first_name") private String firstName;
     @SerializedName("username") private String userName;
     @SerializedName("last_name")private String lastName;
     private String email;
     @SerializedName("birth_date") private String birthDateTxt;
+    @SerializedName("gender")
     private String gender;
+    @SerializedName("status")
     private int status;
-    @SerializedName("photo") private String photoPath;
-    @SerializedName("can_post") private int canPost;
+    @SerializedName("photo")
+    private String photoPath;
+    @SerializedName("can_post")
+    private int canPost;
+    @SerializedName("about")
     private String about;
+    @SerializedName("country")
     private String country;
+    @SerializedName("city")
     private String city;
-
     @SerializedName("post_count")
     private int postCount;
     @SerializedName("glam_count")
@@ -40,6 +47,7 @@ public class User {
     private int commentCount;
     @SerializedName("unlocked_by")
     private int unlockedBy;
+    @SerializedName("locale")
     private String locale;
     @SerializedName("is_verified")
     private int isVerified;
@@ -125,6 +133,12 @@ public class User {
     }
 
     public String getAbout() {
+        if(about == null){
+            return "";
+        }
+        if(about.contains("About You") || about.contains("Hakkınızda")){
+            return "";
+        }
         return about;
     }
 

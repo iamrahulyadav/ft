@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.adapters.UsersPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 
@@ -20,7 +21,7 @@ public class UsersActivity extends BaseActivity implements
         mViewPager.setAdapter(new UsersPagerAdapter(getSupportFragmentManager(), this));
         setSlidingStrips();
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true); //false
         //actionBar.setHomeButtonEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
     }
@@ -62,4 +63,17 @@ public class UsersActivity extends BaseActivity implements
     public void onToolbarThemeChange(int themeId) {
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
+    }
+
 }

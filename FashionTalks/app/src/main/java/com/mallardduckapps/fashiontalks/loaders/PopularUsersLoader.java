@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -47,7 +48,9 @@ public class PopularUsersLoader extends AsyncTaskLoader<ArrayList<PopularUser>> 
         }
 
         JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-        Gson gson = new Gson();
+        //Gson gson = new Gson();
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
         for (JsonElement item : dataObjects) {
             PopularUser user = gson.fromJson(item, PopularUser.class);
             usersList.add(user);

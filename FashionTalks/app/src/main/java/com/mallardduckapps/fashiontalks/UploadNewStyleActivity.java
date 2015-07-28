@@ -54,13 +54,15 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
 
         //setContentView(R.layout.activity_settings);
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true); //false
         tabToolbar.setVisibility(View.GONE);
         mViewPager.setVisibility(View.GONE);
         topDivider.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)mainLayout.getLayoutParams();
         param.topMargin = 0;
-        actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
+
+
+
         tvName = (TextView) findViewById(R.id.toolbarName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
         int[] size = FTUtils.getScreenSize(this);
@@ -79,6 +81,8 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);*/
+        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+       // actionBar.setDisplayHomeAsUpEnabled(true);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container,mainFragment )
@@ -111,7 +115,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     private void onBackToMainScreen(){
         tvName.setText(getResources().getString(R.string.app_name_caps));
         getSupportFragmentManager().popBackStack();
-        actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
+        //actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(false);
@@ -299,25 +303,45 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
             fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
             //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left);//android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.TAG).commit();
-            //actionBar.setHomeAsUpIndicator(null);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+            //actionBar.setHomeAsUpIndicator();
+            //actionBar.setHomeAsUpIndicator(android.R.drawable.ic_a);
+            Log.d(TAG, "CONTINUE BUTTON CLICKED");
+            //actionBar.setHomeButtonEnabled(true);
+
+            //actionBar.setDisplayHomeAsUpEnabled(true);
+            //actionBar.setDisplayShowHomeEnabled(false);
+            //actionBar.setDefaultDisplayHomeAsUpEnabled(false);
 
         }else if(tag.equals("SEND_BACK")){
+            Log.d(TAG, "CONTINUE BUTTON CLICKED - send back");
             title = getResources().getString(R.string.upload_new_title);
             //getSupportFragmentManager().popBackStack();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
+
+            //actionBar.setDisplayHomeAsUpEnabled(true);
+            //actionBar.setDisplayShowHomeEnabled(true);
         }else{
+            Log.d(TAG, "CONTINUE BUTTON CLICKED -else");
             title = getResources().getString(R.string.app_name_caps);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
+
+            //actionBar.setDisplayHomeAsUpEnabled(true);
+
+            //actionBar.setDisplayShowHomeEnabled(true);
         }
 
         tvName.setText(title);
 
         //actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void setBackButton(boolean backButton) {
+        if(actionBar != null){
+            if(backButton){
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_back);
+            }else{
+                actionBar.setHomeAsUpIndicator(R.drawable.hamburger_menu);
+            }
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -11,15 +13,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
+import com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter.RefreshPagerCallback;
 import com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
 import com.mallardduckapps.fashiontalks.fragments.CommentsFragment;
 import com.mallardduckapps.fashiontalks.fragments.PopularPostsFragment;
 import com.mallardduckapps.fashiontalks.fragments.PostFragment;
 import com.mallardduckapps.fashiontalks.objects.Post;
+import com.mallardduckapps.fashiontalks.tasks.PopularPostTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
@@ -27,7 +32,8 @@ import java.util.ArrayList;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
-public class PostsActivity extends ActionBarActivity implements BasicFragment.OnFragmentInteractionListener, CommentsFragment.CommentIsMade {
+public class PostsActivity extends ActionBarActivity implements BasicFragment.OnFragmentInteractionListener, CommentsFragment.CommentIsMade,
+        VerticalPagerAdapter.LoadMorePostToPager, PopularPostTask.NewPostsLoaded, RefreshPagerCallback {
 
     Toolbar mainToolbar;
     FashionTalksApp app;
@@ -45,6 +51,8 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     public static int width;
     public static int height;
     boolean openComment = false;
+    VerticalViewPager verticalViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +68,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         openComment = getIntent().getBooleanExtra("OPEN_COMMENT", false);
         Log.d(TAG, "GALLERY ID: " + galleryId + "- loaderId: " + loaderId);
         app = (FashionTalksApp) getApplication();
-        mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
+        mainToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(mainToolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -68,9 +76,13 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         TextView tvName = (TextView) findViewById(R.id.toolbarName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
 
-        if(positionIndex != -1){
-            VerticalViewPager verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
-            verticalViewPager.setAdapter(new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), loaderId));
+        if (positionIndex != -1) {
+            verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
+
+            ArrayList<Post> defaultArray = new ArrayList<>(getPostsArrayList());
+            app.setDefaultPostArray(defaultArray);
+            VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), this, loaderId);
+            verticalViewPager.setAdapter(adapter);
             //verticalViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
             //verticalViewPager.setPageMarginDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_green_dark)));
             verticalViewPager.setCurrentItem(positionIndex);
@@ -106,13 +118,13 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                     }
                 }
             });
-        }else{
+        } else {
             //Opens post fragment from notifications, in here post is not downloaded from server yet
             //so need to use loader to get the post from server
             openPostFragment(postId, positionIndex, loaderId, true);
         }
 
-        if(galleryId != 0){
+        if (galleryId != 0) {
             PopularPostsFragment galleryFragment = new PopularPostsFragment();
             //galleryFragment.setActivity(activity);
             Bundle bundle = new Bundle();
@@ -120,7 +132,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             bundle.putInt("GALLERY_ID", galleryId);
             galleryFragment.setArguments(bundle);
             replaceFragment(galleryFragment, false);
-        }else{
+        } else {
             //openPostFragment(postId, positionIndex, loaderId, false);
         }
     }
@@ -147,19 +159,19 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         positionIndex = intent.getIntExtra("POST_INDEX", -1);
     }
 
-    private void replaceFragment(BasicFragment fragment, boolean addToBackStack){
+    private void replaceFragment(BasicFragment fragment, boolean addToBackStack) {
         FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
         fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
         //fragmentTx.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         fragmentTx.replace(R.id.container, fragment, fragment.TAG);
-        if(addToBackStack){
+        if (addToBackStack) {
             fragmentTx.addToBackStack(fragment.TAG);
         }
         fragmentTx.commit();
         activeFragmentTag = fragment.TAG;
     }
 
-    public void openPostFragment(int postId, int positionIndex, int loaderId, boolean addToBackStack){
+    public void openPostFragment(int postId, int positionIndex, int loaderId, boolean addToBackStack) {
         this.postId = postId;
         this.positionIndex = positionIndex;
         this.loaderId = loaderId;
@@ -173,9 +185,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         replaceFragment(postFragment, addToBackStack);
     }
 
-    public ArrayList getPostsArrayList(){
-        ArrayList list = null;
-        switch (loaderId){
+    public ArrayList getPostsArrayList() {
+        ArrayList list = new ArrayList();
+        switch (loaderId) {
             case Constants.FEED_POSTS_LOADER_ID:
                 list = app.getFeedPostArrayList();
                 break;
@@ -184,7 +196,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 break;
             case Constants.GALLERY_POSTS_LOADER_ID:
                 list = app.getGalleryPostArrayList();
-               // Log.d(TAG, "data 0 name: " + ((Post)list.get(0)).getUser().getUserName() );
+                // Log.d(TAG, "data 0 name: " + ((Post)list.get(0)).getUser().getUserName() );
                 break;
             case Constants.USER_POSTS_LOADER_ID:
                 list = app.getUserPostArrayList();
@@ -196,7 +208,35 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 list = app.getBrandGalleryPostList();
                 break;
         }
+        if (list == null) {
+            return new ArrayList();
+        }
+
         return list;
+    }
+
+    public void setPostsArrayList() {
+        switch (loaderId) {
+            case Constants.FEED_POSTS_LOADER_ID:
+                app.setFeedPostArrayList(app.defaultPostArray);
+                break;
+            case Constants.POPULAR_POSTS_LOADER_ID:
+                app.setPopularPostArrayList(app.defaultPostArray);
+                break;
+            case Constants.GALLERY_POSTS_LOADER_ID:
+                app.setGalleryPostArrayList(app.defaultPostArray);
+                // Log.d(TAG, "data 0 name: " + ((Post)list.get(0)).getUser().getUserName() );
+                break;
+            case Constants.USER_POSTS_LOADER_ID:
+                app.setUserPostArrayList(app.defaultPostArray);
+                break;
+            case Constants.MY_POSTS_LOADER_ID:
+                app.setMyPostArrayList(app.defaultPostArray);
+                break;
+            case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
+                app.setBrandGalleryPostList(app.defaultPostArray);
+                break;
+        }
     }
 
     @Override
@@ -212,9 +252,10 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         int id = item.getItemId();
         super.onOptionsItemSelected(item);
         //noinspection SimplifiableIfStatement
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             close();
-        }else if(id == R.id.action_home){
+        } else if (id == R.id.action_home) {
+            setPostsArrayList();
             Intent intent = new Intent(PostsActivity.this, MainActivity.class);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
@@ -224,14 +265,25 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         return true;
     }
 
-    private void close(){
+    public static void hide_keyboard_from(Context context, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
-        if(loaderId == Constants.NOTIFICATION_MY_POST_LOADER_ID || loaderId == Constants.NOTIFICATION_OTHER_POST_LOADER_ID){
+    private void close() {
+
+        // verticalViewPager.setAdapter(new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(),this, loaderId));
+        if (loaderId == Constants.NOTIFICATION_MY_POST_LOADER_ID || loaderId == Constants.NOTIFICATION_OTHER_POST_LOADER_ID) {
             finish();
             BaseActivity.setBackwardsTranslateAnimation(this);
             return;
         }
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !openComment){
+        setPostsArrayList();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !openComment) {
+            Log.d(TAG, "ON CLOSE HIDE KEYBOARD ");
+            if (mainToolbar != null) {
+                hide_keyboard_from(this, mainToolbar);
+            }
             getSupportFragmentManager().popBackStack();
         } else {
             finish();
@@ -256,24 +308,28 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     @Override
-    public void onNewComment(int postLoaderId,int postId, int postIndex, boolean increment) {
-        Post post = getPost(postLoaderId, postIndex);
-        int commentCount = post.getCommentCount();
-        if(increment){
-            commentCount ++;
-        }else{
-            commentCount --;
-        }
+    public void onNewComment(int postLoaderId, int postId, int postIndex, boolean increment) {
+        try {
+            Post post = getPost(postLoaderId, postIndex);
+            int commentCount = post.getCommentCount();
+            if (increment) {
+                commentCount++;
+            } else {
+                commentCount--;
+            }
 
-        Log.d(TAG, "INCREMENT COMMENT. " + commentCount );
-        post.setCommentCount(commentCount);
-        setPost(post, postIndex);
-        PostFragment.commentCount = commentCount;
+            Log.d(TAG, "INCREMENT COMMENT. " + commentCount);
+            post.setCommentCount(commentCount);
+            setPost(post, postIndex);
+            PostFragment.commentCount = commentCount;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private Post getPost(int loaderId, int postIndex){
+    private Post getPost(int loaderId, int postIndex) {
         Post post = null;
-        switch (loaderId){
+        switch (loaderId) {
             case Constants.FEED_POSTS_LOADER_ID:
                 post = app.getFeedPostArrayList().get(postIndex);
                 break;
@@ -299,12 +355,13 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         return post;
     }
 
-    private void setPost(Post post, int postIndex){
-        switch (loaderId){
+    private void setPost(Post post, int postIndex) {
+        switch (loaderId) {
             case Constants.FEED_POSTS_LOADER_ID:
                 app.getFeedPostArrayList().set(postIndex, post);
                 break;
             case Constants.POPULAR_POSTS_LOADER_ID:
+                //Log.d(TAG, "** SET POPULAR POST LIST : " );
                 app.getPopularPostArrayList().set(postIndex, post);
                 break;
             case Constants.GALLERY_POSTS_LOADER_ID:
@@ -319,6 +376,72 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
                 app.getBrandGalleryPostList().set(postIndex, post);
                 break;
+        }
+    }
+
+    @Override
+    public void loadMorePost(int position, int count, int loaderId) {
+        Log.d(TAG, "**LOAD MORE POSTS GET CALLED: " + galleryId);
+        int tempGallery = 0;
+        if (galleryId == 0) {
+            Log.d(TAG, "ATTENSITON: ** GalleryID 0");
+            tempGallery = app.getGalleryId();
+        } else {
+            tempGallery = galleryId;
+        }
+        try {
+            int userId = app.me.getId();
+            if (loaderId == Constants.USER_POSTS_LOADER_ID) {
+                userId = app.getOther().getId();
+            }
+            PopularPostTask task = new PopularPostTask(this, loaderId, tempGallery, position, userId, count);
+            if(app != null){
+                app.executeAsyncTask(task, null);
+            }else{
+                task.execute();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void getNewPosts(final ArrayList<Post> posts) {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "**NEW POSTS LOADED " + posts.size() + " - POST Title: " + posts.get(0).getTitle());
+                    for (Post post : posts) {
+                        ((VerticalPagerAdapter) verticalViewPager.getAdapter()).addNewItem(post);
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshPager(final boolean refresh) {
+        Log.d(TAG, "**REFRESH PAGER IS CALLED");
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (refresh) {
+                        ArrayList<Post> defaultArray = new ArrayList<>(getPostsArrayList());
+                        app.setDefaultPostArray(defaultArray);
+                        VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), PostsActivity.this, loaderId);
+                        verticalViewPager.setAdapter(adapter);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

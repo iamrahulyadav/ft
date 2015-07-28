@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -48,12 +49,17 @@ public class NotificationListLoader extends AsyncTaskLoader<ArrayList<Notificati
             return null;
         }
         //String object = new JSONObject(response).getJSONObject("data").toString();
-        JsonElement element = new JsonParser().parse(response).getAsJsonObject().get("data");
-        JsonArray dataObjects = element.getAsJsonObject().getAsJsonArray("notifications");
-        Gson gson = new Gson();
-        for (JsonElement item : dataObjects) {
-            Notification notification = gson.fromJson(item, Notification.class);
-            notificationList.add(notification);
+        try{
+            JsonElement element = new JsonParser().parse(response).getAsJsonObject().get("data");
+            JsonArray dataObjects = element.getAsJsonObject().getAsJsonArray("notifications");
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+            for (JsonElement item : dataObjects) {
+                Notification notification = gson.fromJson(item, Notification.class);
+                notificationList.add(notification);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
         return notificationList;

@@ -86,7 +86,7 @@ public class GCMIntentService extends IntentService {
             not.setTargetId(Integer.parseInt(targetId));
             not.setContent(message);
             return not;
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
+import com.mallardduckapps.fashiontalks.loaders.Exclude;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -56,7 +57,13 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
     @Override
     protected void onPostExecute(String response) {
         super.onPostExecute(response);
-        parseToken(response);
+        try{
+            parseToken(response);
+        }catch(Exception e){
+            callBack.getAuthStatus(Constants.AUTHENTICATION_FAILED, null, null);
+            return;
+        }
+
     }
 
     //    private ArrayList<BasicNameValuePair> getExtraParameters(){
@@ -70,7 +77,7 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
 //    }
 
     public interface RegisterTaskCallback {
-        public void getAuthStatus(int authStatus,User user, String... tokens);
+        void getAuthStatus(int authStatus,User user, String... tokens);
     }
 
     private void parseToken(String response){
@@ -84,7 +91,8 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
             callBack.getAuthStatus(Constants.NO_CONNECTION, null, null);
         }
 
-        Gson gson = new GsonBuilder().create();
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
 
         JsonObject dataObject = object.getAsJsonObject("data");
         JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
@@ -100,7 +108,13 @@ public class RegisterTask extends AsyncTask<BasicNameValuePair, Void, String> {
                 loginObject = new JSONObject(response);
                 status = loginObject.getInt("status");
                 if(status == 1002){ //DUBLICATE ENTRY
-                    callBack.getAuthStatus(Constants.DUBLICATE_ENTRY, null, null);
+                    callBack.getAuthStatus(Constants.DUBLICATE_USERNAME, null, null);
+                    return;
+                }else if(status == 1003){
+                    callBack.getAuthStatus(Constants.DUBLICATE_EMAIL, null, null);
+                    return;
+                }else if(status != 0){
+                    callBack.getAuthStatus(Constants.AUTHENTICATION_FAILED, null, null);
                     return;
                 }
             } catch (JSONException e) {

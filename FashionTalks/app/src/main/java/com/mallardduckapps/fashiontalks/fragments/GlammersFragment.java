@@ -41,6 +41,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     private final String TAG = "Glammers_Fragment";
     ProgressBar progressBar;
     TextView noDataTv;
+    ListView listview;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
@@ -78,6 +79,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noDataTv = (TextView) view.findViewById(R.id.noDataTv);
         loadMoreFooterView = getLoadMoreView(inflater);
+
         return view;
     }
 
@@ -137,7 +139,12 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
 
             return;
         }
-        getListView().setOnScrollListener(this);
+        listview = getListView();
+
+        if(listview != null)
+            listview.setOnScrollListener(this);
+        else return;
+
         itemCountPerLoad = data.size();
         Log.d(TAG, "LOAD SIZE: " + itemCountPerLoad);
         ListView listView = getListView();
@@ -160,8 +167,12 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
 
         if(!canLoadMoreData()){
             if(listView != null) {
-                listView.removeFooterView(loadMoreFooterView);
-                loadMoreFooterView.setVisibility(View.INVISIBLE);
+                try{
+                    listView.removeFooterView(loadMoreFooterView);
+                    loadMoreFooterView.setVisibility(View.INVISIBLE);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
             }
         }
 

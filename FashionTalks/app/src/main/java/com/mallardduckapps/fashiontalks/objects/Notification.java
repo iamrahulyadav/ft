@@ -8,6 +8,7 @@ import com.mallardduckapps.fashiontalks.utils.Constants;
  */
 public class Notification {
 
+    @SerializedName("id")
     private int id;
     @SerializedName("user_id")
     private int userId;
@@ -19,12 +20,15 @@ public class Notification {
     private int targetId;
     @SerializedName("is_unread")
     int isUnread;
+    @SerializedName("content")
     private String content;
     @SerializedName("created_at")
     private String createdAt;
     @SerializedName("updated_at")
     private String updatedAt;
+    @SerializedName("photo")
     private String photo;
+    @SerializedName("source")
     private User source;
 
     private String fullMessage;

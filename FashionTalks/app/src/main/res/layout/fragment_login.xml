@@ -90,6 +90,7 @@
                     android:layout_marginBottom="25dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:color/transparent"
+                    android:textAllCaps="false"
                     android:text="@string/action_sign_in_short"
                     android:textSize="24dp"
                     android:textStyle="bold" />
@@ -106,6 +107,8 @@
                     android:id="@+id/forgetPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    style="@style/Base.TextAppearance.AppCompat"
                     android:text="@string/forget_password"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"

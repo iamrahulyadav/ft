@@ -20,7 +20,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_settings);
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);// false
         tabToolbar.setVisibility(View.GONE);
         mViewPager.setVisibility(View.GONE);
         topDivider.setVisibility(View.VISIBLE);

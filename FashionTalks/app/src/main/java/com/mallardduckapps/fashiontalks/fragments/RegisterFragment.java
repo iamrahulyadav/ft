@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,11 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.makeramen.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
@@ -95,7 +98,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.register_layout, container, false);
         FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_thin)));
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         profilePic = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
         registerButton = (Button) rootView.findViewById(R.id.registerButton);
         userNameEdit = (EditText) rootView.findViewById(R.id.userName);
@@ -179,6 +182,23 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         }
     }
 
+    @Override
+    public void onDetach() {
+
+        Log.d(TAG, "ON DETACH");
+        hideKeyboard();
+        super.onDetach();
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     public String getEncodedImage() {
         if (mFileTemp == null || !profileImageSaved) {
             return null;
@@ -191,7 +211,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     }
 
     public boolean controlFields() {
-
+        Log.d(TAG, "SIGN UP CONTROL FIELDS");
         String userName = userNameEdit.getText().toString();
         String email = emailEdit.getText().toString();
         String password = passwordEdit.getText().toString();
@@ -237,6 +257,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
             return true;
         } else if (isEditProfile && !TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(userName)) {
             RegisterTask task = new RegisterTask(this, true);
+            Log.d(TAG, "SIGN UP CONTROL FIELDS - REGISTER TASK");
             task.execute(new BasicNameValuePair("username", userName),
                     //new BasicNameValuePair("password", password),
                     new BasicNameValuePair("birth_date", birthDate),
@@ -336,17 +357,29 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
         // showProgress(false);
+        if(mListener == null){
+            return;
+        }
+
         switch (authStatus) {
-            case Constants.DUBLICATE_ENTRY:
+            case Constants.DUBLICATE_EMAIL:
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
                 emailEdit.setError(getString(R.string.error_invalid_email));
                 emailEdit.requestFocus();
+                Toast.makeText(this.getActivity(), getString(R.string.email_in_use), Toast.LENGTH_LONG).show();
+                break;
+            case Constants.DUBLICATE_USERNAME:
+                //mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //mPasswordView.requestFocus();
+                userNameEdit.setError(getString(R.string.error_invalid_username));
+                userNameEdit.requestFocus();
                 Toast.makeText(this.getActivity(), getString(R.string.user_name_in_use), Toast.LENGTH_LONG).show();
                 break;
             case Constants.AUTHENTICATION_FAILED:
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
+                Toast.makeText(this.getActivity(), getString(R.string.problem_occured), Toast.LENGTH_LONG).show();
                 break;
             case Constants.AUTHENTICATION_CANCELED:
                 //authTask = null;

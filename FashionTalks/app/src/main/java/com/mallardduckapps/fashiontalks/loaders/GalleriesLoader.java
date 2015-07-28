@@ -25,7 +25,7 @@ public class GalleriesLoader extends AsyncTaskLoader<ArrayList<Gallery>> {
     int loaderId;
     ArrayList<Gallery> galleryItems;
     //	public static int pageIndex = 1;
-    public static int perPage = 25;
+    //public static int perPage = 25;
     //public static boolean noMoreData = false;
     boolean loadingInProgress;
 
@@ -47,12 +47,20 @@ public class GalleriesLoader extends AsyncTaskLoader<ArrayList<Gallery>> {
             e.printStackTrace();
             return null;
         }
-        JsonObject object = new JsonParser().parse(response).getAsJsonObject();
-        Gson gson = new GsonBuilder().create();
+        JsonObject object = null;
+        try{
+            object = new JsonParser().parse(response).getAsJsonObject();
+        }catch(Exception e){
+            return null;
+        }
 
+        //Gson gson = new GsonBuilder().create();
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
         JsonArray dataObjects = object.getAsJsonArray("data");
         for (JsonElement item : dataObjects) {
             Gallery gallery = gson.fromJson(item, Gallery.class);
+            //Log.d(TAG, "read cover path: " + gallery.getCover());
             galleryItems.add(gallery);
         }
         return galleryItems;

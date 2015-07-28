@@ -9,11 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.makeramen.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 /**
  * Created by oguzemreozcan on 03/02/15.
  */
-public class GlammerListAdapter extends BaseAdapter {
+public class GlammerListAdapter extends BaseAdapter implements FollowTask.FollowCallback {
 
     private Activity activity;
     private ArrayList<User> data;
@@ -104,20 +105,38 @@ public class GlammerListAdapter extends BaseAdapter {
         String path = new StringBuilder(pathMainUrl).append(user.getPhotoPath()).toString();
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);
-        holder.button.setChecked(user.getIsFollowing() == 1);
-        holder.button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        setFollowButtonChecked(holder.button, user, user.getIsFollowing());
+        setButtonVisibility(holder.button, user.getId());
+        return vi;
+    }
+
+    private void setFollowButtonChecked(final CheckBox checkbox, final User user, int isFollowing){
+        checkbox.setChecked(isFollowing == 1);
+        checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onClick(View v) {
+                boolean isChecked = checkbox.isChecked();
                 Log.d(TAG, "BUTTON CHECKED is " + isChecked);
-                FollowTask task = new FollowTask(isChecked, user.getId());
-                task.execute();
+                FollowTask task = new FollowTask(GlammerListAdapter.this,isChecked, user.getId());
+                app.executeAsyncTask(task, null);
+                user.setIsFollowing(isChecked ? 1 : 0);
+                //task.execute();
             }
         });
-        if(app.getMe().getId() == user.getId()){
-            holder.button.setVisibility(View.GONE);
-        }
+    }
 
-        return vi;
+    private void setButtonVisibility(Button button, int id){
+        button.setVisibility(app.isUserMe(id) ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void isFollowed(boolean success, int userId) {
+
+    }
+
+    @Override
+    public void isUnfollowed(boolean success, int userId) {
+
     }
 
     public static class ViewHolder {

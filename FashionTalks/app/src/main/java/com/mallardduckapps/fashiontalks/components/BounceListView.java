@@ -76,7 +76,7 @@ public class BounceListView extends ListView {
     }
 
     public interface RefreshListener {
-        public void onRefreshList();
+        void onRefreshList();
     }
 
 }

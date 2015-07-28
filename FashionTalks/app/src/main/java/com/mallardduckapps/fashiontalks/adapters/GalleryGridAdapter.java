@@ -45,6 +45,7 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     public GalleryGridAdapter(Activity context, GalleryItemClicked callback, int totalCardsInRow, boolean isGallery) {
         super(context, totalCardsInRow);
         this.galleryCallback = callback;
+        Log.d(TAG, "GALLERY GRID ADAPTER");
         //this.opensGallery = opensGallery;
         builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
         activity = context;
@@ -89,7 +90,8 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
                                final GalleryViewHolder cardViewHolder) {
         final GalleryItem item = cardDataHolder.getData();
         cardViewHolder.textView.setText(item.getTitle());
-        String path = mainImagePath.concat(item.getCoverPath());
+        String path = null;
+        path = new StringBuilder(mainImagePath).append(item.getCoverPath()).toString();
         //Log.d(TAG, "ADAPTER URL PATH: " + path + " - width: " + cardViewHolder.imageView.getWidth());
         displayImage(path, cardViewHolder, item);
         //cardViewHolder.Image.setText(item.getTag());
@@ -188,6 +190,10 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
 
     public interface PostItemClicked{
         public void postOnItemClicked(int postId, int postItemPosition);
+    }
+
+    public interface RefreshPagerCallback{
+        void refreshPager(boolean refresh);
     }
 
 }

@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
@@ -47,7 +48,9 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     int loaderId;
     int galleryId = 0; //Gallery ID if there is one
     //MainActivity activity;
+    //String galleryName;
     boolean resetLoader;
+    //GalleryGridAdapter.RefreshPagerCallback pagerCallback;
 
     public PopularPostsFragment() {
 
@@ -58,18 +61,30 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         super.onCreate(savedInstanceState);
         loaderId = getArguments().getInt("LOADER_ID");
         galleryId = getArguments().getInt("GALLERY_ID");
+        //galleryName = getArguments().getString("GALLERY_NAME");
         if(loaderId == Constants.GALLERY_POSTS_BY_TAG_LOADER_ID){
             dataList = null;
         }
-        resetGlobalLists();
-        listAdapter = new GalleryGridAdapter(getActivity(),this,MAX_CARDS, galleryId == 0 ? false : true );
+        //resetGlobalLists();
+        listAdapter = new GalleryGridAdapter(getActivity(),this,MAX_CARDS,  galleryId == 0 ? false : true ); // galleryName == null
         //Log.d(TAG, "POPULAR POSTS FRAGMENT-LoaderId: " + loaderId + " - GalleryId: " + galleryId);
         useLoader();
     }
 
+
     @Override
     public void setTag() {
         TAG = new StringBuilder("POPULAR_POSTS_Fragment").append(loaderId).append(galleryId).toString();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try{
+            //pagerCallback = (GalleryGridAdapter.RefreshPagerCallback) activity;
+        }catch(ClassCastException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -81,12 +96,28 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         listView.setOnScrollListener(new GridListOnScrollListener(this));
         listView.setRefreshListener(this);
         if(dataList != null){
+            listAdapter.clearList();
             listAdapter.addItemsInGrid(dataList);
             listView.setAdapter(listAdapter);
         }
 
         loadMoreFooterView = getLoadMoreView(inflater);
+        sendEventToGoogleAnalytics();
         return rootView;
+    }
+
+    private void sendEventToGoogleAnalytics(){
+        if(loaderId == Constants.FEED_POSTS_LOADER_ID){
+            app.sendAnalyticsEvent("Followed Looks View", "UX", "look","");
+            app.sendAnalyticsEvent("Look List View", "UX", "look", "");
+        }else if(loaderId == Constants.POPULAR_POSTS_LOADER_ID){
+            app.sendAnalyticsEvent("Popular Styles View", "UX", "look","");
+            app.sendAnalyticsEvent("Look List View", "UX", "look","");
+        }else{
+            if(galleryId != 0){
+                app.sendAnalyticsEvent("Gallery Detail View", "UX", "look",galleryId + "");
+            }
+        }
     }
 
     public void useLoader() {
@@ -104,6 +135,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                 loader.forceLoad();
             }
             else{
+                Log.d(TAG, "**LOADER NOT NULL: startIndex" + loader.startIndex);
                 //Log.d(TAG, "USE LOADER FRAGMENT POPULAR POSTS - ON CONTENT CHANGEDD");
                 //loader.startLoading(); //= (PopularPostsLoader) getActivity().getLoaderManager()
                        // .restartLoader(Constants.POPULAR_POSTS_LOADER_ID, null, this);
@@ -112,7 +144,11 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
             }
             calculateLoadValues();
         }else{
-            listView.removeFooterView(loadMoreFooterView);
+            try{
+                listView.removeFooterView(loadMoreFooterView);
+            }catch(Exception e){
+
+            }
         }
     }
 
@@ -131,7 +167,6 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                     Log.d(TAG, "IMAGE GALLERY CHANGED FALSE");
                 }
             }, 500);
-
         }
     }
 
@@ -142,7 +177,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Post>> loader, ArrayList<Post> data) {
+    public void onLoadFinished(Loader<ArrayList<Post>> loader, final ArrayList<Post> data) {
         if(data == null){
             //Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
@@ -156,32 +191,38 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         }
 
         Log.d(TAG, "ON LOAD FINISHED: " + data.size() + " - galleryId: " + galleryId);
-        itemCountPerLoad = 0;
-        if(dataList == null){
-            index = 0;
-            loadData(data);
-            if(listView != null)
-                listView.setAdapter(listAdapter);
-            if(canLoadMoreData()){
-                listView.addFooterView(loadMoreFooterView);
-                loadMoreFooterView.setVisibility(View.VISIBLE);
-            }
-        }else{
-            Log.d(TAG, "LOAD MORE DATA TO THE ADAPTER: ");
-            loadData(data);
-            listAdapter.notifyDataSetChanged();
-        }
-        if(resetLoader){
-            resetLoader = false;
-        }
-        if(!canLoadMoreData()){
-            if(listView != null) {
-                listView.removeFooterView(loadMoreFooterView);
-                loadMoreFooterView.setVisibility(View.INVISIBLE);
-            }
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                itemCountPerLoad = 0;
+                if(dataList == null){
+                    index = 0;
+                    loadData(data);
+                    if(listView != null)
+                        listView.setAdapter(listAdapter);
+                    if(canLoadMoreData()){
+                        listView.addFooterView(loadMoreFooterView);
+                        loadMoreFooterView.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    Log.d(TAG, "LOAD MORE DATA TO THE ADAPTER: ");
+                    loadData(data);
+                    listAdapter.notifyDataSetChanged();
+                }
+                if(resetLoader){
+                    resetLoader = false;
+                }
+                if(!canLoadMoreData()){
+                    if(listView != null) {
+                        listView.removeFooterView(loadMoreFooterView);
+                        loadMoreFooterView.setVisibility(View.INVISIBLE);
+                    }
+                }
 
-        loading = false;
+                loading = false;
+            }
+        });
+
     }
 
     private void loadData(ArrayList<Post> data){
@@ -189,10 +230,12 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
         for (Post post : data){
             //ImagePathTask task = new ImagePathTask("galleries/1419693538.203064jpg");
             //String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/300x300/").append(post.getPhoto()).toString();
-            GalleryItem galleryItem = new GalleryItem(index, post.getId(), "", post.getPhoto());
-           //Log.d(TAG, "DATA PHOTO URL: " + post.getPhoto());
-            index ++;
-            dataList.add(galleryItem);
+            if(post!=null){
+                GalleryItem galleryItem = new GalleryItem(index, post.getId(), "", post.getPhoto());
+                //Log.d(TAG, "DATA PHOTO URL: " + post.getPhoto());
+                index ++;
+                dataList.add(galleryItem);
+            }
         }
         itemCountPerLoad = data.size();
         listAdapter.addItemsInGrid(dataList);
@@ -227,7 +270,7 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
                 break;
             case Constants.GALLERY_POSTS_LOADER_ID:
                 //Log.d(TAG, "FILL GALLERY POSTS LIST: " +loaderId + " - " + data.size() + " - data 0 name : " + data.get(0).getUser().getUserName());
-                if(data != null){
+                if(data != null ){ // && galleryName != null
                     app.addGalleryPostArrayList(data, galleryId);
                     app.lastGalleryId = galleryId;
                 }else{
@@ -266,15 +309,18 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
     public boolean canLoadMoreData() {
         if(loader == null)
             return true;
+        Log.d(TAG, "CAN LOAD MORE DATA ** " + loader.perPage + "- itemCountPerLoad : " + itemCountPerLoad);
         return loader.perPage > itemCountPerLoad  ? false : true;//listData.size() < getMaxAllowedItems();
     }
 
     public void calculateLoadValues(){
+
         if(dataList == null){
             loader.startIndex = 0;
         }else{
             loader.startIndex += loader.perPage;
         }
+        Log.d(TAG, "CALCULATE LOAD MORE VALUES ** : " + loader.startIndex);
     }
 
     @SuppressLint("InflateParams")
@@ -287,16 +333,22 @@ public class PopularPostsFragment extends BasicFragment implements LoaderManager
 
     @Override
     public void postOnItemClicked(int postId, int postItemPosition) {
+        //if(pagerCallback != null){
+         //   Log.e(TAG, "REFRESH PAGER !!!");
+         //   pagerCallback.refreshPager(true);
+        //}
         if(getActivity() instanceof PostsActivity){
             PostsActivity activity = (PostsActivity)getActivity();
             activity.openPostFragment(postId,postItemPosition,loaderId, true);
-        }else{
+        } else {
             Log.d(TAG, "POST ACTIVITY OPENED BY GALLERY: " + loaderId + " -postId: " + postId + " - position: " + postItemPosition);
             Intent intent = new Intent(getActivity(), PostsActivity.class);
             intent.putExtra("LOADER_ID", loaderId);
             intent.putExtra("POST_ID", postId);
             intent.putExtra("POST_INDEX", postItemPosition);
-
+            //TODO COntrol
+            //intent.putExtra("GALLERY_ID", galleryId);
+            app.setGalleryId(galleryId);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
             BaseActivity.setTranslateAnimation(getActivity());

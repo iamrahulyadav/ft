@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_marginBottom="5dp"
     android:layout_height="match_parent">
-    <com.makeramen.RoundedImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/profileThumbnail"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -106,6 +106,8 @@
             android:paddingTop="0dp"
             android:singleLine="true"
             android:text="@string/follow"
+            android:textAllCaps="false"
+            style="@style/Base.TextAppearance.AppCompat"
             android:textSize="13dp" />
 
         <Button
@@ -117,6 +119,8 @@
             android:background="@android:color/transparent"
             android:padding="3dp"
             android:text="@string/followers"
+            android:textAllCaps="false"
+            style="@style/Base.TextAppearance.AppCompat"
             android:textSize="14dp" />
 
         <TextView
@@ -139,6 +143,9 @@
             android:background="@android:color/transparent"
             android:padding="3dp"
             android:text="@string/following"
+            android:textAllCaps="false"
+            style="@style/Base.TextAppearance.AppCompat"
             android:textSize="14dp" />
     </RelativeLayout>
+
 </RelativeLayout>

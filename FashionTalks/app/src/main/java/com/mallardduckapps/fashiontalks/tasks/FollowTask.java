@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
@@ -19,21 +21,24 @@ public class FollowTask extends AsyncTask<Void, Void, String> {
     private final boolean follow;
     private final int userId;
     private final String TAG = "Follow_TASK";
-    private Button followButton;
+    //private Button followButton;
     private Activity activity;
-    //TODO add lsitener to get callback value
+    FollowCallback callback;
+    //TODO add listener to get callback value
 
-    public FollowTask(Activity activity, boolean follow, int userId, Button followButton){
+    public FollowTask(FollowCallback callback,Activity activity, boolean follow, int userId, Button followButton){
         this.activity = activity;
         this.follow = follow;
         this.userId = userId;
-        this.followButton = followButton;
+        //this.followButton = followButton;
+        this.callback = callback;
     }
 
-    public FollowTask(boolean follow, int userId){
+    public FollowTask(FollowCallback callback, boolean follow, int userId){
         //this.activity = activity;
         this.follow = follow;
         this.userId = userId;
+        this.callback = callback;
         //this.followButton = followButton;
     }
 
@@ -71,14 +76,44 @@ public class FollowTask extends AsyncTask<Void, Void, String> {
             status = object.getInt("status");
             if(status == 0){
                 if(follow){
+                    callback.isFollowed(true, userId);
                     //followButton.setText(activity.getString(R.string.follow));
                 }else{
+                    callback.isUnfollowed(true, userId);
                    // followButton.setText(activity.getString(R.string.unfollow));
                 }
+            }else{
+                onError();
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            onError();
         }
+    }
 
+    private void onError(){
+        if(follow){
+            callback.isFollowed(false, userId);
+            //followButton.setText(activity.getString(R.string.follow));
+        }else{
+            callback.isUnfollowed(false, userId);
+            // followButton.setText(activity.getString(R.string.unfollow));
+        }
+        showErrorMessage();
+        Log.e(TAG, "ERROR ON FOLLOW");
+    }
+
+    private void showErrorMessage(){
+       activity.runOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+               Toast.makeText(activity, activity.getResources().getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
+           }
+       });
+    }
+
+    public interface FollowCallback{
+        void isFollowed(boolean success, int userId);
+        void isUnfollowed(boolean success, int userId);
     }
 }

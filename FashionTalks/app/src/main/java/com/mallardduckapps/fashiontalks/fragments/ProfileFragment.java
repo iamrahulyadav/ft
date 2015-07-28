@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.makeramen.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -32,22 +35,26 @@ import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.util.ArrayList;
 
 /**
  * Created by oguzemreozcan on 15/02/15.
  */
 public class ProfileFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<ArrayList<Post>>
-        ,GridListOnScrollListener.OnScrolledToBottom, GalleryGridAdapter.PostItemClicked {
+        ,GridListOnScrollListener.OnScrolledToBottom, GalleryGridAdapter.PostItemClicked, FollowTask.FollowCallback {
 
     boolean myProfile = false;
     private static final String PROFILE_ID = "PROFILE_ID";
     private int profileId;
     private RoundedImageView profileImage;
+    Button followButton;
     int itemCountPerLoad = 0;
     private BounceListView listView;
     private ArrayList<GalleryItem> dataList;
     private GalleryGridAdapter listAdapter;
+    private RelativeLayout progressBar;
     protected View loadMoreFooterView;
     User user;
     int index = 0;
@@ -55,6 +62,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     PostsLoader loader;
     int loaderId;
     boolean loading;
+    boolean isFollowing;
 
     public static ProfileFragment newInstance(int param1) {
         ProfileFragment fragment = new ProfileFragment();
@@ -75,6 +83,10 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(app == null){
+            app = (FashionTalksApp)getActivity().getApplication();
+        }
+
         if (getArguments() != null) {
             profileId = getArguments().getInt(PROFILE_ID);
             Log.d(TAG, "PROFILE ID: " + profileId);
@@ -106,7 +118,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     public View getProfileLayout(LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.profile_user_info_layout, null);
         Activity activity = getActivity();
-        final Button followButton = (Button) rootView.findViewById(R.id.followButton);
+        followButton = (Button) rootView.findViewById(R.id.followButton);
         Button followingButton = (Button) rootView.findViewById(R.id.followingButton);
         Button followersButton = (Button) rootView.findViewById(R.id.followersButton);
         TextView nameTv = (TextView) rootView.findViewById(R.id.nameTv);
@@ -114,6 +126,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         TextView glamCountTv = (TextView) rootView.findViewById(R.id.glamCountTv);
         TextView aboutMeTv = (TextView) rootView.findViewById(R.id.aboutMeText);
         profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
+
         nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         followButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
@@ -125,7 +138,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             followButton.setVisibility(View.INVISIBLE);
         }else{
             //TODO user should be updated
-            final boolean isFollowing = user.getIsFollowing() == 1 ? true: false;
+            isFollowing = user.getIsFollowing() == 1 ? true: false;
             if(isFollowing){
                 followButton.setText(getString(R.string.unfollow));
                 followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
@@ -134,15 +147,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "BUTTON FOLLOW is clicked ");
-                    if(isFollowing){
+                    progressBar.setVisibility(View.VISIBLE);
+/*                    if(isFollowing){
                         followButton.setBackgroundResource(R.drawable.follow_button_drawable);
                         followButton.setText(getString(R.string.follow));
                     }else{
                         followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
                         followButton.setText(getString(R.string.unfollow));
-                    }
-                    FollowTask task = new FollowTask(getActivity(),!isFollowing, user.getId(), followButton);
-                    task.execute();
+                    }*/
+                    FollowTask task = new FollowTask(ProfileFragment.this,getActivity(),!isFollowing, user.getId(), followButton);
+                    app.executeAsyncTask(task, null);
+                    //task.execute();
                 }
             });
 
@@ -166,11 +181,18 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         //TODO REVISIT 100x100
         String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").append(user.getPhotoPath()).toString();
         ImageLoader.getInstance().displayImage(url, profileImage, app.options);
-        nameTv.setText(user.getFirstName() +" " + user.getLastName());
+        String tvNameTxt = user.getFirstName() +" " + user.getLastName();
+        String aboutTxt = user.getAbout();
+        try{
+            nameTv.setText(StringEscapeUtils.unescapeJson(tvNameTxt));
+            aboutMeTv.setText(StringEscapeUtils.unescapeJson(aboutTxt));
+        }catch(Exception e){
+            nameTv.setText(tvNameTxt);
+            aboutMeTv.setText(aboutTxt);
+        }
+        //nameTv.setText(StringEscapeUtils.unescapeJson(user.getFirstName() +" " + user.getLastName()));
         userNameTv.setText(user.getUserName());
-        aboutMeTv.setText(user.getAbout());
         glamCountTv.setText(user.getGlamCountPattern().concat(getString(R.string.glam)));
-
         return rootView;
     }
 
@@ -179,7 +201,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         View profileView = getProfileLayout(inflater);
-
+        progressBar = (RelativeLayout) rootView.findViewById(R.id.progressBar);
         listView = (BounceListView) rootView.findViewById(R.id.uploadsList);
         listView.setOnScrollListener(new GridListOnScrollListener(this));
         listView.addHeaderView(profileView);
@@ -194,7 +216,12 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         if(ProfileActivity.imageGalleryChanged ){ // || ProfileActivity.userInfoChanged
             useLoader();
         }
+        sendEventToGoogleAnalytics();
         return rootView;
+    }
+
+    private void sendEventToGoogleAnalytics(){
+        app.sendAnalyticsEvent("Profile View", "UX", "PROFILE_ID", profileId + "");
     }
 
     @Override
@@ -214,7 +241,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Post>> loader, ArrayList<Post> data) {
+    public void onLoadFinished(Loader<ArrayList<Post>> loader, final ArrayList<Post> data) {
         if(data == null){
             Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
@@ -227,35 +254,40 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
             return;
         }
-
         Log.d(TAG, "ON LOAD FINISHED: " + data.size() + " - profileId: " + profileId);
-        itemCountPerLoad = 0;
-        if(dataList == null){
-            index = 0;
-            loadData(data);
-            if(listView != null)
-                listView.setAdapter(listAdapter);
-            if(canLoadMoreData()){
-                listView.addFooterView(loadMoreFooterView);
-                loadMoreFooterView.setVisibility(View.VISIBLE);
-            }
-        }else{
-            //Log.d(TAG, "LOAD MORE DATA TO THE ADAPTER: ");
-            loadData(data);
-            listAdapter.notifyDataSetChanged();
-        }
-
-        if(!canLoadMoreData()){
-            if(listView != null) {
-                try{
-                    listView.removeFooterView(loadMoreFooterView);
-                }catch(Exception e){
-
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                itemCountPerLoad = 0;
+                if (dataList == null) {
+                    index = 0;
+                    loadData(data);
+                    if (listView != null)
+                        listView.setAdapter(listAdapter);
+                    if (canLoadMoreData()) {
+                        listView.addFooterView(loadMoreFooterView);
+                        loadMoreFooterView.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    //Log.d(TAG, "LOAD MORE DATA TO THE ADAPTER: ");
+                    loadData(data);
+                    listAdapter.notifyDataSetChanged();
                 }
 
-                loadMoreFooterView.setVisibility(View.INVISIBLE);
+                if (!canLoadMoreData()) {
+                    if (listView != null) {
+                        try {
+                            listView.removeFooterView(loadMoreFooterView);
+                        } catch (Exception e) {
+
+                        }
+
+                        loadMoreFooterView.setVisibility(View.INVISIBLE);
+                    }
+                }
             }
-        }
+        });
+
         loading = false;
     }
 
@@ -362,6 +394,30 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             calculateLoadValues();
         }else{
             listView.removeFooterView(loadMoreFooterView);
+        }
+    }
+
+    @Override
+    public void isFollowed(boolean success, int userId) {
+        progressBar.setVisibility(View.GONE);
+        if(success){
+            isFollowing = true;
+            followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
+            followButton.setText(getString(R.string.unfollow));
+        }else{
+            //showErrorMessage();
+        }
+    }
+
+    @Override
+    public void isUnfollowed(boolean success, int userId) {
+        progressBar.setVisibility(View.GONE);
+        if(success){
+            isFollowing = false;
+            followButton.setBackgroundResource(R.drawable.follow_button_drawable);
+            followButton.setText(getString(R.string.follow));
+        }else{
+           // showErrorMessage();
         }
     }
 }

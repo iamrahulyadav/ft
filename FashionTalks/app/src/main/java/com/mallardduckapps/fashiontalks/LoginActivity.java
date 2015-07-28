@@ -1,5 +1,6 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
@@ -28,10 +30,10 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
  */
 public class LoginActivity extends ActionBarActivity implements BasicFragment.OnLoginFragmentInteractionListener{
 
-    private LoginFragment loginFragment;
-    private RegisterFragment registerFragment;
-    private MainLoginFragment mainLoginFragment;
-    private ForgetPasswordFragment forgetPasswordFragment;
+    //private LoginFragment loginFragment;
+    //private RegisterFragment registerFragment;
+    //private MainLoginFragment mainLoginFragment;
+    //private ForgetPasswordFragment forgetPasswordFragment;
     FragmentManager fragmentManager;
     public Toolbar mainToolbar;
     FashionTalksApp app;
@@ -46,10 +48,8 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
         setContentView(R.layout.activity_login);
         app = (FashionTalksApp) getApplication();
         fragmentManager = getSupportFragmentManager();
-        loginFragment = new LoginFragment();
-        registerFragment = new RegisterFragment();
-        mainLoginFragment = new MainLoginFragment();
-        forgetPasswordFragment = new ForgetPasswordFragment();
+        //mainLoginFragment = new MainLoginFragment();
+        //forgetPasswordFragment = new ForgetPasswordFragment();
         Bundle extras = getIntent().getExtras();
 
         if(extras != null){
@@ -103,14 +103,25 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == android.R.id.home) {
             onBackPressed();
         }
         return true;
     }
 
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     @Override
     public void onBackPressed() {
+        hideKeyboard();
             if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
                 getSupportFragmentManager().popBackStack();
             } else {
@@ -120,6 +131,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
 
     //TODO temporary
     public void goRegistrationPage(){
+        RegisterFragment registerFragment = new RegisterFragment();
         FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putBoolean("EDIT_PROFILE", false);
@@ -139,6 +151,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
 
     public void goLoginPage(){
         FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
+        LoginFragment loginFragment = new LoginFragment();
         fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
         fragmentTx.replace(R.id.container, loginFragment).addToBackStack(loginFragment.TAG)
                 .commit();
@@ -148,6 +161,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     public void goMainLoginPage(){
+        MainLoginFragment mainLoginFragment = new MainLoginFragment();
         FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
         fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
         fragmentTx.replace(R.id.container, mainLoginFragment)
@@ -158,6 +172,7 @@ public class LoginActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     public void goToResetPasswordPage(){
+        ForgetPasswordFragment forgetPasswordFragment = new ForgetPasswordFragment();
         FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
         fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
         fragmentTx.replace(R.id.container, forgetPasswordFragment ).addToBackStack(forgetPasswordFragment.TAG)

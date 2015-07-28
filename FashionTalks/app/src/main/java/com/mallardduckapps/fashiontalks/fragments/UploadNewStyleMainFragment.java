@@ -60,7 +60,7 @@ public class UploadNewStyleMainFragment extends BasicFragment {
                 mListener.onClickTakePicture();//takePicture();
             }
         });
-
+        mListener.setBackButton(false);
         FTUtils.setFont(rootView, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
         return rootView;
     }
@@ -112,9 +112,10 @@ public class UploadNewStyleMainFragment extends BasicFragment {
 //    }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(String tag, String value);
-        public void onClickGallery();
-        public void onClickTakePicture();
+        void onFragmentInteraction(String tag, String value);
+        void setBackButton(boolean backButton);
+        void onClickGallery();
+        void onClickTakePicture();
     }
 
 }

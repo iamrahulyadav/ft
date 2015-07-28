@@ -66,6 +66,8 @@
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:text="Send Permission"
+            android:textAllCaps="false"
+            style="@style/Base.TextAppearance.AppCompat"
             android:layout_below="@+id/divider"/>
         </RelativeLayout>
 

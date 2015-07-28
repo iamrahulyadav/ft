@@ -50,7 +50,8 @@ public class SearchUserLoader extends AsyncTaskLoader<ArrayList<User>> {
             String url = new StringBuilder(Constants.SEARCH_USERS).append(uri).toString();
             response = restClient.doGetRequest(url, null);
             //Log.d(TAG, "User REQUEST RESPONSE: " + response);
-            Gson gson = new GsonBuilder().create();
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
             Type collectionType = new TypeToken<Collection<User>>(){}.getType();
             JsonArray object = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
             userList = gson.fromJson(object, collectionType);

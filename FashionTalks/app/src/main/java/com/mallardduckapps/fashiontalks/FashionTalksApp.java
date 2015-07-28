@@ -1,12 +1,19 @@
 package com.mallardduckapps.fashiontalks;
 
+
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Application;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
@@ -25,10 +32,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.fabric.sdk.android.Fabric;
+
 /**
  * Created by oguzemreozcan on 10/01/15.
  */
-public class FashionTalksApp extends Application {
+public class FashionTalksApp extends android.app.Application {
 
     public DataSaver dataSaver;
     private final String TAG = "FashionTalksApp";
@@ -36,12 +45,15 @@ public class FashionTalksApp extends Application {
     public boolean newNotification = false;
     //public DisplayImageOptions optionsNoCache;
     //ArrayList<Gallery> galleryArrayList;
-    ArrayList<Post> popularPostArrayList;
+    private ArrayList<Post> popularPostArrayList;
     ArrayList<Post> feedPostArrayList;
     ArrayList<Post> galleryPostArrayList;
     ArrayList<Post> userPostArrayList;
     ArrayList<Post> myPostArrayList;
     ArrayList<Post> brandGalleryPostList;
+    //Default Post array , to save the status of post list, since vertical pager add to list externally
+    ArrayList<Post> defaultPostArray;
+    Post userFavoritePost;
     public int lastGalleryId;
     public int lastBrandId;
     SlidingMenu menu;
@@ -51,9 +63,15 @@ public class FashionTalksApp extends Application {
     // direction can be either NOTIFICATION or MAIN
     //public String direction = "";
 
+    //TODO Later change this
+    int galleryId;
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         Log.d(TAG, "APP CREATE");
         dataSaver = new DataSaver(getApplicationContext(), "FashionTalks", false);
         options = new DisplayImageOptions.Builder()
@@ -68,10 +86,37 @@ public class FashionTalksApp extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .defaultDisplayImageOptions(options).build();
         ImageLoader.getInstance().init(config);
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker("UA-54810966-1"); // Replace with actual tracker/property Id
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         //menu.setMenu(R.layout.menu);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB) // API 11
+    public <T> void executeAsyncTask(AsyncTask<T, ?, ?> asyncTask, T... params) {
+        try{
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params);
+            else
+                asyncTask.execute(params);
+        }catch(Exception e){
+            asyncTask.execute(params);
+        }
+    }
+
+    public void sendAnalyticsEvent(String screenName, String category, String action, String label){
+        tracker.setScreenName(screenName);
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory(category)
+                .setAction(action)
+                        .setLabel(label)
+                .build());
+    }
 
     public void openOKDialog(Activity activity, Fragment fragment, String dialogType){
         NoConnectionDialog dialog = new NoConnectionDialog();
@@ -144,6 +189,15 @@ public class FashionTalksApp extends Application {
     public void onTerminate() {
         super.onTerminate();
         dataSaver = null;
+        flushAllData();
+    }
+
+    public ArrayList<Post> getDefaultPostArray() {
+        return defaultPostArray;
+    }
+
+    public void setDefaultPostArray(ArrayList<Post> defaultPostArray) {
+        this.defaultPostArray = defaultPostArray;
     }
 
     public ArrayList<Post> getGalleryPostArrayList() {
@@ -155,6 +209,7 @@ public class FashionTalksApp extends Application {
     }
 
     public void addGalleryPostArrayList(ArrayList<Post> galleryPostArrayList, int galleryId) {
+
         if(this.galleryPostArrayList == null || lastGalleryId != galleryId){
             this.galleryPostArrayList = galleryPostArrayList;
         }else{
@@ -195,17 +250,25 @@ public class FashionTalksApp extends Application {
     }
 
     public ArrayList<Post> getPopularPostArrayList() {
+        //Log.d(TAG, "**GET POPULAR POSTS ARRAY LIST  " + popularPostArrayList.size());
         return popularPostArrayList;
     }
 
     public void setPopularPostArrayList(ArrayList<Post> popularPostArrayList) {
+        if(popularPostArrayList != null){
+            Log.d(TAG, "**SET POPULAR POSTS ARRAY LIST  " + popularPostArrayList.size());
+        }
+
         this.popularPostArrayList = popularPostArrayList;
     }
 
     public void addPopularPostArrayList(ArrayList<Post> popularPostArrayList) {
+
         if(this.popularPostArrayList == null){
+            //Log.d(TAG, "**ADD POPULAR POSTS ARRAY LIST  " + popularPostArrayList.size());
             this.popularPostArrayList = popularPostArrayList;
         }else{
+            Log.d(TAG, "**ADD POPULAR POSTS ARRAY LIST add all " + popularPostArrayList.size());
             this.popularPostArrayList.addAll(popularPostArrayList);
         }
     }
@@ -242,8 +305,34 @@ public class FashionTalksApp extends Application {
         this.myPostArrayList = myPostArrayList;
     }
 
+    public Post getUserFavoritePost() {
+        return userFavoritePost;
+    }
+
+    public void setUserFavoritePost(Post userFavoritePost) {
+        this.userFavoritePost = userFavoritePost;
+    }
+
     public User getMe() {
         return me;
+    }
+
+    public boolean isUserMe(int userId){
+        if(me == null){
+            return false;
+        }
+        if(me.getId() == userId){
+            return true;
+        }
+        return false;
+    }
+
+    public int getGalleryId() {
+        return galleryId;
+    }
+
+    public void setGalleryId(int galleryId) {
+        this.galleryId = galleryId;
     }
 
     //TODO Control for adding same item multiple times
@@ -259,7 +348,6 @@ public class FashionTalksApp extends Application {
     public void setOther(User other) {
         userPostArrayList = null;
         this.other = other;
-
     }
 
     public void flushAllData(){
@@ -269,6 +357,7 @@ public class FashionTalksApp extends Application {
         userPostArrayList = null;
         myPostArrayList = null;
         lastGalleryId = 0;
+        galleryId = 0;
         try {
             GoogleCloudMessaging.getInstance(this).unregister();
         } catch (IOException e) {

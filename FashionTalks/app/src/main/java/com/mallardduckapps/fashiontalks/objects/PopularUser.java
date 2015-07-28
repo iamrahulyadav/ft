@@ -1,5 +1,7 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -7,13 +9,14 @@ import java.util.ArrayList;
  */
 public class PopularUser extends User {
 
-    private ArrayList<Photo> photos;
+    @SerializedName("photos")
+    private ArrayList<Post> photos;
 
-    public ArrayList<Photo> getPhotos() {
+    public ArrayList<Post> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(ArrayList<Photo> photos) {
+    public void setPhotos(ArrayList<Post> photos) {
         this.photos = photos;
     }
 }

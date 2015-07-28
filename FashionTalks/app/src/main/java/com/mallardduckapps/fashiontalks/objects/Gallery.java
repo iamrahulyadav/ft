@@ -7,12 +7,15 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Gallery {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("title")
     private String title;
     @SerializedName("post_count")
     private int postCount;
     @SerializedName("title_en")
     private String titleEn;
+    @SerializedName("cover")
     private String cover;
     private String coverPath;
     @SerializedName("created_at")

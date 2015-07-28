@@ -5,9 +5,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -20,19 +22,21 @@ import java.util.ArrayList;
 public class FollowListLoader extends AsyncTaskLoader<ArrayList<User>> {
 
     private final int loaderId;
-    private final int userId;
+    private int userId;
     private ArrayList<User> followList;
     private final String TAG = "FollowListLoader";
     boolean loadingInProgress;
     public int startIndex = 0;
-    public int perPage = 15;
+    public int perPage = 30;
     boolean followers;
+    FashionTalksApp app;
 
-    public FollowListLoader(Context context, int loaderId, int userId, boolean followers){
+    public FollowListLoader(FashionTalksApp app, Context context, int loaderId, int userId, boolean followers){
         super(context);
         this.loaderId = loaderId;
         this.followers = followers;
         this.userId = userId;
+        this.app = app;
     }
 
     @Override
@@ -40,11 +44,15 @@ public class FollowListLoader extends AsyncTaskLoader<ArrayList<User>> {
         followList = new ArrayList<User>();
         String response = "";
         String prefix = followers ? Constants.FOLLOWERS_PREFIX : Constants.FOLLOWING_PREFIX;
+        if(userId == 0){
+            userId = app.getMe().getId();
+        }
+
         String userIdTxt = (userId != 0)?Integer.toString(userId).concat("/"):"";
         RestClient restClient = new RestClient();
         try {
-            String url = new StringBuilder(prefix).append(userIdTxt).toString();
-                    //append(startIndex).append("/").append(perPage).toString();
+            String url = new StringBuilder(prefix).append(userIdTxt).
+                    append(startIndex).append("/").append(perPage).toString();
             response = restClient.doGetRequest(url, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {
@@ -54,7 +62,8 @@ public class FollowListLoader extends AsyncTaskLoader<ArrayList<User>> {
         }
 
         JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-        Gson gson = new Gson();
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
         String key = followers ? "follower" : "following";
         for (JsonElement item : dataObjects) {
             User user = gson.fromJson(item.getAsJsonObject().get(key), User.class);

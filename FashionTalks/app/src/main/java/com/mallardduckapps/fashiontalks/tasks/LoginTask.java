@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.loaders.Exclude;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -88,7 +89,8 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
         }else{
             Log.d(TAG, "GET USER: " + response);
             try{
-                Gson gson = new GsonBuilder().create();
+                Exclude ex = new Exclude();
+                Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
                 JsonObject object = new JsonParser().parse(response).getAsJsonObject();
                 JsonObject dataObject = object.getAsJsonObject("data");
                 JsonObject userObject = dataObject.getAsJsonObject("User");
@@ -105,13 +107,16 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
                     callBack.getUser(Constants.NO_CONNECTION, null);
                 //}
 
+            }catch(Exception en){
+                en.printStackTrace();
+                callBack.getUser(Constants.AUTHENTICATION_FAILED, null);
             }
         }
     }
 
     public interface LoginTaskCallback {
-        public void getAuthStatus(int authStatus,User user, String... tokens);
-        public void getUser(int authStatus, User user);
+        void getAuthStatus(int authStatus,User user, String... tokens);
+        void getUser(int authStatus, User user);
     }
 
     private void parseToken(String response){
@@ -135,19 +140,27 @@ public class LoginTask extends AsyncTask<Void, Void, String> {
             object = new JsonParser().parse(response).getAsJsonObject();
         }catch(IllegalStateException ex){
             callBack.getAuthStatus(Constants.NO_CONNECTION, null, null);
+            return;
+        }catch(Exception en){
+            en.printStackTrace();
+            callBack.getUser(Constants.AUTHENTICATION_FAILED, null);
+            return;
         }
-        Gson gson = new GsonBuilder().create();
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+        if(status == 0){
+            JsonObject dataObject = object.getAsJsonObject("data");
+            JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
+            JsonObject userObject = dataObject.getAsJsonObject("User");
+            accessToken = oauthObject.get("access_token").getAsString();
+            refreshToken = oauthObject.get("refresh_token").getAsString();
+            User me = gson.fromJson(userObject, User.class);
 
-        JsonObject dataObject = object.getAsJsonObject("data");
-        JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
-        JsonObject userObject = dataObject.getAsJsonObject("User");
-        accessToken = oauthObject.get("access_token").getAsString();
-        refreshToken = oauthObject.get("refresh_token").getAsString();
-        User me = gson.fromJson(userObject, User.class);
+            Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
+            callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
+            callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
+        }
 
-        Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
-        callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
-        callBack.getAuthStatus(Constants.AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
     }
 }
 

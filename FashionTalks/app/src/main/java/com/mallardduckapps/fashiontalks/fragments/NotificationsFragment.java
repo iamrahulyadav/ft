@@ -55,6 +55,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noDataTv = (TextView) view.findViewById(R.id.noDataTv);
         app.newNotification = false;
+        app.sendAnalyticsEvent("Notifications View", "UX", "look","");
         return view;
     }
 

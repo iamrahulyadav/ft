@@ -71,7 +71,11 @@ public class GalleriesFragment extends BasicFragment implements
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
         listView = (BounceListView) rootView.findViewById(R.id.galleryList);
+        if(listAdapter == null){
+            listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
+        }
         if(dataList != null){
+            listAdapter.clearList();
             listAdapter.addItemsInGrid(dataList);
             listView.setAdapter(listAdapter);
         }
@@ -108,6 +112,7 @@ public class GalleriesFragment extends BasicFragment implements
         Log.d(TAG, "ON LOAD FINISHED");
         items = data;
         int index = 0;
+
         if(dataList == null){
             dataList = new ArrayList<GalleryItem>(items.size());
             //StringBuilder builder = ;
@@ -139,7 +144,7 @@ public class GalleriesFragment extends BasicFragment implements
 
     @Override
     public void galleryOnItemClicked(int galleryId, String galleryName, int galleryItemPosition) {
-        Log.d(TAG, "SEND GALLERY ID TO ACTIVITY: " + galleryId);
+        //Log.d(TAG, "SEND GALLERY ID TO ACTIVITY: " + galleryId);
         //Intent intent = new Intent(getActivity(), PostsActivity.class);
         Intent intent = new Intent(getActivity(), GalleryActivity.class);
         intent.putExtra("GALLERY_ID", galleryId);

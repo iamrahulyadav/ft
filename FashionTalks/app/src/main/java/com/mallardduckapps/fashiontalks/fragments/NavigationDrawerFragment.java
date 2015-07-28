@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.makeramen.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.NotificationActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -127,10 +127,17 @@ public class NavigationDrawerFragment extends BasicFragment {
                     getString(R.string.title_section3),
                     getString(R.string.title_section4)
         };
-
-        String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").append(me.getPhotoPath()).toString();
-        ImageLoader.getInstance().displayImage(url, thumbnailImage, app.options);
-        userNameTv.setText(me.getFirstName() +" " + me.getLastName());
+        String photoPath = (me != null)? me.getPhotoPath() : null;
+        String url = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").append(photoPath).toString();
+        //Log.d(TAG, "GET PHOTO PATH: " + me.getPhotoPath());h())
+        if(photoPath != null){
+            if(!photoPath.equals("placeholders/profile.png")){
+                ImageLoader.getInstance().displayImage(url, thumbnailImage, app.options);
+            }
+        }
+        if(me!=null) {
+            userNameTv.setText(me.getFirstName() + " " + me.getLastName());
+        }
         FTUtils.setLayoutFont(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)),userNameTv, styleTv);
         uploadNewStyleTv.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_md)));
 
@@ -162,8 +169,13 @@ public class NavigationDrawerFragment extends BasicFragment {
                 }
             }
         });
+        sendEventToGoogleAnalytics();
 
         return view;
+    }
+
+    private void sendEventToGoogleAnalytics(){
+        app.sendAnalyticsEvent("Left Menu View", "UX", "PROFILE_ID", "");
     }
 
     private void selectItem(int position, String actionName) {

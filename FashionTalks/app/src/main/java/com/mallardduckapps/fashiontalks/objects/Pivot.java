@@ -14,14 +14,17 @@ public class Pivot {
     private int postId;
     @SerializedName("tag_id")
     private int tagId;
+    @SerializedName("x")
     private int x;
+    @SerializedName("y")
     private int y;
     @SerializedName("glam_count")
     private int glamCount;
+    @SerializedName("id")
     private int id;
     @SerializedName("ad_url")
     private String adUrl;
-
+    @SerializedName("is_glammed")
     private boolean isGlammed;
 
     public int getPostId() {

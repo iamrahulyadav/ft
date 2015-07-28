@@ -132,7 +132,7 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
 
     @Override
     public Loader<ArrayList<User>> onCreateLoader(int id, Bundle args) {
-        loader = new FollowListLoader(getActivity().getApplicationContext(), loaderId, paramProfileId, followers);
+        loader = new FollowListLoader(app, getActivity().getApplicationContext(), loaderId, paramProfileId, followers);
         return loader;
     }
 
@@ -174,7 +174,11 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
 
         if(!canLoadMoreData()){
             if(listView != null) {
-                listView.removeFooterView(loadMoreFooterView);
+                try{
+                    listView.removeFooterView(loadMoreFooterView);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 loadMoreFooterView.setVisibility(View.INVISIBLE);
             }
         }

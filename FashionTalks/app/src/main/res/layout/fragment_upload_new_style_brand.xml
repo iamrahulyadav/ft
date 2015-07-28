@@ -49,13 +49,13 @@
         android:src="@drawable/splash_portrait"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
          />
 
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="?listPreferredItemHeight"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_alignParentBottom="true"
         android:background="@color/white">
         <TextView

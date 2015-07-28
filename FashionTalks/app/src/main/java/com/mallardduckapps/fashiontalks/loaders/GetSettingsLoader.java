@@ -39,7 +39,8 @@ public class GetSettingsLoader extends AsyncTaskLoader<Settings> {
             response = restClient.doGetRequest(url, null);
             Log.d(TAG, "SETTINGS RESPONSE : " + response);
             //Log.d(TAG, "User REQUEST RESPONSE: " + response);
-            Gson gson = new GsonBuilder().create();
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
             Type collectionType = new TypeToken<Settings>(){}.getType();
             JsonElement object = new JsonParser().parse(response).getAsJsonObject().getAsJsonObject("data");
             settings = gson.fromJson(object, collectionType);

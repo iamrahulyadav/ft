@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.mallardduckapps.fashiontalks.fragments.PostFragment;
 import com.mallardduckapps.fashiontalks.objects.Post;
+import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -20,12 +22,23 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
     //int positionIndex;
     int loaderId;
     private final static String TAG = "VERTICAL_PAGER_ADAPTER";
+    LoadMorePostToPager callback;
+    int initialSize = 0;
+    boolean inLoadEnabled = true;
 
-    public VerticalPagerAdapter(FragmentManager fm, ArrayList<Post> postArrayList, int loaderId) {
+    public VerticalPagerAdapter(FragmentManager fm, ArrayList<Post> postArrayList, LoadMorePostToPager callback, int loaderId) {
         super(fm);
+        //clear();
         this.postArrayList = postArrayList;
+        initialSize = postArrayList.size();
+        Log.d(TAG, "**POSTS  - VERTICAL PAGER ADAPTER: " + postArrayList.size());
+        this.callback = callback;
         //this.positionIndex = positionIndex;
         this.loaderId = loaderId;
+        if(loaderId == Constants.GALLERIES_LOADER_ID ){//|| loaderId == Constants.GALLERY_POSTS_LOADER_ID
+               // || loaderId == Constants.GALLERY_POSTS_BY_TAG_LOADER_ID){
+            inLoadEnabled = false;
+        }
     }
 
     @Override
@@ -36,8 +49,30 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
         bundle.putInt("POST_ID", postArrayList.get(position).getId());
         bundle.putInt("POST_INDEX", position);
         postFragment.setArguments(bundle);
+        Log.d(TAG, "**POSITION : " + position + " - size: " + postArrayList.size());
+        if(postArrayList.size() > 0 && inLoadEnabled){
+            //TODO perpage 15 for now
+            if(position == postArrayList.size() - 1 && initialSize % 15 == 0){
+                callback.loadMorePost(position+1,1,loaderId);
+            }
+        }
+
         //Log.d(TAG, "Pager data 0 name: " + ( postArrayList.get(0)).getUser().getUserName());
         return postFragment;
+    }
+
+    public void addNewItem(Post post){
+        Log.d(TAG, "**VERTICAL VIEW ADAPTER ADD NEW POST: " + post.getId());
+        postArrayList.add(post);
+        this.notifyDataSetChanged();
+    }
+
+    public void clear(){
+
+        if(postArrayList != null){
+            postArrayList.clear();
+        }
+
     }
 
     @Override
@@ -60,6 +95,11 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
                 return "PAGE 3";
         }
         return null;
+    }
+
+    public interface LoadMorePostToPager{
+        void loadMorePost(int position, int count, int loaderId);
+
     }
 
 }

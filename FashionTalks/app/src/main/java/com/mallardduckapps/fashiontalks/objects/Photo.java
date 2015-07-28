@@ -7,9 +7,11 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Photo {
 
+    @SerializedName("id")
     private int id;
     @SerializedName("photo")
     private String photoUrl;
+    @SerializedName("title")
     private String title;
     @SerializedName("glam_count")
     private int glamCount;

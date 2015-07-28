@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.objects.Post;
@@ -64,7 +65,8 @@ public class PostLoader extends AsyncTaskLoader<Post> {
         //Caused by: java.lang.IllegalStateException: Not a JSON Object: "NO_CONNECTION"
         if(status == 0){
             JsonElement dataObject = new JsonParser().parse(response).getAsJsonObject().getAsJsonObject("data");
-            Gson gson = new Gson();
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
             post = gson.fromJson(dataObject, Post.class);
         }else{
             Post invalidPost = new Post();

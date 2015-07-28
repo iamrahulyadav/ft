@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -57,12 +58,18 @@ public class PostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         }
         //HANDLE THIS
         //Caused by: java.lang.IllegalStateException: Not a JSON Object: "NO_CONNECTION"
-        JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-        Gson gson = new Gson();
+        try{
+            JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
             for (JsonElement item : dataObjects) {
                 Post post = gson.fromJson(item, Post.class);
                 popularPostItems.add(post);
             }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         return popularPostItems;
     }
 

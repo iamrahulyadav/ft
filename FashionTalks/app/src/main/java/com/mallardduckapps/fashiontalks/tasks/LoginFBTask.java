@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.loaders.Exclude;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -77,7 +78,8 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
         }else{
             Log.d(TAG, "GET USER: " + response);
             try{
-                Gson gson = new GsonBuilder().create();
+                Exclude ex = new Exclude();
+                Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
                 JsonObject object = new JsonParser().parse(response).getAsJsonObject();
                 JsonObject dataObject = object.getAsJsonObject("data");
                 JsonObject userObject = dataObject.getAsJsonObject("User");
@@ -114,7 +116,14 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
         JsonObject dataObject = object.getAsJsonObject("data");
         JsonObject oauthObject = dataObject.getAsJsonObject("OAuth");
         JsonObject userObject = dataObject.getAsJsonObject("User");
-        accessToken = oauthObject.get("access_token").getAsString();
+        try{
+            accessToken = oauthObject.get("access_token").getAsString();
+        }catch(NullPointerException e){
+            e.printStackTrace();
+            callBack.getAuthStatus(Constants.AUTHENTICATION_FAILED, null, null);
+            return;
+        }
+
         refreshToken = oauthObject.get("refresh_token").getAsString();
         User me = gson.fromJson(userObject, User.class);
 

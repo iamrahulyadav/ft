@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -22,12 +23,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.CommentListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.CommentListLoader;
+import com.mallardduckapps.fashiontalks.loaders.Exclude;
 import com.mallardduckapps.fashiontalks.objects.Comment;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.swipelistview.BaseSwipeListViewListener;
@@ -59,16 +62,18 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     boolean deletingMessage = false;
     FashionTalksApp app;
     CommentIsMade callback;
+    boolean ownPost;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
-    public static CommentsFragment newInstance(String postId, int loaderId, int postIndex) {
+    public static CommentsFragment newInstance(String postId, int loaderId, int postIndex, boolean ownPost) {
         CommentsFragment fragment = new CommentsFragment();
         Bundle args = new Bundle();
         args.putString(POST_ID, postId);
         args.putInt("POST_LOADER_ID", loaderId);
         args.putInt("POST_INDEX", postIndex);
+        args.putBoolean("OWN_POST", ownPost);
         fragment.setArguments(args);
         return fragment;
     }
@@ -80,10 +85,12 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = (FashionTalksApp) getActivity().getApplication();
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             paramPostId = getArguments().getString(POST_ID);
             postLoaderId = getArguments().getInt("POST_LOADER_ID");
             postIndex = getArguments().getInt("POST_INDEX");
+            ownPost = getArguments().getBoolean("OWN_POST");
         }
         dataList = new ArrayList<>();
         useLoader();
@@ -113,7 +120,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
                     return;
                 }
                 BasicNameValuePair pair1 = new BasicNameValuePair("post_id", paramPostId);
-                BasicNameValuePair pair2 = new BasicNameValuePair("comment", editText.getText().toString());
+                BasicNameValuePair pair2 = new BasicNameValuePair("comment", editText.getText().toString().trim());
                 SendCommentTask task = new SendCommentTask();
                 task.execute(pair1, pair2);
             }
@@ -155,8 +162,12 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     private void reloadSwipeListView(SwipeListView swipeListView) {
         SwipeListViewSettingsManager settings = SwipeListViewSettingsManager.getInstance();
         int[] size = FTUtils.getScreenSize(getActivity());
+        int offsetSize = 80;
+        if(ownPost){
+            offsetSize = 160;
+        }
 
-        settings.setSwipeOffsetLeft(size[0]- (int)FTUtils.pxFromDp(90, getActivity()));
+        settings.setSwipeOffsetLeft(size[0]- (int)FTUtils.pxFromDp(offsetSize, getActivity()));
         //swipeListView.setSwipeMode(settings.getSwipeMode());
         //swipeListView.setSwipeActionLeft(settings.getSwipeActionLeft());
         //swipeListView.setSwipeActionRight(settings.getSwipeActionRight());
@@ -242,7 +253,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
 
         if(adapter == null){
             dataList = data;
-            adapter = new CommentListAdapter(getActivity(),this,dataList);
+            adapter = new CommentListAdapter(getActivity(),this,dataList, ownPost);
             //setListAdapter(adapter);
             listView = (SwipeListView)getListView();
             listView.setAdapter(adapter);
@@ -279,10 +290,22 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.d("COMMENTS FRAGMENT", "ON OPTIONS " + item.getItemId() + "- home: " + android.R.id.home);
+        if(item.getItemId() == android.R.id.home){
+            Log.d("COMMENTS FRAGMENT", "ON DETACH HIDE KEYBOARD");
+            hideKeyboard();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void hideKeyboard() {
         // Check if no view has focus:
         View view = getActivity().getCurrentFocus();
         if (view != null) {
+            Log.d("TAG", "HIDE KEYBOARD");
             InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
@@ -344,7 +367,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     }
 
     public interface CommentIsMade{
-        public void onNewComment(int postLoaderId, int postId, int postIndex, boolean increment);
+         void onNewComment(int postLoaderId, int postId, int postIndex, boolean increment);
     }
 
     public class SendCommentTask extends AsyncTask<BasicNameValuePair, Void, String> {
@@ -394,17 +417,21 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
                 sendingMessage = false;
                 editText.setText("");
                 JsonArray dataObjects = new JsonParser().parse(text).getAsJsonObject().getAsJsonArray("data");
-                Gson gson = new Gson();
-                Comment comment = gson.fromJson(dataObjects.get(0), Comment.class);
-                //Log.d(TAG, "ADD COMMENT SUCCESS: old data size: " + dataList.size());
-                dataList.add(comment);
-                if(adapter != null){
-                    adapter.notifyDataSetChanged();
-                    callback.onNewComment(postLoaderId, Integer.parseInt(paramPostId), postIndex, true);
-                    status = -1;
-                    Log.d(TAG, "ADD COMMENT SUCCESS: notified data size: " + dataList.size() );
+                Exclude ex = new Exclude();
+                Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+                try{
+                    Comment comment = gson.fromJson(dataObjects.get(0), Comment.class);
+                    //Log.d(TAG, "ADD COMMENT SUCCESS: old data size: " + dataList.size());
+                    dataList.add(comment);
+                    if(adapter != null){
+                        adapter.notifyDataSetChanged();
+                        callback.onNewComment(postLoaderId, Integer.parseInt(paramPostId), postIndex, true);
+                        status = -1;
+                        Log.d(TAG, "ADD COMMENT SUCCESS: notified data size: " + dataList.size() );
+                    }
+                }catch(IndexOutOfBoundsException e){
+                    e.printStackTrace();
                 }
-
             }else{
                 app.openOKDialog(CommentsFragment.this.getActivity(), CommentsFragment.this, "no_connection");
             }

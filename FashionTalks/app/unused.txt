@@ -1,0 +1,548 @@
+bolts.AndroidExecutors:
+    static final long KEEP_ALIVE_TIME
+    97:106:public static java.util.concurrent.ExecutorService newCachedThreadPool(java.util.concurrent.ThreadFactory)
+bolts.AppLinkNavigation:
+    private static final java.lang.String KEY_NAME_USER_AGENT
+    private static final java.lang.String KEY_NAME_VERSION
+    private static final java.lang.String KEY_NAME_REFERER_APP_LINK
+    private static final java.lang.String KEY_NAME_REFERER_APP_LINK_APP_NAME
+    private static final java.lang.String KEY_NAME_REFERER_APP_LINK_PACKAGE
+    private static final java.lang.String VERSION
+bolts.AppLinks:
+    static final java.lang.String KEY_NAME_APPLINK_DATA
+    static final java.lang.String KEY_NAME_EXTRAS
+    static final java.lang.String KEY_NAME_TARGET
+bolts.BoltsExecutors$ImmediateExecutor:
+    private static final int MAX_DEPTH
+bolts.WebViewAppLinkResolver:
+    private static final java.lang.String TAG_EXTRACTION_JAVASCRIPT
+    private static final java.lang.String PREFER_HEADER
+    private static final java.lang.String META_TAG_PREFIX
+    private static final java.lang.String KEY_AL_VALUE
+    private static final java.lang.String KEY_APP_NAME
+    private static final java.lang.String KEY_CLASS
+    private static final java.lang.String KEY_PACKAGE
+    private static final java.lang.String KEY_URL
+    private static final java.lang.String KEY_SHOULD_FALLBACK
+    private static final java.lang.String KEY_WEB_URL
+    private static final java.lang.String KEY_WEB
+    private static final java.lang.String KEY_ANDROID
+com.google.android.gms.games.internal.GamesClientImpl$NearbyPlayerDetectedNotifier
+com.google.android.gms.games.internal.api.AchievementsImpl$10
+com.google.android.gms.games.internal.api.AclsImpl:
+    private static com.google.android.gms.games.internal.game.Acls$LoadAclResult zzL(com.google.android.gms.common.api.Status)
+    static synthetic com.google.android.gms.games.internal.game.Acls$LoadAclResult zzM(com.google.android.gms.common.api.Status)
+com.google.android.gms.games.internal.api.AclsImpl$1
+com.google.android.gms.games.internal.api.AclsImpl$2
+com.google.android.gms.games.internal.api.AclsImpl$3
+com.google.android.gms.games.internal.api.AclsImpl$LoadNotifyAclImpl
+com.google.android.gms.games.internal.api.AclsImpl$UpdateNotifyAclImpl
+com.google.android.gms.games.internal.api.AppContentsImpl$1
+com.google.android.gms.games.internal.api.AppContentsImpl$LoadsImpl
+com.google.android.gms.games.internal.api.AppContentsImpl$LoadsImpl$1
+com.google.android.gms.games.internal.api.GamesMetadataImpl$10
+com.google.android.gms.games.internal.api.GamesMetadataImpl$11
+com.google.android.gms.games.internal.api.GamesMetadataImpl$12
+com.google.android.gms.games.internal.api.GamesMetadataImpl$13
+com.google.android.gms.games.internal.api.GamesMetadataImpl$14
+com.google.android.gms.games.internal.api.GamesMetadataImpl$15
+com.google.android.gms.games.internal.api.GamesMetadataImpl$16
+com.google.android.gms.games.internal.api.GamesMetadataImpl$17
+com.google.android.gms.games.internal.api.GamesMetadataImpl$18
+com.google.android.gms.games.internal.api.GamesMetadataImpl$19
+com.google.android.gms.games.internal.api.GamesMetadataImpl$2
+com.google.android.gms.games.internal.api.GamesMetadataImpl$3
+com.google.android.gms.games.internal.api.GamesMetadataImpl$4
+com.google.android.gms.games.internal.api.GamesMetadataImpl$5
+com.google.android.gms.games.internal.api.GamesMetadataImpl$6
+com.google.android.gms.games.internal.api.GamesMetadataImpl$7
+com.google.android.gms.games.internal.api.GamesMetadataImpl$8
+com.google.android.gms.games.internal.api.GamesMetadataImpl$9
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadExtendedGamesImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadExtendedGamesImpl$1
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameInstancesImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameInstancesImpl$1
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameSearchSuggestionsImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameSearchSuggestionsImpl$1
+com.google.android.gms.games.internal.api.InvitationsImpl$2
+com.google.android.gms.games.internal.api.InvitationsImpl$3
+com.google.android.gms.games.internal.api.LeaderboardsImpl$10
+com.google.android.gms.games.internal.api.LeaderboardsImpl$11
+com.google.android.gms.games.internal.api.LeaderboardsImpl$8
+com.google.android.gms.games.internal.api.LeaderboardsImpl$9
+com.google.android.gms.games.internal.api.NotificationsImpl$1
+com.google.android.gms.games.internal.api.NotificationsImpl$1$1
+com.google.android.gms.games.internal.api.NotificationsImpl$2
+com.google.android.gms.games.internal.api.NotificationsImpl$2$1
+com.google.android.gms.games.internal.api.NotificationsImpl$3
+com.google.android.gms.games.internal.api.NotificationsImpl$3$1
+com.google.android.gms.games.internal.api.NotificationsImpl$4
+com.google.android.gms.games.internal.api.NotificationsImpl$5
+com.google.android.gms.games.internal.api.NotificationsImpl$6
+com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingLoadImpl
+com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingLoadImpl$1
+com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingUpdateImpl
+com.google.android.gms.games.internal.api.NotificationsImpl$InboxCountImpl
+com.google.android.gms.games.internal.api.NotificationsImpl$InboxCountImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$10
+com.google.android.gms.games.internal.api.PlayersImpl$11
+com.google.android.gms.games.internal.api.PlayersImpl$12
+com.google.android.gms.games.internal.api.PlayersImpl$13
+com.google.android.gms.games.internal.api.PlayersImpl$14
+com.google.android.gms.games.internal.api.PlayersImpl$15
+com.google.android.gms.games.internal.api.PlayersImpl$16
+com.google.android.gms.games.internal.api.PlayersImpl$17
+com.google.android.gms.games.internal.api.PlayersImpl$18
+com.google.android.gms.games.internal.api.PlayersImpl$19
+com.google.android.gms.games.internal.api.PlayersImpl$20
+com.google.android.gms.games.internal.api.PlayersImpl$21
+com.google.android.gms.games.internal.api.PlayersImpl$22
+com.google.android.gms.games.internal.api.PlayersImpl$23
+com.google.android.gms.games.internal.api.PlayersImpl$24
+com.google.android.gms.games.internal.api.PlayersImpl$25
+com.google.android.gms.games.internal.api.PlayersImpl$26
+com.google.android.gms.games.internal.api.PlayersImpl$27
+com.google.android.gms.games.internal.api.PlayersImpl$3
+com.google.android.gms.games.internal.api.PlayersImpl$9
+com.google.android.gms.games.internal.api.PlayersImpl$LoadProfileSettingsResultImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadProfileSettingsResultImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameCategoriesResultImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameCategoriesResultImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpStreamResultImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpStreamResultImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$UpdateProfileSettingsResultImpl
+com.google.android.gms.games.internal.api.QuestsImpl$5
+com.google.android.gms.games.internal.api.QuestsImpl$6
+com.google.android.gms.games.internal.api.RequestsImpl$4
+com.google.android.gms.games.internal.api.RequestsImpl$5
+com.google.android.gms.games.internal.api.RequestsImpl$6
+com.google.android.gms.games.internal.api.RequestsImpl$7
+com.google.android.gms.games.internal.api.RequestsImpl$8
+com.google.android.gms.games.internal.api.RequestsImpl$LoadRequestSummariesImpl
+com.google.android.gms.games.internal.api.RequestsImpl$LoadRequestSummariesImpl$1
+com.google.android.gms.games.internal.api.RequestsImpl$SendRequestImpl
+com.google.android.gms.games.internal.api.RequestsImpl$SendRequestImpl$1
+com.google.android.gms.games.internal.api.SnapshotsImpl$6
+com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$11
+com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$12
+com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$13
+com.google.android.gms.games.leaderboard.LeaderboardScoreBufferHeader$1
+com.google.gson.DefaultDateTypeAdapter:
+    53:54:DefaultDateTypeAdapter(int)
+com.google.gson.FieldAttributes:
+    146:146:java.lang.Object get(java.lang.Object)
+    155:155:boolean isSynthetic()
+com.google.gson.Gson:
+    static final boolean DEFAULT_JSON_NON_EXECUTABLE
+    private static final java.lang.String JSON_NON_EXECUTABLE_PREFIX
+com.google.gson.JsonArray:
+    45:49:com.google.gson.JsonArray deepCopy()
+    33:33:bridge synthetic com.google.gson.JsonElement deepCopy()
+com.google.gson.JsonElement:
+    abstract com.google.gson.JsonElement deepCopy()
+com.google.gson.JsonNull:
+    45:45:com.google.gson.JsonNull deepCopy()
+    26:26:bridge synthetic com.google.gson.JsonElement deepCopy()
+com.google.gson.JsonObject:
+    38:42:com.google.gson.JsonObject deepCopy()
+    32:32:bridge synthetic com.google.gson.JsonElement deepCopy()
+com.google.gson.JsonPrimitive:
+    90:90:com.google.gson.JsonPrimitive deepCopy()
+    33:33:bridge synthetic com.google.gson.JsonElement deepCopy()
+com.google.gson.internal.Excluder:
+    private static final double IGNORE_VERSIONS
+com.google.gson.internal.bind.TypeAdapters$23:
+    private static final java.lang.String YEAR
+    private static final java.lang.String MONTH
+    private static final java.lang.String DAY_OF_MONTH
+    private static final java.lang.String HOUR_OF_DAY
+    private static final java.lang.String MINUTE
+    private static final java.lang.String SECOND
+com.google.gson.stream.JsonReader:
+    private static final long MIN_INCOMPLETE_INTEGER
+    private static final int PEEKED_NONE
+    private static final int PEEKED_BEGIN_OBJECT
+    private static final int PEEKED_END_OBJECT
+    private static final int PEEKED_BEGIN_ARRAY
+    private static final int PEEKED_END_ARRAY
+    private static final int PEEKED_TRUE
+    private static final int PEEKED_FALSE
+    private static final int PEEKED_NULL
+    private static final int PEEKED_SINGLE_QUOTED
+    private static final int PEEKED_DOUBLE_QUOTED
+    private static final int PEEKED_UNQUOTED
+    private static final int PEEKED_BUFFERED
+    private static final int PEEKED_SINGLE_QUOTED_NAME
+    private static final int PEEKED_DOUBLE_QUOTED_NAME
+    private static final int PEEKED_UNQUOTED_NAME
+    private static final int PEEKED_LONG
+    private static final int PEEKED_NUMBER
+    private static final int PEEKED_EOF
+    private static final int NUMBER_CHAR_NONE
+    private static final int NUMBER_CHAR_SIGN
+    private static final int NUMBER_CHAR_DIGIT
+    private static final int NUMBER_CHAR_DECIMAL
+    private static final int NUMBER_CHAR_FRACTION_DIGIT
+    private static final int NUMBER_CHAR_EXP_E
+    private static final int NUMBER_CHAR_EXP_SIGN
+    private static final int NUMBER_CHAR_EXP_DIGIT
+com.google.gson.stream.JsonScope
+com.mallardduckapps.fashiontalks.EditProfileActivity:
+    com.mallardduckapps.fashiontalks.FashionTalksApp app
+com.mallardduckapps.fashiontalks.FashionTalksApp:
+    com.jeremyfeinstein.slidingmenu.lib.SlidingMenu menu
+com.mallardduckapps.fashiontalks.GalleryActivity:
+    private static final java.lang.String TAG
+com.mallardduckapps.fashiontalks.PostsActivity:
+    private static final float MIN_SCALE
+    private static final float MIN_ALPHA
+com.mallardduckapps.fashiontalks.ProfileActivity:
+    com.mallardduckapps.fashiontalks.FashionTalksApp app
+com.mallardduckapps.fashiontalks.SearchActivity:
+    com.mallardduckapps.fashiontalks.FashionTalksApp app
+com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter:
+    boolean opensGallery
+    67:67:private void init()
+com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter:
+    private static final java.lang.String TAG
+com.mallardduckapps.fashiontalks.components.BounceListView:
+    private static final int MAX_Y_OVERSCROLL_DISTANCE
+com.mallardduckapps.fashiontalks.components.SlidingTabLayout:
+    private static final int TITLE_OFFSET_DIPS
+    private static final int TAB_VIEW_PADDING_DIPS
+    private static final int TAB_VIEW_PADDING_TOP_DIPS
+    private static final int TAB_VIEW_HORIZONTAL_PADDING_DIPS
+    private static final int TAB_VIEW_TEXT_SIZE_SP
+    private static final int TAB_VIEW_SELECTED_TEXT_SIZE_SP
+com.mallardduckapps.fashiontalks.components.SlidingTabStrip:
+    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS
+    private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA
+    private static final int SELECTED_INDICATOR_THICKNESS_DIPS
+    private static final int DEFAULT_SELECTED_INDICATOR_COLOR
+    private static final int DEFAULT_DIVIDER_THICKNESS_DIPS
+    private static final byte DEFAULT_DIVIDER_COLOR_ALPHA
+    private static final float DEFAULT_DIVIDER_HEIGHT
+com.mallardduckapps.fashiontalks.fragments.CommentsFragment:
+    private static final java.lang.String POST_ID
+com.mallardduckapps.fashiontalks.fragments.FollowFragment:
+    private static final java.lang.String PROFILE_ID
+    private static final java.lang.String FOLLOWER_LIST
+com.mallardduckapps.fashiontalks.fragments.ForgetPasswordFragment$ProfileQuery:
+    public static final int ADDRESS
+    public static final int IS_PRIMARY
+com.mallardduckapps.fashiontalks.fragments.GlammersFragment:
+    private static final java.lang.String POST_ID
+com.mallardduckapps.fashiontalks.fragments.LoginFragment$ProfileQuery:
+    public static final int ADDRESS
+    public static final int IS_PRIMARY
+com.mallardduckapps.fashiontalks.fragments.MainLoginFragment:
+    android.widget.ProgressBar progressBar
+    266:285:private void updateWithToken(com.facebook.AccessToken)
+com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment:
+    private static final java.lang.String STATE_SELECTED_POSITION
+    private android.view.View mFragmentContainerView
+com.mallardduckapps.fashiontalks.fragments.PostFragment:
+    240:257:private void shareMenuOnClick()
+com.mallardduckapps.fashiontalks.fragments.ProfileFragment:
+    private static final java.lang.String PROFILE_ID
+com.mallardduckapps.fashiontalks.objects.Gallery:
+    private int postCount
+    private java.lang.String titleEn
+com.mallardduckapps.fashiontalks.services.GCMIntentService:
+    static final java.lang.String TAG
+com.mallardduckapps.fashiontalks.services.RestClient:
+    102:102:private com.squareup.okhttp.Request createRequest(java.lang.String)
+    106:110:private varargs com.squareup.okhttp.Request createRequestWithHeaders(java.lang.String,org.apache.http.message.BasicNameValuePair[])
+    135:143:private varargs com.squareup.okhttp.Request createRequestWithBody(java.lang.String,org.apache.http.message.BasicNameValuePair[])
+com.mallardduckapps.fashiontalks.swipelistview.SwipeListView:
+    private static final int TOUCH_STATE_REST
+    private static final int TOUCH_STATE_SCROLLING_X
+    private static final int TOUCH_STATE_SCROLLING_Y
+com.mallardduckapps.fashiontalks.swipelistview.SwipeListViewTouchListener:
+    private static final int DISPLACE_CHOICE
+com.mallardduckapps.fashiontalks.tasks.LoginFBTask:
+    private int authStatus
+    java.lang.String[] tokens
+com.mallardduckapps.fashiontalks.tasks.LoginTask:
+    private int authStatus
+    java.lang.String[] tokens
+com.mallardduckapps.fashiontalks.tasks.PopularPostTask:
+    boolean loadingInProgress
+com.mallardduckapps.fashiontalks.tasks.RegisterTask:
+    private int authStatus
+    java.lang.String[] tokens
+com.mallardduckapps.fashiontalks.utils.TimeUtil:
+    private static final java.lang.String TAG
+com.nineoldandroids.animation.AnimatorInflater:
+    private static final int AnimatorSet_ordering
+    private static final int PropertyAnimator_propertyName
+    private static final int Animator_interpolator
+    private static final int Animator_duration
+    private static final int Animator_startOffset
+    private static final int Animator_repeatCount
+    private static final int Animator_repeatMode
+    private static final int Animator_valueFrom
+    private static final int Animator_valueTo
+    private static final int Animator_valueType
+    private static final int TOGETHER
+    private static final int VALUE_TYPE_FLOAT
+com.nineoldandroids.animation.AnimatorSet$Dependency:
+    static final int WITH
+    static final int AFTER
+com.nineoldandroids.animation.ObjectAnimator:
+    private static final boolean DBG
+com.nineoldandroids.animation.PreHoneycombCompat:
+    167:167:private PreHoneycombCompat()
+com.nineoldandroids.animation.ValueAnimator:
+    private static final long DEFAULT_FRAME_DELAY
+    static final int ANIMATION_START
+    static final int ANIMATION_FRAME
+    static final int STOPPED
+    static final int RUNNING
+    static final int SEEKED
+com.nineoldandroids.util.ReflectiveProperty:
+    private static final java.lang.String PREFIX_GET
+    private static final java.lang.String PREFIX_IS
+    private static final java.lang.String PREFIX_SET
+com.nineoldandroids.view.ViewHelper$Honeycomb:
+    179:179:private ViewHelper$Honeycomb()
+com.nineoldandroids.view.ViewPropertyAnimatorHC:
+    private static final int NONE
+    private static final int TRANSLATION_X
+    private static final int TRANSLATION_Y
+    private static final int SCALE_X
+    private static final int SCALE_Y
+    private static final int ROTATION
+    private static final int ROTATION_X
+    private static final int ROTATION_Y
+    private static final int X
+    private static final int Y
+    private static final int ALPHA
+    private static final int TRANSFORM_MASK
+com.nineoldandroids.view.ViewPropertyAnimatorICS:
+    private static final long RETURN_WHEN_NULL
+com.nineoldandroids.view.ViewPropertyAnimatorPreHC:
+    private static final int NONE
+    private static final int TRANSLATION_X
+    private static final int TRANSLATION_Y
+    private static final int SCALE_X
+    private static final int SCALE_Y
+    private static final int ROTATION
+    private static final int ROTATION_X
+    private static final int ROTATION_Y
+    private static final int X
+    private static final int Y
+    private static final int ALPHA
+    private static final int TRANSFORM_MASK
+fr.castorflex.android.verticalviewpager.VerticalViewPager:
+    private static final java.lang.String TAG
+    private static final boolean DEBUG
+    private static final boolean USE_CACHE
+    private static final int DEFAULT_OFFSCREEN_PAGES
+    private static final int MAX_SETTLE_DURATION
+    private static final int MIN_DISTANCE_FOR_FLING
+    private static final int DEFAULT_GUTTER_SIZE
+    private static final int MIN_FLING_VELOCITY
+    private boolean mIgnoreGutter
+    private static final int INVALID_POINTER
+    private static final int CLOSE_ENOUGH
+    private static final int DRAW_ORDER_DEFAULT
+    private static final int DRAW_ORDER_FORWARD
+    private static final int DRAW_ORDER_REVERSE
+    551:553:android.support.v4.view.ViewPager$OnPageChangeListener setInternalPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)
+    675:676:void smoothScrollTo(int,int)
+io.fabric.sdk.android.Fabric:
+    static final java.lang.String ROOT_DIR
+    static final boolean DEFAULT_DEBUGGABLE
+io.fabric.sdk.android.InitializationTask:
+    private static final java.lang.String TIMING_METRIC_TAG
+io.fabric.sdk.android.Onboarding:
+    static final java.lang.String CRASHLYTICS_API_ENDPOINT
+io.fabric.sdk.android.services.common.AdvertisingInfoProvider:
+    private static final java.lang.String ADVERTISING_INFO_PREFERENCES
+    private static final java.lang.String PREFKEY_LIMIT_AD_TRACKING
+    private static final java.lang.String PREFKEY_ADVERTISING_ID
+io.fabric.sdk.android.services.common.AdvertisingInfoReflectionStrategy:
+    private static final int GOOGLE_PLAY_SERVICES_SUCCESS_CODE
+    private static final java.lang.String CLASS_NAME_GOOGLE_PLAY_SERVICES_UTILS
+    private static final java.lang.String METHOD_NAME_IS_GOOGLE_PLAY_SERVICES_AVAILABLE
+    private static final java.lang.String CLASS_NAME_ADVERTISING_ID_CLIENT
+    private static final java.lang.String CLASS_NAME_ADVERTISING_ID_CLIENT_INFO
+    private static final java.lang.String METHOD_NAME_GET_ADVERTISING_ID_INFO
+    private static final java.lang.String METHOD_NAME_GET_ID
+    private static final java.lang.String METHOD_NAME_IS_LIMITED_AD_TRACKING_ENABLED
+io.fabric.sdk.android.services.common.AdvertisingInfoServiceStrategy:
+    private static final java.lang.String GOOGLE_PLAY_SERVICE_PACKAGE_NAME
+    public static final java.lang.String GOOGLE_PLAY_SERVICES_INTENT
+    public static final java.lang.String GOOGLE_PLAY_SERVICES_INTENT_PACKAGE_NAME
+io.fabric.sdk.android.services.common.AdvertisingInfoServiceStrategy$AdvertisingConnection:
+    private static final int QUEUE_TIMEOUT_IN_MS
+io.fabric.sdk.android.services.common.AdvertisingInfoServiceStrategy$AdvertisingInterface:
+    private static final int FLAGS_NONE
+    private static final int AD_TRANSACTION_CODE_ID
+    private static final int AD_TRANSACTION_CODE_LIMIT_AD_TRACKING
+    public static final java.lang.String ADVERTISING_ID_SERVICE_INTERFACE_TOKEN
+io.fabric.sdk.android.services.common.ApiKey:
+    static final java.lang.String FABRIC_API_KEY
+    static final java.lang.String CRASHLYTICS_API_KEY
+io.fabric.sdk.android.services.common.CommonUtils:
+    private static final java.lang.String LOG_PRIORITY_NAME_ASSERT
+    private static final java.lang.String LOG_PRIORITY_NAME_DEBUG
+    private static final java.lang.String LOG_PRIORITY_NAME_ERROR
+    private static final java.lang.String LOG_PRIORITY_NAME_INFO
+    private static final java.lang.String LOG_PRIORITY_NAME_VERBOSE
+    private static final java.lang.String LOG_PRIORITY_NAME_WARN
+    private static final java.lang.String LOG_PRIORITY_NAME_UNKNOWN
+    private static final java.lang.String CLS_SHARED_PREFERENCES_NAME
+    static final java.lang.String CLS_TRACE_PREFERENCE_NAME
+    static final boolean CLS_TRACE_DEFAULT
+    private static final java.lang.String LOGGING_DISABLED_KEY
+    private static final boolean LOGGING_DISABLED_DEFAULT
+    static final java.lang.String ENCRYPTION_AES
+    static final java.lang.String FABRIC_BUILD_ID
+    static final java.lang.String CRASHLYTICS_BUILD_ID
+    private static final long UNCALCULATED_TOTAL_RAM
+    static final int BYTES_IN_A_GIGABYTE
+    static final int BYTES_IN_A_MEGABYTE
+    static final int BYTES_IN_A_KILOBYTE
+io.fabric.sdk.android.services.common.ExecutorUtils:
+    private static final long DEFAULT_TERMINATION_TIMEOUT
+io.fabric.sdk.android.services.common.IdManager:
+    private static final java.lang.String PREFKEY_INSTALLATION_UUID
+    private static final java.lang.String SDK_ASSETS_ROOT
+    private static final java.lang.String BAD_ANDROID_ID
+    private static final java.lang.String BLUETOOTH_ERROR_MESSAGE
+    433:433:private java.lang.String[] getTwitterSdkAssetsList()
+io.fabric.sdk.android.services.common.InstallerPackageNameProvider:
+    private static final java.lang.String NO_INSTALLER_PACKAGE_NAME
+io.fabric.sdk.android.services.common.QueueFile:
+    private static final int INITIAL_LENGTH
+    static final int HEADER_LENGTH
+    105:123:QueueFile(java.io.RandomAccessFile)
+io.fabric.sdk.android.services.common.QueueFile$Element:
+    static final int HEADER_LENGTH
+io.fabric.sdk.android.services.concurrency.AsyncTask:
+    private static final java.lang.String LOG_TAG
+    private static final int KEEP_ALIVE
+    private static final int MESSAGE_POST_RESULT
+    private static final int MESSAGE_POST_PROGRESS
+io.fabric.sdk.android.services.concurrency.PriorityThreadPoolExecutor:
+    private static final long KEEP_ALIVE
+io.fabric.sdk.android.services.network.CertificateChainCleaner:
+    17:18:private CertificateChainCleaner()
+io.fabric.sdk.android.services.network.DefaultHttpRequestFactory:
+    private static final java.lang.String HTTPS
+io.fabric.sdk.android.services.network.HttpRequest:
+    private static final java.lang.String BOUNDARY
+    private static final java.lang.String CONTENT_TYPE_MULTIPART
+    private static final java.lang.String CRLF
+io.fabric.sdk.android.services.network.HttpRequest$Base64:
+    private static final byte EQUALS_SIGN
+    private static final java.lang.String PREFERRED_ENCODING
+io.fabric.sdk.android.services.network.PinningTrustManager:
+    private static final long PIN_FRESHNESS_DURATION_MILLIS
+io.fabric.sdk.android.services.settings.AbstractAppSpiCall:
+    static final java.lang.String ICON_FILE_NAME
+    static final java.lang.String ICON_CONTENT_TYPE
+io.fabric.sdk.android.services.settings.AppSpiCall
+io.fabric.sdk.android.services.settings.DefaultSettingsController:
+    private static final java.lang.String LOAD_ERROR_MESSAGE
+    private static final java.lang.String PREFS_BUILD_INSTANCE_IDENTIFIER
+io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall:
+    static final java.lang.String BUILD_VERSION_PARAM
+    static final java.lang.String DISPLAY_VERSION_PARAM
+    static final java.lang.String INSTANCE_PARAM
+    static final java.lang.String SOURCE_PARAM
+    static final java.lang.String ICON_HASH
+io.fabric.sdk.android.services.settings.Settings:
+    private static final java.lang.String SETTINGS_URL_FORMAT
+io.fabric.sdk.android.services.settings.Settings$LazyHolder:
+    29:29:Settings$LazyHolder()
+okio.Base64:
+    26:27:private Base64()
+okio.Buffer:
+    821:827:java.util.List segmentSizes()
+okio.GzipSource:
+    private static final byte FHCRC
+    private static final byte FEXTRA
+    private static final byte FNAME
+    private static final byte FCOMMENT
+    private static final byte SECTION_HEADER
+    private static final byte SECTION_BODY
+    private static final byte SECTION_TRAILER
+    private static final byte SECTION_DONE
+okio.Segment:
+    static final int SIZE
+okio.SegmentPool:
+    static final long MAX_SIZE
+okio.Util:
+    24:25:private Util()
+org.apache.commons.lang3.EnumUtils:
+    private static final java.lang.String NULL_ELEMENTS_NOT_PERMITTED
+    private static final java.lang.String CANNOT_STORE_S_S_VALUES_IN_S_BITS
+    private static final java.lang.String S_DOES_NOT_SEEM_TO_BE_AN_ENUM_TYPE
+    private static final java.lang.String ENUM_CLASS_MUST_BE_DEFINED
+org.apache.commons.lang3.LocaleUtils$SyncAvoid:
+    317:317:LocaleUtils$SyncAvoid()
+org.apache.commons.lang3.StringEscapeUtils$CsvEscaper:
+    private static final char CSV_DELIMITER
+    private static final char CSV_QUOTE
+org.apache.commons.lang3.StringEscapeUtils$CsvUnescaper:
+    private static final char CSV_DELIMITER
+    private static final char CSV_QUOTE
+org.apache.commons.lang3.StringUtils:
+    private static final int PAD_LIMIT
+org.apache.commons.lang3.SystemUtils:
+    private static final java.lang.String OS_NAME_WINDOWS_PREFIX
+    private static final java.lang.String USER_HOME_KEY
+    private static final java.lang.String USER_DIR_KEY
+    private static final java.lang.String JAVA_IO_TMPDIR_KEY
+    private static final java.lang.String JAVA_HOME_KEY
+org.apache.commons.lang3.Validate:
+    private static final java.lang.String DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE
+    private static final java.lang.String DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE
+    private static final java.lang.String DEFAULT_MATCHES_PATTERN_EX
+    private static final java.lang.String DEFAULT_IS_NULL_EX_MESSAGE
+    private static final java.lang.String DEFAULT_IS_TRUE_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NOT_BLANK_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NOT_EMPTY_ARRAY_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NOT_EMPTY_COLLECTION_EX_MESSAGE
+    private static final java.lang.String DEFAULT_NOT_EMPTY_MAP_EX_MESSAGE
+    private static final java.lang.String DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE
+    private static final java.lang.String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE
+    private static final java.lang.String DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE
+    private static final java.lang.String DEFAULT_VALID_STATE_EX_MESSAGE
+    private static final java.lang.String DEFAULT_IS_ASSIGNABLE_EX_MESSAGE
+    private static final java.lang.String DEFAULT_IS_INSTANCE_OF_EX_MESSAGE
+org.apache.commons.lang3.builder.DiffResult:
+    private static final java.lang.String DIFFERS_STRING
+org.apache.commons.lang3.concurrent.ConstantInitializer:
+    private static final java.lang.String FMT_TO_STRING
+org.apache.commons.lang3.concurrent.TimedSemaphore:
+    private static final int THREAD_POOL_SIZE
+org.apache.commons.lang3.exception.ExceptionUtils:
+    static final java.lang.String WRAPPED_MARKER
+org.apache.commons.lang3.reflect.MemberUtils:
+    private static final int ACCESS_TEST
+    32:32:MemberUtils()
+org.apache.commons.lang3.text.FormattableUtils:
+    private static final java.lang.String SIMPLEST_FORMAT
+org.apache.commons.lang3.time.DateUtils:
+    private static final int MODIFY_TRUNCATE
+    private static final int MODIFY_ROUND
+    private static final int MODIFY_CEILING
+org.apache.commons.lang3.time.DurationFormatUtils$Token:
+    596:599:DurationFormatUtils$Token(java.lang.Object,int)
+org.apache.commons.lang3.time.FastDateParser$TimeZoneStrategy:
+    private static final int ID
+    private static final int LONG_STD
+    private static final int SHORT_STD
+    private static final int LONG_DST
+    private static final int SHORT_DST
+org.apache.commons.lang3.time.FormatCache:
+    static final int NONE
+org.apache.commons.lang3.time.StopWatch:
+    private static final long NANO_2_MILLIS

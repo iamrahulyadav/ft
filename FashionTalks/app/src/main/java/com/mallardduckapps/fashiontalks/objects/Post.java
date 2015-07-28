@@ -12,8 +12,11 @@ import java.util.ArrayList;
  */
 public class Post {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("title")
     private String title;
+    @SerializedName("photo")
     private String photo;
     @SerializedName("glam_count")
     private int glamCount;
@@ -39,10 +42,16 @@ public class Post {
     private int todaysGlam;
     @SerializedName("tags")
     private ArrayList<Tag> tags;
-
     private boolean invalid = false;
-
+    @SerializedName("user")
     private User user;
+
+/*    @SerializedName("deleted_at")
+    private String deletedAt;
+    @SerializedName("is_gossiped")
+    private int isGossiped;
+    @SerializedName("is_glammed")
+    private int isGlammed;*/
 
     public int getId() {
         return id;

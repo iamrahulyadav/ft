@@ -7,8 +7,11 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Tag {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("tag")
     private String tag;
+    @SerializedName("logo")
     private String logo;
     @SerializedName("created_at")
     private String createdAt;
@@ -18,7 +21,7 @@ public class Tag {
     private int isApproved;
     @SerializedName("is_glammed")
     private int isGlammed;
-
+    @SerializedName("pivot")
     private Pivot pivot;
 
     public int getId() {

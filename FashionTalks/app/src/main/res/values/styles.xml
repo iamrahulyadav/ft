@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme.-->
     <style name="FTTheme" parent="@style/Theme.AppCompat.Light">
-        <!-- Customize your theme here.   Theme.DeviceDefault.Light.DarkActionBar  "android:Theme.Holo.Light.DarkActionBar"-->
         <item name="android:windowNoTitle">true</item>
-        <item name="contentInsetStart">0dp</item>
-        <!--We will be using the toolbar so no need to show ActionBar-->
+        <!--<item name="contentInsetStart">0dp</item>-->
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBar">false</item>
-        <!--<item name="windowActionModeOverlay">true</item>-->
-    </style>
+</style>
+<!-- Customize your theme here.   Theme.DeviceDefault.Light.DarkActionBar  "android:Theme.Holo.Light.DarkActionBar"  style/Theme.AppCompat.Light-->
     <style name="FTActionBarTabText"
         parent="android:Widget.ActionBar.TabText">
         <item name="android:textColor">@color/black</item>

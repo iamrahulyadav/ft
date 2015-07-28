@@ -26,16 +26,34 @@
             android:layout_centerInParent="true"/>
         <TextView
             android:id="@+id/noDataTv"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/connectToFbTv"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
+
             android:textSize="15dp"
             android:textColor="@color/black"
             android:background="@color/white"
             android:visibility="gone"
             android:text="@string/no_data"/>
+
+        <TextView
+            android:id="@+id/connectToFbTv"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="70dp"
+            android:padding="5dp"
+            android:gravity="center_horizontal"
+            android:text="@string/login_with_fb"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="21dp"
+            android:clickable="true"
+            android:background="@color/white"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -8,7 +8,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
@@ -16,8 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.facebook.AccessToken;
@@ -28,7 +29,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -138,16 +138,8 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main_login, container, false);
-        final LoginButton loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
-/*        ArrayList<String> permissions = new ArrayList<>();
-        permissions.add("user_friends");
-        permissions.add("public_profile");
-        permissions.add("email");
-        permissions.add("user_birthday");
-        permissions.add("user_location");*/
-
-//        loginButton.setReadPermissions(permissions);
-
+        //final LoginButton loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mListener.setToolbarVisibility(false);
         // If using in a fragment
 //        loginButton.setFragment(this);
@@ -314,6 +306,10 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
 
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
+
+        if(mListener == null){
+            return;
+        }
         //showProgress(false);
         switch (authStatus) {
             case Constants.NO_CONNECTION:
@@ -341,6 +337,16 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 Log.d(TAG, "FB AUTH SUCCESSFULL - calls go to main activity");
                 //mListener.goToMainActivity();
                 break;
+            case Constants.AUTHENTICATION_FAILED:
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        switcher.setDisplayedChild(1);
+                        Toast.makeText(getActivity(), getString(R.string.problem_occured), Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
         }
     }
 
@@ -353,6 +359,10 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     @Override
     public void getUser(int authStatus, User user) {
 
+        if(mListener == null){
+            return;
+        }
+
         //TODO handle errors
         if(user != null && authStatus == Constants.AUTHENTICATION_SUCCESSFUL){
 
@@ -361,9 +371,17 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             mListener.goToMainActivity();
             //activity.finish();
         }
-        else{
+        else if(authStatus == Constants.NO_CONNECTION){
             app.openOKDialog(getActivity(), MainLoginFragment.this, "no_connection");
             switcher.setDisplayedChild(1);
+        }else{
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    switcher.setDisplayedChild(1);
+                    Toast.makeText(getActivity(), getString(R.string.problem_occured), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

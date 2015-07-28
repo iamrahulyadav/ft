@@ -30,12 +30,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.makeramen.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.WebActivity;
 import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
 import com.mallardduckapps.fashiontalks.loaders.PostLoader;
 import com.mallardduckapps.fashiontalks.objects.Pivot;
@@ -97,12 +99,11 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     ViewSwitcher switcher;
     boolean openComment = false;
     public final static int DELETE_POST = 667;
-
     RoundedImageView thumbnailView;
-
     int glamCount;
     public static int commentCount;
     Post post;
+    boolean loadingFailed;
 
     public PostFragment() {
 
@@ -151,6 +152,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         glamLayout = (LinearLayout) rootView.findViewById(R.id.glamLayout);
 
         Activity activity = getActivity();
+        app = (FashionTalksApp)activity.getApplication();
         tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));//thin
         tvGlamCount.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
         tvChatText.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
@@ -166,13 +168,12 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
         bottomBar.setVisibility(View.VISIBLE);
        // Log.d(TAG, "POST FR: POST ID: " + postId);
+
         if(app != null){
+            Log.d(TAG, "APP NOT NULL " + loaderId);
             post = getPost();
         }
-
-        //Log.d(TAG, "GET POSTT COMMETN COUNT: " + post.getCommentCount());
         //openComment = post.getCanComment() == 1 ? true: false;
-
 //        if(loaderId == Constants.MY_POSTS_LOADER_ID){
 //            user = app.getMe();
 //            ownPost = true;
@@ -196,11 +197,17 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 //            ownPost = false;
 //            //shareButton.setImageResource(R.drawable.report_icon);
 //        }
-
         if(post != null){
             setPostUserDrawables();
             fillPost(post);
-            showNextView();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "FILL POST POST NOT NULL");
+                    switcher.setDisplayedChild(1);//showNext();
+                }
+            });
+            //showNextView();
         }else{
             progressBar.setVisibility(View.VISIBLE);
             shareButton.setImageResource(R.drawable.delete_icon);
@@ -208,6 +215,8 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             ownPost = true;
             useLoader();
         }
+        //Log.d(TAG, "ON CREATE VIEW HIDE THAT FUCKING KEYBOARD");
+        //hide_keyboard_from(getActivity(), tvChatText);
         return rootView;
         //listView = (ListView) rootView.findViewById(R.id.galleryList);
     }
@@ -273,6 +282,10 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
                 post = app.getBrandGalleryPostList().get(postIndex);
                 break;
+            case Constants.USER_FAVORITE_POST_LOADER_ID:
+                Log.d(TAG, "USER FAVORITE POST");
+                post = null;//app.getUserFavoritePost();
+                break;
         }
         return post;
     }
@@ -297,21 +310,29 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             case Constants.GALLERY_POSTS_BY_TAG_LOADER_ID:
                 app.getBrandGalleryPostList().set(postIndex, post);
                 break;
+            case Constants.USER_FAVORITE_POST_LOADER_ID:
+                app.setUserFavoritePost(post);
+                break;
         }
     }
 
     public void incrementGlamCount(final int newGlamCount){
         //int glamCount = post.getGlamCount();
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "NEW GLAM COUNT : " + newGlamCount);
-                post.setGlamCount(newGlamCount);
-                tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(getString(R.string.glam)).toString());
-                setPost(post);
-                tvGlamCount.invalidate();
-            }
-        });
+        try{
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "NEW GLAM COUNT : " + newGlamCount);
+                    post.setGlamCount(newGlamCount);
+                    tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(getString(R.string.glam)).toString());
+                    setPost(post);
+                    tvGlamCount.invalidate();
+                }
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void incrementCommentCount(){
@@ -336,23 +357,25 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        //Log.d(TAG, "LIFE TIME ON RESUME " +commentCount);
-    }
-
-    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         //Log.d(TAG, "LIFE TIME ON ATTACH " + commentCount);
     }
 
+    String path;
+
     private void fillPost(final Post post){
-        String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
+        path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(width).append("x").append(width).append("/").append(post.getPhoto()).toString();
         //TODO change 40x40
         String thumbPath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(100).append("x").append(100).append("/").append(user.getPhotoPath()).toString();
         tvUserName.setText(user.getUserName());
-        tvName.setText(StringEscapeUtils.unescapeJson(post.getTitle()));
+        String tvNameTxt = post.getTitle();
+        try{
+            tvName.setText(StringEscapeUtils.unescapeJson(post.getTitle()));
+        }catch(Exception e){
+            tvName.setText(tvNameTxt);
+        }
+
         tvGlamCount.setText(new StringBuilder(post.getGlamCountPattern()).append(getString(R.string.glam)).toString());
         //Log.d(TAG, "POST CREATED AT: " + post.getCreatedAt());
         tvPostTime.setText(TimeUtil.compareDateWithToday(post.getCreatedAt(), getResources()));
@@ -377,10 +400,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 //Bundle bundle = new Bundle();
                 //bundle.putString("POST_ID", Integer.toString(postId));
                 //bundle.putInt("POST_LOADER_ID", loaderId);
-                CommentsFragment fragment = CommentsFragment.newInstance(Integer.toString(postId), loaderId, postIndex);
-                //fragment.setArguments(bundle);
-                //bottomBar.setVisibility(View.GONE);
-                //PopularUsersFragment fragment = PopularUsersFragment.newInstance("");
+                CommentsFragment fragment = CommentsFragment.newInstance(Integer.toString(postId), loaderId, postIndex, ownPost);
                 FragmentTransaction fragmentTx = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
                         fragmentTx.replace(R.id.container, fragment).addToBackStack(fragment.getTag())
@@ -406,6 +426,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         tvName.setOnClickListener(onClickListener);
         ImageLoader.getInstance().displayImage(thumbPath, thumbnailView,app.options);
         finalImageWidth = 0;
+
         ImageLoader.getInstance()
                 .displayImage(path, postPhoto, app.options, new SimpleImageLoadingListener() {
                     @Override
@@ -418,10 +439,10 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                                     finalImageHeight = postPhoto.getHeight();
                                     finalImageWidth = postPhoto.getWidth();
                                     imageTopMargin = (int)postPhoto.getY();
-                                    Log.e("IMAGE","(GLAM) Image Height: " + finalImageHeight + " Width: " + finalImageWidth + " - imageTopMargin : " + imageTopMargin);
-                                    setGlamPosition(post);
+                                    //Log.e("IMAGE","(GLAM) Image Height: " + finalImageHeight + " Width: " + finalImageWidth + " - imageTopMargin : " + imageTopMargin);
+                                        setGlamPosition(post);
+
                                 }
-//                    Log.d(TAG, "POSX " + posX/1.5 + " - POSY: " + posY/1.5);
                                 return true;
                             }
                         });
@@ -430,21 +451,23 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         progressBar.setVisibility(View.GONE);
+                        loadingFailed = true;
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         progressBar.setVisibility(View.GONE);
+                        loadingFailed = false;
                     }
                 });
         //Log.d(TAG, "POST FR: SELECTeD POST ID: " + post.getTag());
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,"ON CLICK");
+                //Log.d(TAG,"ON CLICK");
                 // Share Menu is not active now
                 //shareMenuOnClick();
-                if(user != app.getMe()){
+                if (user != app.getMe()) {
                     // REPORT
                     Bundle bundle = new Bundle();
                     bundle.putString("IMAGE_PATH", createImageFile());
@@ -452,7 +475,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                     dialog.setArguments(bundle);
                     dialog.show(getFragmentManager(), "ReportDialog");
                     //FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
-                }else{
+                } else {
                     //DELETE
                     app.openErasePicDialog(PostFragment.this.getActivity(), PostFragment.this);
                 }
@@ -485,7 +508,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         }
         Log.d(TAG, "IMAGE PATH TO REPORT: " + mFileTemp.getPath());
         return mFileTemp.getAbsolutePath();
-
     }
 
     @Override
@@ -498,35 +520,36 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     }
 
     private void setGlamPosition(Post post){
-/*        int x1 = getRealX(0);
-        int y1 = getRealY(0);
-        int tagId1 = 22222;//tag.getId();
-        String brandName1 = "test";//tag.getTag();
-        final ExpandablePanel panel1 = new ExpandablePanel(getActivity(), null, x1 , y1, x1 > PostsActivity.width/2 ? false:true, ownPost, false);
-        panel1.setTagId(tagId1);
-        panel1.setBrandName(brandName1);
-            panel1.setTagText("test" ,false);
-        //panels.add(panel1);
-        layout.addView(panel1);*/
+        int tagListSize = 0;
+        if(post.getTags() != null){
+            tagListSize = post.getTags().size();
+        }
 
-        final ArrayList<ExpandablePanel> panels = new ArrayList<>(post.getTags().size());
+        final ArrayList<ExpandablePanel> panels = new ArrayList<>(tagListSize);
+        boolean adPost = post.getIsAd() == 1 ? true : false;
+        if(adPost){
+            sendEventToGoogleAnalytics(Integer.toString(post.getId()), false);
+        }
+
         for (Tag tag : post.getTags()){
             final Pivot pivot = tag.getPivot();
             int x = getRealX(pivot.getX());
             int y = getRealY(pivot.getY());
             int tagId = tag.getId();
             String brandName = tag.getTag();
-            final ExpandablePanel panel = new ExpandablePanel(getActivity(), pivot, x , y, x > PostsActivity.width/2 ? false:true, ownPost, false);
+            final ExpandablePanel panel = new ExpandablePanel(app,getActivity(), pivot, x , y, x > PostsActivity.width/2 ? false:true, ownPost, false, adPost);
             panel.setTagId(tagId);
             panel.setBrandName(brandName);
+            if (adPost){
+                panel.setAdUrl(pivot.getAdUrl());
+            }
             if(panel.isLhsAnimation()){
                 panel.setTagText(new StringBuilder(pivot.getGlamCountPattern()).append(" | ").append(tag.getTag()).append(" ").toString() ,false);
             }else{
                 panel.setTagText(new StringBuilder(tag.getTag()).append(" | ").append(pivot.getGlamCountPattern()).toString() ,false);
             }
-
             //panel.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
-            Log.d(TAG, "GLAM X: " + x + " - GLAM Y: " + y);
+            //Log.d(TAG, "GLAM X: " + x + " - GLAM Y: " + y);
             panel.setOnExpandListener(new ExpandablePanel.OnExpandListener() {
                 @Override
                 public void onExpand(View handle) {
@@ -534,13 +557,21 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
                 @Override
                 public void onCollapse(View handle, int tagId, String brandName) {
-                    Intent intent = new Intent(getActivity(), GalleryActivity.class);
-                    intent.putExtra("GALLERY_ID", tagId);
-                    intent.putExtra("GALLERY_NAME", brandName);
-                    intent.putExtra("LOADER_ID", Constants.GALLERY_POSTS_BY_TAG_LOADER_ID);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    PostFragment.this.getActivity().startActivity(intent);
-                    BaseActivity.setTranslateAnimation(getActivity());
+                    if(!panel.isAdPost()){
+                        Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                        intent.putExtra("GALLERY_ID", tagId);
+                        intent.putExtra("GALLERY_NAME", brandName);
+                        intent.putExtra("LOADER_ID", Constants.GALLERY_POSTS_BY_TAG_LOADER_ID);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        PostFragment.this.getActivity().startActivity(intent);
+                        BaseActivity.setTranslateAnimation(getActivity());
+                    }else{
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("URL", panel.getAdUrl());
+                        startActivity(intent);
+                        BaseActivity.setTranslateAnimation(getActivity());
+                        sendEventToGoogleAnalytics(Integer.toString(panel.getTagId()), true);
+                    }
                 }
 
                 @Override
@@ -549,7 +580,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                     incrementGlamCount(totalGlamCount);
                 }
             });
-
            // if(ownPost){
                 //panel.animateExpand();
            // }
@@ -561,6 +591,12 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             @Override
             public void onClick(View v) {
                 //Log.d(TAG, "ON CLICK TO LAYOUT SHRINK ALL ANIMS");
+                if(loadingFailed){
+                    ImageLoader.getInstance()
+                            .displayImage(path, postPhoto, app.options);
+                    return;
+                }
+
                 for (ExpandablePanel panel : panels) {
                     if (panel.mExpanded) {
                         panel.runShrinkAnimation(true);
@@ -580,6 +616,14 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     //TODO it was height before, control the height
     private int getRealY(int y){
         return finalImageWidth*y/Constants.VIRTUAL_HEIGHT + imageTopMargin + (finalImageHeight - finalImageWidth)/2;
+    }
+
+    private void sendEventToGoogleAnalytics(String text, boolean glamClicked){
+        if(glamClicked){
+            app.sendAnalyticsEvent("Reklam Postu Glam Dot", "UX", "DOT_ID", text);
+        }else{
+            app.sendAnalyticsEvent("Reklam Postu", "UX", "AD_ID", text);
+        }
     }
 
     @Override
@@ -627,6 +671,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
 
     private void useLoader() {
         if (loader == null) {
+            Log.d(TAG, "USE LOADER");
             loader = (PostLoader) getActivity().getLoaderManager()
                     .initLoader(loaderId, null, this);
             loader.forceLoad();
@@ -671,8 +716,13 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             progressBarMain.setVisibility(View.GONE);
             if(status == 0){
                 ProfileActivity.imageGalleryChanged = true;
-                getActivity().finish();
-                BaseActivity.setBackwardsTranslateAnimation(getActivity());
+                try{
+                    getActivity().finish();
+                    BaseActivity.setBackwardsTranslateAnimation(getActivity());
+                }catch(Exception e){
+                    Toast.makeText(PostFragment.this.getActivity(),getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
+                }
+
             }else{
                 Toast.makeText(PostFragment.this.getActivity(),getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
             }

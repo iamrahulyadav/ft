@@ -17,7 +17,7 @@ public class NotificationActivity extends BaseActivity implements BasicFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);// false
         tabToolbar.setVisibility(View.GONE);
         mViewPager.setVisibility(View.GONE);
         TextView tvName = (TextView) findViewById(R.id.toolbarName);

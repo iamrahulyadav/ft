@@ -231,7 +231,14 @@ public class Util {
         Matrix matrix = new Matrix();
         // setup rotation degree
         matrix.postRotate(degree);
-        Bitmap bmp = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        Bitmap bmp = null;
+        try{
+            bmp = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+        }catch(OutOfMemoryError e){
+            e.printStackTrace();
+        }
+
+
         return bmp;
     }
 

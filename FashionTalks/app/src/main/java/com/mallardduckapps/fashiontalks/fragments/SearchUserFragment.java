@@ -75,13 +75,14 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
         xTv.setVisibility(View.GONE);
         searchUser.addTextChangedListener(new TextWatcher() {
             String text = "";
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(timer != null){
+                if (timer != null) {
                     timer.cancel();
                 }
             }
@@ -89,12 +90,12 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
             @Override
             public void afterTextChanged(Editable s) {
                 String t = s.toString().trim();
-                if(t.equals(text)){
+                if (t.equals(text)) {
                     return;
                 }
                 text = t.toLowerCase(Locale.getDefault());
                 Log.d(TAG, "TEXT: " + text);
-                if(text.length() > 1){
+                if (text.length() > 1) {
                     xTv.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     noDataTv.setVisibility(View.GONE);
@@ -112,7 +113,7 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
                             });
                         }
                     }, DELAY);
-                }else{
+                } else {
                     xTv.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                 }
@@ -128,8 +129,16 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
         return rootView;
     }
 
+    private void sendEventToGoogleAnalytics(String text){
+        app.sendAnalyticsEvent("Search Result View", "UX", "SEARCH_TERM", text);
+        app.sendAnalyticsEvent("Search Users View", "UX", "SEARCH_TERM", text);
+    }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        if(userList == null){
+            return;
+        }
         super.onListItemClick(l, v, position, id);
         Log.d(TAG, "ITEM CLICKED " + position);
         Intent intent = new Intent(getActivity(), ProfileActivity.class);
@@ -181,6 +190,7 @@ public class SearchUserFragment extends ListFragment implements LoaderManager.Lo
         Log.d(TAG, "USE LOADER - START");
         resetLoader(text);
         loader.forceLoad();
+        sendEventToGoogleAnalytics(text);
     }
 
     @Override

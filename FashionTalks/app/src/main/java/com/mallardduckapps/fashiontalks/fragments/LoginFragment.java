@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -45,7 +46,6 @@ import java.util.List;
  */
 public class LoginFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<Cursor>, LoginTask.LoginTaskCallback {
 
-    private LoginTask authTask = null;
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -86,9 +86,9 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 
     @Override
     public void onDetach() {
+        hideKeyboard();
         super.onDetach();
         mListener = null;
-        hideKeyboard();
     }
 
     @Override
@@ -106,6 +106,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
         mListener.setTitleName(TAG);
         switcher = (ViewSwitcher) rootView.findViewById(R.id.switcher);
@@ -178,9 +179,9 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
         switcher.setDisplayedChild(0);
         mListener.setToolbarVisibility(false);
         hideKeyboard();
-        if (authTask != null) {
-            return;
-        }
+//        if (authTask != null) {
+//            return;
+//        }
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -216,8 +217,13 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
             showKeyboard(focusView);
 
         } else {
-            showProgress(true);
-            authTask = new LoginTask(getActivity(),this, email, password);
+            try{
+                showProgress(true);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            LoginTask authTask = new LoginTask(getActivity(),this, email, password);
             authTask.execute();
         }
     }
@@ -343,6 +349,10 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
+        if(mListener == null){
+            return;
+        }
+
         showProgress(false);
         switch (authStatus) {
             case Constants.WRONG_CREDENTIALS:
@@ -374,7 +384,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 
                 break;
             case Constants.AUTHENTICATION_CANCELED:
-                authTask = null;
+                //authTask = null;
                 switcher.setDisplayedChild(1);
                 mListener.setToolbarVisibility(true);
                 break;
@@ -388,10 +398,27 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     @Override
     public void getUser(int authStatus, User user) {
         //TODO handle errors
+        if(mListener == null){
+            return;
+        }
+
         if(user != null && authStatus == Constants.AUTHENTICATION_SUCCESSFUL){
             app.setMe(user);
             mListener.goToMainActivity();
             //activity.finish();
+        }else if(authStatus == Constants.NO_CONNECTION){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "OK DIALOG");
+                    app.openOKDialog(getActivity(), LoginFragment.this, "no_connection");
+                    switcher.setDisplayedChild(1);
+                }
+            });
+        }else{
+            showToastMessage(getString(R.string.connection_failed));
+            mListener.setToolbarVisibility(true);
+            switcher.setDisplayedChild(1);
         }
     }
 }

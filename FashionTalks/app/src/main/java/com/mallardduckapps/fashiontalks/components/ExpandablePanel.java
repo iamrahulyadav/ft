@@ -18,6 +18,7 @@ import android.view.animation.Transformation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Pivot;
 import com.mallardduckapps.fashiontalks.tasks.GlamTask;
@@ -38,18 +39,23 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     //Meaning no pivot, draggable, no tasks works after click, glamCount 0
     private boolean ownPost = false;
     private boolean createPost = false;
+    private boolean adPost = false;
     boolean nameGiven = false;
     private boolean selected = false;
     private boolean readyToDelete = false;
     private int tagId;
     private String brandName;
+    private String adUrl = "";
     private boolean autoClose = false;
+    FashionTalksApp app;
 
-    public ExpandablePanel(final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost) {
+    public ExpandablePanel(final FashionTalksApp app,final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost, boolean adPost) {
         super(context);
         this.lhsAnimation = lhsAnimation;
         this.ownPost = ownPost;
+        this.adPost = adPost;
         this.pivot = pivot;
+        this.app = app;
         Resources res = getResources();
         expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, res
                 .getDisplayMetrics());
@@ -64,7 +70,12 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         params.leftMargin = x;
         params.topMargin = y;
         setLhsAnimation(lhsAnimation);
-        setBackgroundResource(R.drawable.glam_shape);
+        //if(!adPost){
+            setBackgroundResource(R.drawable.glam_shape);
+        //}else{
+         //   setBackgroundResource(R.drawable.glam_shape_delete);
+       // }
+
         setSingleLine();
         setMaxLines(1);
         setGravity(Gravity.CENTER);
@@ -88,8 +99,20 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         this.selected = selected;
     }
 
+    public void setAdUrl(String url){
+        adUrl = url;
+    }
+
+    public String getAdUrl(){
+        return adUrl;
+    }
+
     public boolean isNameGiven() {
         return nameGiven;
+    }
+
+    public boolean isAdPost(){
+        return adPost;
     }
 
     public void setNameGiven(boolean nameGiven) {
@@ -105,7 +128,14 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         this.lhsAnimation = lhsAnimation;
         Drawable img = getResources().getDrawable(
                 R.drawable.glam_dot_unpressed);
+        if(adPost){
+            img = getResources().getDrawable(
+                    R.drawable.buy_now_icon);
+            //setBackgroundResource(R.drawable.glam_shape_delete);
+            Log.d(TAG, "AD POST IS TRUE SET IMAGE");
+        }
         img.setBounds(0, 0, mContentWidth, mContentWidth);
+
         if (!lhsAnimation) {
             setCompoundDrawables(null, null, img, null);
             //setPadding(5,0,5,0);// 5,0,0,0
@@ -279,7 +309,6 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                         interpolatedTime) - delta;
                 param.leftMargin -= delta;
             }
-
             setLayoutParams(param);
 
 //            Log.d("EXPANDABLE_PANEL", "Width: " + param.width + "leftmargin: "+ param.leftMargin +
@@ -304,7 +333,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                 mListener.onExpand(ExpandablePanel.this);
                 if (!pivot.isGlammed() && !ownPost) {
                     GlamTask task = new GlamTask(ExpandablePanel.this, pivot.getId(), pivot.getGlamCount());
-                    task.execute();
+                    if(app != null){
+                        app.executeAsyncTask(task, null);
+                    }else{
+                        task.execute();
+                    }
                 }
             } else {
                 if(!autoClose){
@@ -322,13 +355,9 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     }
 
     public interface OnExpandListener {
-        public void onExpand(View view);
-        public void onCollapse(View view, int tagId, String brandName);
-        public void onTagGlammed(int glamCount, int totalGlamCount);
+        void onExpand(View view);
+        void onCollapse(View view, int tagId, String brandName);
+        void onTagGlammed(int glamCount, int totalGlamCount);
     }
 
-/*    private class DefaultOnExpandListener implements OnExpandListener {
-        public void onCollapse(View view) {}
-        public void onExpand(View view) {}
-    }*/
 }

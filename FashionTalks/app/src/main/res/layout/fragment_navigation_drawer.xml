@@ -13,7 +13,7 @@
         android:layout_marginLeft="12dp"
         android:orientation="vertical">
 
-        <com.makeramen.RoundedImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/thumbnailImage"
             android:layout_width="@dimen/thumbnail_width"
             android:layout_height="@dimen/thumbnail_height"

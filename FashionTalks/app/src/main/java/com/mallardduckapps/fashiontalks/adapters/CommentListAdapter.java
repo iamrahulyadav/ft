@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.makeramen.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.objects.Comment;
@@ -45,11 +45,13 @@ public class CommentListAdapter extends BaseAdapter {
     FashionTalksApp app;
     CommentAction commentAction;
     int myId;
+    boolean ownPost;
 
-    public CommentListAdapter(Activity act, CommentAction commentAction, ArrayList<Comment> commentsList){
+    public CommentListAdapter(Activity act, CommentAction commentAction, ArrayList<Comment> commentsList, boolean ownPost) {
         this.activity = act;
         this.commentAction = commentAction;
-        manager = activity.getAssets();
+        manager = act.getAssets();
+        this.ownPost = ownPost;
         font = activity.getString(R.string.font_helvatica_thin);
         data = commentsList;
         res = act.getResources();
@@ -94,12 +96,12 @@ public class CommentListAdapter extends BaseAdapter {
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
             holder.comment = (TextView) vi.findViewById(R.id.commentTv);
             holder.actionButton = (Button) vi.findViewById(R.id.actionButton);
+            holder.actionButton1 = (Button) vi.findViewById(R.id.actionButton1);
             holder.nameTv.setTypeface(FTUtils.loadFont(manager, font));
-            holder.comment.setTypeface(FTUtils.loadFont(manager,font));
+            holder.comment.setTypeface(FTUtils.loadFont(manager, font));
             holder.thumbView = (RoundedImageView) vi.findViewById(R.id.thumbnailImage);
             vi.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) vi.getTag();
         }
 
@@ -109,14 +111,25 @@ public class CommentListAdapter extends BaseAdapter {
         holder.comment.setText(StringEscapeUtils.unescapeJson(comment.getComment()));
         holder.actionButton.setText(userId == myId ? "delete" : "reply");
         holder.actionButton.setBackgroundColor(userId == myId ? Color.RED : Color.GRAY);
+        if (ownPost && userId != myId) {
+            holder.actionButton1.setVisibility(View.VISIBLE);
+        } else {
+            holder.actionButton1.setVisibility(View.GONE);
+        }
         holder.actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((Button)v).getText().equals("delete")){
+                if (((Button) v).getText().equals("delete")) {
                     commentAction.doCommentAction("delete", comment, position);
-                }else{
+                } else {
                     commentAction.doCommentAction("reply", comment, position);
                 }
+            }
+        });
+        holder.actionButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentAction.doCommentAction("delete", comment, position);
             }
         });
 
@@ -133,9 +146,10 @@ public class CommentListAdapter extends BaseAdapter {
         TextView nameTv;
         TextView comment;
         Button actionButton;
+        Button actionButton1;
     }
 
-    public interface CommentAction{
+    public interface CommentAction {
         public void doCommentAction(String commentAction, Comment comment, int position);
     }
 }

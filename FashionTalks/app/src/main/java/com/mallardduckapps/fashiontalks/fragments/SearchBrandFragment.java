@@ -132,9 +132,17 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
         return rootView;
     }
 
+    private void sendEventToGoogleAnalytics(String text){
+        app.sendAnalyticsEvent("Search Result View", "UX", "SEARCH_TERM", text);
+        app.sendAnalyticsEvent("Search Brands View", "UX", "SEARCH_TERM", text);
+    }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        if(listData == null || tags == null){
+            return;
+        }
         Log.d(TAG, "ITEM CLICKED " + position);
         Intent intent = new Intent(getActivity(), GalleryActivity.class);
         intent.putExtra("GALLERY_ID", tags.get(position).getId());
@@ -200,8 +208,14 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
         }
 
         if(adapter == null){
-            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, listData);
-            setListAdapter(adapter);
+            try{
+                adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, listData);
+                setListAdapter(adapter);
+            }catch(Exception e){
+                e.printStackTrace();
+                return;
+            }
+
         }else{
             adapter.notifyDataSetChanged();
         }
@@ -218,8 +232,15 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
 
     public void useLoader(String text){
         Log.d(TAG, "USE LOADER - START");
+        if(text == null ){
+            return;
+        }
+        if(text.equals("")){
+            return;
+        }
         resetLoader(text);
         loader.forceLoad();
+        sendEventToGoogleAnalytics(text);
     }
 
     @Override
@@ -234,6 +255,7 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
                 progressBar.setVisibility(View.VISIBLE);
             }
         });
+
         return loader;
     }
 

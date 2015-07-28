@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -46,13 +47,18 @@ public class CommentListLoader extends AsyncTaskLoader<ArrayList<Comment>> {
             e.printStackTrace();
             return null;
         }
-
-        JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-        Gson gson = new Gson();
-        for (JsonElement item : dataObjects) {
-            Comment comment = gson.fromJson(item, Comment.class);
-            commentList.add(comment);
+        try{
+            JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+            for (JsonElement item : dataObjects) {
+                Comment comment = gson.fromJson(item, Comment.class);
+                commentList.add(comment);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
         return commentList;
     }
 

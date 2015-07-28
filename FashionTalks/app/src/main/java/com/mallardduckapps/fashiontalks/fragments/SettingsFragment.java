@@ -58,6 +58,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                 //if(actionName.equals(getString(R.string.logout))){
                 FashionTalksApp app = (FashionTalksApp)getActivity().getApplication();
                 app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, "");
+                app.dataSaver.putString(Constants.FB_ACCESS_TOKEN_KEY,"");
                 app.dataSaver.putString("REGISTRATION_ID", "");
                 app.dataSaver.save();
                 app.flushAllData();

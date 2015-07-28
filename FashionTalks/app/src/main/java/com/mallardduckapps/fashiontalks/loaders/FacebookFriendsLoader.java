@@ -5,6 +5,7 @@ import android.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -13,6 +14,9 @@ import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -29,11 +33,16 @@ public class FacebookFriendsLoader extends AsyncTaskLoader<ArrayList<User>> {
     public int startIndex = 0;
     public int perPage = 50;
     FashionTalksApp app;
+    public int status = 500;
 
     public FacebookFriendsLoader(Activity context, int loaderId){
         super(context);
         app = (FashionTalksApp) context.getApplication();
         this.loaderId = loaderId;
+    }
+
+    public int getStatus(){
+        return status;
     }
 
     @Override
@@ -51,16 +60,29 @@ public class FacebookFriendsLoader extends AsyncTaskLoader<ArrayList<User>> {
             return null;
         }
 
-        JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-        Gson gson = new Gson();
-        for (JsonElement item : dataObjects) {
-            PopularUser user = gson.fromJson(item, PopularUser.class);
-            //TODO look if followed
-            if(user.getIsFollowing() != 1){
-                usersList.add(user);
-            }
-
+        try {
+            JSONObject object = new JSONObject(response);
+            status = object.getInt("status");
+            Log.d(TAG, "FB FRIENDS STATUS = " + status);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        try{
+            JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+            for (JsonElement item : dataObjects) {
+                PopularUser user = gson.fromJson(item, PopularUser.class);
+                //TODO look if followed
+                if(user.getIsFollowing() != 1){
+                    usersList.add(user);
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         return usersList;
     }
 

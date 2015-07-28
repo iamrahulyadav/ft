@@ -14,7 +14,7 @@
         android:layout_marginRight = "@dimen/register_edittext_margin_side"
         android:layout_marginBottom="15dp">
 
-        <com.makeramen.RoundedImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/profileThumbnail"
             android:layout_width="95dp"
             android:layout_height="95dp"
@@ -167,6 +167,8 @@
 
             android:textSize="25dp"
             android:text="@string/register"
+            android:textAllCaps="false"
+            style="@style/Base.TextAppearance.AppCompat"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
 

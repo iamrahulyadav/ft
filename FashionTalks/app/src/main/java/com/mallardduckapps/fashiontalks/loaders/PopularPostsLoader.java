@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -19,9 +20,6 @@ import com.mallardduckapps.fashiontalks.utils.Constants;
 
 import java.util.ArrayList;
 
-/**
- * Created by oguzemreozcan on 17/01/15.
- */
 public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
 
     final String TAG = "PopularPosts_Loader";
@@ -55,8 +53,16 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         }
         //HANDLE THIS
         //Caused by: java.lang.IllegalStateException: Not a JSON Object: "NO_CONNECTION"
-        JsonArray dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-        Gson gson = new Gson();
+        JsonArray dataObjects = null;
+        try{
+            dataObjects = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
 
         if (loaderId == Constants.GALLERY_POSTS_BY_TAG_LOADER_ID) {
             for (JsonElement item : dataObjects) {

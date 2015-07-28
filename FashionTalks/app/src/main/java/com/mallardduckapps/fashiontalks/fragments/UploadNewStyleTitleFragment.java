@@ -97,6 +97,7 @@ public class UploadNewStyleTitleFragment extends BasicFragment {
 
         Bitmap bitmap = BitmapFactory.decodeFile(mImageUri.getPath());
         postPhoto.setImageBitmap(bitmap);
+        mListener.setBackButton(true);
         //grabImage(postPhoto);
         return rootView;
     }

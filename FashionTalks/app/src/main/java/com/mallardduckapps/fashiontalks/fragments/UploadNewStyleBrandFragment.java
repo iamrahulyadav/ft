@@ -38,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mallardduckapps.fashiontalks.BaseActivity;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.GalleryActivity;
 import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -73,7 +74,6 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     boolean sendActive = true;
     int posX;
     int posY;
-    //ExpandablePanel glam;
     ExpandablePanel currentGlam;
     boolean keyboardOpen;
     boolean newGlamReadyToAdd = true;
@@ -81,7 +81,6 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     boolean editTextVisible = true;
     private ArrayAdapter<String> adapter;
     private ArrayList<Tag> tags;
-    //private ArrayList<String> testData;
     private ArrayList<String> listData;
     private ListView lv;
     private Timer timer;
@@ -207,7 +206,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 if(postInProgress){
                     return;
                 }
-                if(brandEdit.getText().length() > 1){
+                if(brandEdit.getText().toString().trim().length() > 1){
                     //terminateTask();
                     //resetLoader(brandEdit.getText().toString());
                     if(currentGlam.isLhsAnimation()){
@@ -264,6 +263,10 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         postPhoto.setImageBitmap(bitmap);
         initPostForUpload();
         postInProgress = false;
+        mListener.setBackButton(true);
+        if(app == null){
+            app = (FashionTalksApp)getActivity().getApplication();
+        }
        // grabImage(postPhoto);
         return rootView;
     }
@@ -284,8 +287,8 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         object.put("image", encodedImage);
         object.put("title", postTitle);
         JSONArray array = new JSONArray();
-        for(int i = 0; i <panels.size(); i ++){
-            ExpandablePanel panel = panels.get(i);
+        int index = 0;
+        for(ExpandablePanel panel : panels){
             if(panel != null){
                 JSONObject glamObject = new JSONObject();
                 glamObject.put("tag", panel.getText().toString().trim());
@@ -296,7 +299,8 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                     glamObject.put("y", getVirtualY((int)panel.getY() - 5));
                 }
 
-                array.put(i, glamObject);
+                array.put(index, glamObject);
+                index ++;
             }
         }
 
@@ -311,7 +315,8 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         Log.d(TAG, "JSON: " + object.toString(1));
         //Log.d(TAG, "JSON title: " + object.getString("title"));
         SendPhotoTask task = new SendPhotoTask();
-        task.execute(object.toString());
+        app.executeAsyncTask(task, object.toString());
+        //task.execute();
     }
 
     private void glamReady(String tagName, int index){
@@ -356,8 +361,14 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         }
 
         if(adapter == null){
-            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, listData);
-            lv.setAdapter(adapter);
+            try{
+                adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, listData);
+                lv.setAdapter(adapter);
+            }catch(NullPointerException e){
+                e.printStackTrace();
+                return;
+            }
+
         }else{
             adapter.notifyDataSetChanged();
         }
@@ -384,7 +395,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     private void placeGlam(final int x, final int y, final int leftBorder, final int topBorder, final int imageWidth, final int imageHeight) {
-        final ExpandablePanel glam = new ExpandablePanel(getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? false : true, true, true);
+        final ExpandablePanel glam = new ExpandablePanel(app, getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? false : true, true, true, false);
         final int rightBorder = leftBorder + imageWidth - glam.getWidth();
         final int bottomBorder = topBorder + imageHeight - (int)getResources().getDimension(R.dimen.glam_width);
         currentGlam = glam;
@@ -565,7 +576,11 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         //super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_send) {
             Log.d(TAG, "SEND");
-            if (sendActive && newGlamReadyToAdd) {
+            int panelSize = 0;
+            if(panels != null){
+                panelSize = panels.size();
+            }
+            if (sendActive && newGlamReadyToAdd && panelSize > 0 ) {
                 try {
                     createPostJson();
                 } catch (JSONException e) {
@@ -641,7 +656,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             //no_brand text
             lv.setVisibility(View.GONE);
             String noBrandTxt = noBrand.getText().toString();
-            noBrandTxt = noBrandTxt.replace("|" , brandEdit.getText().toString());
+            noBrandTxt = noBrandTxt.replace("***" , brandEdit.getText().toString());
             noBrand.setText(noBrandTxt);
             noBrand.setVisibility(View.VISIBLE);
         }else{
@@ -698,6 +713,9 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 response = "NO_CONNECTION";
                 e.printStackTrace();
             }
+            if(response == null){
+                response = "NO_CONNECTION";
+            }
             return response;
         }
 
@@ -712,10 +730,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                 getActivity().finish();
                 BaseActivity.setTranslateAnimation(getActivity());
             }else{
-                Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
+                try{
+                    Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
+                }catch(Exception e){
 
+                }
             }
-
         }
     }
 }

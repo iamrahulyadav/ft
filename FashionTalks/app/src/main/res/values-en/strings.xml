@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">FashionTalks</string>
+    <string name="app_name">Fashion Talks</string>
+    <string name="app_name_caps">FASHIONTALKS</string>
     <string name="title_section1">Discover Looks</string>
     <string name="title_section2">Find Users</string>
     <string name="title_section3">Notifications</string>
@@ -20,10 +21,12 @@
     <string name="action_forget_pass">Forgot my Password</string>
     <string name="action_register_short">Sign Up</string>
     <string name="error_invalid_email">Invalid Email Address</string>
+    <string name="error_invalid_username">Invalid Username</string>
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_incorrect_password">Wrong Username and/or Password</string>
     <string name="error_field_required">Required Field</string>
-    <string name="user_name_in_use">Email is already registered, please select another email and try again.</string>
+    <string name="user_name_in_use">Username is already registered, please select another username and try again.</string>
+    <string name="email_in_use">Email is already registered, please select another email and try again.</string>
 
     <!-- Register Ekranı -->
     <string name="userName">Username</string>
@@ -32,10 +35,10 @@
     <string name="passwordAgain">&#160;/ Password Repeat</string>
     <string name="name">Name</string>
     <string name="lastName">Last Name</string>
-    <string name="birthDate">Date of Birth (Optional)</string>
-    <string name="country">Country (Optional)</string>
-    <string name="city">City (Optional)</string>
-    <string name="about">About Me (160 Characters) (Optional)</string>
+    <string name="birthDate">Date of Birth </string>
+    <string name="country">Country </string>
+    <string name="city">City </string>
+    <string name="about">About Me (160 Characters) </string>
     <string name="sex">Sex</string>
     <string name="male">M</string>
     <string name="female">F</string>
@@ -80,6 +83,7 @@
     <string name="font_helvatica_thin">HelveticaNeueLTPro-Th.otf</string>
     <string name="font_helvatica_roman">HelveticaNeueLTPro-Roman.otf</string>
     <string name="font_helvatica_bold">HelveticaNeueLTPro-Bd.otf</string>
+    <string name="font_times_new_roman">TimesNewRoman.ttf</string>
     <string name="title_activity_user_settings">UserSettingsActivity</string>
     <string name="title_activity_upload_new_style">UploadNewStyleActivity</string>
 
@@ -97,7 +101,7 @@
     <string name="connection_failed">System Error! Please Try Again.</string>
     <string name="enter_brand_name">Please enter brand name.</string>
     <string name="no_brand">| can\'t be found in our system. Please check if | is correctly typed. Wrongly written tags will be deleted along with their glams</string>
-    <string name="logout_alert">Are you sure you want to logout?</string>
+    <string name="logout_alert">Are you sure you want to exit?</string>
     <string name="delete_post_alert">Are you sure you want to delete your post?</string>
     <string name="invalid_post_alert">Post deleted or Invalid.</string>
     <string name="password_error_dialog">Error while sending password. Please Try Again.</string>
@@ -168,7 +172,7 @@
     <string name="upload_new_brand">Add Brands</string>
     <string name="upload_brand_name">Brand Name</string>
     <string name="upload_menu_continue">Continue</string>
-    <string name="upload_menu_send">Send</string>
+    <string name="upload_menu_send">Post</string>
     <string name="camera_not_found">No Camera Found.</string>
 
     <string name="search_user">Search for Users</string>
@@ -178,6 +182,7 @@
     <string name="connect_to_fb">Connect to Facebook</string>
     <string name="login_with_fb">Connect with Facebook</string>
     <string name="login_with_fb_subtitle">We don\'t post anything to your Facebook page</string>
+    <string name="no_user_to_suggest">There is no user to suggest right now.</string>
     <string name="login_with_email">Login with Email</string>
     <string name="forget_password">Forgot Password</string>
     <string name="signup">Sign Up</string>
@@ -185,6 +190,9 @@
     <string name="terms_privacy_warning">By joining FashionTalks you agree the <![CDATA[<a href="http://www.fashiontalks.org/terms-of-use.html"> <br> <b>Terms of Service</b></a>]]> and
         <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
     <string name="fbId">340890866061812</string>
+    <string name="title_activity_new_notification">NewNotificationActivity</string>
+    <string name="title_activity_post">PostActivity</string>
 
+    <string name="hello_world">Hello world!</string>
 </resources>
 

@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Comment {
 
+    @SerializedName("id")
     private int id;
     @SerializedName("post_id")
     private int postId;
@@ -15,7 +16,9 @@ public class Comment {
     private int userId;
     @SerializedName("created_at")
     private String createdAt;
+    @SerializedName("user")
     private User user;
+    @SerializedName("comment")
     private String comment;
 
     public int getId() {

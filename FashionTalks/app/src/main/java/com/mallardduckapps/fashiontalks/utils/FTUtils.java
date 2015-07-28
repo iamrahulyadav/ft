@@ -65,8 +65,17 @@ public class FTUtils {
                 object.put(param.getName(), param.getValue());
             }
         }
-        Log.d("JSON", "JSON: " + object.toString());
-        return object.toString();
+        String jsonText = "";
+        try{
+            jsonText = object.toString();
+        }catch(OutOfMemoryError e){
+            e.printStackTrace();
+            object = object.put("file", "");
+            jsonText = object.toString();
+        }
+
+        //Log.d("JSON", "JSON: " + object.toString());
+        return jsonText;
     }
 
     public static float dpFromPx(int px, Context context) {
@@ -109,7 +118,6 @@ public class FTUtils {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
-
 
     /**
      * Checks if the device is a tablet or a phone

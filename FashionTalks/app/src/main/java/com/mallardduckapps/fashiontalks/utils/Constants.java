@@ -12,14 +12,15 @@ public class Constants {
     public final static int PROFILE_EDIT_SUCCESSFUL = 4;
     public final static int PROFILE_EDIT_UNSUCCESSFUL = 5;
     public final static int FB_AUTHENTICATION_SUCCESSFUL = 6;
-    public final static int DUBLICATE_ENTRY = 7;
+    public final static int DUBLICATE_EMAIL = 7;
+    public final static int DUBLICATE_USERNAME = 8;
     public final static int WRONG_CREDENTIALS = 3;
 
     public final static int TOOLBAR_WITH_TITLE = 0;
     public final static int TOOLBAR_WITH_BACK_BUTTON = 1;
     public final static int TOOLBAR_WITH_BACK_AND_EXIT_BUTTON = 2;
 
-    public final static String API_ADDRESS = "http://api.ft-api.com";
+    public final static String API_ADDRESS = "http://ft-api2.elasticbeanstalk.com";//"http://api.ft-api.com";
 
     public final static String TEST = "http://ft-notifs.elasticbeanstalk.com";
 
@@ -87,6 +88,7 @@ public class Constants {
 
     public final static String SENDER_ID = "337533113430";
 
+    public final static int USER_FAVORITE_POST_LOADER_ID = 22;
     public final static int GALLERY_POSTS_BY_TAG_LOADER_ID = 21;
     public final static int SETTINGS_LOADER_ID = 20;
     public final static int NOTIFICATION_MY_POST_LOADER_ID = 18;

@@ -39,7 +39,7 @@
             android:layout_below="@+id/divider"
             android:background="@color/white">
 
-            <com.makeramen.RoundedImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -106,7 +106,7 @@
             android:layout_below="@+id/topBar"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:src="@drawable/splash_portrait" />
 
         <LinearLayout
@@ -148,7 +148,7 @@
         <RelativeLayout
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
-            android:layout_height="?listPreferredItemHeight"
+            android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentBottom="true"
             android:background="@color/white">
 

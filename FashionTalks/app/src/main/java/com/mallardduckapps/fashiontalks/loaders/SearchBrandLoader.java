@@ -50,7 +50,8 @@ public class SearchBrandLoader extends AsyncTaskLoader<ArrayList<Tag>> {
         try {
             String url = new StringBuilder(Constants.GLAM_AC_TAG_PREFIX).append(uri).toString();
             response = restClient.doGetRequest(url, null);
-            Gson gson = new GsonBuilder().create();
+            Exclude ex = new Exclude();
+            Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
             Type collectionType = new TypeToken<Collection<Tag>>(){}.getType();
             JsonArray object = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
             tagList = gson.fromJson(object, collectionType);

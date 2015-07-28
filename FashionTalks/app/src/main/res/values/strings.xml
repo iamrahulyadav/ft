@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">FashionTalks</string>
+    <string name="app_name">Fashion Talks</string>
     <string name="app_name_caps">FASHIONTALKS</string>
     <string name="title_section1">Stil Keşfet</string>
     <string name="title_section2">Kullanıcı Bul</string>
@@ -13,17 +13,19 @@
     <string name="login_page">Giriş</string>
     <string name="no_data">No Data</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Kullanıcı Adı veya Email Adresi</string>
+    <string name="prompt_email">Email Adresi</string>
     <string name="prompt_password">Şifre</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Giriş Yap</string>
     <string name="action_forget_pass">Şifremi Unuttum</string>
     <string name="action_register_short">Kayıt Ol</string>
     <string name="error_invalid_email">Email Adresi Geçersiz</string>
+    <string name="error_invalid_username">Kullanıcı Adı Geçersiz</string>
     <string name="error_invalid_password">Şifre Geçersiz</string>
     <string name="error_incorrect_password">Kullanıcı Adı ve/ya Şifre Yanlış</string>
     <string name="error_field_required">Alan gerekli</string>
-    <string name="user_name_in_use">Email adresi kullanımda, lütfen başka bir kullanıcı adı seçip tekrar deneyin.</string>
+    <string name="user_name_in_use">Kullanıcı adı kullanımda, lütfen başka bir kullanıcı adı seçip tekrar deneyin.</string>
+    <string name="email_in_use">Email adresi kullanımda, lütfen başka bir email seçip tekrar deneyin.</string>
 
     <!-- Register Ekranı -->
     <string name="userName">Kullanıcı Adı</string>
@@ -32,10 +34,10 @@
     <string name="passwordAgain">&#160;/ Şifre Tekrar</string>
     <string name="name">Ad</string>
     <string name="lastName">Soyad</string>
-    <string name="birthDate">Doğum Tarihi (Opsiyonel)</string>
-    <string name="country">Ülke (Opsiyonel)</string>
-    <string name="city">Şehir (Opsiyonel)</string>
-    <string name="about">Hakkınızda (160 Karakter) (Opsiyonel)</string>
+    <string name="birthDate">Doğum Tarihi</string>
+    <string name="country">Ülke</string>
+    <string name="city">Şehir</string>
+    <string name="about">Hakkınızda (160 Karakter)</string>
     <string name="sex">Cinsiyet</string>
     <string name="male">E</string>
     <string name="female">K</string>
@@ -93,7 +95,7 @@
 
     <!-- Dialogs -->
     <string name="no_connection_title">Bağlantı Hatası!</string>
-    <string name="problem_occured">Bir sorun oluştu! Tekrar dene!</string>
+    <string name="problem_occured">Bir sorun oluştu! Lütfen daha sonra tekrar deneyiniz!</string>
     <string name="no_connection">Bağlantı Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="connection_failed">Sistem Hatası! Lütfen daha sonra tekrar deneyiniz.</string>
     <!--Lütfen | markasının doğru girildiğini kontrol edin veya yeni glam olarak ekleyin.-->
@@ -180,6 +182,7 @@
     <string name="login_with_fb">Facebook ile Giriş</string>
     <string name="login_with_fb_subtitle">Facebook sayfanıza hiçbir şey post etmiyoruz.</string>
     <string name="login_with_email">Email ile Giriş</string>
+    <string name="no_user_to_suggest">Şu anda önereceğimiz bir kullanıcı bulunmuyor.</string>
     <string name="forget_password">Şifremi Unuttum</string>
     <string name="signup">Kayıt Ol</string>
     <string name="send_password">Şifre Gönder</string>
@@ -187,8 +190,7 @@
         <![CDATA[<a href="http://www.fashiontalks.org/privacy-policy.html"><b>Privacy Policy</b></a>]]></string>
     <string name="fbId">340890866061812</string>
     <string name="title_activity_new_notification">NewNotificationActivity</string>
+    <string name="title_activity_post">PostActivity</string>
 
     <string name="hello_world">Hello world!</string>
-
-
 </resources>
