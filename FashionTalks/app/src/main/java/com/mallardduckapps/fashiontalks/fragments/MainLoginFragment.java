@@ -56,7 +56,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     OnLoginFragmentInteractionListener mListener;
     boolean loggedInBefore = false;
     CallbackManager callbackManager;
-
+    boolean attached = false;
     AccessTokenTracker accessTokenTracker;
 
     @Override
@@ -119,12 +119,14 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     @Override
     public void onDetach() {
         super.onDetach();
+        attached = false;
         mListener = null;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        attached = true;
         try {
              mListener = (OnLoginFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -307,7 +309,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
 
-        if(mListener == null){
+        if(mListener == null || !attached){
             return;
         }
         //showProgress(false);
@@ -359,7 +361,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     @Override
     public void getUser(int authStatus, User user) {
 
-        if(mListener == null){
+        if(mListener == null || !attached){
             return;
         }
 

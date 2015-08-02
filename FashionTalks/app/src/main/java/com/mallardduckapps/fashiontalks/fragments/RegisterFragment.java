@@ -1,6 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -31,6 +34,7 @@ import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.RegisterTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
+import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -41,6 +45,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import eu.janmuller.android.simplecropimage.CropImage;
 
@@ -73,6 +81,8 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     FashionTalksApp app;
     OnLoginFragmentInteractionListener mListener;
     boolean profileImageSaved;
+    boolean attached = false;
+    Calendar myCalendar = Calendar.getInstance();
 
     public RegisterFragment() {
     }
@@ -80,6 +90,25 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     @Override
     public void setTag() {
         TAG = "Kayıt";
+    }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+
+    };
+
+    private void updateLabel(){
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, TimeUtil.localeTr);
+        birthDateEdit.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override
@@ -98,7 +127,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.register_layout, container, false);
         FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_thin)));
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         profilePic = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
         registerButton = (Button) rootView.findViewById(R.id.registerButton);
         userNameEdit = (EditText) rootView.findViewById(R.id.userName);
@@ -116,6 +145,15 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         genderMale.setTypeface(genderMale.getTypeface(), Typeface.BOLD);
         genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.BOLD);
         isEditProfile = getArguments().getBoolean("EDIT_PROFILE", false);
+
+        birthDateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         genderMale.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +212,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        attached = true;
         try {
             mListener = (OnLoginFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -188,6 +227,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         Log.d(TAG, "ON DETACH");
         hideKeyboard();
         super.onDetach();
+        attached = false;
     }
 
     private void hideKeyboard() {
@@ -357,7 +397,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
         // showProgress(false);
-        if(mListener == null){
+        if(mListener == null || !attached){
             return;
         }
 

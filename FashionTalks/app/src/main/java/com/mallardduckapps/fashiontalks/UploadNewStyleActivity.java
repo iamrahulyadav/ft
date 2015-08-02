@@ -148,8 +148,8 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         }
         else {
             if(menu.isMenuShowing()){
-                app.exitDialog(this);
-                //finish(); menu.toggle();
+                //app.exitDialog(this);
+                finish(); //menu.toggle();
             }else{
                 menu.toggle();
             }

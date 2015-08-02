@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.PostActivity;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.fragments.ClassificationDialog;
+import com.mallardduckapps.fashiontalks.fragments.ReportDialog;
 import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.User;
@@ -99,8 +102,20 @@ public class PopularUserListAdapter extends BaseAdapter implements FollowTask.Fo
             holder = new ViewHolder();
             holder.nameTv = (TextView) vi.findViewById(R.id.nameTv);
             holder.glamTv = (TextView) vi.findViewById(R.id.glamTv);
+            holder.classificationTv = (TextView) vi.findViewById(R.id.classificationTv);
+            holder.classificationTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClassificationDialog dialog = new ClassificationDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("DIALOG_NO", ClassificationDialog.CLASSIFICATION_DIALOG);
+                    dialog.setArguments(bundle);
+                    dialog.show(activity.getSupportFragmentManager(), "ClassificationDialog");
+                }
+            });
             holder.nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
             holder.glamTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+            holder.classificationTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
             holder.column1Image = (ImageView) vi.findViewById(R.id.imageColumn1);
             holder.column2Image = (ImageView) vi.findViewById(R.id.imageColumn2);
             holder.column3Image = (ImageView) vi.findViewById(R.id.imageColumn3);
@@ -115,9 +130,24 @@ public class PopularUserListAdapter extends BaseAdapter implements FollowTask.Fo
 
         holder.button.setChecked(user.getIsFollowing() == 1 );
         holder.nameTv.setText(user.getUserName());
-        holder.glamTv.setText(new StringBuilder(user.getGlamCountPattern()).append(" Glam").toString());
+        holder.glamTv.setText(new StringBuilder(user.getGlamCountPattern()).append(" Glam - ").toString());
+        holder.classificationTv.setText(classifyUser(user.getGlamCount()));
         showImages(holder, user, photos);
         return vi;
+    }
+
+    private String classifyUser(int glamCount){
+        if(glamCount <10000){
+            return activity.getString(R.string.fashionTalker);
+        }else if(glamCount >= 10000 && glamCount < 50000){
+            return activity.getString(R.string.fashionLover);
+        }else if(glamCount >= 50000 && glamCount < 100000){
+            return activity.getString(R.string.raisingStar);
+        }else if(glamCount >= 100000 && glamCount < 1000000){
+            return activity.getString(R.string.fashionista);
+        }else{
+            return activity.getString(R.string.fashionIcon);
+        }
     }
 
     private boolean showImages(final ViewHolder holder, final User user, ArrayList<Post> photos){
@@ -223,6 +253,7 @@ public class PopularUserListAdapter extends BaseAdapter implements FollowTask.Fo
         ImageView column3Image;
         TextView nameTv;
         TextView glamTv;
+        TextView classificationTv;
         CheckBox button;
     }
 }

@@ -91,18 +91,16 @@ public class PostActivity extends ActionBarActivity implements BasicFragment.OnF
     public boolean onOptionsItemSelected(MenuItem item) {
         //Log.d(TAG, "ON BACK MENU BUTTON PRESSED");
         int id = item.getItemId();
-        super.onOptionsItemSelected(item);
+        //super.onOptionsItemSelected(item);
         //noinspection SimplifiableIfStatement
         if(id == android.R.id.home){
             close();
+            return true;
         }else if(id == R.id.action_home){
-            Intent intent = new Intent(PostActivity.this, MainActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
-            finish();
-            BaseActivity.setBackwardsTranslateAnimation(this);
+            Log.d(TAG, "ACTION HOME return false");
+            return false;
         }
-        return true;
+        return false;
     }
 
     public static void hide_keyboard_from(Context context, View view) {

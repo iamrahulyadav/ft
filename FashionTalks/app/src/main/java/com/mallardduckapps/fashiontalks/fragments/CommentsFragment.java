@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,11 +28,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
+import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.CommentListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.CommentListLoader;
 import com.mallardduckapps.fashiontalks.loaders.Exclude;
 import com.mallardduckapps.fashiontalks.objects.Comment;
+import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.swipelistview.BaseSwipeListViewListener;
 import com.mallardduckapps.fashiontalks.swipelistview.SwipeListView;
@@ -364,6 +367,16 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             editText.setSelection(editText.length());
             listView.closeAnimate(position);
         }
+    }
+
+    @Override
+    public void openUserProfile(String commentAction, User user, int position) {
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+//        User user = dataList.get(position);
+        app.setOther(user);
+        intent.putExtra("PROFILE_ID", user.getId());
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public interface CommentIsMade{

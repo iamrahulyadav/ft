@@ -124,11 +124,13 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         TextView nameTv = (TextView) rootView.findViewById(R.id.nameTv);
         TextView userNameTv = (TextView) rootView.findViewById(R.id.userNameTv);
         TextView glamCountTv = (TextView) rootView.findViewById(R.id.glamCountTv);
+        TextView classificationTv = (TextView) rootView.findViewById(R.id.classificationTv);
         TextView aboutMeTv = (TextView) rootView.findViewById(R.id.aboutMeText);
         profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
 
         nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        classificationTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         followButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
         followingButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         followersButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
@@ -193,6 +195,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         //nameTv.setText(StringEscapeUtils.unescapeJson(user.getFirstName() +" " + user.getLastName()));
         userNameTv.setText(user.getUserName());
         glamCountTv.setText(user.getGlamCountPattern().concat(getString(R.string.glam)));
+        classificationTv.setText(classifyUser(user.getGlamCount()));
+        classificationTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassificationDialog dialog = new ClassificationDialog();
+                Bundle bundle = new Bundle();
+                bundle.putInt("DIALOG_NO", ClassificationDialog.CLASSIFICATION_DIALOG);
+                dialog.setArguments(bundle);
+                dialog.show(getActivity().getSupportFragmentManager(), "ClassificationDialog");
+            }
+        });
         return rootView;
     }
 
@@ -218,6 +231,20 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         }
         sendEventToGoogleAnalytics();
         return rootView;
+    }
+
+    private String classifyUser(int glamCount){
+        if(glamCount <10000){
+            return getActivity().getString(R.string.fashionTalker);
+        }else if(glamCount >= 10000 && glamCount < 50000){
+            return getActivity().getString(R.string.fashionLover);
+        }else if(glamCount >= 50000 && glamCount < 100000){
+            return getActivity().getString(R.string.raisingStar);
+        }else if(glamCount >= 100000 && glamCount < 1000000){
+            return getActivity().getString(R.string.fashionista);
+        }else{
+            return getActivity().getString(R.string.fashionIcon);
+        }
     }
 
     private void sendEventToGoogleAnalytics(){

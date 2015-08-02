@@ -43,8 +43,8 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         setContentView(R.layout.activity_main);
         app = (FashionTalksApp) getApplication();
         mainLayout = (FrameLayout) findViewById(R.id.container);
-        mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
-        tabToolbar = (Toolbar)findViewById(R.id.secondToolbar);
+        mainToolbar = (Toolbar) findViewById(R.id.mainToolbar);
+        tabToolbar = (Toolbar) findViewById(R.id.secondToolbar);
         setSupportActionBar(mainToolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -53,7 +53,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         topDivider = findViewById(R.id.divider);
         TextView tvName = (TextView) findViewById(R.id.toolbarName);
-        tvName.setTypeface(FTUtils.loadFont(getAssets(),getString(R.string.font_avantgarde_bold)));
+        tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
 /*        if(TAG.equals("MAIN_ACTIVITY")){
             mViewPager.setAdapter(new GalleriesPagerAdapter(getSupportFragmentManager(), this));
         }else{
@@ -78,8 +78,8 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                 .replace(R.id.menu_frame, mNavigationDrawerFragment)
                 .commit();
 
-        mainToolbar.setContentInsetsAbsolute(0,0);
-        tabToolbar.setContentInsetsAbsolute(0,0);
+        mainToolbar.setContentInsetsAbsolute(0, 0);
+        tabToolbar.setContentInsetsAbsolute(0, 0);
         fragmentManager = getSupportFragmentManager();
         //mNavigationDrawerFragment.setUp(
         //        R.id.navigation_drawer, (FrameLayout)findViewById(R.id.container),
@@ -87,7 +87,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
 
         //if(app.menu == null){
 
-      //  }
+        //  }
     }
 
     @Override
@@ -102,7 +102,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         AppEventsLogger.deactivateApp(this);
     }
 
-    protected void setSlidingStrips(){
+    protected void setSlidingStrips() {
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setFittingChildren(true);
@@ -119,11 +119,11 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if(menu.isMenuShowing()){
-            app.exitDialog(this);
+        if (menu.isMenuShowing()) {
+            //app.exitDialog(this);
 
-            //finish(); menu.toggle();
-        }else{
+            finish(); //menu.toggle();
+        } else {
             menu.toggle();
         }
     }
@@ -138,8 +138,8 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "EXIT MESSAGE: " + requestCode + " - resultCode: " + resultCode);
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == 666){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 666) {
                 //app.direction = "";
                 finish();
             }
@@ -163,47 +163,53 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     public void onNavigationDrawerItemSelected(final int position, final String actionName) {
 
-        if(menu != null && !actionName.equals("")){
+        if (menu != null && !actionName.equals("")) {
             menu.toggle();
             menu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
                 @Override
                 public void onClosed() {
                     Log.d(TAG, "actionName: " + actionName);
-                    if(actionName.equals("NO_ACTION")){
+                    if (actionName.equals("NO_ACTION")) {
                         return;
                     }
 
-                    if(actionName.equals(getString(R.string.title_section2))){
+                    if (actionName.equals(getString(R.string.title_section2))) {
                         BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, UsersActivity.class);
                         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         BaseActivity.this.startActivity(intent);
                         //overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
-                    }else if(actionName.equals(getString(R.string.title_section1))){
+                    } else if (actionName.equals(getString(R.string.title_section1))) {
                         BaseActivity.this.finish();
                         Log.d(TAG, "OPEN MAIN");
                         Intent intent = new Intent(BaseActivity.this, MainActivity.class);
                         BaseActivity.this.startActivity(intent);
-                    }else if(actionName.equals(getString(R.string.title_section3))){
+                    } else if (actionName.equals(getString(R.string.title_section3))) {
                         Log.d(TAG, "OPEN BILDIRIMLER");
                         BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, NotificationActivity.class);
                         BaseActivity.this.startActivity(intent);
-                    }else if(actionName.equals("PROFILE")){
+                    } else if (actionName.equals("PROFILE")) {
+                        if (app.getMe() == null) {
+                            return;
+                        }
                         BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
                         BaseActivity.this.startActivity(intent);
-                    }else if(actionName.equals(getString(R.string.title_section4))){
+
+                    } else if (actionName.equals(getString(R.string.title_section4))) {
                         BaseActivity.this.finish();
                         Intent intent = new Intent(BaseActivity.this, SettingsActivity.class);
                         BaseActivity.this.startActivity(intent);
-                    }else if(actionName.equals("UPLOAD")){
-
-                        if(app.getMe().getCanPost() == 1){
+                    } else if (actionName.equals("UPLOAD")) {
+                        if (app.getMe() == null) {
+                            return;
+                        }
+                        if (app.getMe().getCanPost() == 1) {
                             BaseActivity.this.finish();
                             Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
                             BaseActivity.this.startActivity(intent);
-                        }else{
+                        } else {
                             app.openOKDialog(BaseActivity.this, null, "no_post_access");
                             //Toast.makeText(getApplicationContext(), getString(R.string.posting_not_allowed), Toast.LENGTH_LONG).show();
                             return;
@@ -215,14 +221,14 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
-    public static void setTranslateAnimation(Activity activity){
+    public static void setTranslateAnimation(Activity activity) {
         activity.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_left);
         //(R.anim.activity_open_scale, R.anim.activity_close_translate);
         //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
     }
 
-    public static void setBackwardsTranslateAnimation(Activity activity){
-        activity.overridePendingTransition(R.anim.enter_from_left,R.anim.exit_from_right);//,);
+    public static void setBackwardsTranslateAnimation(Activity activity) {
+        activity.overridePendingTransition(R.anim.enter_from_left, R.anim.exit_from_right);//,);
         //(R.anim.activity_open_scale, R.anim.activity_close_translate);
         //fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
     }

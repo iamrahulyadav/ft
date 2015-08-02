@@ -54,6 +54,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     OnLoginFragmentInteractionListener mListener;
     public ViewSwitcher switcher;
     boolean loggedInBefore = false;
+    boolean attached = false;
 //    private View container;
 
     @Override
@@ -88,12 +89,14 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     public void onDetach() {
         hideKeyboard();
         super.onDetach();
+        attached = false;
         mListener = null;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        attached = true;
         try {
             mListener = (OnLoginFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -349,7 +352,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
 
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
-        if(mListener == null){
+        if(mListener == null || !attached){
             return;
         }
 
@@ -398,7 +401,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     @Override
     public void getUser(int authStatus, User user) {
         //TODO handle errors
-        if(mListener == null){
+        if(mListener == null || !attached){
             return;
         }
 

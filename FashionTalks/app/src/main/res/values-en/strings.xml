@@ -130,11 +130,30 @@
     <string name="unfollow">Unfollow</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="increase_followers">Increase Your Followers</string>
     <string name="no_followers">No one is Following</string>
     <string name="no_following">You are Following no one</string>
     <string name="no_notification">&#160;No Notifications</string>
     <string name="left_invite">&#160; &#160;Invitations Left.</string>
     <string name="edit_profile">Edit Profile</string>
+
+    <!--Classification-->
+    <string name="fashionIcon">Fashion Icon</string>
+    <string name="fashionIconTitle">Over 1M Glam - Fashion Icon</string>
+    <string name="fashionista">Fashionista</string>
+    <string name="fashionistaTitle">100.000 - 1M Glam - Fashionista</string>
+    <string name="raisingStar">Raising Star</string>
+    <string name="raisingStarTitle">50.000 - 100.000 Glam - Raising Star</string>
+    <string name="fashionLover">Fashion Lover</string>
+    <string name="fashionLoverTitle">10.000 - 50.000 Glam - FashionLover</string>
+    <string name="fashionTalker">Fashion Talker</string>
+    <string name="fashionTalkerTitle">0 - 10.000 Glam - FashionTalker</string>
+    <string name="classification_subtitle">Be ready for various suprises in each category!</string>
+
+    <!-- How to get More glams screen-->
+    <string name="getMoreGlamsTitle">To Get More Glams: </string>
+    <string name="getMoreGlamsSubtitle">Be an active user at FashionTalks: \nFollow other users and glam the\npieces you like.\n\nShare your FashionTalks account\nin your social media accounts by\n clicking \'increase your followers\'\nbutton on your profile
+    \n\nRegularly post pictures and \nreflect different styles</string>
 
     <!-- Time Util -->
     <string name="after_minute"> Minutes Later</string>

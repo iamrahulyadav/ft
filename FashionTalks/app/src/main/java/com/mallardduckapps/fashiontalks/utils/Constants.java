@@ -20,13 +20,14 @@ public class Constants {
     public final static int TOOLBAR_WITH_BACK_BUTTON = 1;
     public final static int TOOLBAR_WITH_BACK_AND_EXIT_BUTTON = 2;
 
-    public final static String API_ADDRESS = "http://ft-api2.elasticbeanstalk.com";//"http://api.ft-api.com";
+    public final static String API_ADDRESS = "http://api.ft-api.com";//"http://ft-api2.elasticbeanstalk.com";//;
 
     public final static String TEST = "http://ft-notifs.elasticbeanstalk.com";
 
     public final static String LOGIN_PREFIX = "/users/login";
     public final static String GET_USER_PREFIX = "/members/profile";
     public final static String REGISTER_PREFIX = "/users/register";
+    public final static String GET_COUNTRIES = "/users/country-list";
     public final static String CONNECT_FB = "/connect/facebook";
     public final static String LOGIN_FB = "/users/facebook";
     public final static String RESET_PASS = "/users/reset";

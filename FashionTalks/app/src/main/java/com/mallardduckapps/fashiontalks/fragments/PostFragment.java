@@ -16,6 +16,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -34,6 +37,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.GalleryActivity;
+import com.mallardduckapps.fashiontalks.MainActivity;
+import com.mallardduckapps.fashiontalks.PostActivity;
 import com.mallardduckapps.fashiontalks.PostsActivity;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -112,6 +117,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         width = PostsActivity.width;
         height = PostsActivity.height;
     }
@@ -481,6 +487,34 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 }
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_home) {
+            Log.d(TAG, "ACTION HOME: ownPost" + ownPost);
+            if (!ownPost) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+                BaseActivity.setBackwardsTranslateAnimation(getActivity());
+                return true;
+            } else {
+                ClassificationDialog dialog = new ClassificationDialog();
+                Bundle bundle = new Bundle();
+                bundle.putInt("DIALOG_NO", ClassificationDialog.GET_MORE_GLAMS_DIALOG);
+                dialog.setArguments(bundle);
+                dialog.show(getActivity().getSupportFragmentManager(), "ClassificationDialog");
+                return true;
+            }
+        }
+        return false;
     }
 
     private String createImageFile(){

@@ -89,6 +89,7 @@
             android:layout_marginBottom = "@dimen/register_edittext_margin_bottom"
             android:textSize="15dp"
             android:hint="@string/birthDate"
+            android:focusable="false"
             android:maxLines="1" android:singleLine="true" />
         <EditText android:id="@+id/country"
             android:layout_width="match_parent"

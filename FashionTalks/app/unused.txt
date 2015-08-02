@@ -237,12 +237,12 @@ com.mallardduckapps.fashiontalks.fragments.LoginFragment$ProfileQuery:
     public static final int IS_PRIMARY
 com.mallardduckapps.fashiontalks.fragments.MainLoginFragment:
     android.widget.ProgressBar progressBar
-    266:285:private void updateWithToken(com.facebook.AccessToken)
+    268:287:private void updateWithToken(com.facebook.AccessToken)
 com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment:
     private static final java.lang.String STATE_SELECTED_POSITION
     private android.view.View mFragmentContainerView
 com.mallardduckapps.fashiontalks.fragments.PostFragment:
-    240:257:private void shareMenuOnClick()
+    246:263:private void shareMenuOnClick()
 com.mallardduckapps.fashiontalks.fragments.ProfileFragment:
     private static final java.lang.String PROFILE_ID
 com.mallardduckapps.fashiontalks.objects.Gallery:

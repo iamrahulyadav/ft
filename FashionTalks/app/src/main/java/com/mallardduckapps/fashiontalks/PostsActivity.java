@@ -246,6 +246,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         return true;
     }
 
+    //TODO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //Log.d(TAG, "ON BACK MENU BUTTON PRESSED");
@@ -254,13 +255,15 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             close();
+            return true;
         } else if (id == R.id.action_home) {
             setPostsArrayList();
-            Intent intent = new Intent(PostsActivity.this, MainActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
-            finish();
-            BaseActivity.setBackwardsTranslateAnimation(this);
+//            Intent intent = new Intent(PostsActivity.this, MainActivity.class);
+//            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            this.startActivity(intent);
+//            finish();
+//            BaseActivity.setBackwardsTranslateAnimation(this);
+            return false;
         }
         return true;
     }

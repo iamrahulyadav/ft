@@ -133,6 +133,13 @@ public class CommentListAdapter extends BaseAdapter {
             }
         });
 
+        holder.thumbView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentAction.openUserProfile("profile", user, position);
+            }
+        });
+
         String path = new StringBuilder(pathMainUrl).append(user.getPhotoPath()).toString();
         ImageLoader.getInstance()
                 .displayImage(path, holder.thumbView, options);
@@ -150,7 +157,8 @@ public class CommentListAdapter extends BaseAdapter {
     }
 
     public interface CommentAction {
-        public void doCommentAction(String commentAction, Comment comment, int position);
+        void doCommentAction(String commentAction, Comment comment, int position);
+        void openUserProfile(String commentAction, User user, int position);
     }
 }
 

@@ -48,6 +48,18 @@
         android:textColor="@color/black"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/classificationTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/glamTv"
+        android:layout_below="@+id/nameTv"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="Fashionista"
+        android:textColor="@color/black" />
+
     <CheckBox
         android:id="@+id/followButton"
         android:layout_width="wrap_content"
