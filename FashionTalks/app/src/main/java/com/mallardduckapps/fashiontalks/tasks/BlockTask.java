@@ -16,10 +16,12 @@ public class BlockTask extends AsyncTask<Void, Void, String> {
     private final boolean block;
     private final int userId;
     private final String TAG = "Block_TASK";
+    private final IsBlocked callback;
 
-    public BlockTask(boolean block, int userId) {
+    public BlockTask(IsBlocked callback, boolean block, int userId) {
         this.block = block;
         this.userId = userId;
+        this.callback = callback;
     }
 
     @Override
@@ -36,11 +38,20 @@ public class BlockTask extends AsyncTask<Void, Void, String> {
             response = restClient.doGetRequest(url, null);
             JSONObject object = new JSONObject(response);
             int status = object.getInt("status");
+            if(status != 0){
+                callback.isUserBlocked(false, block);
+            }else{
+                callback.isUserBlocked(true, block);
+            }
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();
         }
         return response;
+    }
+
+    public interface IsBlocked{
+        void isUserBlocked(boolean success,boolean blocked);
     }
 }

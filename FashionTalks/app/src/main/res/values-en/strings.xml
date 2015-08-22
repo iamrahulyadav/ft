@@ -37,6 +37,7 @@
     <string name="lastName">Last Name</string>
     <string name="birthDate">Date of Birth </string>
     <string name="country">Country </string>
+    <string name="select_country">Select Country</string>
     <string name="city">City </string>
     <string name="about">About Me (160 Characters) </string>
     <string name="sex">Sex</string>
@@ -113,6 +114,7 @@
     <string name="report_subject3">Fashion Unrelated Photo</string>
     <string name="report_subject4">Picture Without Copyright</string>
     <string name="report_subject5">Other</string>
+    <string name="report">Report</string>
 
     <string name="posting_not_allowed">You need to activate this feature.</string>
 
@@ -121,6 +123,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="erase">&#160;Delete ?&#160;</string>
+    <string name="delete">Delete</string>
     <string name="glam">&#160;Glam</string>
     <string name="comment">&#160;Talks</string>
     <string name="save">Save</string>
@@ -130,12 +133,15 @@
     <string name="unfollow">Unfollow</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="follow_me_on_social_media">FashionTalks\'da takip edin! FashionTalks\'u PlayStore/AppStore\'dan indirebilirsiniz! @FashionTalksApp</string>
     <string name="increase_followers">Increase Your Followers</string>
     <string name="no_followers">No one is Following</string>
     <string name="no_following">You are Following no one</string>
     <string name="no_notification">&#160;No Notifications</string>
     <string name="left_invite">&#160; &#160;Invitations Left.</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="block_user">User is blocked.</string>
+    <string name="unblock_user">User is unblocked.</string>
 
     <!--Classification-->
     <string name="fashionIcon">Fashion Icon</string>
@@ -154,6 +160,11 @@
     <string name="getMoreGlamsTitle">To Get More Glams: </string>
     <string name="getMoreGlamsSubtitle">Be an active user at FashionTalks: \nFollow other users and glam the\npieces you like.\n\nShare your FashionTalks account\nin your social media accounts by\n clicking \'increase your followers\'\nbutton on your profile
     \n\nRegularly post pictures and \nreflect different styles</string>
+    <string name="share_pic_from_twitter">For outfit details, download FashionTalks from Appstore or GooglePlay! @FashionTalksApp #fashiontalksapp</string>
+
+    <!-- 7 Tag Maximum-->
+    <string name="no_more_glam">Maximum number of tags added.</string>
+    <string name="warning">Warning</string>
 
     <!-- Time Util -->
     <string name="after_minute"> Minutes Later</string>

@@ -2,10 +2,10 @@
 <resources>
 
     <!-- Base application theme.-->
-    <style name="FTTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="FTTheme" parent="@style/Theme.AppCompat.Light.NoActionBar"> <!-- "@style/Theme.AppCompat.Light"-->
         <item name="android:windowNoTitle">true</item>
         <!--<item name="contentInsetStart">0dp</item>-->
-        <item name="android:windowActionBar">false</item>
+        <!--<item name="android:windowActionBar">false</item> -->
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBar">false</item>
 </style>

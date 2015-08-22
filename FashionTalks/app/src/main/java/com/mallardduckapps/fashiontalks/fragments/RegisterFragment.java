@@ -20,17 +20,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
+import com.mallardduckapps.fashiontalks.adapters.CountryAdapter;
+import com.mallardduckapps.fashiontalks.loaders.Exclude;
+import com.mallardduckapps.fashiontalks.objects.Country;
+import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
+import com.mallardduckapps.fashiontalks.tasks.GetCountries;
 import com.mallardduckapps.fashiontalks.tasks.RegisterTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
@@ -46,8 +58,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Time;
+import java.text.Collator;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 import eu.janmuller.android.simplecropimage.CropImage;
@@ -55,7 +71,7 @@ import eu.janmuller.android.simplecropimage.CropImage;
 /**
  * Created by oguzemreozcan on 13/01/15.
  */
-public class RegisterFragment extends BasicFragment implements RegisterTask.RegisterTaskCallback {
+public class RegisterFragment extends BasicFragment implements RegisterTask.RegisterTaskCallback, GetCountries.GetCountriesCallback {
 
     private Button registerButton;
     private EditText userNameEdit;
@@ -76,12 +92,13 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     public File mFileTemp;
     public final Uri CONTENT_URI = Uri.parse("content://eu.janmuller.android.simplecropimage.example/");
     public final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
-
+    ArrayList<Country> countryList;
     boolean isEditProfile;
     FashionTalksApp app;
     OnLoginFragmentInteractionListener mListener;
     boolean profileImageSaved;
     boolean attached = false;
+    Spinner countrySpinner;
     Calendar myCalendar = Calendar.getInstance();
 
     public RegisterFragment() {
@@ -110,7 +127,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, TimeUtil.localeTr);
         birthDateEdit.setText(sdf.format(myCalendar.getTime()));
     }
-
+    int initSpinner = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +155,8 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         lastNameEdit = (EditText) rootView.findViewById(R.id.lastName);
         birthDateEdit = (EditText) rootView.findViewById(R.id.birthDate);
         countryEdit = (EditText) rootView.findViewById(R.id.country);
+        countrySpinner = (Spinner) rootView.findViewById(R.id.countrySpinner);
+        //countrySpinner.setVisibility(View.GONE);
         cityEdit = (EditText) rootView.findViewById(R.id.city);
         aboutEdit = (EditText) rootView.findViewById(R.id.about);
         genderMale = (Button) rootView.findViewById(R.id.maleButton);
@@ -145,13 +164,21 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         genderMale.setTypeface(genderMale.getTypeface(), Typeface.BOLD);
         genderFemale.setTypeface(genderFemale.getTypeface(), Typeface.BOLD);
         isEditProfile = getArguments().getBoolean("EDIT_PROFILE", false);
-
+        initSpinner = 0;
         birthDateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(getActivity(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        countryEdit.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                countrySpinner.performClick();
             }
         });
 
@@ -192,6 +219,26 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
             }
         });
         app = (FashionTalksApp) getActivity().getApplication();
+        countryList = generateCountryList();
+
+        countrySpinner.setAdapter(new CountryAdapter(getActivity(), countryList));
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Log.d(TAG, "INIT SPINNER " + initSpinner);
+                if(initSpinner > 0){
+                    countryEdit.setText(countryList.get(position).getName());
+                  //  Log.d(TAG, "INIT SPINNER TEXT SELECTED: " + countryEdit.getText().toString());
+                }
+                initSpinner ++;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         if (isEditProfile) {
             Log.d(TAG, "FILL VALUES");
             registerButton.setText(getString(R.string.save));
@@ -223,7 +270,6 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
 
     @Override
     public void onDetach() {
-
         Log.d(TAG, "ON DETACH");
         hideKeyboard();
         super.onDetach();
@@ -260,6 +306,9 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         String lastName = lastNameEdit.getText().toString();
         String birthDate = birthDateEdit.getText().toString();
         String country = countryEdit.getText().toString();
+
+        //String country1 = ((Country)countrySpinner.getSelectedItem()).getName();
+        //Log.d(TAG, "Selected Country Name: " + country1);
         String city = cityEdit.getText().toString();
         String about = aboutEdit.getText().toString();
         String file = getEncodedImage();
@@ -394,6 +443,45 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         }
     }
 
+    public ArrayList<Country> generateCountryList(){
+        String countriesJson = loadJSONFromAsset();
+        ArrayList<Country> countryList = new ArrayList<>();
+        JsonArray dataObjects = new JsonParser().parse(countriesJson).getAsJsonObject().getAsJsonArray("data");
+        //Gson gson = new Gson();
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+        for (JsonElement item : dataObjects) {
+            Country country = gson.fromJson(item, Country.class);
+            countryList.add(country);
+            Log.d(TAG, "COUNTRY: " + country.getName());
+        }
+        final Collator trCollator = Collator.getInstance(TimeUtil.localeTr); //Your locale here
+        trCollator.setStrength(Collator.PRIMARY);
+        Collections.sort(countryList, new Comparator<Country>() {
+            @Override
+            public int compare(Country lhs, Country rhs) {
+                return trCollator.compare(lhs.getName(), rhs.getName());//lhs.getName().compareTo(rhs.getName());
+            }
+        });
+        return countryList;
+    }
+
+    private String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getActivity().getAssets().open("countries.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
         // showProgress(false);
@@ -489,5 +577,10 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
 
             Log.d(TAG, "cannot take picture", e);
         }
+    }
+
+    @Override
+    public void getCountries(ArrayList<Country> countries) {
+
     }
 }

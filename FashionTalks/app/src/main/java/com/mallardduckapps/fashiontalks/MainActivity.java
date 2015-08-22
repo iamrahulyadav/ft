@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity
 
     }
 
-    public void testNotification(){
+ /*   public void testNotification(){
 
         new AsyncTask() {
 
@@ -204,7 +204,7 @@ public class MainActivity extends BaseActivity
                 return response;
             }
         }.execute(null,null,null);
-    }
+    }*/
 
     private String getRegistrationId(Context context) {
         String registrationId = app.dataSaver.getString("REGISTRATION_ID");

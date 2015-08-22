@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +29,7 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends ActionBarActivity implements BasicFragment.OnLoginFragmentInteractionListener{
+public class LoginActivity extends AppCompatActivity implements BasicFragment.OnLoginFragmentInteractionListener{
 
     //private LoginFragment loginFragment;
     //private RegisterFragment registerFragment;

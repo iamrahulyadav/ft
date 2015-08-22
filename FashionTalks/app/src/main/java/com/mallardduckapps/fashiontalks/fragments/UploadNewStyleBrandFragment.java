@@ -44,6 +44,7 @@ import com.mallardduckapps.fashiontalks.MainActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
+import com.mallardduckapps.fashiontalks.components.ExpandablePanelWrapper;
 import com.mallardduckapps.fashiontalks.loaders.SearchBrandLoader;
 import com.mallardduckapps.fashiontalks.objects.Tag;
 import com.mallardduckapps.fashiontalks.services.RestClient;
@@ -237,6 +238,14 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                             deleteActionInProgress = false;
                             return false;
                         }
+                        if(panels != null){
+                            if(panels.size() == 7){
+                                app.openOKDialog(getActivity(), UploadNewStyleBrandFragment.this, "no_more_tag");
+                                return false;
+                            }
+                        }
+
+
                         posX = (int) event.getX() ;
                         posY = (int) event.getY();
                         if(posX < 0 || posY < 0){
@@ -395,10 +404,13 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
     }
 
     private void placeGlam(final int x, final int y, final int leftBorder, final int topBorder, final int imageWidth, final int imageHeight) {
-        final ExpandablePanel glam = new ExpandablePanel(app, getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? false : true, true, true, false);
+        final ExpandablePanelWrapper panelWrapper = new ExpandablePanelWrapper(app, getActivity(), null, x, y, x > UploadNewStyleActivity.width / 2 ? false : true, true, true, false);
+        final ExpandablePanel glam = panelWrapper.getGlam();
         final int rightBorder = leftBorder + imageWidth - glam.getWidth();
         final int bottomBorder = topBorder + imageHeight - (int)getResources().getDimension(R.dimen.glam_width);
+        //TODO
         currentGlam = glam;
+
         //panel.setTagText(new StringBuilder("").append(pivot.getGlamCount()).append(" | ").append(tag.getTag()).append(" ").toString());
         glam.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_lt)));
         glam.setTag("ExpandablePanel");
@@ -425,7 +437,7 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             }
         });
 
-        layout.addView(glam);
+        layout.addView(panelWrapper);
         if(panels == null){
             panels = new ArrayList<>();
             itemToBeDeleted = 0;
@@ -435,83 +447,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         panels.add(glam);
         //itemToBeDeleted ++;
         newGlamReadyToAdd = false;
-        glam.setOnTouchListener(new View.OnTouchListener() {
-            int status = -1;
-            float dx;
-            float dy;
-
-            boolean moveEnabled = true;
-            RelativeLayout.LayoutParams lp;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(postInProgress){
-                    return false;
-                }
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        dx = event.getX();
-                        dy = event.getY();
-                        status = 0;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        if((Math.abs(dx - event.getX()) > SCROLL_THRESHOLD || Math.abs(dy - event.getY()) > SCROLL_THRESHOLD)){
-                            lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                            // dif  = (int) (Math.abs(event.getX() - dx) + Math.abs(event.getY() - dy));
-                            int left = lp.leftMargin + ((int) (event.getX() - dx));
-                            int top = lp.topMargin + ((int) (event.getY() - dy));
-                            if (left > leftBorder && left < rightBorder && top > topBorder && top < bottomBorder) {
-                                lp.leftMargin = left;
-                                lp.topMargin = top ;
-                                v.setLayoutParams(lp);
-                                Log.d(TAG, "GLAM MOVE X: " + lp.leftMargin + " - GLAM MOVE Y: " + lp.topMargin);
-                            }
-                            if(lp.leftMargin > UploadNewStyleActivity.width/2){
-                                glam.setLhsAnimation(false);
-                            }else{
-                                glam.setLhsAnimation(true);
-                            }
-                            status = 1;
-                        }
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if(glam.isReadyToDelete()){
-                            layout.removeView(glam);
-
-                            //itemToBeDeleted--;
-   /*                         if(glamList != null){
-                                if(glamList.size() != 0){
-                                    glamList.remove(glamList.size() - 1 );
-                                }
-                            }*/
-
-                            if(panels != null){
-                                if(panels.size() != 0){
-                                    panels.remove(glam);
-                                }
-                            }
-                            break;
-                        }
-                        //int dif = (int) (Math.abs(event.getX() - lp.leftMargin) + Math.abs(event.getY() - lp.topMargin));
-                        //Log.d(TAG, "ACTION UP: " + dif);
-                        if(status != 1  ){
-                            if(newGlamReadyToAdd){
-                                deleteActionInProgress = true;
-                                glam.setReadyToDelete(true);
-                            }
-
-                            //glam.setReadyToDelete(glam.isReadyToDelete());
-                        }
-                        //Log.d(TAG, "DROP ID: " + v.getgetId());
-                       // status = 2;
-                        break;
-                    case MotionEvent.ACTION_OUTSIDE:
-                        moveEnabled = false;
-                        break;
-                }
-                return true;
-            }
-        });
+        panelWrapper.setOnTouchListener(new PanelOnTouchListener(panelWrapper,glam, leftBorder, rightBorder, topBorder, bottomBorder));
+//        if(panels != null){
+//            if(panels.size() == 7){
+//                app.openOKDialog(getActivity(), UploadNewStyleBrandFragment.this, "no_more_tag");
+//            }
+//        }
     }
 
     public void toggleTopBar(){
@@ -736,6 +677,88 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
 
                 }
             }
+        }
+    }
+
+    public class PanelOnTouchListener implements View.OnTouchListener {
+        int status = -1;
+        float dx;
+        float dy;
+        //boolean moveEnabled = true;
+        //RelativeLayout.LayoutParams lp;
+        final ExpandablePanelWrapper panelWrapper;
+        ExpandablePanel glam;
+        int leftBorder;
+        int rightBorder;
+        int topBorder;
+        int bottomBorder;
+
+        public PanelOnTouchListener(final ExpandablePanelWrapper panelWrapper, final ExpandablePanel glam, final int leftBorder, final int rightBorder, final int topBorder, final int bottomBorder){
+            this.panelWrapper = panelWrapper;
+            this.glam = glam;
+            this.leftBorder = leftBorder;
+            this.rightBorder = rightBorder;
+            this.bottomBorder = bottomBorder;
+            this.topBorder = topBorder;
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (postInProgress) {
+                return false;
+            }
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    dx = event.getX();
+                    dy = event.getY();
+                    status = 0;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if ((Math.abs(dx - event.getX()) > SCROLL_THRESHOLD || Math.abs(dy - event.getY()) > SCROLL_THRESHOLD)) {
+                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
+                        // dif  = (int) (Math.abs(event.getX() - dx) + Math.abs(event.getY() - dy));
+                        int left = lp.leftMargin + ((int) (event.getX() - dx));
+                        int top = lp.topMargin + ((int) (event.getY() - dy));
+                        if (left > leftBorder && left < rightBorder && top > topBorder && top < bottomBorder) {
+                            lp.leftMargin = left;
+                            lp.topMargin = top;
+                            v.setLayoutParams(lp);
+                            //Log.d(TAG, "GLAM MOVE X: " + lp.leftMargin + " - GLAM MOVE Y: " + lp.topMargin);
+                        }
+                        if (lp.leftMargin > UploadNewStyleActivity.width / 2) {
+                            glam.setLhsAnimation(false);
+                        } else {
+                            glam.setLhsAnimation(true);
+                        }
+                        status = 1;
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (glam.isReadyToDelete()) {
+                        layout.removeView(panelWrapper);
+                        if (panels != null) {
+                            if (panels.size() != 0) {
+                                panels.remove(glam);
+                            }
+                        }
+                        break;
+                    }
+                    //int dif = (int) (Math.abs(event.getX() - lp.leftMargin) + Math.abs(event.getY() - lp.topMargin));
+                    //Log.d(TAG, "ACTION UP: " + dif);
+                    if (status != 1) {
+                        if (newGlamReadyToAdd) {
+                            deleteActionInProgress = true;
+                            glam.setReadyToDelete(true);
+                        }
+                        //glam.setReadyToDelete(glam.isReadyToDelete());
+                    }
+                    // status = 2;
+                    break;
+                case MotionEvent.ACTION_OUTSIDE:
+                    //moveEnabled = false;
+                    break;
+            }
+            return true;
         }
     }
 }

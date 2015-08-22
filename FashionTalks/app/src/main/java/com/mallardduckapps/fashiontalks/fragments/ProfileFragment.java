@@ -5,18 +5,27 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
@@ -30,10 +39,12 @@ import com.mallardduckapps.fashiontalks.loaders.PostsLoader;
 import com.mallardduckapps.fashiontalks.objects.GalleryItem;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.objects.User;
+import com.mallardduckapps.fashiontalks.tasks.BlockTask;
 import com.mallardduckapps.fashiontalks.tasks.FollowTask;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -43,13 +54,15 @@ import java.util.ArrayList;
  * Created by oguzemreozcan on 15/02/15.
  */
 public class ProfileFragment extends BasicFragment implements LoaderManager.LoaderCallbacks<ArrayList<Post>>
-        ,GridListOnScrollListener.OnScrolledToBottom, GalleryGridAdapter.PostItemClicked, FollowTask.FollowCallback {
+        ,GridListOnScrollListener.OnScrolledToBottom, GalleryGridAdapter.PostItemClicked, FollowTask.FollowCallback
+        ,BlockTask.IsBlocked{
 
     boolean myProfile = false;
     private static final String PROFILE_ID = "PROFILE_ID";
     private int profileId;
     private RoundedImageView profileImage;
     Button followButton;
+    Button increaseFollowersButton;
     int itemCountPerLoad = 0;
     private BounceListView listView;
     private ArrayList<GalleryItem> dataList;
@@ -63,6 +76,13 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     int loaderId;
     boolean loading;
     boolean isFollowing;
+    boolean isBlocked;
+    LinearLayout shareMenu;
+    LinearLayout shareFb;
+    LinearLayout shareTwitter;
+    LinearLayout shareInstagram;
+    boolean shareMenuVisible = false;
+    View rootView;
 
     public static ProfileFragment newInstance(int param1) {
         ProfileFragment fragment = new ProfileFragment();
@@ -116,17 +136,19 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     }
 
     public View getProfileLayout(LayoutInflater inflater){
-        View rootView = inflater.inflate(R.layout.profile_user_info_layout, null);
+        View profileView = inflater.inflate(R.layout.profile_user_info_layout, null);
         Activity activity = getActivity();
-        followButton = (Button) rootView.findViewById(R.id.followButton);
-        Button followingButton = (Button) rootView.findViewById(R.id.followingButton);
-        Button followersButton = (Button) rootView.findViewById(R.id.followersButton);
-        TextView nameTv = (TextView) rootView.findViewById(R.id.nameTv);
-        TextView userNameTv = (TextView) rootView.findViewById(R.id.userNameTv);
-        TextView glamCountTv = (TextView) rootView.findViewById(R.id.glamCountTv);
-        TextView classificationTv = (TextView) rootView.findViewById(R.id.classificationTv);
-        TextView aboutMeTv = (TextView) rootView.findViewById(R.id.aboutMeText);
-        profileImage = (RoundedImageView) rootView.findViewById(R.id.profileThumbnail);
+        followButton = (Button) profileView.findViewById(R.id.followButton);
+        increaseFollowersButton = (Button) profileView.findViewById(R.id.increaseFollowersButton);
+        Button followingButton = (Button) profileView.findViewById(R.id.followingButton);
+        Button followersButton = (Button) profileView.findViewById(R.id.followersButton);
+        TextView nameTv = (TextView) profileView.findViewById(R.id.nameTv);
+        TextView userNameTv = (TextView) profileView.findViewById(R.id.userNameTv);
+        TextView glamCountTv = (TextView) profileView.findViewById(R.id.glamCountTv);
+        TextView classificationTv = (TextView) profileView.findViewById(R.id.classificationTv);
+        TextView aboutMeTv = (TextView) profileView.findViewById(R.id.aboutMeText);
+        profileImage = (RoundedImageView) profileView.findViewById(R.id.profileThumbnail);
+        ImageView moreButton = (ImageView) profileView.findViewById(R.id.moreButton);
 
         nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
@@ -138,18 +160,43 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         glamCountTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_bold)));
         if(myProfile){
             followButton.setVisibility(View.INVISIBLE);
+            increaseFollowersButton.setVisibility(View.VISIBLE);
+            moreButton.setVisibility(View.GONE);
+            increaseFollowersButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Log.d(TAG,"ON CLICK");
+                    shareMenuOnClick();
+                }
+            });
+            Log.d(TAG, "INCREASE FOLLOWERS BUTTTON");
         }else{
             //TODO user should be updated
-            isFollowing = user.getIsFollowing() == 1 ? true: false;
+            isFollowing = (user.getIsFollowing() == 1) ? true : false;
+            isBlocked = (user.getIsBlocked() == 1) ? true : false;
             if(isFollowing){
                 followButton.setText(getString(R.string.unfollow));
                 followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
             }
+            moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BlockTask task = new BlockTask(ProfileFragment.this, !isBlocked, profileId);
+                    task.execute();
+                }
+            });
+            if(isBlocked){
+                listView.setVisibility(View.INVISIBLE);
+            }else{
+                listView.setVisibility(View.VISIBLE);
+            }
+
             followButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "BUTTON FOLLOW is clicked ");
                     progressBar.setVisibility(View.VISIBLE);
+
 /*                    if(isFollowing){
                         followButton.setBackgroundResource(R.drawable.follow_button_drawable);
                         followButton.setText(getString(R.string.follow));
@@ -162,7 +209,6 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                     //task.execute();
                 }
             });
-
         }
 
         followersButton.setOnClickListener(new View.OnClickListener() {
@@ -206,16 +252,21 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 dialog.show(getActivity().getSupportFragmentManager(), "ClassificationDialog");
             }
         });
-        return rootView;
+        return profileView;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        View profileView = getProfileLayout(inflater);
+        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        shareMenu = (LinearLayout) rootView.findViewById(R.id.shareMenuLayout);
+        shareFb = (LinearLayout) rootView.findViewById(R.id.facebookShareButton);
+        shareTwitter = (LinearLayout) rootView.findViewById(R.id.twitterShareButton);
+        shareInstagram = (LinearLayout) rootView.findViewById(R.id.instagramShareButton);
+
         progressBar = (RelativeLayout) rootView.findViewById(R.id.progressBar);
         listView = (BounceListView) rootView.findViewById(R.id.uploadsList);
+        View profileView = getProfileLayout(inflater);
         listView.setOnScrollListener(new GridListOnScrollListener(this));
         listView.addHeaderView(profileView);
 
@@ -230,6 +281,8 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             useLoader();
         }
         sendEventToGoogleAnalytics();
+        initShare();
+
         return rootView;
     }
 
@@ -258,6 +311,90 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         if(ProfileActivity.imageGalleryChanged ){ //|| ProfileActivity.userInfoChanged
             dataList = null;
             useLoader();
+        }
+    }
+
+    private void initShare(){
+        shareFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //shrinkAllPanels(panels);
+                increaseFollowersButton.setVisibility(View.GONE);
+                Bitmap image = FTUtils.screenShot(rootView);
+                increaseFollowersButton.setVisibility(View.VISIBLE);
+                Log.d(TAG, "TAKE SCREEN SHOT");
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(image)
+                        .build();
+                if (ShareDialog.canShow(SharePhotoContent.class)) {
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo)
+                            .build();
+                    Log.d(TAG, "SHARE PHOTO");
+                    ShareDialog dialog = new ShareDialog(ProfileFragment.this);
+                    dialog.show(content);
+                }
+            }
+        });
+
+        shareTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                increaseFollowersButton.setVisibility(View.GONE);
+                Bitmap image = FTUtils.screenShot(rootView);
+                increaseFollowersButton.setVisibility(View.VISIBLE);
+                Log.d(TAG, "TAKE SCREEN SHOT");
+                TweetComposer.Builder builder = new TweetComposer.Builder(getActivity())
+                        .text(getString(R.string.share_pic_from_twitter))
+                        .image(FTUtils.getImageUri(getActivity(), image, "tmpImage"));
+                builder.show();
+            }
+        });
+        shareInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                increaseFollowersButton.setVisibility(View.GONE);
+                Bitmap image = FTUtils.screenShot(rootView);
+                increaseFollowersButton.setVisibility(View.VISIBLE);
+                Log.d(TAG, "TAKE SCREEN SHOT");
+                createInstagramIntent("image/*", FTUtils.getImageUri(getActivity(), image, "tmpImage"));
+            }
+        });
+    }
+
+    private void createInstagramIntent(String type, Uri uri){ // String mediaPath
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent(Intent.ACTION_SEND);
+        // Set the MIME type
+        share.setType(type);
+        // Create the URI from the media
+        //File media = new File(mediaPath);
+        //Uri uri = Uri.fromFile(media);
+        // Add the URI to the Intent.
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        // Broadcast the Intent.
+        startActivity(Intent.createChooser(share, "Share to"));
+    }
+
+    private void shareMenuOnClick(){
+        Animation slide;
+        if(shareMenuVisible){
+            slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+            Log.d(TAG,"ON CLICK - slide down");
+        }else{
+            shareMenu.setVisibility(View.VISIBLE);
+            shareMenu.bringToFront();
+            slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+            Log.d(TAG,"ON CLICK - slide up");
+        }
+        if(slide != null){
+            slide.reset();
+            if(shareMenu != null){
+                //Log.d(TAG,"ON CLICK - start animation");
+                shareMenu.clearAnimation();
+                shareMenu.startAnimation(slide);
+                shareMenuVisible = !shareMenuVisible;
+            }
         }
     }
 
@@ -308,7 +445,6 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                         } catch (Exception e) {
 
                         }
-
                         loadMoreFooterView.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -446,5 +582,23 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         }else{
            // showErrorMessage();
         }
+    }
+
+    @Override
+    public void isUserBlocked(final boolean success, final boolean blocked) {
+        progressBar.setVisibility(View.GONE);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String text = "";
+                if(success){
+                    text = blocked ? getString(R.string.block_user): getString(R.string.unblock_user);
+                    isBlocked = !isBlocked;
+                }else{
+                    text = getString(R.string.problem_occured);
+                }
+                Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

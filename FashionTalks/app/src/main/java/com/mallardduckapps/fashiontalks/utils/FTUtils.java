@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 /**
@@ -97,6 +99,21 @@ public class FTUtils {
         Log.d("FT_UTILS_SCREEN_SIZE", "HEIGHT: " + height);
         Log.d("FT_UTILS_SCREEN_SIZE", "Density: " + activity.getResources().getDisplayMetrics().density);
         return sizes;
+    }
+
+    public static Bitmap screenShot(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
+                view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
+    public static Uri getImageUri(Context inContext, Bitmap inImage, String imageTitle) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, imageTitle, null);
+        return Uri.parse(path);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

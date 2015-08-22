@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +34,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
@@ -44,6 +48,7 @@ import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.WebActivity;
 import com.mallardduckapps.fashiontalks.components.ExpandablePanel;
+import com.mallardduckapps.fashiontalks.components.ExpandablePanelWrapper;
 import com.mallardduckapps.fashiontalks.loaders.PostLoader;
 import com.mallardduckapps.fashiontalks.objects.Pivot;
 import com.mallardduckapps.fashiontalks.objects.Post;
@@ -56,6 +61,8 @@ import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
+//import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
@@ -109,6 +116,14 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     public static int commentCount;
     Post post;
     boolean loadingFailed;
+    View rootView;
+    LinearLayout shareFb;
+    LinearLayout shareTwitter;
+    LinearLayout shareInstagram;
+    LinearLayout reportOrDelete;
+    ImageView reportOrDeleteIcon;
+    TextView reportOrDeleteText;
+    ArrayList<ExpandablePanel> panels;
 
     public PostFragment() {
 
@@ -140,7 +155,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.post_layout, container, false);
+        rootView = inflater.inflate(R.layout.post_layout, container, false);
         switcher = (ViewSwitcher) rootView.findViewById(R.id.viewSwitcher);
         layout = (RelativeLayout) rootView.findViewById(R.id.mainPostLayout);
         bottomBar = (RelativeLayout) rootView.findViewById(R.id.bottomBar);
@@ -158,14 +173,23 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         glamLayout = (LinearLayout) rootView.findViewById(R.id.glamLayout);
 
         Activity activity = getActivity();
-        app = (FashionTalksApp)activity.getApplication();
-        tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));//thin
-        tvGlamCount.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
-        tvChatText.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
-        tvUserName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
-        tvName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
+        if(activity != null){
+            app = (FashionTalksApp)activity.getApplication();
+            tvPostTime.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));//thin
+            tvGlamCount.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
+            tvChatText.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
+            tvUserName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_md)));
+            tvName.setTypeface(FTUtils.loadFont(activity.getAssets(),activity.getString(R.string.font_helvatica_lt)));
+        }
 
         shareMenu = (LinearLayout) rootView.findViewById(R.id.shareMenuLayout);
+        shareFb = (LinearLayout) rootView.findViewById(R.id.facebookShareButton);
+        shareTwitter = (LinearLayout) rootView.findViewById(R.id.twitterShareButton);
+        shareInstagram = (LinearLayout) rootView.findViewById(R.id.instagramShareButton);
+        reportOrDelete = (LinearLayout) rootView.findViewById(R.id.reportOrDeleteButton);
+        reportOrDeleteIcon = (ImageView) rootView.findViewById(R.id.reportOrDeleteIcon);
+        reportOrDeleteText = (TextView) rootView.findViewById(R.id.reportorDeleteText);
+
         progressBarMain = (ProgressBar) rootView.findViewById(R.id.progressBar1);
         postId = getArguments().getInt("POST_ID");
         postIndex = getArguments().getInt("POST_INDEX");
@@ -216,24 +240,79 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             //showNextView();
         }else{
             progressBar.setVisibility(View.VISIBLE);
-            shareButton.setImageResource(R.drawable.delete_icon);
+            setReportLayout(false);
             user = app.getMe();
             ownPost = true;
             useLoader();
         }
+        initShare();
         //Log.d(TAG, "ON CREATE VIEW HIDE THAT FUCKING KEYBOARD");
         //hide_keyboard_from(getActivity(), tvChatText);
         return rootView;
         //listView = (ListView) rootView.findViewById(R.id.galleryList);
     }
 
+    private void setReportLayout(boolean report){
+        if(report){
+            reportOrDeleteIcon.setImageResource(R.drawable.red_report_icon);//report_icon);
+            reportOrDeleteText.setText(getString(R.string.report));
+        }else{
+            reportOrDeleteIcon.setImageResource(R.drawable.delete_circle); // delete_icon
+            reportOrDeleteText.setText(getString(R.string.delete));
+        }
+    }
+
+    private void initShare(){
+        shareFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shrinkAllPanels(panels);
+                Bitmap image = FTUtils.screenShot(rootView);
+                Log.d(TAG, "TAKE SCREEN SHOT");
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(image)
+                        .build();
+                if (ShareDialog.canShow(SharePhotoContent.class)) {
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo)
+                            .build();
+                    Log.d(TAG, "SHARE PHOTO");
+                    ShareDialog dialog = new ShareDialog(PostFragment.this);
+                    dialog.show(content);
+                }
+            }
+        });
+
+        shareTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shrinkAllPanels(panels);
+                Bitmap image = FTUtils.screenShot(rootView);
+                Log.d(TAG, "TAKE SCREEN SHOT");
+                TweetComposer.Builder builder = new TweetComposer.Builder(getActivity())
+                        .text(getString(R.string.share_pic_from_twitter))
+                        .image(FTUtils.getImageUri(getActivity(), image, "tmpImage"));
+                builder.show();
+            }
+        });
+        shareInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shrinkAllPanels(panels);
+                Bitmap image = FTUtils.screenShot(rootView);
+                Log.d(TAG, "TAKE SCREEN SHOT");
+                createInstagramIntent("image/*", FTUtils.getImageUri(getActivity(), image, "tmpImage"));
+            }
+        });
+    }
+
     private void setPostUserDrawables(){
         if(post.getUser().getId() == app.getMe().getId()){
-            shareButton.setImageResource(R.drawable.delete_icon);
+            setReportLayout(false);
             user = app.getMe();
             ownPost = true;
         }else{
-            shareButton.setImageResource(R.drawable.report_icon);
+            setReportLayout(true);
             user = post.getUser();
             ownPost = false;
         }
@@ -245,9 +324,10 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         Animation slide;
         if(shareMenuVisible){
             slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
-            Log.d(TAG,"ON CLICK - sldie down");
+            Log.d(TAG,"ON CLICK - slide down");
         }else{
             shareMenu.setVisibility(View.VISIBLE);
+            shareMenu.bringToFront();
             slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
             Log.d(TAG,"ON CLICK - slide up");
         }
@@ -296,6 +376,20 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         return post;
     }
 
+    private void createInstagramIntent(String type, Uri uri){ // String mediaPath
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent(Intent.ACTION_SEND);
+        // Set the MIME type
+        share.setType(type);
+        // Create the URI from the media
+        //File media = new File(mediaPath);
+        //Uri uri = Uri.fromFile(media);
+        // Add the URI to the Intent.
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        // Broadcast the Intent.
+        startActivity(Intent.createChooser(share, "Share to"));
+    }
+
     private void setPost(Post post){
         switch (loaderId){
             case Constants.FEED_POSTS_LOADER_ID:
@@ -338,7 +432,6 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
 
     public void incrementCommentCount(){
@@ -421,6 +514,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 Intent intent = new Intent(getActivity(), ProfileActivity.class);
                 app.setOther(user);
                 intent.putExtra("PROFILE_ID", user.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 BaseActivity.setTranslateAnimation(getActivity());
@@ -472,21 +566,33 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             public void onClick(View v) {
                 //Log.d(TAG,"ON CLICK");
                 // Share Menu is not active now
-                //shareMenuOnClick();
-                if (user != app.getMe()) {
-                    // REPORT
-                    Bundle bundle = new Bundle();
-                    bundle.putString("IMAGE_PATH", createImageFile());
-                    ReportDialog dialog = new ReportDialog();
-                    dialog.setArguments(bundle);
-                    dialog.show(getFragmentManager(), "ReportDialog");
-                    //FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
-                } else {
-                    //DELETE
-                    app.openErasePicDialog(PostFragment.this.getActivity(), PostFragment.this);
-                }
+                shareMenuOnClick();
+                //TODO
+
             }
         });
+
+        reportOrDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reportOrDeletePost();
+            }
+        });
+    }
+
+    private void reportOrDeletePost(){
+        if (user != app.getMe()) {
+            // REPORT
+            Bundle bundle = new Bundle();
+            bundle.putString("IMAGE_PATH", createImageFile());
+            ReportDialog dialog = new ReportDialog();
+            dialog.setArguments(bundle);
+            dialog.show(getFragmentManager(), "ReportDialog");
+            //FTUtils.sendMail(getString(R.string.email_send_report_content), getString(R.string.email_send_report_recipient), getString(R.string.email_send_report_subject), getActivity());
+        } else {
+            //DELETE
+            app.openErasePicDialog(PostFragment.this.getActivity(), PostFragment.this);
+        }
     }
 
     @Override
@@ -559,7 +665,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             tagListSize = post.getTags().size();
         }
 
-        final ArrayList<ExpandablePanel> panels = new ArrayList<>(tagListSize);
+        panels = new ArrayList<>(tagListSize);
         boolean adPost = post.getIsAd() == 1 ? true : false;
         if(adPost){
             sendEventToGoogleAnalytics(Integer.toString(post.getId()), false);
@@ -571,7 +677,9 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
             int y = getRealY(pivot.getY());
             int tagId = tag.getId();
             String brandName = tag.getTag();
-            final ExpandablePanel panel = new ExpandablePanel(app,getActivity(), pivot, x , y, x > PostsActivity.width/2 ? false:true, ownPost, false, adPost);
+            final ExpandablePanelWrapper panelWrapper = new ExpandablePanelWrapper(app, getActivity(), pivot, x, y, x > PostsActivity.width/2 ? false:true, ownPost, false, adPost);
+            final ExpandablePanel panel = panelWrapper.getGlam();
+           // final ExpandablePanel panel = new ExpandablePanel(app,getActivity(), pivot, x , y, x > PostsActivity.width/2 ? false:true, ownPost, false, adPost);
             panel.setTagId(tagId);
             panel.setBrandName(brandName);
             if (adPost){
@@ -618,7 +726,7 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                 //panel.animateExpand();
            // }
             panels.add(panel);
-            layout.addView(panel);
+            layout.addView(panelWrapper);
         }
 
         postPhoto.setOnClickListener(new View.OnClickListener() {
@@ -631,16 +739,20 @@ public class PostFragment extends BasicFragment implements LoaderManager.LoaderC
                     return;
                 }
 
-                for (ExpandablePanel panel : panels) {
-                    if (panel.mExpanded) {
-                        panel.runShrinkAnimation(true);
-                    }
-                }
+                shrinkAllPanels(panels);
             }
         });
 
         shareMenu.bringToFront();
         bottomBar.bringToFront();
+    }
+
+    private void shrinkAllPanels(ArrayList<ExpandablePanel> panels){
+        for (ExpandablePanel panel : panels) {
+            if (panel.mExpanded) {
+                panel.runShrinkAnimation(true);
+            }
+        }
     }
 
     private int getRealX(int x){

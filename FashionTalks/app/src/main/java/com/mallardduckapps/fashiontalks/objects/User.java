@@ -59,6 +59,8 @@ public class User {
     private String androidToken;
     @SerializedName("is_following")
     private int isFollowing;
+    @SerializedName("is_blocked")
+    private int isBlocked;
 
     public int getId() {
         return id;
@@ -288,5 +290,13 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public int getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
     }
 }

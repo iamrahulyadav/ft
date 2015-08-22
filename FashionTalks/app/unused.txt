@@ -207,6 +207,8 @@ com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter:
     private static final java.lang.String TAG
 com.mallardduckapps.fashiontalks.components.BounceListView:
     private static final int MAX_Y_OVERSCROLL_DISTANCE
+com.mallardduckapps.fashiontalks.components.ExpandablePanel:
+    android.widget.RelativeLayout layout
 com.mallardduckapps.fashiontalks.components.SlidingTabLayout:
     private static final int TITLE_OFFSET_DIPS
     private static final int TAB_VIEW_PADDING_DIPS
@@ -241,8 +243,6 @@ com.mallardduckapps.fashiontalks.fragments.MainLoginFragment:
 com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment:
     private static final java.lang.String STATE_SELECTED_POSITION
     private android.view.View mFragmentContainerView
-com.mallardduckapps.fashiontalks.fragments.PostFragment:
-    246:263:private void shareMenuOnClick()
 com.mallardduckapps.fashiontalks.fragments.ProfileFragment:
     private static final java.lang.String PROFILE_ID
 com.mallardduckapps.fashiontalks.objects.Gallery:

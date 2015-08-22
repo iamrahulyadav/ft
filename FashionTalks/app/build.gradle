@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-
 buildscript {
     repositories {
         jcenter()
@@ -34,6 +33,7 @@ android {
         versionCode 4
         versionName "1.0.3"
         signingConfig signingConfigs.config
+        multiDexEnabled = true
     }
  //   android {
 
@@ -48,7 +48,7 @@ android {
 
         buildTypes {
             release {
-                minifyEnabled true
+                minifyEnabled false
                 signingConfig signingConfigs.config
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
@@ -87,12 +87,12 @@ repositories {
 //}
 
 dependencies {
-    releaseCompile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.android.support:support-v13:22.0.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:support-v13:22.1.1'
     compile 'com.makeramen:roundedimageview:2.0.1'
-    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.android.support:cardview-v7:22.1.1'
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
@@ -102,12 +102,21 @@ dependencies {
     compile 'joda-time:joda-time:2.3'
     compile project(':simple-crop-image-lib')
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+
+    compile('com.twitter.sdk.android:twitter:1.7.2@aar') {
+        transitive = true;
+    }
+    compile('com.twitter.sdk.android:tweet-composer:0.8.0@aar') {
+        transitive = true;
+    }
     compile 'com.nineoldandroids:library:2.4.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.2.3@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.4.0@aar') {
         transitive = true;
     }
     compile files('libs/commons-lang3-3.3.2.jar')
-    compile 'com.google.android.gms:play-services:7.3.0'
+    compile 'com.google.android.gms:play-services-base:7.3.0'
+    compile 'com.google.android.gms:play-services-gcm:7.3.0'
+    compile 'com.google.android.gms:play-services-analytics:7.3.0'
 }
 // Find any 3rd party libraries which have released new versions
 // to the central Maven repo since we last upgraded.

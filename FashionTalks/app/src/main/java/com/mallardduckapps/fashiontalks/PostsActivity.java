@@ -53,7 +53,6 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     boolean openComment = false;
     VerticalViewPager verticalViewPager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +139,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "TEST ON RESUME: gallerID: " + galleryId + "loaderId: " + loaderId);
         AppEventsLogger.activateApp(this);
     }
 
@@ -152,7 +152,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.d(TAG, "ON NEW INSTANCE");
+        Log.d(TAG, "TEST ON NEW INSTANCE");
         galleryId = intent.getIntExtra("GALLERY_ID", 0);
         postId = intent.getIntExtra("POST_ID", 0);
         loaderId = intent.getIntExtra("LOADER_ID", 0);
@@ -224,6 +224,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 app.setPopularPostArrayList(app.defaultPostArray);
                 break;
             case Constants.GALLERY_POSTS_LOADER_ID:
+                Log.d(TAG, "TEST ON SET GALLERY POST ARRAY: " + app.defaultPostArray.get(0).getUser().getUserName());
                 app.setGalleryPostArrayList(app.defaultPostArray);
                 // Log.d(TAG, "data 0 name: " + ((Post)list.get(0)).getUser().getUserName() );
                 break;
@@ -430,7 +431,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
 
     @Override
     public void refreshPager(final boolean refresh) {
-        Log.d(TAG, "**REFRESH PAGER IS CALLED");
+        Log.d(TAG, "TEST ON **REFRESH PAGER IS CALLED");
         try {
             runOnUiThread(new Runnable() {
                 @Override
@@ -440,6 +441,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                         app.setDefaultPostArray(defaultArray);
                         VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), PostsActivity.this, loaderId);
                         verticalViewPager.setAdapter(adapter);
+
                     }
                 }
             });

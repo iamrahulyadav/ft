@@ -28,6 +28,9 @@ import com.mallardduckapps.fashiontalks.utils.DataSaver;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,7 +74,10 @@ public class FashionTalksApp extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+
+        TwitterAuthConfig authConfig =  new TwitterAuthConfig(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRET);
+        Fabric.with(this,new TwitterCore(authConfig), new TweetComposer(), new Crashlytics()); //
+        //Fabric.with(this);
         Log.d(TAG, "APP CREATE");
         dataSaver = new DataSaver(getApplicationContext(), "FashionTalks", false);
         options = new DisplayImageOptions.Builder()
@@ -93,6 +99,9 @@ public class FashionTalksApp extends android.app.Application {
         tracker.enableExceptionReporting(true);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
+
+
+
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         //menu.setMenu(R.layout.menu);
     }
@@ -133,6 +142,9 @@ public class FashionTalksApp extends android.app.Application {
         }else if(dialogType.equals("no_post_access")){
             args.putString("title", getString(R.string.unsuccessful));
             args.putString("message", getString(R.string.posting_not_allowed));
+        }else if(dialogType.equals("no_more_tag")){
+            args.putString("title", getString(R.string.warning));
+            args.putString("message", getString(R.string.no_more_glam));
         }
         String tag ="tag";
         dialog.setArguments(args);

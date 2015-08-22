@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +16,7 @@ import com.mallardduckapps.fashiontalks.fragments.FollowFragment;
 import com.mallardduckapps.fashiontalks.fragments.ProfileFragment;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-public class ProfileActivity extends ActionBarActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     Toolbar mainToolbar;
     FashionTalksApp app;

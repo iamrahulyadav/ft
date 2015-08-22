@@ -41,6 +41,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     private final String TAG = "Glammers_Fragment";
     ProgressBar progressBar;
     TextView noDataTv;
+    boolean attached = false;
     ListView listview;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
@@ -86,6 +87,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        attached = true;
         try {
             mListener = (BasicFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -97,6 +99,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
     @Override
     public void onDetach() {
         super.onDetach();
+        attached = false;
         mListener = null;
     }
 
@@ -139,6 +142,10 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
 
             return;
         }
+        if(!attached){
+            return;
+        }
+
         listview = getListView();
 
         if(listview != null)

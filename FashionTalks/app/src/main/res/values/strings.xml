@@ -36,6 +36,7 @@
     <string name="lastName">Soyad</string>
     <string name="birthDate">Doğum Tarihi</string>
     <string name="country">Ülke</string>
+    <string name="select_country">Ülke Seçiniz</string>
     <string name="city">Şehir</string>
     <string name="about">Hakkınızda (160 Karakter)</string>
     <string name="sex">Cinsiyet</string>
@@ -112,6 +113,7 @@
     <string name="report_subject3">Moda Bağlantısız Resim</string>
     <string name="report_subject4">Telif Haksız Fotoğraf</string>
     <string name="report_subject5">Diğer</string>
+    <string name="report">Şikayet</string>
 
     <string name="posting_not_allowed">Bu özelliği etkinleştirmeniz gerekmektedir.</string>
 
@@ -123,18 +125,22 @@
     <string name="glam">&#160;Glam</string>
     <string name="comment">&#160;Konuşma</string>
     <string name="save">Kaydet</string>
+    <string name="delete">Sil</string>
 
     <!-- Profile -->
     <string name="follow">&#160;Takip Et&#160;</string>
     <string name="unfollow">&#160;Takibi Bırak&#160;</string>
     <string name="followers">Takip Edenler</string>
     <string name="following">Takip Ediyor</string>
+    <string name="follow_me_on_social_media">FashionTalks\'da takip edin! FashionTalks\'u PlayStore/AppStore\'dan indirebilirsiniz! @FashionTalksApp</string>
     <string name="increase_followers">Takipçini Arttır</string>
     <string name="no_followers">Kimse Takip Etmiyor</string>
     <string name="no_following">Kimseyi Takip Etmiyor</string>
     <string name="no_notification">  Bildiriminiz Yok</string>
     <string name="left_invite">&#160; &#160;Davet Kaldı.</string>
     <string name="edit_profile">Profil Düzenle</string>
+    <string name="block_user">Kullanıcı bloklandı.</string>
+    <string name="unblock_user">Kullanıcının blok\'u kaldırıldı.</string>
 
     <!--Classification-->
     <string name="fashionIcon">Fashion Icon</string>
@@ -150,9 +156,15 @@
     <string name="classification_subtitle">Değişik kategorilerde değişik süprizler sizleri bekliyor olacak!</string>
 
     <!-- How to get More glams screen-->
-    <string name="getMoreGlamsTitle">To Get More Glams: </string>
-    <string name="getMoreGlamsSubtitle">Be an active user at FashionTalks: \nFollow other users and glam the\npieces you like.\n\nShare your FashionTalks account\nin your social media accounts by\n clicking \'increase your followers\'\nbutton on your profile
-    \n\nRegularly post pictures and \nreflect different styles</string>
+    <string name="getMoreGlamsTitle">Daha Fazla Glam Almak İçin: </string>
+    <string name="getMoreGlamsSubtitle">Az Glam\'in varsa kimsenin burada\nolduğundan haberi olmadığındandır.\nFacebook, Instagram ve Twitter\'dan\nhesap ismini duyur.\nhesap ismini duyur. Bunun için\nprofilindeki \'takipçini arttır\' butonunu\nkullanabilirsin.
+    \n\nAktif ol; başkalarını takibe al ve \nbeğendiğin parçaları glamle.\n\nSık aralıklarla resim post et; günlük\nhalin en güzeli unutma.</string>
+
+    <string name="share_pic_from_twitter">Detaylar için beni FashionTalks\'da takip edin!FashionTalks\'u Appstore veya GooglePlay\'den indirebilirsiniz!@FashionTalksApp #fashiontalksapp</string>
+
+    <!-- 7 Tag Maximum-->
+    <string name="no_more_glam">Bu görsel için daha fazla marka girişi yapılamaz.</string>
+    <string name="warning">Uyarı</string>
 
     <!-- Time Util -->
     <string name="after_minute"> Dakika Sonra</string>
@@ -200,8 +212,9 @@
     <string name="connect_to_fb">Facebook\'a bağlan</string>
     <string name="login_with_fb">Facebook ile Giriş</string>
     <string name="login_with_fb_subtitle">Facebook sayfanıza hiçbir şey post etmiyoruz.</string>
-    <string name="login_with_email">Email ile Giriş</string>
+
     <string name="no_user_to_suggest">Şu anda önereceğimiz bir kullanıcı bulunmuyor.</string>
+    <string name="login_with_email">Email ile Giriş</string>
     <string name="forget_password">Şifremi Unuttum</string>
     <string name="signup">Kayıt Ol</string>
     <string name="send_password">Şifre Gönder</string>

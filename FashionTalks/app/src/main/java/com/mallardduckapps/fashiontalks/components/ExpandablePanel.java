@@ -48,14 +48,17 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     private String adUrl = "";
     private boolean autoClose = false;
     FashionTalksApp app;
+    RelativeLayout layout;
+    ExpandablePanelWrapper parent;
 
-    public ExpandablePanel(final FashionTalksApp app,final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost, boolean adPost) {
+    public ExpandablePanel(final FashionTalksApp app,final Context context, Pivot pivot, ExpandablePanelWrapper parent, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost, boolean adPost) {
         super(context);
         this.lhsAnimation = lhsAnimation;
         this.ownPost = ownPost;
         this.adPost = adPost;
         this.pivot = pivot;
         this.app = app;
+        this.parent = parent;
         Resources res = getResources();
         expendedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, res
                 .getDisplayMetrics());
@@ -67,8 +70,8 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         mAnimationDuration = 200;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mContentWidth);
         //Log.d("EXPANDABLE_PANEL", "x: " + x + " - y: " + y);
-        params.leftMargin = x;
-        params.topMargin = y;
+//        params.leftMargin = x;
+//        params.topMargin = y;
         setLhsAnimation(lhsAnimation);
         //if(!adPost){
             setBackgroundResource(R.drawable.glam_shape);
@@ -79,14 +82,27 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         setSingleLine();
         setMaxLines(1);
         setGravity(Gravity.CENTER);
-        setClickable(true);
+
+
+        //setClickable(true);
+
         setLayoutParams(params);
         if (!createPost) {
+            setClickable(true);
             setOnClickListener(new PanelToggler());
         } else {
             //setOnClickListener(new PanelToggler());
             //Change to delete icon
         }
+/*
+        layout = new RelativeLayout(context);
+        RelativeLayout.LayoutParams paramsViewGroup = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //params.leftMargin = x;
+        //params.topMargin = y;
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+        layout.setPadding(padding, padding, padding, padding);
+        layout.setBackgroundColor(getResources().getColor(R.color.accent_material_light));
+        layout.setLayoutParams(paramsViewGroup);*/
     }
 
     @Override
@@ -288,28 +304,39 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         private final int mStartWidth;
         private final int mDeltaWidth;
         int delta;
+        int padding;
 
         public ExpandAnimation(int startWidth, int endWidth) {
             mStartWidth = startWidth;
             mDeltaWidth = endWidth - startWidth;
+            padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
             setAnimationListener(this);
         }
 
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
             RelativeLayout.LayoutParams param = (RelativeLayout.LayoutParams) getLayoutParams();
+            RelativeLayout.LayoutParams parentParam = (RelativeLayout.LayoutParams) parent.getLayoutParams();
             delta = param.width;
             if (param.width <= 0) {
                 delta = 0;
             }
             param.width = (int) (mStartWidth + mDeltaWidth *
                     interpolatedTime);
+            parentParam.width = param.width + padding;
             if (delta != 0 && !lhsAnimation) {
                 delta = (int) (mStartWidth + mDeltaWidth *
                         interpolatedTime) - delta;
-                param.leftMargin -= delta;
+                parentParam.leftMargin -=delta;
+                //param.leftMargin -= delta;
+
             }
+            parent.setLayoutParams(parentParam);
             setLayoutParams(param);
+
+            //getParent().getParent().requestLayout();
+
+
 
 //            Log.d("EXPANDABLE_PANEL", "Width: " + param.width + "leftmargin: "+ param.leftMargin +
 //                    " - time: " +  interpolatedTime + " - delta: " + delta);

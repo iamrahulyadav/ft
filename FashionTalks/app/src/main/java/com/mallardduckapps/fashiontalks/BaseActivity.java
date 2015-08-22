@@ -121,7 +121,6 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
         //super.onBackPressed();
         if (menu.isMenuShowing()) {
             //app.exitDialog(this);
-
             finish(); //menu.toggle();
         } else {
             menu.toggle();

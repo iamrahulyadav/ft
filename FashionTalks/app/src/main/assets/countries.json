@@ -1,0 +1,981 @@
+{
+  "status": 0,
+  "msg": "list",
+  "info": {
+    "request_time": "Tue, 30 Sep 2014 11:48:22 +0300",
+    "request_uri": "users/country-list",
+    "request_url": "http://api.ft-api.com/users/country-list",
+    "api_version": "0.1"
+  },
+  "data": [
+    {
+      "id": 1,
+      "code": "AU",
+      "name": "Australia",
+      "name_tr": null
+    },
+    {
+      "id": 2,
+      "code": "CN",
+      "name": "China",
+      "name_tr": null
+    },
+    {
+      "id": 3,
+      "code": "JP",
+      "name": "Japan",
+      "name_tr": null
+    },
+    {
+      "id": 4,
+      "code": "TH",
+      "name": "Thailand",
+      "name_tr": null
+    },
+    {
+      "id": 5,
+      "code": "IN",
+      "name": "India",
+      "name_tr": null
+    },
+    {
+      "id": 6,
+      "code": "MY",
+      "name": "Malaysia",
+      "name_tr": null
+    },
+    {
+      "id": 7,
+      "code": "KR",
+      "name": "Korea, Republic of",
+      "name_tr": null
+    },
+    {
+      "id": 8,
+      "code": "HK",
+      "name": "Hong Kong",
+      "name_tr": null
+    },
+    {
+      "id": 9,
+      "code": "TW",
+      "name": "Taiwan",
+      "name_tr": null
+    },
+    {
+      "id": 10,
+      "code": "PH",
+      "name": "Philippines",
+      "name_tr": null
+    },
+    {
+      "id": 11,
+      "code": "VN",
+      "name": "Vietnam",
+      "name_tr": null
+    },
+    {
+      "id": 12,
+      "code": "RU",
+      "name": "Russian Federation",
+      "name_tr": null
+    },
+    {
+      "id": 13,
+      "code": "FR",
+      "name": "France",
+      "name_tr": null
+    },
+    {
+      "id": 14,
+      "code": "EU",
+      "name": "Europe",
+      "name_tr": null
+    },
+    {
+      "id": 15,
+      "code": "DE",
+      "name": "Germany",
+      "name_tr": null
+    },
+    {
+      "id": 16,
+      "code": "IL",
+      "name": "Israel",
+      "name_tr": null
+    },
+    {
+      "id": 17,
+      "code": "SE",
+      "name": "Sweden",
+      "name_tr": null
+    },
+    {
+      "id": 18,
+      "code": "IT",
+      "name": "Italy",
+      "name_tr": null
+    },
+    {
+      "id": 19,
+      "code": "NL",
+      "name": "Netherlands",
+      "name_tr": null
+    },
+    {
+      "id": 20,
+      "code": "GR",
+      "name": "Greece",
+      "name_tr": null
+    },
+    {
+      "id": 21,
+      "code": "ES",
+      "name": "Spain",
+      "name_tr": null
+    },
+    {
+      "id": 22,
+      "code": "AT",
+      "name": "Austria",
+      "name_tr": null
+    },
+    {
+      "id": 23,
+      "code": "GB",
+      "name": "United Kingdom",
+      "name_tr": null
+    },
+    {
+      "id": 24,
+      "code": "BE",
+      "name": "Belgium",
+      "name_tr": null
+    },
+    {
+      "id": 25,
+      "code": "AE",
+      "name": "United Arab Emirates",
+      "name_tr": null
+    },
+    {
+      "id": 26,
+      "code": "KZ",
+      "name": "Kazakhstan",
+      "name_tr": null
+    },
+    {
+      "id": 27,
+      "code": "PT",
+      "name": "Portugal",
+      "name_tr": null
+    },
+    {
+      "id": 28,
+      "code": "SA",
+      "name": "Saudi Arabia",
+      "name_tr": null
+    },
+    {
+      "id": 29,
+      "code": "DK",
+      "name": "Denmark",
+      "name_tr": null
+    },
+    {
+      "id": 30,
+      "code": "IR",
+      "name": "Iran, Islamic Republic of",
+      "name_tr": null
+    },
+    {
+      "id": 31,
+      "code": "NO",
+      "name": "Norway",
+      "name_tr": null
+    },
+    {
+      "id": 32,
+      "code": "US",
+      "name": "United States",
+      "name_tr": null
+    },
+    {
+      "id": 33,
+      "code": "MX",
+      "name": "Mexico",
+      "name_tr": null
+    },
+    {
+      "id": 34,
+      "code": "CA",
+      "name": "Canada",
+      "name_tr": null
+    },
+    {
+      "id": 35,
+      "code": "SY",
+      "name": "Syrian Arab Republic",
+      "name_tr": null
+    },
+    {
+      "id": 36,
+      "code": "UA",
+      "name": "Ukraine",
+      "name_tr": null
+    },
+    {
+      "id": 37,
+      "code": "CY",
+      "name": "Cyprus",
+      "name_tr": null
+    },
+    {
+      "id": 38,
+      "code": "CZ",
+      "name": "Czech Republic",
+      "name_tr": null
+    },
+    {
+      "id": 39,
+      "code": "CH",
+      "name": "Switzerland",
+      "name_tr": null
+    },
+    {
+      "id": 40,
+      "code": "IQ",
+      "name": "Iraq",
+      "name_tr": null
+    },
+    {
+      "id": 41,
+      "code": "TR",
+      "name": "Turkey",
+      "name_tr": null
+    },
+    {
+      "id": 42,
+      "code": "RO",
+      "name": "Romania",
+      "name_tr": null
+    },
+    {
+      "id": 43,
+      "code": "LB",
+      "name": "Lebanon",
+      "name_tr": null
+    },
+    {
+      "id": 44,
+      "code": "HU",
+      "name": "Hungary",
+      "name_tr": null
+    },
+    {
+      "id": 45,
+      "code": "GE",
+      "name": "Georgia",
+      "name_tr": null
+    },
+    {
+      "id": 46,
+      "code": "BR",
+      "name": "Brazil",
+      "name_tr": null
+    },
+    {
+      "id": 47,
+      "code": "AZ",
+      "name": "Azerbaijan",
+      "name_tr": null
+    },
+    {
+      "id": 48,
+      "code": "A2",
+      "name": "Satellite Provider",
+      "name_tr": null
+    },
+    {
+      "id": 49,
+      "code": "PS",
+      "name": "Palestinian Territory",
+      "name_tr": null
+    },
+    {
+      "id": 50,
+      "code": "LT",
+      "name": "Lithuania",
+      "name_tr": null
+    },
+    {
+      "id": 51,
+      "code": "OM",
+      "name": "Oman",
+      "name_tr": null
+    },
+    {
+      "id": 52,
+      "code": "SK",
+      "name": "Slovakia",
+      "name_tr": null
+    },
+    {
+      "id": 53,
+      "code": "RS",
+      "name": "Serbia",
+      "name_tr": null
+    },
+    {
+      "id": 54,
+      "code": "FI",
+      "name": "Finland",
+      "name_tr": null
+    },
+    {
+      "id": 55,
+      "code": "IS",
+      "name": "Iceland",
+      "name_tr": null
+    },
+    {
+      "id": 56,
+      "code": "MD",
+      "name": "Moldova, Republic of",
+      "name_tr": null
+    },
+    {
+      "id": 57,
+      "code": "BG",
+      "name": "Bulgaria",
+      "name_tr": null
+    },
+    {
+      "id": 58,
+      "code": "SI",
+      "name": "Slovenia",
+      "name_tr": null
+    },
+    {
+      "id": 59,
+      "code": "MK",
+      "name": "Macedonia",
+      "name_tr": null
+    },
+    {
+      "id": 60,
+      "code": "LI",
+      "name": "Liechtenstein",
+      "name_tr": null
+    },
+    {
+      "id": 61,
+      "code": "JE",
+      "name": "Jersey",
+      "name_tr": null
+    },
+    {
+      "id": 62,
+      "code": "PL",
+      "name": "Poland",
+      "name_tr": null
+    },
+    {
+      "id": 63,
+      "code": "HR",
+      "name": "Croatia",
+      "name_tr": null
+    },
+    {
+      "id": 64,
+      "code": "BA",
+      "name": "Bosnia and Herzegovina",
+      "name_tr": null
+    },
+    {
+      "id": 65,
+      "code": "EE",
+      "name": "Estonia",
+      "name_tr": null
+    },
+    {
+      "id": 66,
+      "code": "LV",
+      "name": "Latvia",
+      "name_tr": null
+    },
+    {
+      "id": 67,
+      "code": "JO",
+      "name": "Jordan",
+      "name_tr": null
+    },
+    {
+      "id": 68,
+      "code": "A1",
+      "name": "Anonymous Proxy",
+      "name_tr": null
+    },
+    {
+      "id": 69,
+      "code": "KG",
+      "name": "Kyrgyzstan",
+      "name_tr": null
+    },
+    {
+      "id": 70,
+      "code": "RE",
+      "name": "Reunion",
+      "name_tr": null
+    },
+    {
+      "id": 71,
+      "code": "IE",
+      "name": "Ireland",
+      "name_tr": null
+    },
+    {
+      "id": 72,
+      "code": "IM",
+      "name": "Isle of Man",
+      "name_tr": null
+    },
+    {
+      "id": 73,
+      "code": "LY",
+      "name": "Libya",
+      "name_tr": null
+    },
+    {
+      "id": 74,
+      "code": "LU",
+      "name": "Luxembourg",
+      "name_tr": null
+    },
+    {
+      "id": 75,
+      "code": "AM",
+      "name": "Armenia",
+      "name_tr": null
+    },
+    {
+      "id": 76,
+      "code": "VG",
+      "name": "Virgin Islands, British",
+      "name_tr": null
+    },
+    {
+      "id": 77,
+      "code": "YE",
+      "name": "Yemen",
+      "name_tr": null
+    },
+    {
+      "id": 78,
+      "code": "BY",
+      "name": "Belarus",
+      "name_tr": null
+    },
+    {
+      "id": 79,
+      "code": "GI",
+      "name": "Gibraltar",
+      "name_tr": null
+    },
+    {
+      "id": 80,
+      "code": "KE",
+      "name": "Kenya",
+      "name_tr": null
+    },
+    {
+      "id": 81,
+      "code": "CL",
+      "name": "Chile",
+      "name_tr": null
+    },
+    {
+      "id": 82,
+      "code": "QA",
+      "name": "Qatar",
+      "name_tr": null
+    },
+    {
+      "id": 83,
+      "code": "KW",
+      "name": "Kuwait",
+      "name_tr": null
+    },
+    {
+      "id": 84,
+      "code": "GP",
+      "name": "Guadeloupe",
+      "name_tr": null
+    },
+    {
+      "id": 85,
+      "code": "MQ",
+      "name": "Martinique",
+      "name_tr": null
+    },
+    {
+      "id": 86,
+      "code": "GF",
+      "name": "French Guiana",
+      "name_tr": null
+    },
+    {
+      "id": 87,
+      "code": "DO",
+      "name": "Dominican Republic",
+      "name_tr": null
+    },
+    {
+      "id": 88,
+      "code": "GU",
+      "name": "Guam",
+      "name_tr": null
+    },
+    {
+      "id": 89,
+      "code": "VI",
+      "name": "Virgin Islands, U.S.",
+      "name_tr": null
+    },
+    {
+      "id": 90,
+      "code": "PR",
+      "name": "Puerto Rico",
+      "name_tr": null
+    },
+    {
+      "id": 91,
+      "code": "NZ",
+      "name": "New Zealand",
+      "name_tr": null
+    },
+    {
+      "id": 92,
+      "code": "SG",
+      "name": "Singapore",
+      "name_tr": null
+    },
+    {
+      "id": 93,
+      "code": "ID",
+      "name": "Indonesia",
+      "name_tr": null
+    },
+    {
+      "id": 94,
+      "code": "NP",
+      "name": "Nepal",
+      "name_tr": null
+    },
+    {
+      "id": 95,
+      "code": "PG",
+      "name": "Papua New Guinea",
+      "name_tr": null
+    },
+    {
+      "id": 96,
+      "code": "PK",
+      "name": "Pakistan",
+      "name_tr": null
+    },
+    {
+      "id": 97,
+      "code": "AP",
+      "name": "Asia/Pacific Region",
+      "name_tr": null
+    },
+    {
+      "id": 98,
+      "code": "PA",
+      "name": "Panama",
+      "name_tr": null
+    },
+    {
+      "id": 99,
+      "code": "CR",
+      "name": "Costa Rica",
+      "name_tr": null
+    },
+    {
+      "id": 100,
+      "code": "PE",
+      "name": "Peru",
+      "name_tr": null
+    },
+    {
+      "id": 101,
+      "code": "BZ",
+      "name": "Belize",
+      "name_tr": null
+    },
+    {
+      "id": 102,
+      "code": "NG",
+      "name": "Nigeria",
+      "name_tr": null
+    },
+    {
+      "id": 103,
+      "code": "VE",
+      "name": "Venezuela",
+      "name_tr": null
+    },
+    {
+      "id": 104,
+      "code": "BS",
+      "name": "Bahamas",
+      "name_tr": null
+    },
+    {
+      "id": 105,
+      "code": "MA",
+      "name": "Morocco",
+      "name_tr": null
+    },
+    {
+      "id": 106,
+      "code": "CO",
+      "name": "Colombia",
+      "name_tr": null
+    },
+    {
+      "id": 107,
+      "code": "SC",
+      "name": "Seychelles",
+      "name_tr": null
+    },
+    {
+      "id": 108,
+      "code": "BB",
+      "name": "Barbados",
+      "name_tr": null
+    },
+    {
+      "id": 109,
+      "code": "EG",
+      "name": "Egypt",
+      "name_tr": null
+    },
+    {
+      "id": 110,
+      "code": "AR",
+      "name": "Argentina",
+      "name_tr": null
+    },
+    {
+      "id": 111,
+      "code": "BN",
+      "name": "Brunei Darussalam",
+      "name_tr": null
+    },
+    {
+      "id": 112,
+      "code": "BH",
+      "name": "Bahrain",
+      "name_tr": null
+    },
+    {
+      "id": 113,
+      "code": "AW",
+      "name": "Aruba",
+      "name_tr": null
+    },
+    {
+      "id": 114,
+      "code": "LC",
+      "name": "Saint Lucia",
+      "name_tr": null
+    },
+    {
+      "id": 115,
+      "code": "BD",
+      "name": "Bangladesh",
+      "name_tr": null
+    },
+    {
+      "id": 116,
+      "code": "TK",
+      "name": "Tokelau",
+      "name_tr": null
+    },
+    {
+      "id": 117,
+      "code": "KH",
+      "name": "Cambodia",
+      "name_tr": null
+    },
+    {
+      "id": 118,
+      "code": "MO",
+      "name": "Macau",
+      "name_tr": null
+    },
+    {
+      "id": 119,
+      "code": "MV",
+      "name": "Maldives",
+      "name_tr": null
+    },
+    {
+      "id": 120,
+      "code": "AF",
+      "name": "Afghanistan",
+      "name_tr": null
+    },
+    {
+      "id": 121,
+      "code": "NC",
+      "name": "New Caledonia",
+      "name_tr": null
+    },
+    {
+      "id": 122,
+      "code": "FJ",
+      "name": "Fiji",
+      "name_tr": null
+    },
+    {
+      "id": 123,
+      "code": "MN",
+      "name": "Mongolia",
+      "name_tr": null
+    },
+    {
+      "id": 124,
+      "code": "WF",
+      "name": "Wallis and Futuna",
+      "name_tr": null
+    },
+    {
+      "id": 125,
+      "code": "AL",
+      "name": "Albania",
+      "name_tr": null
+    },
+    {
+      "id": 126,
+      "code": "UZ",
+      "name": "Uzbekistan",
+      "name_tr": null
+    },
+    {
+      "id": 127,
+      "code": "ME",
+      "name": "Montenegro",
+      "name_tr": null
+    },
+    {
+      "id": 128,
+      "code": "KP",
+      "name": "Korea, Democratic People's Republic of",
+      "name_tr": null
+    },
+    {
+      "id": 129,
+      "code": "VA",
+      "name": "Holy See (Vatican City State)",
+      "name_tr": null
+    },
+    {
+      "id": 130,
+      "code": "AQ",
+      "name": "Antarctica",
+      "name_tr": null
+    },
+    {
+      "id": 131,
+      "code": "BM",
+      "name": "Bermuda",
+      "name_tr": null
+    },
+    {
+      "id": 132,
+      "code": "CW",
+      "name": "Curacao",
+      "name_tr": null
+    },
+    {
+      "id": 133,
+      "code": "EC",
+      "name": "Ecuador",
+      "name_tr": null
+    },
+    {
+      "id": 134,
+      "code": "ZA",
+      "name": "South Africa",
+      "name_tr": null
+    },
+    {
+      "id": 135,
+      "code": "KN",
+      "name": "Saint Kitts and Nevis",
+      "name_tr": null
+    },
+    {
+      "id": 136,
+      "code": "WS",
+      "name": "Samoa",
+      "name_tr": null
+    },
+    {
+      "id": 137,
+      "code": "BO",
+      "name": "Bolivia",
+      "name_tr": null
+    },
+    {
+      "id": 138,
+      "code": "GG",
+      "name": "Guernsey",
+      "name_tr": null
+    },
+    {
+      "id": 139,
+      "code": "MT",
+      "name": "Malta",
+      "name_tr": null
+    },
+    {
+      "id": 140,
+      "code": "TJ",
+      "name": "Tajikistan",
+      "name_tr": null
+    },
+    {
+      "id": 141,
+      "code": "ZW",
+      "name": "Zimbabwe",
+      "name_tr": null
+    },
+    {
+      "id": 142,
+      "code": "LR",
+      "name": "Liberia",
+      "name_tr": null
+    },
+    {
+      "id": 143,
+      "code": "GH",
+      "name": "Ghana",
+      "name_tr": null
+    },
+    {
+      "id": 144,
+      "code": "TZ",
+      "name": "Tanzania, United Republic of",
+      "name_tr": null
+    },
+    {
+      "id": 145,
+      "code": "ZM",
+      "name": "Zambia",
+      "name_tr": null
+    },
+    {
+      "id": 146,
+      "code": "MG",
+      "name": "Madagascar",
+      "name_tr": null
+    },
+    {
+      "id": 147,
+      "code": "AO",
+      "name": "Angola",
+      "name_tr": null
+    },
+    {
+      "id": 148,
+      "code": "NA",
+      "name": "Namibia",
+      "name_tr": null
+    },
+    {
+      "id": 149,
+      "code": "CI",
+      "name": "Cote D'Ivoire",
+      "name_tr": null
+    },
+    {
+      "id": 150,
+      "code": "SD",
+      "name": "Sudan",
+      "name_tr": null
+    },
+    {
+      "id": 151,
+      "code": "UG",
+      "name": "Uganda",
+      "name_tr": null
+    },
+    {
+      "id": 152,
+      "code": "CM",
+      "name": "Cameroon",
+      "name_tr": null
+    },
+    {
+      "id": 153,
+      "code": "MW",
+      "name": "Malawi",
+      "name_tr": null
+    },
+    {
+      "id": 154,
+      "code": "GA",
+      "name": "Gabon",
+      "name_tr": null
+    },
+    {
+      "id": 155,
+      "code": "ML",
+      "name": "Mali",
+      "name_tr": null
+    },
+    {
+      "id": 156,
+      "code": "BJ",
+      "name": "Benin",
+      "name_tr": null
+    },
+    {
+      "id": 157,
+      "code": "TD",
+      "name": "Chad",
+      "name_tr": null
+    },
+    {
+      "id": 158,
+      "code": "BW",
+      "name": "Botswana",
+      "name_tr": null
+    },
+    {
+      "id": 159,
+      "code": "CV",
+      "name": "Cape Verde",
+      "name_tr": null
+    },
+    {
+      "id": 160,
+      "code": "RW",
+      "name": "Rwanda",
+      "name_tr": null
+    },
+    {
+      "id": 161,
+      "code": "CG",
+      "name": "Congo",
+      "name_tr": null
+    }
+  ],
+  "show_msg": 1,
+  "env": "production",
+  "0": 200
+}

@@ -97,8 +97,11 @@
             android:layout_marginTop = "@dimen/register_edittext_margin_top"
             android:layout_marginBottom = "@dimen/register_edittext_margin_bottom"
             android:textSize="15dp"
-            android:hint="@string/country"
-            android:maxLines="1" android:singleLine="true" />
+            android:hint="@string/select_country"
+            android:focusable="false"
+            android:maxLines="1"
+            android:singleLine="true" />
+
         <EditText android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -155,10 +158,20 @@
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/maleButton"/>
             </RelativeLayout>
+        <Spinner
+            android:id="@+id/countrySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            android:layout_marginTop = "@dimen/register_edittext_margin_top"
+            android:layout_marginBottom = "@dimen/register_edittext_margin_bottom"
+            android:textSize="0dp"
+            android:spinnerMode="dialog">
 
+        </Spinner>
             <View
                 style="@style/Divider1"
-                android:layout_marginTop="25dp"/>
+                android:layout_marginTop="20dp"/>
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"

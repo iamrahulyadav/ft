@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-
 /**
  * Created by oguzemreozcan on 27/03/15.
  */

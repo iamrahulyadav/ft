@@ -88,6 +88,8 @@ public class Constants {
     public final static String REFRESH_TOKEN_KEY = "REFRESH_TOKEN";
 
     public final static String SENDER_ID = "337533113430";
+    public final static String CONSUMER_KEY ="DAA8IMS9COuF2DuNdeo7UyC7Y";
+    public final static String CONSUMER_SECRET = "lIUsYpJfqVDW5McHd47Mzqf6KImdgVORRCTfZAWUJug7p3NdOK";
 
     public final static int USER_FAVORITE_POST_LOADER_ID = 22;
     public final static int GALLERY_POSTS_BY_TAG_LOADER_ID = 21;

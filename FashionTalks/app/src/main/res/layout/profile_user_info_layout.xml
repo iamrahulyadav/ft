@@ -75,8 +75,9 @@
                 android:layout_toRightOf="@+id/glamTv"
                 android:layout_below="@+id/nameTv"
                 android:layout_marginLeft="6dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="7dp"
                 android:layout_marginBottom="4dp"
+                android:textSize="10dp"
                 android:text="Fashionista"
                 android:textColor="@color/black" />
         </LinearLayout>
@@ -128,6 +129,36 @@
             style="@style/Base.TextAppearance.AppCompat"
             android:textSize="13dp" />
 
+        <ImageView
+            android:id="@+id/moreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/followButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="8dp"
+            android:layout_alignBottom="@+id/followButton"
+            android:src="@drawable/three_dots_icon"/>
+
+        <Button
+            android:id="@+id/increaseFollowersButton"
+            android:layout_width="103dp"
+            android:layout_height="38dp"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/follow_button_drawable"
+            android:paddingBottom="0dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:text="@string/increase_followers"
+            android:textAllCaps="false"
+            style="@style/Base.TextAppearance.AppCompat"
+            android:textSize="13dp" />
+
         <Button
             android:id="@+id/followersButton"
             android:layout_width="wrap_content"
@@ -148,7 +179,7 @@
             android:layout_alignTop="@+id/followersButton"
             android:layout_marginTop="7dp"
             android:layout_toLeftOf="@+id/followersButton"
-            android:text=" | "
+            android:text="|"
             android:textColor="@color/gray"
             android:textSize="20dp" />
 

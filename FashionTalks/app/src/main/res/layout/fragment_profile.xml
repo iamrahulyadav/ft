@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="1dp"
     android:paddingTop="4dp"
-    android:paddingBottom="10dp"
+    android:paddingBottom="4dp"
     android:background="@color/white">
     <com.mallardduckapps.fashiontalks.components.BounceListView
         android:id="@+id/uploadsList"
@@ -13,6 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.mallardduckapps.fashiontalks.components.BounceListView>
+    <View
+        android:id="@+id/bottomDivider"
+        style="@style/Divider1"
+        android:layout_alignParentBottom="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomDivider"
+        android:layout_marginBottom="-5dp">
+        <include layout="@layout/share_menu_layout_wo_report">
+        </include>
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
