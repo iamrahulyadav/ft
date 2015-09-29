@@ -78,7 +78,7 @@ public class CropImage extends MonitoredActivity {
     // These are various options can be specified in the intent.
     private       Bitmap.CompressFormat mOutputFormat    = Bitmap.CompressFormat.JPEG;
     private       Uri                   mSaveUri         = null;
-    private       boolean               mDoFaceDetection = true;
+    private       boolean               mDoFaceDetection = false;//true;
     private       boolean               mCircleCrop      = false;
     private final Handler               mHandler         = new Handler();
 
@@ -351,7 +351,7 @@ public class CropImage extends MonitoredActivity {
         // step api so that we don't require that the whole (possibly large)
         // bitmap doesn't have to be read into memory
         if (mSaving) return;
-
+        Log.d(TAG, "MUST BE SAVING");
         if (mCrop == null) {
             return;
         }
@@ -741,9 +741,6 @@ public class CropImage extends MonitoredActivity {
 
         mImageView.add(hv);
     }
-
-
-
 }
 
 

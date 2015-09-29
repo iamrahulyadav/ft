@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class GalleriesFragment extends BasicFragment implements
     private ArrayList<GalleryItem> dataList;
     private GalleryGridAdapter listAdapter;
     private ArrayList<Gallery> items;
+    boolean attached = false;
     //private MainActivity activity;
 
     private final int MAX_CARDS = 2;
@@ -54,10 +56,21 @@ public class GalleriesFragment extends BasicFragment implements
     }
 
     @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        attached = true;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        attached = false;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
-        useLoader();
     }
 
     @Override
@@ -74,11 +87,13 @@ public class GalleriesFragment extends BasicFragment implements
         if(listAdapter == null){
             listAdapter = new GalleryGridAdapter(getActivity(), this, MAX_CARDS, true);
         }
+
         if(dataList != null){
             listAdapter.clearList();
             listAdapter.addItemsInGrid(dataList);
             listView.setAdapter(listAdapter);
         }
+        useLoader();
 
         return rootView;
     }
@@ -90,14 +105,14 @@ public class GalleriesFragment extends BasicFragment implements
 
     @Override
     public Loader<ArrayList<Gallery>> onCreateLoader(int id, Bundle args) {
-        loader = new GalleriesLoader(getActivity().getApplicationContext(), id);
+        loader = new GalleriesLoader(getActivity().getApplicationContext(),app, id);
         return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Gallery>> loader, ArrayList<Gallery> data) {
 
-        if(data == null){
+        if(data == null || !attached){
             Log.d(TAG, "DATA IS NULL");
             Handler handler = new Handler();
             handler.post(new Runnable() {
@@ -115,13 +130,14 @@ public class GalleriesFragment extends BasicFragment implements
 
         if(dataList == null){
             dataList = new ArrayList<GalleryItem>(items.size());
+
             //StringBuilder builder = ;
             for (Gallery gallery : items){
                 //Log.d(TAG, "COVER PATH: " + gallery.getCover());
                 //ImagePathTask task = new ImagePathTask("galleries/1419693538.203064jpg");
                 //String path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/300x300/").append(gallery.getCover()).toString();
                 GalleryItem galleryItem = new GalleryItem(index, gallery.getId(), gallery.getTitle(), gallery.getCover());
-                //Log.d(TAG, "GALLERY IDs: " + galleryItem.getId() + " - GalleryName: " + galleryItem.getTitle());
+                //Log.d(TAG, "GALLERY IDs: " + galleryItem.getId() + " - GalleryName: " + galleryItem.getTitle() + " - getCover: " +gallery.getCover());
                 index ++;
                 dataList.add(galleryItem);
             }

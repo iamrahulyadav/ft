@@ -114,8 +114,8 @@ public class PopularUserListAdapter extends BaseAdapter implements FollowTask.Fo
                 }
             });
             holder.nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
-            holder.glamTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
-            holder.classificationTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
+            holder.glamTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_bold)));
+            holder.classificationTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_hoefler_italic)));
             holder.column1Image = (ImageView) vi.findViewById(R.id.imageColumn1);
             holder.column2Image = (ImageView) vi.findViewById(R.id.imageColumn2);
             holder.column3Image = (ImageView) vi.findViewById(R.id.imageColumn3);
@@ -157,7 +157,7 @@ public class PopularUserListAdapter extends BaseAdapter implements FollowTask.Fo
             public void onClick(View v) {
                 boolean isChecked = holder.button.isChecked();
                     Log.d(TAG, "BUTTON CHECKED is " + isChecked);
-                    FollowTask task = new FollowTask(PopularUserListAdapter.this, isChecked, user.getId());
+                    FollowTask task = new FollowTask(PopularUserListAdapter.this, activity, isChecked, user.getId());
                     app.executeAsyncTask(task);
                     user.setIsFollowing(isChecked ? 1 : 0);
                     //int index = data.indexOf(user);

@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 /**
  * Created by oguzemreozcan on 02/08/15.
@@ -54,6 +56,9 @@ public class ClassificationDialog extends DialogFragment {
         //Dialog dialog = new Dialog(getActivity(),android.R.style.Theme_Translucent_NoTitleBar);
         View rootView = inflater.inflate(dialogNo == CLASSIFICATION_DIALOG ? R.layout.classification_popup_layout : R.layout.getmoreglam_popup_layout, container, false);
         Dialog dialog = getDialog();
+        LinearLayout parentLayout = (LinearLayout) rootView.findViewById(dialogNo == CLASSIFICATION_DIALOG ? R.id.classificationLayout : R.id.getMoreGlamLayout);
+        FTUtils.setFont(parentLayout,FTUtils.loadFont(getActivity().getAssets(),getString(R.string.font_helvatica_neue)));
+
         //FTUtils.setFont(container, FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_thin)));
         // getDialog().setTitle(getResources().getString(R.string.report_subject_title));
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);

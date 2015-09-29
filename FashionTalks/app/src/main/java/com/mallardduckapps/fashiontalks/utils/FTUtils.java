@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -32,13 +33,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.loaders.Exclude;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
+import com.mallardduckapps.fashiontalks.objects.Post;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -80,6 +88,18 @@ public class FTUtils {
         return jsonText;
     }
 
+    public static boolean instagramAppInstalledOrNot(Activity activity) {
+
+        boolean app_installed = false;
+        try {
+            ApplicationInfo info = activity.getPackageManager().getApplicationInfo("com.instagram.android", 0);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
     public static float dpFromPx(int px, Context context) {
         return px / context.getResources().getDisplayMetrics().density;
     }
@@ -87,7 +107,6 @@ public class FTUtils {
     public static float pxFromDp(int dp, Context context) {
         return dp * context.getResources().getDisplayMetrics().density;
     }
-
 
     public static int[] getScreenSize(Activity activity) {
         Point size = new Point();
@@ -101,7 +120,51 @@ public class FTUtils {
         return sizes;
     }
 
+    public static String convertPostToString(Post post){
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+        Type type = new TypeToken<Post>() {
+        }.getType();
+        String json = gson.toJson(post, type);
+        Log.d("FT_UTILS", "POST string: " + json);
+        return json;
+    }
+
+    public static Post convertStringToPost(String json){
+        //JsonArray dataObjects = new JsonParser().parse(json).getAsJsonObject().getAsJsonArray("data");
+        Exclude ex = new Exclude();
+        //ArrayList<Post> popularPostItems = new ArrayList<Post>();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+        Post post = gson.fromJson(json, Post.class);
+        return post;
+    }
+
+    public static String convertListToString(ArrayList<Post> postArrayList){
+        Exclude ex = new Exclude();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+        Type type = new TypeToken<ArrayList<Post>>() {
+        }.getType();
+        String json = gson.toJson(postArrayList, type);
+        Log.d("FT_UTILS", "POST LIST string: " + json);
+        return json;
+    }
+
+    public static ArrayList<Post> convertStringToPostArray(String json){
+        //JsonArray dataObjects = new JsonParser().parse(json).getAsJsonObject().getAsJsonArray();
+        Exclude ex = new Exclude();
+        ArrayList<Post> popularPostItems = new ArrayList<Post>();
+        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+        Type type = new TypeToken<ArrayList<Post>>() {
+        }.getType();
+        //for (JsonElement item : dataObjects) {
+        popularPostItems  = gson.fromJson(json, type);
+            //popularPostItems.add(post);
+        //}
+        return popularPostItems;
+    }
+
     public static Bitmap screenShot(View view) {
+        Log.d("FTUTILS", "TAKE SCREEN SHOT !!");
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
                 view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

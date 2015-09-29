@@ -9,6 +9,7 @@ import android.util.Log;
 import com.mallardduckapps.fashiontalks.fragments.PostFragment;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.utils.Constants;
+import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -29,7 +30,7 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
     public VerticalPagerAdapter(FragmentManager fm, ArrayList<Post> postArrayList, LoadMorePostToPager callback, int loaderId) {
         super(fm);
         //clear();
-        this.postArrayList = postArrayList;
+        this.postArrayList = new ArrayList<Post>(postArrayList);//postArrayList;
         initialSize = postArrayList.size();
         Log.d(TAG, "**POSTS  - VERTICAL PAGER ADAPTER: " + postArrayList.size());
         this.callback = callback;
@@ -48,11 +49,12 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
         bundle.putInt("LOADER_ID", loaderId);
         bundle.putInt("POST_ID", postArrayList.get(position).getId());
         bundle.putInt("POST_INDEX", position);
+        bundle.putParcelable("POST", postArrayList.get(position));
         postFragment.setArguments(bundle);
         Log.d(TAG, "**POSITION : " + position + " - size: " + postArrayList.size());
         if(postArrayList.size() > 0 && inLoadEnabled){
             //TODO perpage 15 for now
-            if(position == postArrayList.size() - 1 && initialSize % 15 == 0){
+            if(position == postArrayList.size() - 1 && initialSize % Constants.POPULAR_POSTS_PAGE_SIZE == 0){
                 callback.loadMorePost(position+1,1,loaderId);
             }
         }
@@ -64,6 +66,15 @@ public class VerticalPagerAdapter extends FragmentPagerAdapter {
     public void addNewItem(Post post){
         Log.d(TAG, "**VERTICAL VIEW ADAPTER ADD NEW POST: " + post.getId());
         postArrayList.add(post);
+        this.notifyDataSetChanged();
+    }
+
+    public void addNewItems(ArrayList<Post> postList){
+        Log.d(TAG, "**VERTICAL VIEW ADAPTER ADD NEW POST: " + postList.size());
+        for(Post post: postList){
+            postArrayList.add(post);
+        }
+        initialSize += postList.size();
         this.notifyDataSetChanged();
     }
 

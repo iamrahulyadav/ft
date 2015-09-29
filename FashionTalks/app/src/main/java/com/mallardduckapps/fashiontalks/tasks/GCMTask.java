@@ -5,12 +5,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.DataSaver;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 
@@ -80,7 +80,7 @@ public class GCMTask {
 //      ArrayList<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(params.length);
         //BasicNameValuePair param = new BasicNameValuePair("Authorization","bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6Im9ndXpAYXJtdXQuY29tIiwicm9sZSI6IkF1dGhvcml6ZWRVc2VycyIsImlzcyI6IkFybXV0V2ViQVBJIiwiYXVkIjoiYjY5Y2ZjNzNjZTk4NDIyMThlODlhNDVjMjhjMmIwYzEiLCJleHAiOjE0NTE5ODcxODUsIm5iZiI6MTQyMDQ1MTE4NX0.qWt-sq2s_NivRaxnp9qv34SqKzE9l0m26stKgct9tD0");
         try {
-            response = restClient.doPostRequestWithJSON(Constants.REGISTER_GCM_TOKEN,accessToken, new BasicNameValuePair("android_token", regId));
+            response = restClient.doPostRequestWithJSON(Constants.REGISTER_GCM_TOKEN, accessToken, new BasicNameValuePair("android_token", regId));
             Log.d("GCM_TASK", "RESPONSE FROM API (send reg id): " + "accessToken: " +accessToken + "-response: " + response);
             //Toast.makeText(context,"RESPONSE FROM API (send reg id): " + response, Toast.LENGTH_LONG).show();
         } catch ( Exception e) {

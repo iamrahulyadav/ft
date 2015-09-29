@@ -11,26 +11,37 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="2dp"
         android:paddingLeft="7dp"
-        android:paddingRight="7dp"
+        android:paddingRight="5dp"
         android:scaleType="fitCenter"
         android:src="@drawable/profile"
         app:riv_corner_radius="30dip"
         app:riv_mutate_background="true"
         app:riv_oval="true" />
-
+    <ImageView
+        android:id="@+id/moreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_action_overflow"/>
     <LinearLayout
         android:id="@+id/nameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="1dp"
         android:layout_marginTop="7dp"
         android:layout_toRightOf="@+id/profileThumbnail"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        >
 
         <TextView
             android:id="@+id/nameTv"
@@ -38,7 +49,7 @@
             android:layout_height="wrap_content"
             android:text="NAME"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/userNameTv"
@@ -46,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="USERNAME"
             android:textColor="@color/black"
-            android:textSize="14dp" />
+            android:textSize="15dp" />
 
         <View
             style="@style/Divider1"
@@ -65,6 +76,7 @@
                 android:drawableLeft="@drawable/profile_glam_icon"
                 android:drawablePadding="3dp"
                 android:gravity="center_vertical"
+                android:textSize="16dp"
                 android:text="GLAM COUNT"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -73,12 +85,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/glamTv"
-                android:layout_below="@+id/nameTv"
+                android:singleLine="true"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="4dp"
-                android:textSize="10dp"
+                android:padding="4dp"
+                android:textSize="13dp"
                 android:text="Fashionista"
+                android:letterSpacing="1.1"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -128,17 +142,6 @@
             android:textAllCaps="false"
             style="@style/Base.TextAppearance.AppCompat"
             android:textSize="13dp" />
-
-        <ImageView
-            android:id="@+id/moreButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/followButton"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="8dp"
-            android:layout_alignBottom="@+id/followButton"
-            android:src="@drawable/three_dots_icon"/>
 
         <Button
             android:id="@+id/increaseFollowersButton"

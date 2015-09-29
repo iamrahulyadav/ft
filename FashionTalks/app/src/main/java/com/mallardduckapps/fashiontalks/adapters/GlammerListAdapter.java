@@ -41,6 +41,7 @@ public class GlammerListAdapter extends BaseAdapter implements FollowTask.Follow
     AssetManager manager;
     String font;
     FashionTalksApp app;
+    FollowProcessListener processListener;
 
     public GlammerListAdapter(Activity act, ArrayList<User> glammerList){
 
@@ -54,6 +55,11 @@ public class GlammerListAdapter extends BaseAdapter implements FollowTask.Follow
         options = ((FashionTalksApp) act.getApplication()).options;
         app = (FashionTalksApp) act.getApplication();
         pathMainUrl = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/100x100/").toString();
+    }
+
+    public GlammerListAdapter(Activity act, FollowProcessListener listener, ArrayList<User> glammerList){
+        this(act, glammerList);
+        processListener = listener;
     }
 
     public void addData(ArrayList<User> data){
@@ -117,7 +123,11 @@ public class GlammerListAdapter extends BaseAdapter implements FollowTask.Follow
             public void onClick(View v) {
                 boolean isChecked = checkbox.isChecked();
                 Log.d(TAG, "BUTTON CHECKED is " + isChecked);
-                FollowTask task = new FollowTask(GlammerListAdapter.this,isChecked, user.getId());
+                FollowTask task = new FollowTask(GlammerListAdapter.this,activity,isChecked, user.getId());
+                if(processListener != null){
+                    Log.d(TAG, "ON FOLLOW TASK STARTED GLAMMER ADAPTER");
+                    processListener.onFollowTaskStarted();
+                }
                 app.executeAsyncTask(task, null);
                 user.setIsFollowing(isChecked ? 1 : 0);
                 //task.execute();
@@ -132,16 +142,32 @@ public class GlammerListAdapter extends BaseAdapter implements FollowTask.Follow
     @Override
     public void isFollowed(boolean success, int userId) {
 
+        if(processListener != null){
+            Log.d(TAG, "ON FOLLOW TASK ENDED GLAMMER ADAPTER");
+            processListener.onFollowTaskFinished();
+        }else{
+            Log.d(TAG, "PROCESS LISTENER NULL");
+        }
     }
 
     @Override
     public void isUnfollowed(boolean success, int userId) {
-
+        if(processListener != null){
+            Log.d(TAG, "ON FOLLOW TASK ENDED GLAMMER ADAPTER");
+            processListener.onFollowTaskFinished();
+        }else{
+            Log.d(TAG, "PROCESS LISTENER NULL");
+        }
     }
 
     public static class ViewHolder {
         RoundedImageView thumbView;
         TextView nameTv;
         CheckBox button;
+    }
+
+    public interface FollowProcessListener{
+        void onFollowTaskStarted();
+        void onFollowTaskFinished();
     }
 }

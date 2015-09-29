@@ -110,9 +110,11 @@
             android:src="@drawable/splash_portrait" />
 
         <RelativeLayout
+            android:id="@+id/shareMenuLayoutParent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bottomBar">
+            android:layout_above="@+id/bottomBar"
+            >
 
             <include layout="@layout/share_menu_layout">
             </include>
@@ -223,7 +225,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="5dp"
-                android:src="@drawable/three_dots_icon"
+                android:src="@drawable/ic_action_overflow"
                 android:background="@color/white"
                 android:padding="4dp" />
             <!--android:src="@android:drawable/ic_menu_info_details" -->

@@ -48,7 +48,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
     private String adUrl = "";
     private boolean autoClose = false;
     FashionTalksApp app;
-    RelativeLayout layout;
+    //RelativeLayout layout;
     ExpandablePanelWrapper parent;
 
     public ExpandablePanel(final FashionTalksApp app,final Context context, Pivot pivot, ExpandablePanelWrapper parent, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost, boolean adPost) {
@@ -64,7 +64,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                 .getDisplayMetrics());
         mContentWidth = (int) res.getDimension(R.dimen.glam_width);//TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.glam_width), res
                 //.getDisplayMetrics());
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
         setTypeface(FTUtils.loadFont(context.getAssets(), context.getString(R.string.font_times_new_roman)));
         setTextColor(Color.BLACK);
         mAnimationDuration = 200;
@@ -81,9 +81,8 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
 
         setSingleLine();
         setMaxLines(1);
-        setGravity(Gravity.CENTER);
 
-
+        //setGravity(Gravity.CENTER);
         //setClickable(true);
 
         setLayoutParams(params);
@@ -153,9 +152,11 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         img.setBounds(0, 0, mContentWidth, mContentWidth);
 
         if (!lhsAnimation) {
+            setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
             setCompoundDrawables(null, null, img, null);
             //setPadding(5,0,5,0);// 5,0,0,0
         } else {
+            setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
             setCompoundDrawables(img, null, null, null);
             //setPadding(5,0,5,0);
         }
@@ -256,6 +257,7 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
         a.setFillAfter(true);
         startAnimation(a);
         invalidate();
+        Log.d(TAG, "SHRINK ANIMATION");
         //mExpanded = false;
     }
 
@@ -335,9 +337,6 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
             setLayoutParams(param);
 
             //getParent().getParent().requestLayout();
-
-
-
 //            Log.d("EXPANDABLE_PANEL", "Width: " + param.width + "leftmargin: "+ param.leftMargin +
 //                    " - time: " +  interpolatedTime + " - delta: " + delta);
         }
@@ -371,7 +370,6 @@ public class ExpandablePanel extends TextView implements GlamTask.AsyncResponse 
                     mListener.onCollapse(ExpandablePanel.this, tagId, brandName);
                     autoClose = false;
                 }
-
             }
         }
 

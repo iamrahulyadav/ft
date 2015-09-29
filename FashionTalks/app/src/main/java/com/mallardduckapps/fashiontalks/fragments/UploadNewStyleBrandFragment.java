@@ -1,6 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Context;
@@ -211,12 +212,12 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
                     //terminateTask();
                     //resetLoader(brandEdit.getText().toString());
                     if(currentGlam.isLhsAnimation()){
-                        currentGlam.setTagText(brandEdit.getText().toString()+"  ", true);
+                        currentGlam.setTagText(brandEdit.getText().toString().trim()+"  ", true);
                     }else{
-                        currentGlam.setTagText("  "+brandEdit.getText().toString(), true);
+                        currentGlam.setTagText("  "+brandEdit.getText().toString().trim(), true);
                     }
 
-                    glamReady(brandEdit.getText().toString(),0);
+                    glamReady(brandEdit.getText().toString().trim(),0);
                 }
             }
         });
@@ -301,11 +302,11 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             if(panel != null){
                 JSONObject glamObject = new JSONObject();
                 glamObject.put("tag", panel.getText().toString().trim());
-                glamObject.put("x", getVirtualX((int)panel.getX()));
+                glamObject.put("x", getVirtualX((int) ((ExpandablePanelWrapper) panel.getParent()).getX()));
                 if(panel.isLhsAnimation()){
-                    glamObject.put("y", getVirtualY((int)panel.getY()));
+                    glamObject.put("y", getVirtualY((int) ((ExpandablePanelWrapper) panel.getParent()).getY()));
                 }else{
-                    glamObject.put("y", getVirtualY((int)panel.getY() - 5));
+                    glamObject.put("y", getVirtualY((int)((ExpandablePanelWrapper)panel.getParent()).getY() - 5));
                 }
 
                 array.put(index, glamObject);
@@ -626,6 +627,18 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
         Log.d(TAG, "REAL Y: " + y  + " - Image Height: " + imageHeight + "- postPhotoY: " + postPhoto.getY());
         return (int)(Constants.VIRTUAL_HEIGHT*(y - postPhoto.getY()))/imageHeight;
     }
+    boolean attached = false;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        attached = true;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        attached = false;
+    }
 
     public class SendPhotoTask extends AsyncTask<String, Void, String> {
         private final String TAG = "SendPhotoTask";
@@ -646,7 +659,11 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             RestClient restClient = new RestClient();
             try {
                 String url = new StringBuilder(Constants.POST_NEW).toString();
-                response = restClient.doPostRequestWithJSON(url, null,params[0]);
+                String token = null;
+                if(app != null){
+                    token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+                }
+                response = restClient.doPostRequestWithJSON(url, token ,params[0]);
                 Log.d(TAG, "User REQUEST RESPONSE: " + response);
                 JSONObject object = new JSONObject(response);
                 status = object.getInt("status");
@@ -666,15 +683,19 @@ public class UploadNewStyleBrandFragment extends UploadNewStyleTitleFragment imp
             progressBarMain.setVisibility(View.GONE);
             postInProgress = false;
             if(status == 0){
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                if(attached){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("POST_UPLOADED", Constants.STATUS_CODE_POST_UPLOADED);
+                    startActivity(intent);
+                }
+                //getActivity().setResult(Constants.STATUS_CODE_POST_UPLOADED);
                 getActivity().finish();
                 BaseActivity.setTranslateAnimation(getActivity());
             }else{
                 try{
                     Toast.makeText(UploadNewStyleBrandFragment.this.getActivity(), getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
                 }catch(Exception e){
-
+                    e.printStackTrace();
                 }
             }
         }

@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
-
-import org.apache.http.message.BasicNameValuePair;
-
 /**
  * Created by oguzemreozcan on 28/03/15.
  */
@@ -31,6 +29,7 @@ public class ConnectFBTask extends AsyncTask<Void, Void, String> {
         RestClient restClient = new RestClient();
         if(!taskForLogin){
             try {
+
                 response = restClient.doPostRequestWithJSON(Constants.CONNECT_FB, null,new BasicNameValuePair("access_token", fbToken));
                 Log.d(TAG, "RESPONSE FROM API: " + response);
             } catch ( Exception e) {

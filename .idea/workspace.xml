@@ -2,603 +2,139 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3344d8a-c137-4751-93cf-b9ec576913e6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/NoConnectionDialog.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/test.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/Archive.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_edit_profile.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/generated/source/buildConfig/debug/jp/sharakova/android/emoji/BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/generated/source/r/debug/jp/sharakova/android/emoji/R.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/EmojiTextView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/EmojiTextView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/EmojiTextViewSampleActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/EmojiUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/classes/debug/jp/sharakova/android/emoji/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/incremental/aidl/debug/dependency.store" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable-hdpi-v4/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable-ldpi-v4/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable-mdpi-v4/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e001.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e002.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e003.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e004.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e005.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e006.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e007.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e008.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e009.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e010.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e011.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e012.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e013.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e014.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e015.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e016.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e017.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e018.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e019.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e020.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e021.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e022.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e023.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e024.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e025.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e026.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e027.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e028.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e029.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e030.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e031.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e032.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e033.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e034.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e035.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e036.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e037.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e038.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e039.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e040.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e041.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e042.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e043.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e044.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e045.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e046.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e047.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e048.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e049.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e050.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e051.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e052.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e053.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e054.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e055.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e056.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e057.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e058.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e059.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e060.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e061.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e062.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e063.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e064.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e065.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e066.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e067.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e068.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e069.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e070.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e071.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e072.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e073.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e074.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e075.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e076.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e077.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e078.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e079.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e080.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e081.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e082.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e083.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e084.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e085.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e086.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e087.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e088.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e089.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e090.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e091.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e092.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e093.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e094.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e095.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e096.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e097.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e098.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e099.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e100.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e101.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e102.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e103.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e104.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e105.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e106.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e107.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e108.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e109.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e110.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e111.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e112.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e113.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e114.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e115.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e116.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e117.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e118.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e119.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e120.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e121.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e122.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e123.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e124.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e125.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e126.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e127.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e128.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e129.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e130.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e131.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e132.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e133.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e134.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e135.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e136.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e137.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e138.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e139.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e140.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e141.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e142.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e143.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e144.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e145.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e146.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e147.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e148.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e149.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e150.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e151.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e152.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e153.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e154.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e155.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e156.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e157.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e158.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e159.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e160.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e161.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e162.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e163.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e164.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e165.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e166.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e167.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e168.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e169.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e170.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e171.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e172.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e173.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e174.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e175.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e176.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e177.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e178.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e179.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e180.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e181.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e182.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e183.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e184.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e185.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e186.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e187.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e188.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e189.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e190.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e191.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e192.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e193.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e194.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e195.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e196.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e197.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e198.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e199.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e200.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e201.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e202.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e203.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e204.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e205.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e206.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e207.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e208.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e209.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e210.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e211.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e212.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e213.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e214.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e215.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e216.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e217.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e218.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e219.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e220.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e221.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e222.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e223.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e224.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e225.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e226.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e227.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e228.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e229.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e230.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e231.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e232.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e233.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e234.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e235.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e236.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e237.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e238.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e239.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e240.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e241.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e242.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e243.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e244.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e245.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e246.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e247.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e248.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e249.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e250.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e251.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e252.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/drawable/e261.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/layout/main.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/debug/values/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/intermediates/res/resources-debug.ap_" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/emojiTextView/build/outputs/apk/manifest-merger-debug-report.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/generated/source/buildConfig/debug/com/birin/gridlistviewadapters/BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/generated/source/buildConfig/release/com/birin/gridlistviewadapters/BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/generated/source/r/debug/com/birin/gridlistviewadapters/R.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/generated/source/r/release/com/birin/gridlistviewadapters/R.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/debug/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/debug/R.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/debug/res/values/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/release/R.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/release/classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/release/res/values/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/BaseGridAdapter$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/BaseGridAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/Card.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/CursorFilter$CursorFilterClient.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/CursorFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/CursorGridAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/ListGridAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/RowViewHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/dataholders/CardDataHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/dataholders/CardPositionInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/dataholders/RowDataHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/utils/ChildViewsClickHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/utils/GridDataStructure.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/utils/MaxCardsInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/utils/OnLoadMoreRequestListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/utils/PositionCalculator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/debug/com/birin/gridlistviewadapters/utils/ViewHolderPositionTagger.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/BaseGridAdapter$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/BaseGridAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/Card.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/CursorFilter$CursorFilterClient.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/CursorFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/CursorGridAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/ListGridAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/RowViewHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/dataholders/CardDataHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/dataholders/CardPositionInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/dataholders/RowDataHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/utils/ChildViewsClickHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/utils/GridDataStructure.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/utils/MaxCardsInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/utils/OnLoadMoreRequestListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/utils/PositionCalculator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/release/com/birin/gridlistviewadapters/utils/ViewHolderPositionTagger.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/aidl/debug/dependency.store" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/aidl/release/dependency.store" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/BasicNameValuePair.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/BlockDialog.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/FacebookFriendsLoginFragment.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/androidTest/debug/com/birin/gridlistviewadapters/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/androidTest/debug/com/birin/gridlistviewadapters/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/androidTest/debug/com/birin/gridlistviewadapters/test/BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/androidTest/debug/com/birin/gridlistviewadapters/test/R$attr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/androidTest/debug/com/birin/gridlistviewadapters/test/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/classes/androidTest/debug/com/birin/gridlistviewadapters/test/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/packageResources/debug/merger.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/outputs/aar/gridListViewAdapters-release.aar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/tmp/packageReleaseJar/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/generated/source/buildConfig/debug/eu/janmuller/android/simplecropimage/BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/generated/source/buildConfig/release/eu/janmuller/android/simplecropimage/BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/generated/source/r/debug/eu/janmuller/android/simplecropimage/R.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/generated/source/r/release/eu/janmuller/android/simplecropimage/R.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/R.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/btn_crop_operator.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/btn_crop_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/camera_crop_height.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/camera_crop_width.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/ic_rotate_left.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/ic_rotate_right.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/indicator_autocrop.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/drawable/selector_crop_button.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/layout/cropimage.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/layout/main.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/values-cs/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/res/values/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/R.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/btn_crop_operator.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/btn_crop_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/camera_crop_height.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/camera_crop_width.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/ic_rotate_left.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/ic_rotate_right.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable-xhdpi-v4/indicator_autocrop.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/drawable/selector_crop_button.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/layout/cropimage.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/layout/main.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/values-cs/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/res/values/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/BitmapManager$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/BitmapManager$State.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/BitmapManager$ThreadSet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/BitmapManager$ThreadStatus.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/BitmapManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$6$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$8$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImageView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/HighlightView$ModifyMode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/HighlightView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/ImageViewTouchBase$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/ImageViewTouchBase$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/ImageViewTouchBase$Recycler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/ImageViewTouchBase.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/MonitoredActivity$LifeCycleAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/MonitoredActivity$LifeCycleListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/MonitoredActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R$style.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/RotateBitmap.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/Util$BackgroundJob$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/Util$BackgroundJob.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/Util.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/BitmapManager$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/BitmapManager$State.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/BitmapManager$ThreadSet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/BitmapManager$ThreadStatus.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/BitmapManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$6$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$8$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImageView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/HighlightView$ModifyMode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/HighlightView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/ImageViewTouchBase$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/ImageViewTouchBase$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/ImageViewTouchBase$Recycler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/ImageViewTouchBase.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/MonitoredActivity$LifeCycleAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/MonitoredActivity$LifeCycleListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/MonitoredActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R$style.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/RotateBitmap.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/Util$BackgroundJob$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/Util$BackgroundJob.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/Util.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/aidl/debug/dependency.store" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/aidl/release/dependency.store" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/manifests/androidTest/debug/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/manifests/tmp/manifestMerger1144681599959128306.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/res/androidTest/debug/values/values.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/R$drawable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/R$id.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/R$layout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/R$style.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R$attr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R$drawable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R$id.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R$layout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R$style.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/androidTest/debug/eu/janmuller/android/simplecropimage/test/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/packageResources/debug/merger.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/outputs/aar/simple-crop-image-lib-release.aar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/tmp/packageReleaseJar/MANIFEST.MF" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/add_user_box_checked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/add_user_box_checked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/add_user_box_checked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/add_user_box_checked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/add_user_box_checked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/add_user_box_checked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/add_user_box_checked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/add_user_box_checked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/add_user_box_unchecked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/add_user_box_unchecked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/add_user_box_unchecked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/add_user_box_unchecked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/add_user_box_unchecked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/add_user_box_unchecked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/add_user_box_unchecked.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/add_user_box_unchecked.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/back_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/back_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/catpiton_tick_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/catpiton_tick_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/catpiton_tick_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/catpiton_tick_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/catpiton_tick_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/catpiton_tick_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/catpiton_tick_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/catpiton_tick_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/contact_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/contact_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/delete_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/delete_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/detele_tag_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/detele_tag_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/diamond_icon_single.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/diamond_icon_single.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/diamond_icon_single.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/diamond_icon_single.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/diamond_icon_single.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/diamond_icon_single.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/diamond_icon_single.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/diamond_icon_single.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/discover_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/discover_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/fb_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/fb_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/find_users_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/find_users_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/from_library_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/from_library_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/ft_logo.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/ft_logo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/glam_dot_unpressed.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/glam_dot_unpressed.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/hamburger_menu.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/hamburger_menu.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/home_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/home_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/logout_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/logout_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/notifications_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/notifications_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/post_new_look_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/post_new_look_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/posting_rules_en.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/posting_rules_en.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/posting_rules_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/posting_rules_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/posting_rules_tr.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/posting_rules_tr.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/privacy_policy_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/privacy_policy_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/profile_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/profile_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/profile_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/profile_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/profile_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/profile_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/profile_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/profile_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/reload_grid_view_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/reload_grid_view_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/reload_post_detail_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/reload_post_detail_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/search_cancel_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/search_cancel_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/search_cancel_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/search_cancel_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/search_cancel_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/search_cancel_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/search_cancel_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/search_cancel_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/search_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/search_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/select_box_selected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/select_box_selected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/select_box_selected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/select_box_selected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/select_box_selected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/select_box_selected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/select_box_selected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/select_box_selected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/select_box_unselected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/select_box_unselected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/select_box_unselected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/select_box_unselected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/select_box_unselected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/select_box_unselected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/select_box_unselected.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/select_box_unselected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/self_profile_settings_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/self_profile_settings_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/send_invitation_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/send_invitation_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/settings_arrow_right.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/settings_arrow_right.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/settings_arrow_right.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/settings_arrow_right.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/settings_arrow_right.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/settings_arrow_right.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/settings_arrow_right.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/settings_arrow_right.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/settings_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/settings_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/settings_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/settings_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/settings_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/settings_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/settings_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/settings_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/sign_up_image_placeholder.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/sign_up_image_placeholder.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/take_picture_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/take_picture_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/talks_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/talks_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/talks_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/talks_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/talks_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/talks_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/talks_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/talks_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/terms_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/terms_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/total_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-hdpi/total_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/total_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-mdpi/total_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/total_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/total_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/total_glam_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xxhdpi/total_glam_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/user_settings_icon.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/user_settings_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/user_settings_switch_off.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/user_settings_switch_off.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/user_settings_switch_on.png" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/drawable-xhdpi/user_settings_switch_on.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/manifests/androidTest/debug/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/manifests/tmp/manifestMerger4793991086273789839.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/btn_crop_operator.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/btn_crop_pressed.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/camera_crop_height.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/camera_crop_width.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/ic_rotate_left.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/ic_rotate_right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable-xhdpi/indicator_autocrop.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/drawable/selector_crop_button.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/layout/cropimage.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/layout/main.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/values-cs/values-cs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/values-en/values-en.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/res/androidTest/debug/values/values.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImageView.class" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/debug/eu/janmuller/android/simplecropimage/CropImageView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImageView.class" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/classes/release/eu/janmuller/android/simplecropimage/CropImageView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/debug/classes.jar" afterPath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/debug/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/intermediates/bundles/release/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/classes.jar" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/debug/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/intermediates/bundles/release/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/outputs/aar/gridListViewAdapters-debug.aar" afterPath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/outputs/aar/gridListViewAdapters-debug.aar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/outputs/aar/gridListViewAdapters-release.aar" afterPath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build/outputs/aar/gridListViewAdapters-release.aar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/outputs/aar/simple-crop-image-lib-debug.aar" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/outputs/aar/simple-crop-image-lib-debug.aar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/outputs/aar/simple-crop-image-lib-release.aar" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build/outputs/aar/simple-crop-image-lib-release.aar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/BasicFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/BasicFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/BaseActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/BaseActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/CommentsFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/CommentsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/ConnectFBTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/ConnectFBTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/utils/Constants.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/utils/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/src/eu/janmuller/android/simplecropimage/CropImageView.java" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/src/eu/janmuller/android/simplecropimage/CropImageView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/components/ExpandablePanel.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/components/ExpandablePanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/components/ExpandablePanelWrapper.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/components/ExpandablePanelWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/utils/FTUtils.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/utils/FTUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/FacebookFriendsFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/FacebookFriendsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/FashionTalks.iml" afterPath="$PROJECT_DIR$/FashionTalks/FashionTalks.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/FashionTalksApp.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/FashionTalksApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/services/GCMIntentService.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/services/GCMIntentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/GalleryGridAdapter.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/GalleryGridAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/GlammerListLoader.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/GlammerListLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/FollowFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/FollowFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/FollowTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/FollowTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/ForgetPasswordFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/ForgetPasswordFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/GCMTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/GCMTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/GalleriesFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/GalleriesFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/GalleriesLoader.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/GalleriesLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/GalleryActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/GalleryActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/GlammerListAdapter.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/GlammerListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/GlammersFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/GlammersFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/LoginActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/LoginFBTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/LoginFBTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/LoginFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/LoginFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/LoginTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/LoginTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/MainActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/MainLoginFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/MainLoginFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/NavigationDrawerFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/NavigationDrawerFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/NotificationsFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/NotificationsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/Pivot.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/Pivot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/PopularPostTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/PopularPostTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/PopularPostsFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/PopularPostsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/PopularPostsLoader.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/PopularPostsLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/PopularUserListAdapter.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/PopularUserListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/PopularUsersFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/PopularUsersFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/PopularUsersLoader.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/PopularUsersLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/Post.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/Post.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/PostFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/PostFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/ProfileActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/ProfileActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/PostsActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/PostsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/PostsLoader.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/loaders/PostsLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/ProfileFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/ProfileFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/RegisterFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/RegisterFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/components/SlidingTabLayout.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/components/SlidingTabLayout.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/RegisterTask.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/tasks/RegisterTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/services/RestClient.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/services/RestClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/SearchBrandFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/SearchBrandFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/SendPostingCodeFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/SendPostingCodeFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/Tag.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/Tag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/UploadNewStyleActivity.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/UploadNewStyleActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/UploadNewStyleBrandFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/UploadNewStyleBrandFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/UploadNewStyleTitleFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/UploadNewStyleTitleFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/UploadNewStyleMainFragment.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/fragments/UploadNewStyleMainFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/User.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/objects/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/UsersPagerAdapter.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/UsersPagerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_posts.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_posts.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_profile.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_send_posting_code.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_send_posting_code.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_settings.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_style_upload.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_style_upload.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_web.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/activity_web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/VerticalPagerAdapter.java" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/java/com/mallardduckapps/fashiontalks/adapters/VerticalPagerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/app.iml" afterPath="$PROJECT_DIR$/FashionTalks/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/build.gradle" afterPath="$PROJECT_DIR$/FashionTalks/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/build.gradle" afterPath="$PROJECT_DIR$/FashionTalks/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/comment_row.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/comment_row.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build.gradle" afterPath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build.gradle" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/classification_popup_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/classification_popup_layout.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-hdpi/dimens.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-hdpi/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-mdpi/dimens.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-mdpi/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-xhdpi/dimens.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-xhdpi/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-xxhdpi/dimens.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-xxhdpi/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_login.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_main_login.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_main_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_profile.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_settings_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_settings_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_upload_new_style_brand.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_upload_new_style_brand.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_upload_new_style_title.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_upload_new_style_title.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_user_settings.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/fragment_user_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/gallery_card_view.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/gallery_card_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/getmoreglam_popup_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/getmoreglam_popup_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/gridListViewAdapters.iml" afterPath="$PROJECT_DIR$/FashionTalks/gridListViewAdapters/gridListViewAdapters.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/list_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/list_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/.idea/modules.xml" afterPath="$PROJECT_DIR$/FashionTalks/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/navdrawer_row.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/navdrawer_row.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/menu/menu_home.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/menu/menu_home.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/popular_users_row.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/popular_users_row.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/post_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/post_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/register_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/register_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/profile_user_info_layout.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/profile_user_info_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/simple-crop-image-lib.iml" afterPath="$PROJECT_DIR$/FashionTalks/simple-crop-image-lib/simple-crop-image-lib.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/toggled_list_row.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/layout/toggled_list_row.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-en/strings.xml" afterPath="$PROJECT_DIR$/FashionTalks/app/src/main/res/values-en/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FashionTalks.iws" />
     <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -609,12 +145,20 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="FashionTalks" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
@@ -647,12 +191,13 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane />
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -671,6 +216,42 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/FashionTalks" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -680,6 +261,7 @@
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -706,41 +288,6 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <list size="0" />
     <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="HTML_FILE_NAME" />
@@ -763,37 +310,38 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="f3344d8a-c137-4751-93cf-b9ec576913e6" name="Default" comment="" />
       <created>1427565317534</created>
+      <option name="number" value="Default" />
       <updated>1427565317534</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="722" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="722" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -807,13 +355,8 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+    <watches-manager />
   </component>
 </project>
-

@@ -1,5 +1,8 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by oguzemreozcan on 20/01/15.
  */
-public class Post {
+public class Post implements Parcelable {
 
     @SerializedName("id")
     private int id;
@@ -18,6 +21,10 @@ public class Post {
     private String title;
     @SerializedName("photo")
     private String photo;
+    @SerializedName("photo_big")
+    private String photoBig;
+    @SerializedName("photo_small")
+    private String photoSmall;
     @SerializedName("glam_count")
     private int glamCount;
     @SerializedName("gossip_count")
@@ -196,4 +203,83 @@ public class Post {
     public void setInvalid(boolean invalid) {
         this.invalid = invalid;
     }
+
+    public String getPhotoBig() {
+        return photoBig;
+    }
+
+    public void setPhotoBig(String photoBig) {
+        this.photoBig = photoBig;
+    }
+
+    public String getPhotoSmall() {
+        return photoSmall;
+    }
+
+    public void setPhotoSmall(String photoSmall) {
+        this.photoSmall = photoSmall;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.photo);
+        dest.writeString(this.photoBig);
+        dest.writeString(this.photoSmall);
+        dest.writeInt(this.glamCount);
+        dest.writeInt(this.gossipCount);
+        dest.writeString(this.createdAt);
+        dest.writeString(this.updatedAt);
+        dest.writeInt(this.userId);
+        dest.writeInt(this.isAd);
+        dest.writeString(this.adUrl);
+        dest.writeInt(this.isPopular);
+        dest.writeInt(this.canComment);
+        dest.writeInt(this.commentCount);
+        dest.writeInt(this.todaysGlam);
+        dest.writeTypedList(tags);
+        dest.writeByte(invalid ? (byte) 1 : (byte) 0);
+        dest.writeParcelable(this.user, 0);
+    }
+
+    public Post() {
+    }
+
+    protected Post(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.photo = in.readString();
+        this.photoBig = in.readString();
+        this.photoSmall = in.readString();
+        this.glamCount = in.readInt();
+        this.gossipCount = in.readInt();
+        this.createdAt = in.readString();
+        this.updatedAt = in.readString();
+        this.userId = in.readInt();
+        this.isAd = in.readInt();
+        this.adUrl = in.readString();
+        this.isPopular = in.readInt();
+        this.canComment = in.readInt();
+        this.commentCount = in.readInt();
+        this.todaysGlam = in.readInt();
+        this.tags = in.createTypedArrayList(Tag.CREATOR);
+        this.invalid = in.readByte() != 0;
+        this.user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        public Post createFromParcel(Parcel source) {
+            return new Post(source);
+        }
+
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 }

@@ -117,7 +117,7 @@ public class PopularUsersFragment extends ListFragment implements LoaderManager.
 
     @Override
     public Loader<ArrayList<PopularUser>> onCreateLoader(int id, Bundle args) {
-        loader = new PopularUsersLoader(getActivity().getApplicationContext(), Constants.POPULAR_USERS_LOADER_ID);
+        loader = new PopularUsersLoader(getActivity().getApplicationContext(),app, Constants.POPULAR_USERS_LOADER_ID);
         return loader;
     }
 

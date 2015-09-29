@@ -1,5 +1,8 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 
@@ -9,7 +12,7 @@ import java.text.NumberFormat;
 /**
  * Created by oguzemreozcan on 12/01/15.
  */
-public class User {
+public class User implements Parcelable {
     @SerializedName("id")
     private int id;
     @SerializedName("first_name") private String firstName;
@@ -299,4 +302,85 @@ public class User {
     public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.firstName);
+        dest.writeString(this.userName);
+        dest.writeString(this.lastName);
+        dest.writeString(this.email);
+        dest.writeString(this.birthDateTxt);
+        dest.writeString(this.gender);
+        dest.writeInt(this.status);
+        dest.writeString(this.photoPath);
+        dest.writeInt(this.canPost);
+        dest.writeString(this.about);
+        dest.writeString(this.country);
+        dest.writeString(this.city);
+        dest.writeInt(this.postCount);
+        dest.writeInt(this.glamCount);
+        dest.writeInt(this.gossipCount);
+        dest.writeInt(this.isPopular);
+        dest.writeInt(this.invitesLeft);
+        dest.writeInt(this.glammedCount);
+        dest.writeInt(this.commentCount);
+        dest.writeInt(this.unlockedBy);
+        dest.writeString(this.locale);
+        dest.writeInt(this.isVerified);
+        dest.writeString(this.verifyToken);
+        dest.writeString(this.deletedAt);
+        dest.writeString(this.androidToken);
+        dest.writeInt(this.isFollowing);
+        dest.writeInt(this.isBlocked);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.id = in.readInt();
+        this.firstName = in.readString();
+        this.userName = in.readString();
+        this.lastName = in.readString();
+        this.email = in.readString();
+        this.birthDateTxt = in.readString();
+        this.gender = in.readString();
+        this.status = in.readInt();
+        this.photoPath = in.readString();
+        this.canPost = in.readInt();
+        this.about = in.readString();
+        this.country = in.readString();
+        this.city = in.readString();
+        this.postCount = in.readInt();
+        this.glamCount = in.readInt();
+        this.gossipCount = in.readInt();
+        this.isPopular = in.readInt();
+        this.invitesLeft = in.readInt();
+        this.glammedCount = in.readInt();
+        this.commentCount = in.readInt();
+        this.unlockedBy = in.readInt();
+        this.locale = in.readString();
+        this.isVerified = in.readInt();
+        this.verifyToken = in.readString();
+        this.deletedAt = in.readString();
+        this.androidToken = in.readString();
+        this.isFollowing = in.readInt();
+        this.isBlocked = in.readInt();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

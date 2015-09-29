@@ -1,7 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -72,7 +72,7 @@ public class UploadNewStyleMainFragment extends BasicFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;

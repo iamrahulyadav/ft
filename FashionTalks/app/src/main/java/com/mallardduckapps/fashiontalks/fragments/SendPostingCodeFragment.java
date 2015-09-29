@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -103,7 +104,7 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             //mListener = (BasicFragment.OnFragmentInteractionListener) activity;
@@ -222,7 +223,11 @@ public class SendPostingCodeFragment extends ListFragment implements LoaderManag
             RestClient restClient = new RestClient();
             try {
                 //String url = new StringBuilder(Constants.FOLLOW_USER_PREFIX).toString();
-                response = restClient.doPostRequestWithJSON(Constants.POST_CODE_REQUEST_PREFIX, null, array.toString());
+                String token = null;
+                if(app != null){
+                    token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+                }
+                response = restClient.doPostRequestWithJSON(Constants.POST_CODE_REQUEST_PREFIX, token, array.toString());
                 JSONObject object = new JSONObject(response);
                 int status = object.getInt("status");
                 Log.d(TAG, "RESPONSE FROM API: " + response);

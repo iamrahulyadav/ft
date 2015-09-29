@@ -15,6 +15,7 @@ public class Constants {
     public final static int DUBLICATE_EMAIL = 7;
     public final static int DUBLICATE_USERNAME = 8;
     public final static int WRONG_CREDENTIALS = 3;
+    public final static int STATUS_CODE_POST_UPLOADED = 200;
 
     public final static int TOOLBAR_WITH_TITLE = 0;
     public final static int TOOLBAR_WITH_BACK_BUTTON = 1;
@@ -78,6 +79,8 @@ public class Constants {
     public final static String NOTIFICATION_LIST_PREFIX ="/notifications/list";
     public final static String POSTS_BASE_URL = "http://api.ft-api.com/posts/galleries/";
     public final static String CLOUD_FRONT_URL = "http://d3lhyn1u5tugzg.cloudfront.net";
+
+    public final static String CLOUD_FRONT_URL_V2 = "http://d1zbpkbwfra8cv.cloudfront.net/";
     public final static String CLOUD_FRONT_URL_NOTIF = "http://d3lhyn1u5tugzg.cloudfront.net/80x80/";
 
     public final static String CLIENT_ID = "2";
@@ -117,6 +120,8 @@ public class Constants {
     public final static String TARGET_POST = "post";
     public final static String TARGET_COMMENT = "comment";
     public final static String TARGET_CODE_REQUEST = "code-request";
+
+    public static int POPULAR_POSTS_PAGE_SIZE = 15;
 
     public static final int VIRTUAL_WIDTH = 320;
     public static final int VIRTUAL_HEIGHT = 320;

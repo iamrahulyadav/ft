@@ -1,8 +1,8 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mallardduckapps.fashiontalks.BaseActivity;
 import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.ProfileActivity;
 import com.mallardduckapps.fashiontalks.R;
@@ -66,26 +67,27 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
             paramPostId = getArguments().getString(POST_ID);
         }
         app = (FashionTalksApp) getActivity().getApplication();
-        useLoader();
+        //useLoader();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.follow_list_layout, container, false);
-        if(dataList != null){
-            adapter.addData(dataList);
-            setListAdapter(adapter);
-        }
+        //if(dataList != null){
+        //    adapter.addData(dataList);
+        //    setListAdapter(adapter);
+        //}
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noDataTv = (TextView) view.findViewById(R.id.noDataTv);
         loadMoreFooterView = getLoadMoreView(inflater);
+        useLoader();
 
         return view;
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         attached = true;
         try {
@@ -118,6 +120,7 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
             intent.putExtra("PROFILE_ID", user.getId());
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            BaseActivity.setTranslateAnimation(getActivity());
         }
     }
 
@@ -154,15 +157,15 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
 
         itemCountPerLoad = data.size();
         Log.d(TAG, "LOAD SIZE: " + itemCountPerLoad);
-        ListView listView = getListView();
+        //ListView listView = getListView();
         if(dataList == null){
             adapter.addData(data);
             dataList = data;
-            if(listView != null)
+            if(listview != null)
                 setListAdapter(adapter);
             //listView.setAdapter(adapter);
             if(canLoadMoreData()){
-                listView.addFooterView(loadMoreFooterView);
+                listview.addFooterView(loadMoreFooterView);
                 loadMoreFooterView.setVisibility(View.VISIBLE);
             }
         }else{
@@ -173,9 +176,9 @@ public class GlammersFragment extends ListFragment implements LoaderManager.Load
         }
 
         if(!canLoadMoreData()){
-            if(listView != null) {
+            if(listview != null) {
                 try{
-                    listView.removeFooterView(loadMoreFooterView);
+                    listview.removeFooterView(loadMoreFooterView);
                     loadMoreFooterView.setVisibility(View.INVISIBLE);
                 }catch(Exception ex){
                     ex.printStackTrace();

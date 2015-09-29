@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -56,13 +57,17 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
     int itemCountPerLoad = 0;
     FacebookFriendsLoader loader;
     CallbackManager callbackManager;
+    boolean inLogin;
 
     AccessTokenTracker accessTokenTracker;
 
     private BasicFragment.OnFragmentInteractionListener mListener;
 
-    public static FacebookFriendsFragment newInstance() {
+    public static FacebookFriendsFragment newInstance(boolean inLogin) {
         FacebookFriendsFragment fragment = new FacebookFriendsFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("IN_LOGIN", inLogin);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -74,6 +79,7 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
         super.onCreate(savedInstanceState);
         adapter = new GlammerListAdapter(getActivity(),dataList);
         app = (FashionTalksApp)getActivity().getApplication();
+        inLogin = getArguments().getBoolean("IN_LOGIN");
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         //callbackManager = CallbackManager.Factory.create();
         fbLoginManager();
@@ -116,12 +122,21 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
         noDataTv.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getString(R.string.font_helvatica_lt)));
         connectToFbTv = (TextView) view.findViewById(R.id.connectToFbTv);
         connectToFbTv.setTypeface(FTUtils.loadFont(getActivity().getAssets(), getActivity().getString(R.string.font_helvatica_bold)));
+        if(inLogin){
+            TextView followFriends = (TextView) view.findViewById(R.id.followFriends);
+            followFriends.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
         loadMoreFooterView = getLoadMoreView(inflater);
         return view;
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mListener = (BasicFragment.OnFragmentInteractionListener) activity;
@@ -331,7 +346,7 @@ public class FacebookFriendsFragment extends ListFragment implements LoaderManag
     @Override
     public void getAuthStatus(int authStatus, User user, String... tokens) {
         Log.d(TAG, "GET AUTH STATUS : " + authStatus);
-        if(authStatus == Constants.FB_AUTHENTICATION_SUCCESSFUL){
+        if(authStatus == Constants.FB_AUTHENTICATION_SUCCESSFUL && tokens != null){
 
             app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, tokens[0]);
             app.dataSaver.putString(Constants.REFRESH_TOKEN_KEY, tokens[1]);

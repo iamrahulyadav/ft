@@ -1,5 +1,8 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 
@@ -9,7 +12,7 @@ import java.text.NumberFormat;
 /**
  * Created by oguzemreozcan on 20/01/15.
  */
-public class Pivot {
+public class Pivot implements Parcelable {
     @SerializedName("post_id")
     private int postId;
     @SerializedName("tag_id")
@@ -99,4 +102,45 @@ public class Pivot {
     public void setGlammed(boolean isGlammed) {
         this.isGlammed = isGlammed;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.postId);
+        dest.writeInt(this.tagId);
+        dest.writeInt(this.x);
+        dest.writeInt(this.y);
+        dest.writeInt(this.glamCount);
+        dest.writeInt(this.id);
+        dest.writeString(this.adUrl);
+        dest.writeByte(isGlammed ? (byte) 1 : (byte) 0);
+    }
+
+    public Pivot() {
+    }
+
+    protected Pivot(Parcel in) {
+        this.postId = in.readInt();
+        this.tagId = in.readInt();
+        this.x = in.readInt();
+        this.y = in.readInt();
+        this.glamCount = in.readInt();
+        this.id = in.readInt();
+        this.adUrl = in.readString();
+        this.isGlammed = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<Pivot> CREATOR = new Parcelable.Creator<Pivot>() {
+        public Pivot createFromParcel(Parcel source) {
+            return new Pivot(source);
+        }
+
+        public Pivot[] newArray(int size) {
+            return new Pivot[size];
+        }
+    };
 }

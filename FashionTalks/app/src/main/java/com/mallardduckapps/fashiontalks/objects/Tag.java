@@ -1,11 +1,14 @@
 package com.mallardduckapps.fashiontalks.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by oguzemreozcan on 20/01/15.
  */
-public class Tag {
+public class Tag implements Parcelable {
 
     @SerializedName("id")
     private int id;
@@ -87,4 +90,45 @@ public class Tag {
     public void setPivot(Pivot pivot) {
         this.pivot = pivot;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.tag);
+        dest.writeString(this.logo);
+        dest.writeString(this.createdAt);
+        dest.writeInt(this.glamCount);
+        dest.writeInt(this.isApproved);
+        dest.writeInt(this.isGlammed);
+        dest.writeParcelable(this.pivot, flags);
+    }
+
+    public Tag() {
+    }
+
+    protected Tag(Parcel in) {
+        this.id = in.readInt();
+        this.tag = in.readString();
+        this.logo = in.readString();
+        this.createdAt = in.readString();
+        this.glamCount = in.readInt();
+        this.isApproved = in.readInt();
+        this.isGlammed = in.readInt();
+        this.pivot = in.readParcelable(Pivot.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Tag> CREATOR = new Parcelable.Creator<Tag>() {
+        public Tag createFromParcel(Parcel source) {
+            return new Tag(source);
+        }
+
+        public Tag[] newArray(int size) {
+            return new Tag[size];
+        }
+    };
 }

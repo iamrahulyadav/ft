@@ -32,7 +32,7 @@ import java.util.Locale;
                 case 0:
                     return PopularUsersFragment.newInstance("");
                 case 1:
-                    return FacebookFriendsFragment.newInstance();
+                    return FacebookFriendsFragment.newInstance(false);
             }
 
             return new Fragment();

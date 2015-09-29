@@ -3,6 +3,7 @@ package com.mallardduckapps.fashiontalks;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-public class WebActivity extends ActionBarActivity {
+public class WebActivity extends AppCompatActivity {
 
     Toolbar mainToolbar;
     ActionBar actionBar;

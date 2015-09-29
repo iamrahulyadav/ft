@@ -21,25 +21,14 @@ public class FollowTask extends AsyncTask<Void, Void, String> {
     private final boolean follow;
     private final int userId;
     private final String TAG = "Follow_TASK";
-    //private Button followButton;
     private Activity activity;
     FollowCallback callback;
-    //TODO add listener to get callback value
 
-    public FollowTask(FollowCallback callback,Activity activity, boolean follow, int userId, Button followButton){
+    public FollowTask(FollowCallback callback,Activity activity, boolean follow, int userId){
         this.activity = activity;
         this.follow = follow;
         this.userId = userId;
-        //this.followButton = followButton;
         this.callback = callback;
-    }
-
-    public FollowTask(FollowCallback callback, boolean follow, int userId){
-        //this.activity = activity;
-        this.follow = follow;
-        this.userId = userId;
-        this.callback = callback;
-        //this.followButton = followButton;
     }
 
     @Override
@@ -82,16 +71,20 @@ public class FollowTask extends AsyncTask<Void, Void, String> {
                     callback.isUnfollowed(true, userId);
                    // followButton.setText(activity.getString(R.string.unfollow));
                 }
-            }else{
-                onError();
+            }else if(status == 99){
+                String message = object.getString("msg");
+                onError(message);
+            }
+            else{
+                onError("");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            onError();
+            onError("");
         }
     }
 
-    private void onError(){
+    private void onError(String message){
         if(follow){
             callback.isFollowed(false, userId);
             //followButton.setText(activity.getString(R.string.follow));
@@ -99,15 +92,20 @@ public class FollowTask extends AsyncTask<Void, Void, String> {
             callback.isUnfollowed(false, userId);
             // followButton.setText(activity.getString(R.string.unfollow));
         }
-        showErrorMessage();
+        showErrorMessage(message);
         Log.e(TAG, "ERROR ON FOLLOW");
     }
 
-    private void showErrorMessage(){
+    private void showErrorMessage(final String message){
+
        activity.runOnUiThread(new Runnable() {
            @Override
            public void run() {
-               Toast.makeText(activity, activity.getResources().getString(R.string.problem_occured), Toast.LENGTH_SHORT).show();
+               String messageTxt = message;
+               if(messageTxt.equals("")){
+                   messageTxt = activity.getResources().getString(R.string.problem_occured);
+               }
+               Toast.makeText(activity, messageTxt, Toast.LENGTH_SHORT).show();
            }
        });
     }

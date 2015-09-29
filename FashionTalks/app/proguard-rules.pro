@@ -51,6 +51,8 @@
 -dontwarn org.joda.**
 -dontwarn com.squareup.okhttp.**
 -dontwarn com.makeramen.roundedimageview.RoundedImageView
+-dontwarn org.apache.http.**
+-dontwarn com.google.android.gms.**
 
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
@@ -181,9 +183,26 @@
 
 ##---------------End: proguard configuration for Gson  ----------
 
+-keep class * extends java.util.ListResourceBundle {
+      protected Object[][] getContents();
+  }
+
+  -keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+      public static final *** NULL;
+  }
+
+  -keepnames @com.google.android.gms.common.annotation.KeepName class *
+  -keepclassmembernames class * {
+      @com.google.android.gms.common.annotation.KeepName *;
+  }
+
+  -keepnames class * implements android.os.Parcelable {
+      public static final ** CREATOR;
+  }
 
 -dontwarn com.squareup.okhttp.**
 -dontwarn com.google.appengine.api.urlfetch.**
+-dontwarn com.twitter.sdk.**
 -dontwarn rx.**
 -dontwarn retrofit.**
 -keepattributes Signature
@@ -194,3 +213,4 @@
 -keepclasseswithmembers class * {
     @retrofit.http.* <methods>;
 }
+

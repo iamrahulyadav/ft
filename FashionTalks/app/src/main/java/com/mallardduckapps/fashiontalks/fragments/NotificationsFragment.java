@@ -1,7 +1,7 @@
 package com.mallardduckapps.fashiontalks.fragments;
 
-import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -60,7 +60,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mListener = (BasicFragment.OnFragmentInteractionListener) activity;
@@ -114,6 +114,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
             Intent intent = new Intent(getActivity(), PostsActivity.class);
             intent.putExtra("LOADER_ID", myPost ? Constants.NOTIFICATION_MY_POST_LOADER_ID :  Constants.NOTIFICATION_OTHER_POST_LOADER_ID);
             intent.putExtra("POST_ID", notification.getTargetId());
+            intent.putExtra("MY_PROFILE", myPost);
             //intent.putExtra("POST_INDEX", -1);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
@@ -123,6 +124,7 @@ public class NotificationsFragment extends ListFragment implements LoaderManager
             intent.putExtra("LOADER_ID", myPost ? Constants.NOTIFICATION_MY_POST_LOADER_ID :  Constants.NOTIFICATION_OTHER_POST_LOADER_ID);
             intent.putExtra("POST_ID", notification.getTargetId());
             intent.putExtra("OPEN_COMMENT", true);
+            intent.putExtra("MY_PROFILE", myPost);
             //intent.putExtra("POST_INDEX", -1);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);

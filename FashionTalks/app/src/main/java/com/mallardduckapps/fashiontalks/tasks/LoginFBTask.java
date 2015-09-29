@@ -9,12 +9,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.loaders.Exclude;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -28,7 +28,6 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
     public Context context;
     private int authStatus;
     LoginTask.LoginTaskCallback callBack;
-    String[] tokens;
     String fbToken;
     boolean getUserInfo = false;
 
@@ -50,7 +49,7 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
         RestClient restClient = new RestClient();
         if(!getUserInfo){
             try {
-                response = restClient.doPostRequestWithJSON(Constants.LOGIN_FB, null,new BasicNameValuePair("access_token", fbToken),
+                response = restClient.doPostRequestWithJSON(Constants.LOGIN_FB, fbToken,new BasicNameValuePair("access_token", fbToken),
                         new BasicNameValuePair("client_id", Constants.CLIENT_ID),
                         new BasicNameValuePair("client_secret", Constants.CLIENT_SECRET));
                 Log.d(TAG, "RESPONSE FROM API: " + response);
@@ -84,7 +83,7 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
                 JsonObject dataObject = object.getAsJsonObject("data");
                 JsonObject userObject = dataObject.getAsJsonObject("User");
                 User me = gson.fromJson(userObject, User.class);
-                callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
+                callBack.getUser(Constants.FB_AUTHENTICATION_SUCCESSFUL, me);
             }catch(IllegalStateException e){
                 Log.d(TAG, "EXCEPTION: " );
                 e.printStackTrace();
@@ -95,7 +94,6 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
                     Log.d(TAG, "NO CONNECTION: " );
                     callBack.getUser(Constants.NO_CONNECTION, null);
                 }
-
             }
         }
     }
@@ -129,7 +127,7 @@ public class LoginFBTask extends AsyncTask<Void, Void, String> {
 
         Log.d(TAG, "USER NAME: " + me.getFirstName() + "lastName: " + me.getLastName() + " - canPost: " + me.getCanPost());
         callBack.getAuthStatus(Constants.FB_AUTHENTICATION_SUCCESSFUL,null, accessToken, refreshToken);
-        callBack.getUser(Constants.AUTHENTICATION_SUCCESSFUL, me);
+        callBack.getUser(Constants.FB_AUTHENTICATION_SUCCESSFUL, me);
 
     }
 }

@@ -1,5 +1,6 @@
 package com.mallardduckapps.fashiontalks;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -35,7 +36,13 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         mViewPager.setAdapter(new GalleriesPagerAdapter(getSupportFragmentManager(), this));
         setSlidingStrips();
-        mViewPager.setCurrentItem(1);
+        int postUploaded = getIntent().getIntExtra("POST_UPLOADED", 0);
+        if(postUploaded == Constants.STATUS_CODE_POST_UPLOADED){
+            mViewPager.setCurrentItem(0);
+        }else{
+            mViewPager.setCurrentItem(1);
+        }
+
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         regId = getRegistrationId(getApplicationContext());
         Log.d(TAG, "REGISTRATION ID: " + regId);
@@ -112,6 +119,11 @@ public class MainActivity extends BaseActivity
         Log.d(TAG, "ON RESUME MAIN");
         Bundle extras = getIntent().getExtras();
         if(extras != null){
+            int postUploaded = getIntent().getIntExtra("POST_UPLOADED", 0);
+            if(postUploaded == Constants.STATUS_CODE_POST_UPLOADED) {
+                mViewPager.setCurrentItem(0);
+                return;
+            }
             String direction = extras.getString("DIRECTION");
             Log.d(TAG, "MAIN ACTIVITY DIRECTION (on RESUME): " + direction);
             this.finish();
@@ -184,7 +196,18 @@ public class MainActivity extends BaseActivity
 
     }
 
- /*   public void testNotification(){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.STATUS_CODE_POST_UPLOADED) {
+                Log.d(TAG, "PAST TO MY FEED TAB - MAIN ACTIVITY");
+                mViewPager.setCurrentItem(0);
+            }
+        }
+    }
+
+    /*   public void testNotification(){
 
         new AsyncTask() {
 

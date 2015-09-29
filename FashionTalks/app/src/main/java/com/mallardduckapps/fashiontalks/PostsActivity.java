@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
-public class PostsActivity extends ActionBarActivity implements BasicFragment.OnFragmentInteractionListener, CommentsFragment.CommentIsMade,
+public class PostsActivity extends AppCompatActivity implements BasicFragment.OnFragmentInteractionListener, CommentsFragment.CommentIsMade,
         VerticalPagerAdapter.LoadMorePostToPager, PopularPostTask.NewPostsLoaded, RefreshPagerCallback {
 
     Toolbar mainToolbar;
@@ -45,6 +46,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     int postId;
     int positionIndex;
     int loaderId;
+    boolean isMyPosts;
     private final String TAG = "POSTS ACTIVITY";
     private static final float MIN_SCALE = 0.95f;
     private static final float MIN_ALPHA = 0.70f;
@@ -52,6 +54,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     public static int height;
     boolean openComment = false;
     VerticalViewPager verticalViewPager;
+    ArrayList<Post> postArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         loaderId = getIntent().getIntExtra("LOADER_ID", 0);
         positionIndex = getIntent().getIntExtra("POST_INDEX", -1);
         openComment = getIntent().getBooleanExtra("OPEN_COMMENT", false);
-        Log.d(TAG, "GALLERY ID: " + galleryId + "- loaderId: " + loaderId);
+        isMyPosts = getIntent().getBooleanExtra("MY_PROFILE", false);
+        //String listJson = getIntent().getStringExtra("POST_LIST");
+        Log.d(TAG, "GALLERY ID: " + galleryId + "- loaderId: " + loaderId + " - positionIndex: " + positionIndex);
         app = (FashionTalksApp) getApplication();
         mainToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(mainToolbar);
@@ -78,9 +83,13 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         if (positionIndex != -1) {
             verticalViewPager = (VerticalViewPager) findViewById(R.id.verticalviewpager);
 
-            ArrayList<Post> defaultArray = new ArrayList<>(getPostsArrayList());
-            app.setDefaultPostArray(defaultArray);
-            VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), this, loaderId);
+            //ArrayList<Post> defaultArray = new ArrayList<>(getPostsArrayList());
+            //app.setDefaultPostArray(defaultArray);
+
+            postArrayList = new ArrayList<>(); //FTUtils.convertStringToPostArray(listJson)
+            postArrayList = getIntent().getParcelableArrayListExtra("POST_LIST");
+            Log.d(TAG, "GALLERY :postarraylist size: " + postArrayList.size());
+            VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), postArrayList, this, loaderId);//getPostsArrayList()
             verticalViewPager.setAdapter(adapter);
             //verticalViewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
             //verticalViewPager.setPageMarginDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_green_dark)));
@@ -181,11 +190,26 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         bundle.putInt("POST_ID", postId);
         bundle.putInt("POST_INDEX", positionIndex);
         bundle.putBoolean("OPEN_COMMENT", openComment);
+        //TODO newly added might be wrong cause fragment sometimes wants null object to retrieve post again
+
+        if(positionIndex != -1){
+            Post post = postArrayList.get(positionIndex);//194 nullpointer
+            bundle.putParcelable("POST", post); // FTUtils.convertPostToString(postArrayList.get(positionIndex))
+        }
+//        int userId = 0;
+//        try{
+//            userId = post.getUserId();
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//        intent.putExtra("MY_PROFILE",app.isUserMe(userId));
+
+
         postFragment.setArguments(bundle);
         replaceFragment(postFragment, addToBackStack);
     }
 
-    public ArrayList getPostsArrayList() {
+ /*   public ArrayList getPostsArrayList() {
         ArrayList list = new ArrayList();
         switch (loaderId) {
             case Constants.FEED_POSTS_LOADER_ID:
@@ -213,9 +237,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
         }
 
         return list;
-    }
+    }*/
 
-    public void setPostsArrayList() {
+/*    public void setPostsArrayList() {
         switch (loaderId) {
             case Constants.FEED_POSTS_LOADER_ID:
                 app.setFeedPostArrayList(app.defaultPostArray);
@@ -238,12 +262,17 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 app.setBrandGalleryPostList(app.defaultPostArray);
                 break;
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
+        if(isMyPosts){
+            menu.removeItem(R.id.action_home);
+        }else{
+            menu.removeItem(R.id.action_user_info);
+        }
         return true;
     }
 
@@ -258,12 +287,14 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             close();
             return true;
         } else if (id == R.id.action_home) {
-            setPostsArrayList();
+          //  setPostsArrayList();
 //            Intent intent = new Intent(PostsActivity.this, MainActivity.class);
 //            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //            this.startActivity(intent);
 //            finish();
 //            BaseActivity.setBackwardsTranslateAnimation(this);
+            return false;
+        }else if(id == R.id.action_user_info){
             return false;
         }
         return true;
@@ -282,7 +313,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
             BaseActivity.setBackwardsTranslateAnimation(this);
             return;
         }
-        setPostsArrayList();
+        //setPostsArrayList();
         if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !openComment) {
             Log.d(TAG, "ON CLOSE HIDE KEYBOARD ");
             if (mainToolbar != null) {
@@ -314,7 +345,7 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     @Override
     public void onNewComment(int postLoaderId, int postId, int postIndex, boolean increment) {
         try {
-            Post post = getPost(postLoaderId, postIndex);
+            Post post = postArrayList.get(postIndex);//getPost(postLoaderId, postIndex);
             int commentCount = post.getCommentCount();
             if (increment) {
                 commentCount++;
@@ -324,14 +355,16 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
 
             Log.d(TAG, "INCREMENT COMMENT. " + commentCount);
             post.setCommentCount(commentCount);
-            setPost(post, postIndex);
+
+            postArrayList.set(postIndex, post);
+            //setPost(post, postIndex);
             PostFragment.commentCount = commentCount;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private Post getPost(int loaderId, int postIndex) {
+ /*   private Post getPost(int loaderId, int postIndex) {
         Post post = null;
         switch (loaderId) {
             case Constants.FEED_POSTS_LOADER_ID:
@@ -381,11 +414,11 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 app.getBrandGalleryPostList().set(postIndex, post);
                 break;
         }
-    }
+    }*/
 
     @Override
     public void loadMorePost(int position, int count, int loaderId) {
-        Log.d(TAG, "**LOAD MORE POSTS GET CALLED: " + galleryId);
+        Log.d(TAG, "**LOAD MORE POSTS GET CALLED: " + galleryId + " - perpage: " + count);
         int tempGallery = 0;
         if (galleryId == 0) {
             Log.d(TAG, "ATTENSITON: ** GalleryID 0");
@@ -412,15 +445,32 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
     }
 
     @Override
-    public void getNewPosts(final ArrayList<Post> posts) {
+    public void getNewPosts(final ArrayList<Post> posts, final boolean isInnerFragmentLoad) {
         try {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "**NEW POSTS LOADED " + posts.size() + " - POST Title: " + posts.get(0).getTitle());
                     for (Post post : posts) {
-                        ((VerticalPagerAdapter) verticalViewPager.getAdapter()).addNewItem(post);
+                        //postArrayList.add(post);
+                        //Log.d(TAG, "POST LIST SIZE 0: " + postArrayList.size() + " - loadedItemSize: " + posts.size());
+
+                        if(isInnerFragmentLoad){
+                            //postArrayList.add(post);
+                            ((VerticalPagerAdapter) verticalViewPager.getAdapter()).addNewItem(post);
+                        }else{ //TODO can be erased?
+                            postArrayList.add(post);
+                        }
+                       // ((VerticalPagerAdapter) verticalViewPager.getAdapter()).addNewItem(post);
                     }
+                    //TODO can be erased?
+                    if(!isInnerFragmentLoad){
+                        ((VerticalPagerAdapter) verticalViewPager.getAdapter()).addNewItems(posts);
+                    }
+                /*    if(posts.size() > 1){
+                        VerticalPagerAdapter adapter = new VerticalPagerAdapter(PostsActivity.this.getSupportFragmentManager(), postArrayList, PostsActivity.this, loaderId);//getPostsArrayList()
+                        verticalViewPager.setAdapter(adapter);
+                    }*/
+
                 }
             });
 
@@ -437,9 +487,9 @@ public class PostsActivity extends ActionBarActivity implements BasicFragment.On
                 @Override
                 public void run() {
                     if (refresh) {
-                        ArrayList<Post> defaultArray = new ArrayList<>(getPostsArrayList());
-                        app.setDefaultPostArray(defaultArray);
-                        VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), getPostsArrayList(), PostsActivity.this, loaderId);
+                        //ArrayList<Post> defaultArray = new ArrayList<>(getPostsArrayList());
+                        //app.setDefaultPostArray(defaultArray);
+                        VerticalPagerAdapter adapter = new VerticalPagerAdapter(getSupportFragmentManager(), postArrayList, PostsActivity.this, loaderId);
                         verticalViewPager.setAdapter(adapter);
 
                     }

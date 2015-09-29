@@ -26,7 +26,7 @@ public class PopularPostTask extends AsyncTask<Void,Void, String> {
 
     boolean loadingInProgress;
     public int startIndex = 0;
-    public int perPage = 15;
+    public int perPage = Constants.POPULAR_POSTS_PAGE_SIZE;
     public int galleryId = 0; // If there is id
     public int userId;
     //Context context;
@@ -38,6 +38,7 @@ public class PopularPostTask extends AsyncTask<Void,Void, String> {
         this.galleryId = galleryId;
         this.startIndex = startIndex ;
         this.perPage = perPage;
+        Log.d(TAG, "** PERPAGE: " + perPage + " - laoderID: " + loaderId);
         this.userId = userId;
     }
 
@@ -71,7 +72,7 @@ public class PopularPostTask extends AsyncTask<Void,Void, String> {
                     Post post = gson.fromJson(json, Post.class);
                     popularPostItems.add(post);
                 }
-            } else if (galleryId == 0) {
+            } else if (galleryId == 0 || loaderId == Constants.USER_POSTS_LOADER_ID) {
                 for (JsonElement item : dataObjects) {
                     Post post = gson.fromJson(item, Post.class);
                     popularPostItems.add(post);
@@ -79,7 +80,8 @@ public class PopularPostTask extends AsyncTask<Void,Void, String> {
                 //popularPostItems = gson.fromJson(dataObjects, popularPostItems.getClass() );
                 //System.out.println(gson.toJson(popularPostItems));
 
-            } else {
+            }
+            else {
                 JsonArray postObjects = dataObjects.get(0).getAsJsonObject().getAsJsonArray("posts");
                 for (JsonElement item : postObjects) {
                     Post post = gson.fromJson(item, Post.class);
@@ -90,7 +92,7 @@ public class PopularPostTask extends AsyncTask<Void,Void, String> {
             e.printStackTrace();
         }
 
-        callback.getNewPosts(popularPostItems);
+        callback.getNewPosts(popularPostItems, perPage == 1 ? true : false);
         return response;
     }
 
@@ -121,6 +123,6 @@ public class PopularPostTask extends AsyncTask<Void,Void, String> {
     }
 
     public interface NewPostsLoaded{
-        void getNewPosts(ArrayList<Post> posts);
+        void getNewPosts(ArrayList<Post> posts, boolean isFragmentInnerLoad);
     }
 }

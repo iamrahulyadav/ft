@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.objects.Gallery;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -28,10 +29,12 @@ public class GalleriesLoader extends AsyncTaskLoader<ArrayList<Gallery>> {
     //public static int perPage = 25;
     //public static boolean noMoreData = false;
     boolean loadingInProgress;
+    FashionTalksApp app;
 
-    public GalleriesLoader(Context context, int loaderId) {
+    public GalleriesLoader(Context context, FashionTalksApp app, int loaderId) {
         super(context);
         this.loaderId = loaderId;
+        this.app = app;
     }
 
     @Override
@@ -40,7 +43,11 @@ public class GalleriesLoader extends AsyncTaskLoader<ArrayList<Gallery>> {
         RestClient restClient = new RestClient();
         galleryItems = new ArrayList<Gallery>();
         try {
-            response = restClient.doGetRequest(Constants.GALLERIES_PREFIX, null);
+            String token = null;
+            if(app != null){
+                token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+            }
+            response = restClient.doGetRequest(Constants.GALLERIES_PREFIX,token, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {
             response = "NO_CONNECTION";

@@ -66,6 +66,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     int itemCountPerLoad = 0;
     private BounceListView listView;
     private ArrayList<GalleryItem> dataList;
+    private ArrayList<Post> postList;
     private GalleryGridAdapter listAdapter;
     private RelativeLayout progressBar;
     protected View loadMoreFooterView;
@@ -82,6 +83,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
     LinearLayout shareTwitter;
     LinearLayout shareInstagram;
     boolean shareMenuVisible = false;
+    final public static int STATUS_CODE_BLOCK = 669;
     View rootView;
 
     public static ProfileFragment newInstance(int param1) {
@@ -113,17 +115,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             if(app.getMe().getId() == profileId || profileId == 0){
                 myProfile = true;
                 loaderId = Constants.MY_POSTS_LOADER_ID;
-                app.setMyPostArrayList(null);
+               // app.setMyPostArrayList(null);
                 user = app.getMe();
             }else{
                 myProfile = false;
-                app.setUserPostArrayList(null);
+                //app.setUserPostArrayList(null);
                 user = app.getOther();
                 loaderId = Constants.USER_POSTS_LOADER_ID;
             }
         }else{
             myProfile = true;
-            app.setMyPostArrayList(null);
+            //app.setMyPostArrayList(null);
             user = app.getMe();
             loaderId = Constants.MY_POSTS_LOADER_ID;
         }
@@ -152,7 +154,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
         nameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         userNameTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
-        classificationTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
+        classificationTv.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_hoefler_italic)));
         followButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_thin)));
         followingButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
         followersButton.setTypeface(FTUtils.loadFont(activity.getAssets(), activity.getString(R.string.font_helvatica_lt)));
@@ -181,8 +183,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BlockTask task = new BlockTask(ProfileFragment.this, !isBlocked, profileId);
-                    task.execute();
+                    app.openBlockUserDialog(ProfileFragment.this.getActivity(), ProfileFragment.this, !isBlocked);
                 }
             });
             if(isBlocked){
@@ -196,7 +197,6 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                 public void onClick(View v) {
                     Log.d(TAG, "BUTTON FOLLOW is clicked ");
                     progressBar.setVisibility(View.VISIBLE);
-
 /*                    if(isFollowing){
                         followButton.setBackgroundResource(R.drawable.follow_button_drawable);
                         followButton.setText(getString(R.string.follow));
@@ -204,9 +204,8 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
                         followButton.setBackgroundResource(R.drawable.unfollow_button_drawable);
                         followButton.setText(getString(R.string.unfollow));
                     }*/
-                    FollowTask task = new FollowTask(ProfileFragment.this,getActivity(),!isFollowing, user.getId(), followButton);
+                    FollowTask task = new FollowTask(ProfileFragment.this,getActivity(),!isFollowing, user.getId());
                     app.executeAsyncTask(task, null);
-                    //task.execute();
                 }
             });
         }
@@ -253,6 +252,17 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             }
         });
         return profileView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == STATUS_CODE_BLOCK && resultCode == 1){
+            Log.d(TAG, "BUTTON FOLLOW is clicked ");
+            //progressBar.setVisibility(View.VISIBLE);
+            BlockTask task = new BlockTask(ProfileFragment.this, !isBlocked, profileId);
+            task.execute();
+        }
     }
 
     @Override
@@ -319,9 +329,13 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             @Override
             public void onClick(View v) {
                 //shrinkAllPanels(panels);
+                //shareMenuOnClick();
+                shareMenu.setVisibility(View.GONE);
                 increaseFollowersButton.setVisibility(View.GONE);
+                rootView.requestLayout();
                 Bitmap image = FTUtils.screenShot(rootView);
                 increaseFollowersButton.setVisibility(View.VISIBLE);
+                shareMenu.setVisibility(View.VISIBLE);
                 Log.d(TAG, "TAKE SCREEN SHOT");
                 SharePhoto photo = new SharePhoto.Builder()
                         .setBitmap(image)
@@ -340,9 +354,13 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         shareTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //shareMenuOnClick();
+                shareMenu.setVisibility(View.GONE);
                 increaseFollowersButton.setVisibility(View.GONE);
+                rootView.requestLayout();
                 Bitmap image = FTUtils.screenShot(rootView);
                 increaseFollowersButton.setVisibility(View.VISIBLE);
+                shareMenu.setVisibility(View.VISIBLE);
                 Log.d(TAG, "TAKE SCREEN SHOT");
                 TweetComposer.Builder builder = new TweetComposer.Builder(getActivity())
                         .text(getString(R.string.share_pic_from_twitter))
@@ -353,8 +371,12 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         shareInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //shareMenuOnClick();
+                shareMenu.setVisibility(View.GONE);
                 increaseFollowersButton.setVisibility(View.GONE);
+                rootView.requestLayout();
                 Bitmap image = FTUtils.screenShot(rootView);
+                shareMenu.setVisibility(View.VISIBLE);
                 increaseFollowersButton.setVisibility(View.VISIBLE);
                 Log.d(TAG, "TAKE SCREEN SHOT");
                 createInstagramIntent("image/*", FTUtils.getImageUri(getActivity(), image, "tmpImage"));
@@ -367,11 +389,16 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         Intent share = new Intent(Intent.ACTION_SEND);
         // Set the MIME type
         share.setType(type);
+        share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // Create the URI from the media
         //File media = new File(mediaPath);
         //Uri uri = Uri.fromFile(media);
         // Add the URI to the Intent.
+        String text =getString(R.string.share_pic_from_twitter);
+        share.putExtra(Intent.EXTRA_TEXT, text);
+        share.putExtra(Intent.EXTRA_TITLE, text);
         share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.setPackage("com.instagram.android");
         // Broadcast the Intent.
         startActivity(Intent.createChooser(share, "Share to"));
     }
@@ -382,8 +409,10 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
             Log.d(TAG,"ON CLICK - slide down");
         }else{
+
             shareMenu.setVisibility(View.VISIBLE);
             shareMenu.bringToFront();
+            shareMenu.getParent().requestLayout();
             slide = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
             Log.d(TAG,"ON CLICK - slide up");
         }
@@ -400,7 +429,7 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
 
     @Override
     public Loader<ArrayList<Post>> onCreateLoader(int id, Bundle args) {
-        loader = new PostsLoader(getActivity().getApplicationContext(), id, profileId);
+        loader = new PostsLoader(getActivity().getApplicationContext(),app, id, profileId);
         return loader;
     }
 
@@ -464,13 +493,25 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
             Log.d(TAG, "DATA PHOTO URL: " + post.getPhoto());
             index ++;
             dataList.add(galleryItem);
+            if(postList != null){
+                postList.add(post);
+            }
         }
+
+        //TODO
+        if(postList == null){
+            postList = data;
+        }
+
         itemCountPerLoad = data.size();
         listAdapter.addItemsInGrid(dataList);
+
         if(loaderId == Constants.USER_POSTS_LOADER_ID){
-            app.addUserPostArrayList(data);
+            //TODO
+            //app.addUserPostArrayList(data);
         }else{
-            app.addMyPostArrayList(data);
+            //TODO
+            //app.addMyPostArrayList(data);
         }
         //addToGlobalLists(data);
     }
@@ -519,6 +560,10 @@ public class ProfileFragment extends BasicFragment implements LoaderManager.Load
         intent.putExtra("LOADER_ID", loaderId);
         intent.putExtra("POST_ID", postId);
         intent.putExtra("POST_INDEX", postItemPosition);
+        intent.putExtra("MY_PROFILE",myProfile );
+        if(postList != null){
+            intent.putExtra("POST_LIST", postList); // FTUtils.convertListToString(postList)
+        }
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
         BaseActivity.setTranslateAnimation(getActivity());

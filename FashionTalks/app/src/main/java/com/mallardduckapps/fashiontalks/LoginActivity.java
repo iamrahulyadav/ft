@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.FacebookFriendsLoginFragment;
 import com.mallardduckapps.fashiontalks.fragments.ForgetPasswordFragment;
 import com.mallardduckapps.fashiontalks.fragments.LoginFragment;
 import com.mallardduckapps.fashiontalks.fragments.MainLoginFragment;
@@ -31,17 +31,12 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
  */
 public class LoginActivity extends AppCompatActivity implements BasicFragment.OnLoginFragmentInteractionListener{
 
-    //private LoginFragment loginFragment;
-    //private RegisterFragment registerFragment;
-    //private MainLoginFragment mainLoginFragment;
-    //private ForgetPasswordFragment forgetPasswordFragment;
     FragmentManager fragmentManager;
     public Toolbar mainToolbar;
     FashionTalksApp app;
     TextView tvName;
     //DIRECTION is used for notification forwarding
     String direction = null;
-    //CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +178,21 @@ public class LoginActivity extends AppCompatActivity implements BasicFragment.On
         mainToolbar.setVisibility(View.VISIBLE);
     }
 
+    public void goToFbFriendsPage(){
+        FacebookFriendsLoginFragment fragment = FacebookFriendsLoginFragment.newInstance();
+        FragmentTransaction fragmentTx = getSupportFragmentManager().beginTransaction();
+        fragmentTx.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left, R.anim.enter_from_left, R.anim.exit_from_right);
+        try{
+            fragmentTx.replace(R.id.container, fragment )
+                    .commit();
+        }catch(Exception e){
+            fragmentTx.replace(R.id.container, fragment ).commitAllowingStateLoss();
+        }
+        tvName.setText(getString(R.string.users_tab2));
+        //tvName.setText(loginFragment.TAG);
+        mainToolbar.setVisibility(View.VISIBLE);
+    }
+
     public void goToMainActivity(){
         Log.d("LOGIN_ACTIVITY", "GOTO MAIN ACTIVITY");
 
@@ -230,6 +240,8 @@ public class LoginActivity extends AppCompatActivity implements BasicFragment.On
 
         }else if(tag.equals("password")){
             goToResetPasswordPage();
+        }else if(tag.equals("FBFriends")){
+            goToFbFriendsPage();
         }
     }
 

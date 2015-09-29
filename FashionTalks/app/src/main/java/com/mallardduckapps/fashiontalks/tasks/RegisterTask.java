@@ -9,11 +9,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mallardduckapps.fashiontalks.fragments.RegisterFragment;
 import com.mallardduckapps.fashiontalks.loaders.Exclude;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 

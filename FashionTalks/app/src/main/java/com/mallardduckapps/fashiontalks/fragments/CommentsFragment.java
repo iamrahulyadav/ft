@@ -33,6 +33,7 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.adapters.CommentListAdapter;
 import com.mallardduckapps.fashiontalks.loaders.CommentListLoader;
 import com.mallardduckapps.fashiontalks.loaders.Exclude;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.objects.Comment;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.services.RestClient;
@@ -41,8 +42,6 @@ import com.mallardduckapps.fashiontalks.swipelistview.SwipeListView;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.SwipeListViewSettingsManager;
-
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -132,7 +131,7 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mListener = (BasicFragment.OnFragmentInteractionListener) activity;
@@ -412,7 +411,11 @@ public class CommentsFragment extends ListFragment implements LoaderManager.Load
             RestClient restClient = new RestClient();
             try {
                 String url = new StringBuilder(Constants.POST_COMMENT).toString();
-                response = restClient.doPostRequestWithJSON(url,null, params[0], params[1]);
+                String token = null;
+                if(app != null){
+                    token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+                }
+                response = restClient.doPostRequestWithJSON(url,token, params[0], params[1]);
                 Log.d(TAG, "User REQUEST RESPONSE: " + response);
                 JSONObject object = new JSONObject(response);
                 status = object.getInt("status");

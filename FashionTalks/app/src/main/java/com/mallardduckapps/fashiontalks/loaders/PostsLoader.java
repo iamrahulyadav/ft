@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -29,11 +30,13 @@ public class PostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
     public int perPage = 15;
     public int userId = 0; // If there is id
     boolean ownPosts = false;
+    FashionTalksApp app;
 
-    public PostsLoader(Context context, int loaderId, int userId) {
+    public PostsLoader(Context context,FashionTalksApp app, int loaderId, int userId) {
         super(context);
         this.loaderId = loaderId;
         this.userId = userId;
+        this.app = app;
         if(loaderId == Constants.MY_POSTS_LOADER_ID){
             ownPosts = true;
         }else{
@@ -48,6 +51,10 @@ public class PostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         popularPostItems = new ArrayList<Post>();
         RestClient restClient = new RestClient();
         try {
+            String token = null;
+            if(app != null){
+                token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+            }
             String url = new StringBuilder(Constants.POSTS_BY_USER_PREFIX).append(userId).append("/").append(startIndex).append("/").append(perPage).toString();
             response = restClient.doGetRequest(url, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);

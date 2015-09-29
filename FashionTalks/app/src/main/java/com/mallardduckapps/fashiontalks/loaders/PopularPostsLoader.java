@@ -14,6 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.objects.Post;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -29,11 +30,13 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
     public int startIndex = 0;
     public int perPage = 15;
     public int galleryId = 0; // If there is id
+    FashionTalksApp app;
 
-    public PopularPostsLoader(Context context, int loaderId, int galleryId) {
+    public PopularPostsLoader(Context context, FashionTalksApp app, int loaderId, int galleryId) {
         super(context);
         this.loaderId = loaderId;
         this.galleryId = galleryId;
+        this.app = app;
     }
 
     @Override
@@ -43,9 +46,13 @@ public class PopularPostsLoader extends AsyncTaskLoader<ArrayList<Post>> {
         popularPostItems = new ArrayList<Post>();
         RestClient restClient = new RestClient();
         try {
+            String token = null;
+            if(app != null){
+                token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+            }
             String url = new StringBuilder(getLoaderPrefix()).append("/").append(startIndex).append("/").append(perPage).toString();
-            response = restClient.doGetRequest(url, null);
-            Log.d(TAG, "RESPONSE FROM API: " + response);
+            response = restClient.doGetRequest(url,token, null);
+            //Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {
             response = "NO_CONNECTION";
             e.printStackTrace();

@@ -2,6 +2,7 @@ package com.mallardduckapps.fashiontalks.services;
 
 import android.util.Log;
 
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -10,8 +11,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -25,14 +24,21 @@ public class RestClient {
     private String mainUrl = Constants.API_ADDRESS;
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    private static String ACCESS_TOKEN = null;
+    private static String ACCESS_TOKEN;
     private final String TAG = "REST_CLIENT";
     //public final String testAuthToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBcm11dFdlYkFQSSIsImF1ZCI6ImI2OWNmYzczY2U5ODQyMjE4ZTg5YTQ1YzI4YzJiMGMxIiwiZXhwIjoxNDUxMzkwMjk4LCJuYmYiOjE0MTk4NTQyOTh9.PTxgbzMlOWyNmBcMMS1IxJ3xQNGRloFluCQury154Ww";
 
     public RestClient(){
     }
 
-    public String doGetRequest(String url, BasicNameValuePair ... params) throws IOException, JSONException {
+    public String doGetRequest(String url,String accessToken, BasicNameValuePair ... params) throws IOException, JSONException {
+        if(ACCESS_TOKEN == null){
+            ACCESS_TOKEN = accessToken;
+        }
+        return doGetRequest(url, params);
+    }
+
+    public String doGetRequest(String url,BasicNameValuePair... params) throws IOException, JSONException {
         Request request = null;
         url =  new StringBuilder(mainUrl).append(url).toString();
         if(ACCESS_TOKEN != null){
@@ -61,6 +67,10 @@ public class RestClient {
         url = new StringBuilder(mainUrl).append(url).toString();
         if(accessToken == null){
             accessToken = ACCESS_TOKEN;
+        }else{
+            if(ACCESS_TOKEN == null){
+                ACCESS_TOKEN = accessToken;
+            }
         }
         Request request = createRequestWithBody(url,accessToken, FTUtils.getBasicJson(params));
         Response response = client.newCall(request).execute();
@@ -71,6 +81,10 @@ public class RestClient {
         url = new StringBuilder(mainUrl).append(url).toString();
         if(accessToken == null){
             accessToken = ACCESS_TOKEN;
+        }else{
+            if(ACCESS_TOKEN == null){
+                ACCESS_TOKEN = accessToken;
+            }
         }
         Request request = createRequestWithBody(url,accessToken, json);
         Response response = client.newCall(request).execute();

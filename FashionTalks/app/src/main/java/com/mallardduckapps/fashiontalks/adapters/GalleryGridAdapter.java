@@ -34,20 +34,24 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     Activity activity;
     //Defines if adapter used on gallery or a posts - galleries is the parent of posts, posts are the parent of post
     boolean isGallery;
-    boolean opensGallery;
+    //boolean opensGallery;
     GalleryItemClicked galleryCallback;
     PostItemClicked postCallback;
     int cardWidth;
-    StringBuilder builder;
+    //StringBuilder builder;
     private final int TEXT_VIEW_CLICK_ID = 0;
-    private String mainImagePath;
+   // private String mainImagePath;
+    //private String galleryImagePath;
 
     public GalleryGridAdapter(Activity context, GalleryItemClicked callback, int totalCardsInRow, boolean isGallery) {
         super(context, totalCardsInRow);
         this.galleryCallback = callback;
         Log.d(TAG, "GALLERY GRID ADAPTER");
+        //galleryImagePath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(cardWidth).append("x").append(cardWidth).append("/").toString();
         //this.opensGallery = opensGallery;
-        builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
+       // builder = new StringBuilder(Constants.CLOUD_FRONT_URL_V2);
+        //builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
+        //path = new StringBuilder(Constants.CLOUD_FRONT_URL_V2).append("/photo_big/").append(post.getPhoto()).toString();
         activity = context;
         options = ((FashionTalksApp)context.getApplication()).options;
         this.isGallery = isGallery;
@@ -56,7 +60,9 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     public GalleryGridAdapter(Activity context, PostItemClicked callback, int totalCardsInRow, boolean isGallery) {
         super(context, totalCardsInRow);
         this.postCallback = callback;
-        builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
+        //mainImagePath = new StringBuilder(Constants.CLOUD_FRONT_URL_V2).toString();
+        //builder = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/");
+       //builder = new StringBuilder(Constants.CLOUD_FRONT_URL_V2);
         activity = context;
         options = ((FashionTalksApp)context.getApplication()).options;
         this.isGallery = isGallery;
@@ -74,8 +80,6 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
         this.cardWidth = cardWidth;
         //Log.d(TAG, "CARD WIDTH: " + cardWidth);
         cardView.setMinimumHeight(cardWidth);
-        mainImagePath = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(cardWidth).append("x").append(cardWidth).append("/").toString();
-
         // Now create card view holder.
         GalleryViewHolder viewHolder = new GalleryViewHolder();
         viewHolder.textView = (TextView) cardView.findViewById(R.id.titleText);
@@ -91,7 +95,11 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
         final GalleryItem item = cardDataHolder.getData();
         cardViewHolder.textView.setText(item.getTitle());
         String path = null;
-        path = new StringBuilder(mainImagePath).append(item.getCoverPath()).toString();
+        if(!isGallery){
+            path = new StringBuilder(Constants.CLOUD_FRONT_URL_V2).append(item.getCoverPath()).toString();
+        }else{
+            path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(cardWidth).append("x").append(cardWidth).append("/").append(item.getCoverPath()).toString();
+        }
         //Log.d(TAG, "ADAPTER URL PATH: " + path + " - width: " + cardViewHolder.imageView.getWidth());
         displayImage(path, cardViewHolder, item);
         //cardViewHolder.Image.setText(item.getTag());
@@ -151,7 +159,12 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
                     Toast.LENGTH_LONG).show();*/
 
             if(cardData.isLoadingFailed()){
-                String path = mainImagePath.concat(cardData.getCoverPath());
+                String path = "";//mainImagePath.concat(cardData.getCoverPath());
+                if(!isGallery){
+                    path = new StringBuilder(Constants.CLOUD_FRONT_URL_V2).append(cardData.getCoverPath()).toString();
+                }else{
+                    path = new StringBuilder(Constants.CLOUD_FRONT_URL).append("/").append(cardWidth).append("x").append(cardWidth).append("/").append(cardData.getCoverPath()).toString();
+                }
                 ImageLoader.getInstance()
                         .displayImage(path, (ImageView)clickedChildView, options);
                 cardData.setLoadingFailed(false);
@@ -184,12 +197,12 @@ public class GalleryGridAdapter extends ListGridAdapter<GalleryItem, GalleryView
     }
 
     public interface GalleryItemClicked{
-        public void galleryOnItemClicked(int galleryId,String galleryName, int galleryItemPosition);
+         void galleryOnItemClicked(int galleryId,String galleryName, int galleryItemPosition);
     }
 
 
     public interface PostItemClicked{
-        public void postOnItemClicked(int postId, int postItemPosition);
+         void postOnItemClicked(int postId, int postItemPosition);
     }
 
     public interface RefreshPagerCallback{

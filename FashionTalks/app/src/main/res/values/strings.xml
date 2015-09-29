@@ -84,6 +84,8 @@
     <string name="font_helvatica_roman">HelveticaNeueLTPro-Roman.otf</string>
     <string name="font_helvatica_bold">HelveticaNeueLTPro-Bd.otf</string>
     <string name="font_times_new_roman">TimesNewRoman.ttf</string>
+    <string name="font_hoefler_italic">HoeflerTextItalic.ttf</string>
+    <string name="font_helvatica_neue">helvetica-neue-bold.ttf</string>
     <string name="title_activity_user_settings">UserSettingsActivity</string>
     <string name="title_activity_upload_new_style">UploadNewStyleActivity</string>
 
@@ -139,8 +141,12 @@
     <string name="no_notification">  Bildiriminiz Yok</string>
     <string name="left_invite">&#160; &#160;Davet Kaldı.</string>
     <string name="edit_profile">Profil Düzenle</string>
-    <string name="block_user">Kullanıcı bloklandı.</string>
-    <string name="unblock_user">Kullanıcının blok\'u kaldırıldı.</string>
+    <string name="block_main_title">Engelle?</string>
+    <string name="unblock_main_title">Engel kaldır?</string>
+    <string name="block_title">Kullanıcıyı engellemek istediğinize emin misiniz?</string>
+    <string name="unblock_title">Kullanıcının engelini kaldırmak istediğinize emin misiniz?</string>
+    <string name="block_user">Kullanıcı engellendi.</string>
+    <string name="unblock_user">Kullanıcının engeli kaldırıldı.</string>
 
     <!--Classification-->
     <string name="fashionIcon">Fashion Icon</string>
@@ -149,19 +155,21 @@
     <string name="fashionistaTitle">100.000 - 1Milyon Glam - Fashionista</string>
     <string name="raisingStar">Raising Star</string>
     <string name="raisingStarTitle">50.000 - 100.000 Glam - Raising Star</string>
-    <string name="fashionLover">Fashion Lover</string>
+    <string name="fashionLover">FashionLover</string>
     <string name="fashionLoverTitle">10.000 - 50.000 Glam - FashionLover</string>
-    <string name="fashionTalker">Fashion Talker</string>
+    <string name="fashionTalker">FashionTalker</string>
     <string name="fashionTalkerTitle">0 - 10.000 Glam - FashionTalker</string>
     <string name="classification_subtitle">Değişik kategorilerde değişik süprizler sizleri bekliyor olacak!</string>
 
     <!-- How to get More glams screen-->
     <string name="getMoreGlamsTitle">Daha Fazla Glam Almak İçin: </string>
-    <string name="getMoreGlamsSubtitle">Az Glam\'in varsa kimsenin burada\nolduğundan haberi olmadığındandır.\nFacebook, Instagram ve Twitter\'dan\nhesap ismini duyur.\nhesap ismini duyur. Bunun için\nprofilindeki \'takipçini arttır\' butonunu\nkullanabilirsin.
+    <string name="getMoreGlamsSubtitle">Az Glam\'in varsa kimsenin burada\nolduğundan haberi olmadığındandır.\nFacebook, Instagram ve Twitter\'dan\nhesap ismini duyur. Bunun için\nprofilindeki \'takipçini arttır\' butonunu\nkullanabilirsin.
     \n\nAktif ol; başkalarını takibe al ve \nbeğendiğin parçaları glamle.\n\nSık aralıklarla resim post et; günlük\nhalin en güzeli unutma.</string>
 
     <string name="share_pic_from_twitter">Detaylar için beni FashionTalks\'da takip edin!FashionTalks\'u Appstore veya GooglePlay\'den indirebilirsiniz!@FashionTalksApp #fashiontalksapp</string>
+    <string name="share_others_pic_from_twitter">Detaylar için FashionTalks\'u Appstore veya Google Play\'den indirebilirsiniz! @FashionTalksApp</string>
 
+    <string name="instagram_app_not_available">Telefonunuzda instagram uygulaması mevcut değil.</string>
     <!-- 7 Tag Maximum-->
     <string name="no_more_glam">Bu görsel için daha fazla marka girişi yapılamaz.</string>
     <string name="warning">Uyarı</string>

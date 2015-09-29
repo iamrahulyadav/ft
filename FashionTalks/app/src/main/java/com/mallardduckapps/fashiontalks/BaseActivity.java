@@ -20,6 +20,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.components.SlidingTabLayout;
 import com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment;
+import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
 public class BaseActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, ActionBar.TabListener {
@@ -142,6 +143,8 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                 //app.direction = "";
                 finish();
             }
+        }else if(requestCode == Constants.STATUS_CODE_POST_UPLOADED){
+            Log.d(TAG, "PAST TO MY FEED TAB");
         }
     }
 
@@ -207,7 +210,7 @@ public class BaseActivity extends ActionBarActivity implements NavigationDrawerF
                         if (app.getMe().getCanPost() == 1) {
                             BaseActivity.this.finish();
                             Intent intent = new Intent(BaseActivity.this, UploadNewStyleActivity.class);
-                            BaseActivity.this.startActivity(intent);
+                            BaseActivity.this.startActivityForResult(intent, Constants.STATUS_CODE_POST_UPLOADED);
                         } else {
                             app.openOKDialog(BaseActivity.this, null, "no_post_access");
                             //Toast.makeText(getApplicationContext(), getString(R.string.posting_not_allowed), Toast.LENGTH_LONG).show();

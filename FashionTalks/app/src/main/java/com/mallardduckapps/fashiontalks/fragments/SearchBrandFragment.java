@@ -286,36 +286,5 @@ public class SearchBrandFragment extends ListFragment implements LoaderManager.L
         //lv.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
     }
-
-//    public class SearchUserTask extends AsyncTask<String, Void, String> {
-//        private final String TAG = "SearchBrandsTask";
-//        public SearchUserTask(){
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            String response = "";
-//            RestClient restClient = new RestClient();
-//            try {
-//                String url = new StringBuilder(Constants.SEARCH_BRANDS).append(params[0]).toString();
-//                response = restClient.doGetRequest(url, null);
-//                //Log.d(TAG, "User REQUEST RESPONSE: " + response);
-//                Gson gson = new GsonBuilder().create();
-//                Type collectionType = new TypeToken<Collection<Tag>>(){}.getType();
-//                JsonArray object = new JsonParser().parse(response).getAsJsonObject().getAsJsonArray("data");
-//                tags = gson.fromJson(object, collectionType);
-//            } catch (Exception e) {
-//                response = "NO_CONNECTION";
-//                e.printStackTrace();
-//            }
-//            return response;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String text) {
-//            super.onPostExecute(text);
-//            filter(text);
-//        }
-//    }
 }
 

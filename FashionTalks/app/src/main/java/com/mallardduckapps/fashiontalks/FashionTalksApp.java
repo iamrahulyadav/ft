@@ -17,6 +17,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mallardduckapps.fashiontalks.fragments.BasicFragment;
+import com.mallardduckapps.fashiontalks.fragments.BlockDialog;
 import com.mallardduckapps.fashiontalks.fragments.DeletePhotoDialog;
 import com.mallardduckapps.fashiontalks.fragments.ExitDialog;
 import com.mallardduckapps.fashiontalks.fragments.NoConnectionDialog;
@@ -47,15 +48,8 @@ public class FashionTalksApp extends android.app.Application {
     public DisplayImageOptions options;
     public boolean newNotification = false;
     //public DisplayImageOptions optionsNoCache;
-    //ArrayList<Gallery> galleryArrayList;
-    private ArrayList<Post> popularPostArrayList;
-    ArrayList<Post> feedPostArrayList;
-    ArrayList<Post> galleryPostArrayList;
-    ArrayList<Post> userPostArrayList;
-    ArrayList<Post> myPostArrayList;
-    ArrayList<Post> brandGalleryPostList;
     //Default Post array , to save the status of post list, since vertical pager add to list externally
-    ArrayList<Post> defaultPostArray;
+    //ArrayList<Post> defaultPostArray;
     Post userFavoritePost;
     public int lastGalleryId;
     public int lastBrandId;
@@ -99,9 +93,6 @@ public class FashionTalksApp extends android.app.Application {
         tracker.enableExceptionReporting(true);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
-
-
-
         //menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         //menu.setMenu(R.layout.menu);
     }
@@ -184,6 +175,20 @@ public class FashionTalksApp extends android.app.Application {
         dialog.show(activity.getFragmentManager(), fragment.getTag());
     }
 
+    public void openBlockUserDialog(Activity activity, BasicFragment fragment, boolean block){
+        BlockDialog dialog = new BlockDialog();
+        Bundle args = new Bundle();
+        args.putString("title", block ? getString(R.string.block_main_title) : getString(R.string.unblock_main_title));
+        args.putString("message", block ? getString(R.string.block_title) : getString(R.string.unblock_title));
+        args.putString("positive_button", getString(R.string.yes));
+        args.putString("negative_button", getString(R.string.no));
+        dialog.setArguments(args);
+        dialog.setTargetFragment(fragment);
+        //dialog.setTargetFragment(fragment, Constants.NO_CONNECTION);
+        //TOdo control if tag is right?
+        dialog.show(activity.getFragmentManager(), fragment.getTag());
+    }
+
     public void exitDialog(Activity activity){
         ExitDialog dialog = new ExitDialog();
         Bundle args = new Bundle();
@@ -204,15 +209,15 @@ public class FashionTalksApp extends android.app.Application {
         flushAllData();
     }
 
-    public ArrayList<Post> getDefaultPostArray() {
+ /*   public ArrayList<Post> getDefaultPostArray() {
         return defaultPostArray;
     }
 
     public void setDefaultPostArray(ArrayList<Post> defaultPostArray) {
         this.defaultPostArray = defaultPostArray;
-    }
+    }*/
 
-    public ArrayList<Post> getGalleryPostArrayList() {
+ /*   public ArrayList<Post> getGalleryPostArrayList() {
         return galleryPostArrayList;
     }
 
@@ -315,7 +320,7 @@ public class FashionTalksApp extends android.app.Application {
 
     public void setMyPostArrayList(ArrayList<Post> myPostArrayList) {
         this.myPostArrayList = myPostArrayList;
-    }
+    }*/
 
     public Post getUserFavoritePost() {
         return userFavoritePost;
@@ -349,7 +354,7 @@ public class FashionTalksApp extends android.app.Application {
 
     //TODO Control for adding same item multiple times
     public void setMe(User me) {
-        myPostArrayList = null;
+       // myPostArrayList = null;
         this.me = me;
     }
 
@@ -358,16 +363,16 @@ public class FashionTalksApp extends android.app.Application {
     }
 
     public void setOther(User other) {
-        userPostArrayList = null;
+        //userPostArrayList = null;
         this.other = other;
     }
 
     public void flushAllData(){
-        popularPostArrayList = null;
+ /*       popularPostArrayList = null;
         feedPostArrayList = null;
         galleryPostArrayList = null;
         userPostArrayList = null;
-        myPostArrayList = null;
+        myPostArrayList = null;*/
         lastGalleryId = 0;
         galleryId = 0;
         try {

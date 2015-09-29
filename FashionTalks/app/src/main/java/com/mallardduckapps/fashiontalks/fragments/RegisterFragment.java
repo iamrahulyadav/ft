@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -39,8 +38,8 @@ import com.mallardduckapps.fashiontalks.R;
 import com.mallardduckapps.fashiontalks.UploadNewStyleActivity;
 import com.mallardduckapps.fashiontalks.adapters.CountryAdapter;
 import com.mallardduckapps.fashiontalks.loaders.Exclude;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.objects.Country;
-import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.objects.User;
 import com.mallardduckapps.fashiontalks.tasks.GetCountries;
 import com.mallardduckapps.fashiontalks.tasks.RegisterTask;
@@ -49,22 +48,18 @@ import com.mallardduckapps.fashiontalks.utils.FTUtils;
 import com.mallardduckapps.fashiontalks.utils.TimeUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.apache.http.message.BasicNameValuePair;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Time;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 
 import eu.janmuller.android.simplecropimage.CropImage;
 
@@ -257,7 +252,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         attached = true;
         try {
@@ -453,7 +448,7 @@ public class RegisterFragment extends BasicFragment implements RegisterTask.Regi
         for (JsonElement item : dataObjects) {
             Country country = gson.fromJson(item, Country.class);
             countryList.add(country);
-            Log.d(TAG, "COUNTRY: " + country.getName());
+           // Log.d(TAG, "COUNTRY: " + country.getName());
         }
         final Collator trCollator = Collator.getInstance(TimeUtil.localeTr); //Your locale here
         trCollator.setStrength(Collator.PRIMARY);

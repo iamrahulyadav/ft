@@ -7,6 +7,7 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -97,7 +98,7 @@ public class FollowFragment extends ListFragment implements LoaderManager.Loader
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             //mListener = (BasicFragment.OnFragmentInteractionListener) activity;

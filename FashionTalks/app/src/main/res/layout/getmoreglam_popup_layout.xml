@@ -6,6 +6,7 @@
     android:layout_margin="10dp">
 
     <LinearLayout
+        android:id="@+id/getMoreGlamLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -31,7 +32,7 @@
             android:gravity="left"
             android:text="@string/getMoreGlamsTitle"
             android:textColor="@color/white"
-            android:textSize="14dp" />
+            android:textSize="18dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -40,6 +41,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="25dp"
+            android:lineSpacingMultiplier="1.2"
             android:gravity="left"
             android:text="@string/getMoreGlamsSubtitle"
             android:textColor="@color/white"

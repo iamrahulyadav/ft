@@ -3,7 +3,6 @@ package com.mallardduckapps.fashiontalks.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -94,7 +93,7 @@ public class LoginFragment extends BasicFragment implements LoaderManager.Loader
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         attached = true;
         try {

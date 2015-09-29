@@ -27,106 +27,125 @@ bolts.WebViewAppLinkResolver:
     private static final java.lang.String KEY_WEB_URL
     private static final java.lang.String KEY_WEB
     private static final java.lang.String KEY_ANDROID
-com.google.android.gms.games.internal.GamesClientImpl$NearbyPlayerDetectedNotifier
-com.google.android.gms.games.internal.api.AchievementsImpl$10
-com.google.android.gms.games.internal.api.AclsImpl:
-    private static com.google.android.gms.games.internal.game.Acls$LoadAclResult zzL(com.google.android.gms.common.api.Status)
-    static synthetic com.google.android.gms.games.internal.game.Acls$LoadAclResult zzM(com.google.android.gms.common.api.Status)
-com.google.android.gms.games.internal.api.AclsImpl$1
-com.google.android.gms.games.internal.api.AclsImpl$2
-com.google.android.gms.games.internal.api.AclsImpl$3
-com.google.android.gms.games.internal.api.AclsImpl$LoadNotifyAclImpl
-com.google.android.gms.games.internal.api.AclsImpl$UpdateNotifyAclImpl
-com.google.android.gms.games.internal.api.AppContentsImpl$1
-com.google.android.gms.games.internal.api.AppContentsImpl$LoadsImpl
-com.google.android.gms.games.internal.api.AppContentsImpl$LoadsImpl$1
-com.google.android.gms.games.internal.api.GamesMetadataImpl$10
-com.google.android.gms.games.internal.api.GamesMetadataImpl$11
-com.google.android.gms.games.internal.api.GamesMetadataImpl$12
-com.google.android.gms.games.internal.api.GamesMetadataImpl$13
-com.google.android.gms.games.internal.api.GamesMetadataImpl$14
-com.google.android.gms.games.internal.api.GamesMetadataImpl$15
-com.google.android.gms.games.internal.api.GamesMetadataImpl$16
-com.google.android.gms.games.internal.api.GamesMetadataImpl$17
-com.google.android.gms.games.internal.api.GamesMetadataImpl$18
-com.google.android.gms.games.internal.api.GamesMetadataImpl$19
-com.google.android.gms.games.internal.api.GamesMetadataImpl$2
-com.google.android.gms.games.internal.api.GamesMetadataImpl$3
-com.google.android.gms.games.internal.api.GamesMetadataImpl$4
-com.google.android.gms.games.internal.api.GamesMetadataImpl$5
-com.google.android.gms.games.internal.api.GamesMetadataImpl$6
-com.google.android.gms.games.internal.api.GamesMetadataImpl$7
-com.google.android.gms.games.internal.api.GamesMetadataImpl$8
-com.google.android.gms.games.internal.api.GamesMetadataImpl$9
-com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadExtendedGamesImpl
-com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadExtendedGamesImpl$1
-com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameInstancesImpl
-com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameInstancesImpl$1
-com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameSearchSuggestionsImpl
-com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameSearchSuggestionsImpl$1
-com.google.android.gms.games.internal.api.InvitationsImpl$2
-com.google.android.gms.games.internal.api.InvitationsImpl$3
-com.google.android.gms.games.internal.api.LeaderboardsImpl$10
-com.google.android.gms.games.internal.api.LeaderboardsImpl$11
-com.google.android.gms.games.internal.api.LeaderboardsImpl$8
-com.google.android.gms.games.internal.api.LeaderboardsImpl$9
-com.google.android.gms.games.internal.api.NotificationsImpl$1
-com.google.android.gms.games.internal.api.NotificationsImpl$1$1
-com.google.android.gms.games.internal.api.NotificationsImpl$2
-com.google.android.gms.games.internal.api.NotificationsImpl$2$1
-com.google.android.gms.games.internal.api.NotificationsImpl$3
-com.google.android.gms.games.internal.api.NotificationsImpl$3$1
-com.google.android.gms.games.internal.api.NotificationsImpl$4
-com.google.android.gms.games.internal.api.NotificationsImpl$5
-com.google.android.gms.games.internal.api.NotificationsImpl$6
-com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingLoadImpl
-com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingLoadImpl$1
-com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingUpdateImpl
-com.google.android.gms.games.internal.api.NotificationsImpl$InboxCountImpl
-com.google.android.gms.games.internal.api.NotificationsImpl$InboxCountImpl$1
-com.google.android.gms.games.internal.api.PlayersImpl$10
-com.google.android.gms.games.internal.api.PlayersImpl$11
-com.google.android.gms.games.internal.api.PlayersImpl$12
-com.google.android.gms.games.internal.api.PlayersImpl$13
-com.google.android.gms.games.internal.api.PlayersImpl$14
-com.google.android.gms.games.internal.api.PlayersImpl$15
-com.google.android.gms.games.internal.api.PlayersImpl$16
-com.google.android.gms.games.internal.api.PlayersImpl$17
-com.google.android.gms.games.internal.api.PlayersImpl$18
-com.google.android.gms.games.internal.api.PlayersImpl$19
-com.google.android.gms.games.internal.api.PlayersImpl$20
-com.google.android.gms.games.internal.api.PlayersImpl$21
-com.google.android.gms.games.internal.api.PlayersImpl$22
-com.google.android.gms.games.internal.api.PlayersImpl$23
-com.google.android.gms.games.internal.api.PlayersImpl$24
-com.google.android.gms.games.internal.api.PlayersImpl$25
-com.google.android.gms.games.internal.api.PlayersImpl$26
-com.google.android.gms.games.internal.api.PlayersImpl$27
-com.google.android.gms.games.internal.api.PlayersImpl$3
-com.google.android.gms.games.internal.api.PlayersImpl$9
-com.google.android.gms.games.internal.api.PlayersImpl$LoadProfileSettingsResultImpl
-com.google.android.gms.games.internal.api.PlayersImpl$LoadProfileSettingsResultImpl$1
-com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameCategoriesResultImpl
-com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameCategoriesResultImpl$1
-com.google.android.gms.games.internal.api.PlayersImpl$LoadXpStreamResultImpl
-com.google.android.gms.games.internal.api.PlayersImpl$LoadXpStreamResultImpl$1
-com.google.android.gms.games.internal.api.PlayersImpl$UpdateProfileSettingsResultImpl
-com.google.android.gms.games.internal.api.QuestsImpl$5
-com.google.android.gms.games.internal.api.QuestsImpl$6
-com.google.android.gms.games.internal.api.RequestsImpl$4
-com.google.android.gms.games.internal.api.RequestsImpl$5
-com.google.android.gms.games.internal.api.RequestsImpl$6
-com.google.android.gms.games.internal.api.RequestsImpl$7
-com.google.android.gms.games.internal.api.RequestsImpl$8
-com.google.android.gms.games.internal.api.RequestsImpl$LoadRequestSummariesImpl
-com.google.android.gms.games.internal.api.RequestsImpl$LoadRequestSummariesImpl$1
-com.google.android.gms.games.internal.api.RequestsImpl$SendRequestImpl
-com.google.android.gms.games.internal.api.RequestsImpl$SendRequestImpl$1
-com.google.android.gms.games.internal.api.SnapshotsImpl$6
-com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$11
-com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$12
-com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$13
-com.google.android.gms.games.leaderboard.LeaderboardScoreBufferHeader$1
+com.digits.sdk.android.ActivityClassManagerFactory$ThemeAttributes:
+    private static final java.lang.String CLASS_NAME
+com.digits.sdk.android.AuthConfig:
+    22:22:AuthConfig()
+com.digits.sdk.android.BundleManager:
+    22:22:BundleManager()
+com.digits.sdk.android.ContactsHelper:
+    private static final int MAX_CONTACTS
+    private static final java.lang.String selectionQuery
+com.digits.sdk.android.ContactsPreferenceManager:
+    static final java.lang.String KEY_CONTACTS_IMPORT_PERMISSION
+    static final java.lang.String KEY_CONTACTS_READ_TIMESTAMP
+    static final java.lang.String KEY_CONTACTS_UPLOADED
+    49:50:protected void clearContactImportPermissionGranted()
+com.digits.sdk.android.ContactsUploadService:
+    private static final java.lang.String THREAD_NAME
+    private static final int TIMEOUT_IN_SECONDS
+    private static final int MAX_RETRIES
+    private static final int CORE_THREAD_POOL_SIZE
+    private static final int INITIAL_BACKOFF_MS
+com.digits.sdk.android.CountryListLoadTask:
+    private static final int MAX_COUNTRIES
+com.digits.sdk.android.CountryListSpinner$DialogPopup:
+    private static final long DELAY_MILLIS
+com.digits.sdk.android.Digits:
+    static final java.lang.String PREF_KEY_ACTIVE_SESSION
+    static final java.lang.String PREF_KEY_SESSION
+    static final java.lang.String SESSION_PREF_FILE_NAME
+    private static final java.lang.String KIT_SCRIBE_NAME
+com.digits.sdk.android.DigitsActionBarActivity:
+    static final int RESULT_FINISH_DIGITS
+    static final int REQUEST_CODE
+com.digits.sdk.android.DigitsActivity:
+    static final int RESULT_FINISH_DIGITS
+    static final int REQUEST_CODE
+com.digits.sdk.android.DigitsConstants:
+    22:22:DigitsConstants()
+com.digits.sdk.android.DigitsController:
+    public abstract boolean validateInput(java.lang.CharSequence)
+    public abstract void startFallback(android.content.Context,android.os.ResultReceiver,com.digits.sdk.android.DigitsException)
+    public abstract int getErrorCount()
+com.digits.sdk.android.DigitsControllerImpl:
+    public static final int MAX_ERRORS
+    static final long POST_DELAY_MS
+    115:115:public int getErrorCount()
+com.digits.sdk.android.DigitsErrorCodes:
+    private static final int INITIAL_CAPACITY
+com.digits.sdk.android.DigitsRequestInterceptor:
+    static final java.lang.String USER_AGENT_KEY
+com.digits.sdk.android.DigitsScribeServiceImp:
+    static final java.lang.String EMPTY_SCRIBE_SECTION
+    static final java.lang.String EMPTY_SCRIBE_COMPONENT
+    static final java.lang.String EMPTY_SCRIBE_ELEMENT
+    static final java.lang.String SCRIBE_CLIENT
+    static final java.lang.String SCRIBE_PAGE
+    static final java.lang.String IMPRESSION_ACTION
+com.digits.sdk.android.DigitsSession:
+    static final java.lang.String TOKEN_HEADER
+    static final java.lang.String SECRET_HEADER
+com.digits.sdk.android.DigitsSession$Serializer:
+    private static final java.lang.String TAG
+com.digits.sdk.android.FailureActivityDelegate
+com.digits.sdk.android.LoginResultReceiver:
+    static final int RESULT_OK
+    static final int RESULT_ERROR
+    static final java.lang.String KEY_ERROR
+com.digits.sdk.android.PhoneNumberUtils:
+    private static final java.lang.String DEFAULT_COUNTRY_CODE
+    private static final java.lang.String DEFAULT_COUNTRY_ISO
+    private static final int MAX_COUNTRIES
+    private static final int MAX_COUNTRY_CODES
+com.digits.sdk.android.SmsBroadcastReceiver:
+    static final java.lang.String PDU_EXTRA
+com.digits.sdk.android.ThemeUtils:
+    public static final int DEFAULT_THEME
+    public static final java.lang.String THEME_RESOURCE_ID
+    33:35:private ThemeUtils()
+com.digits.sdk.android.UploadError
+com.digits.sdk.android.UploadResponse:
+    final java.util.List errors
+    28:30:UploadResponse(java.util.List)
+com.digits.sdk.android.WeakAuthCallback:
+    46:46:public com.digits.sdk.android.AuthCallback getCallback()
+com.digits.sdk.vcard.JapaneseUtils:
+    26:26:JapaneseUtils()
+com.digits.sdk.vcard.VCardBuilder:
+    private static final java.lang.String LOG_TAG
+    private static final java.lang.String VCARD_DATA_VCARD
+    private static final java.lang.String VCARD_DATA_PUBLIC
+    private static final java.lang.String VCARD_PARAM_SEPARATOR
+    private static final java.lang.String VCARD_DATA_SEPARATOR
+    private static final java.lang.String VCARD_ITEM_SEPARATOR
+    private static final java.lang.String VCARD_PARAM_EQUAL
+    private static final java.lang.String VCARD_PARAM_ENCODING_QP
+    private static final java.lang.String SHIFT_JIS
+com.digits.sdk.vcard.VCardConfig:
+    private static final java.lang.String LOG_TAG
+    static final int LOG_LEVEL_NONE
+    static final int LOG_LEVEL_PERFORMANCE_MEASUREMENT
+    static final int LOG_LEVEL_SHOW_WARNING
+    static final int LOG_LEVEL_VERBOSE
+    static final int LOG_LEVEL
+    private static final int NAME_ORDER_MASK
+    private static final int FLAG_USE_ANDROID_PROPERTY
+    private static final int FLAG_USE_DEFACT_PROPERTY
+    private static final int FLAG_DOCOMO
+    static final java.lang.String VCARD_TYPE_V30_GENERIC_STR
+    static final java.lang.String VCARD_TYPE_V40_GENERIC_STR
+    static final java.lang.String VCARD_TYPE_V21_EUROPE_STR
+    static final java.lang.String VCARD_TYPE_V30_EUROPE_STR
+    static final java.lang.String VCARD_TYPE_V21_JAPANESE_STR
+    static final java.lang.String VCARD_TYPE_V30_JAPANESE_STR
+    static final java.lang.String VCARD_TYPE_V21_JAPANESE_MOBILE_STR
+    static final java.lang.String VCARD_TYPE_DOCOMO_STR
+com.digits.sdk.vcard.VCardConstants:
+    static final java.lang.String LOG_TAG
+    static final java.lang.String PARAM_TYPE_X_IRMC_N
+com.digits.sdk.vcard.VCardUtils:
+    private static final java.lang.String LOG_TAG
 com.google.gson.DefaultDateTypeAdapter:
     53:54:DefaultDateTypeAdapter(int)
 com.google.gson.FieldAttributes:
@@ -201,14 +220,11 @@ com.mallardduckapps.fashiontalks.ProfileActivity:
 com.mallardduckapps.fashiontalks.SearchActivity:
     com.mallardduckapps.fashiontalks.FashionTalksApp app
 com.mallardduckapps.fashiontalks.adapters.GalleryGridAdapter:
-    boolean opensGallery
-    67:67:private void init()
+    73:73:private void init()
 com.mallardduckapps.fashiontalks.adapters.VerticalPagerAdapter:
     private static final java.lang.String TAG
 com.mallardduckapps.fashiontalks.components.BounceListView:
     private static final int MAX_Y_OVERSCROLL_DISTANCE
-com.mallardduckapps.fashiontalks.components.ExpandablePanel:
-    android.widget.RelativeLayout layout
 com.mallardduckapps.fashiontalks.components.SlidingTabLayout:
     private static final int TITLE_OFFSET_DIPS
     private static final int TAB_VIEW_PADDING_DIPS
@@ -239,7 +255,7 @@ com.mallardduckapps.fashiontalks.fragments.LoginFragment$ProfileQuery:
     public static final int IS_PRIMARY
 com.mallardduckapps.fashiontalks.fragments.MainLoginFragment:
     android.widget.ProgressBar progressBar
-    268:287:private void updateWithToken(com.facebook.AccessToken)
+    268:292:private void updateWithToken(com.facebook.AccessToken)
 com.mallardduckapps.fashiontalks.fragments.NavigationDrawerFragment:
     private static final java.lang.String STATE_SELECTED_POSITION
     private android.view.View mFragmentContainerView
@@ -251,9 +267,9 @@ com.mallardduckapps.fashiontalks.objects.Gallery:
 com.mallardduckapps.fashiontalks.services.GCMIntentService:
     static final java.lang.String TAG
 com.mallardduckapps.fashiontalks.services.RestClient:
-    102:102:private com.squareup.okhttp.Request createRequest(java.lang.String)
-    106:110:private varargs com.squareup.okhttp.Request createRequestWithHeaders(java.lang.String,org.apache.http.message.BasicNameValuePair[])
-    135:143:private varargs com.squareup.okhttp.Request createRequestWithBody(java.lang.String,org.apache.http.message.BasicNameValuePair[])
+    116:116:private com.squareup.okhttp.Request createRequest(java.lang.String)
+    120:124:private varargs com.squareup.okhttp.Request createRequestWithHeaders(java.lang.String,com.mallardduckapps.fashiontalks.objects.BasicNameValuePair[])
+    149:157:private varargs com.squareup.okhttp.Request createRequestWithBody(java.lang.String,com.mallardduckapps.fashiontalks.objects.BasicNameValuePair[])
 com.mallardduckapps.fashiontalks.swipelistview.SwipeListView:
     private static final int TOUCH_STATE_REST
     private static final int TOUCH_STATE_SCROLLING_X
@@ -262,7 +278,6 @@ com.mallardduckapps.fashiontalks.swipelistview.SwipeListViewTouchListener:
     private static final int DISPLACE_CHOICE
 com.mallardduckapps.fashiontalks.tasks.LoginFBTask:
     private int authStatus
-    java.lang.String[] tokens
 com.mallardduckapps.fashiontalks.tasks.LoginTask:
     private int authStatus
     java.lang.String[] tokens
@@ -334,6 +349,342 @@ com.nineoldandroids.view.ViewPropertyAnimatorPreHC:
     private static final int Y
     private static final int ALPHA
     private static final int TRANSFORM_MASK
+com.squareup.picasso.AssetRequestHandler:
+    protected static final java.lang.String ANDROID_ASSET
+com.squareup.picasso.ContactsPhotoRequestHandler:
+    private static final int ID_LOOKUP
+    private static final int ID_THUMBNAIL
+    private static final int ID_CONTACT
+    private static final int ID_DISPLAY_PHOTO
+com.squareup.picasso.ContactsPhotoRequestHandler$ContactPhotoStreamIcs:
+    100:100:private ContactsPhotoRequestHandler$ContactPhotoStreamIcs()
+com.squareup.picasso.DeferredRequestCreator:
+    30:31:DeferredRequestCreator(com.squareup.picasso.RequestCreator,android.widget.ImageView)
+com.squareup.picasso.Dispatcher:
+    private static final int RETRY_DELAY
+    private static final int AIRPLANE_MODE_ON
+    private static final int AIRPLANE_MODE_OFF
+    static final int REQUEST_SUBMIT
+    static final int REQUEST_CANCEL
+    static final int REQUEST_GCED
+    static final int HUNTER_COMPLETE
+    static final int HUNTER_RETRY
+    static final int HUNTER_DECODE_FAILED
+    static final int HUNTER_DELAY_NEXT_BATCH
+    static final int HUNTER_BATCH_COMPLETE
+    static final int NETWORK_STATE_CHANGE
+    static final int AIRPLANE_MODE_CHANGE
+    static final int TAG_PAUSE
+    static final int TAG_RESUME
+    static final int REQUEST_BATCH_RESUME
+    private static final java.lang.String DISPATCHER_THREAD_NAME
+    private static final int BATCH_DELAY
+com.squareup.picasso.Dispatcher$NetworkBroadcastReceiver:
+    static final java.lang.String EXTRA_AIRPLANE_STATE
+com.squareup.picasso.MarkableInputStream:
+    private static final int DEFAULT_BUFFER_SIZE
+com.squareup.picasso.NetworkRequestHandler:
+    static final int RETRY_COUNT
+    private static final java.lang.String SCHEME_HTTP
+    private static final java.lang.String SCHEME_HTTPS
+com.squareup.picasso.Picasso:
+    static final java.lang.String TAG
+com.squareup.picasso.PicassoDrawable:
+    private static final float FADE_DURATION
+com.squareup.picasso.PicassoExecutorService:
+    private static final int DEFAULT_THREAD_COUNT
+com.squareup.picasso.Stats:
+    private static final int CACHE_HIT
+    private static final int CACHE_MISS
+    private static final int BITMAP_DECODE_FINISHED
+    private static final int BITMAP_TRANSFORMED_FINISHED
+    private static final int DOWNLOAD_FINISHED
+    private static final java.lang.String STATS_THREAD_NAME
+com.squareup.picasso.UrlConnectionDownloader:
+    static final java.lang.String RESPONSE_SOURCE
+    private static final java.lang.String FORCE_CACHE
+com.squareup.picasso.UrlConnectionDownloader$ResponseCacheIcs:
+    126:126:private UrlConnectionDownloader$ResponseCacheIcs()
+com.squareup.picasso.Utils:
+    static final java.lang.String THREAD_PREFIX
+    static final java.lang.String THREAD_IDLE_NAME
+    static final int DEFAULT_READ_TIMEOUT_MILLIS
+    static final int DEFAULT_WRITE_TIMEOUT_MILLIS
+    static final int DEFAULT_CONNECT_TIMEOUT_MILLIS
+    private static final java.lang.String PICASSO_CACHE
+    private static final int KEY_PADDING
+    private static final int MIN_DISK_CACHE_SIZE
+    private static final int MAX_DISK_CACHE_SIZE
+    static final int THREAD_LEAK_CLEANING_MS
+    static final char KEY_SEPARATOR
+    static final java.lang.String OWNER_MAIN
+    static final java.lang.String OWNER_DISPATCHER
+    static final java.lang.String OWNER_HUNTER
+    static final java.lang.String VERB_CREATED
+    static final java.lang.String VERB_CHANGED
+    static final java.lang.String VERB_IGNORED
+    static final java.lang.String VERB_ENQUEUED
+    static final java.lang.String VERB_CANCELED
+    static final java.lang.String VERB_BATCHED
+    static final java.lang.String VERB_RETRYING
+    static final java.lang.String VERB_EXECUTING
+    static final java.lang.String VERB_DECODED
+    static final java.lang.String VERB_TRANSFORMED
+    static final java.lang.String VERB_JOINED
+    static final java.lang.String VERB_REMOVED
+    static final java.lang.String VERB_DELIVERED
+    static final java.lang.String VERB_REPLAYING
+    static final java.lang.String VERB_COMPLETED
+    static final java.lang.String VERB_ERRORED
+    static final java.lang.String VERB_PAUSED
+    static final java.lang.String VERB_RESUMED
+    private static final int WEBP_FILE_HEADER_SIZE
+    private static final java.lang.String WEBP_FILE_HEADER_RIFF
+    private static final java.lang.String WEBP_FILE_HEADER_WEBP
+    104:106:private Utils()
+com.squareup.picasso.Utils$ActivityManagerHoneycomb:
+    391:391:private Utils$ActivityManagerHoneycomb()
+com.squareup.picasso.Utils$BitmapHoneycombMR1:
+    416:416:private Utils$BitmapHoneycombMR1()
+com.squareup.picasso.Utils$OkHttpLoaderCreator:
+    422:422:private Utils$OkHttpLoaderCreator()
+com.twitter.sdk.android.core.AppSession:
+    37:38:AppSession(com.twitter.sdk.android.core.internal.oauth.GuestAuthToken)
+com.twitter.sdk.android.core.AuthTokenAdapter:
+    private static final java.lang.String AUTH_TYPE
+    private static final java.lang.String AUTH_TOKEN
+com.twitter.sdk.android.core.AuthenticatedClient:
+    private static final java.lang.String FAKE_URL
+com.twitter.sdk.android.core.OAuthSigning:
+    static final java.lang.String VERIFY_CREDENTIALS_URL
+com.twitter.sdk.android.core.PersistedSessionManager:
+    private static final int NUM_SESSIONS
+com.twitter.sdk.android.core.TwitterAuthToken:
+    60:63:TwitterAuthToken(java.lang.String,java.lang.String,long)
+com.twitter.sdk.android.core.TwitterCore:
+    static final java.lang.String PREF_KEY_ACTIVE_TWITTER_SESSION
+    static final java.lang.String PREF_KEY_TWITTER_SESSION
+    static final java.lang.String PREF_KEY_ACTIVE_APP_SESSION
+    static final java.lang.String PREF_KEY_APP_SESSION
+    static final java.lang.String SESSION_PREF_FILE_NAME
+    68:71:TwitterCore(com.twitter.sdk.android.core.TwitterAuthConfig,java.util.concurrent.ConcurrentHashMap)
+com.twitter.sdk.android.core.TwitterRateLimit:
+    private static final java.lang.String LIMIT_KEY
+    private static final java.lang.String REMAINING_KEY
+    private static final java.lang.String RESET_KEY
+    66:66:public int getLimit()
+    73:73:public int getRemaining()
+    80:80:public long getReset()
+    87:87:public long getRequestedTime()
+    94:97:public long getRemainingTime()
+com.twitter.sdk.android.core.identity.AuthHandler:
+    static final java.lang.String EXTRA_TOKEN
+    static final java.lang.String EXTRA_TOKEN_SECRET
+    static final java.lang.String EXTRA_SCREEN_NAME
+    static final java.lang.String EXTRA_USER_ID
+    static final java.lang.String EXTRA_AUTH_ERROR
+    static final int RESULT_CODE_ERROR
+com.twitter.sdk.android.core.identity.OAuthActivity:
+    static final java.lang.String EXTRA_AUTH_CONFIG
+    private static final java.lang.String STATE_PROGRESS
+com.twitter.sdk.android.core.identity.SSOAuthHandler:
+    static final java.lang.String TWITTER_PACKAGE_NAME
+    static final java.lang.String DOGFOOD_PACKAGE_NAME
+    static final java.lang.String SSO_CLASS_NAME
+    static final java.lang.String TWITTER_SIGNATURE
+    static final java.lang.String DOGFOOD_SIGNATURE
+    private static final java.lang.String EXTRA_CONSUMER_KEY
+    private static final java.lang.String EXTRA_CONSUMER_SECRET
+com.twitter.sdk.android.core.identity.ShareEmailActivity:
+    static final java.lang.String EXTRA_RESULT_RECEIVER
+    static final java.lang.String EXTRA_SESSION_ID
+com.twitter.sdk.android.core.identity.ShareEmailClient:
+    static final int RESULT_CODE_CANCELED
+    static final int RESULT_CODE_OK
+    static final int RESULT_CODE_ERROR
+    static final java.lang.String RESULT_DATA_EMAIL
+    static final java.lang.String RESULT_DATA_MSG
+    static final java.lang.String RESULT_DATA_ERROR
+com.twitter.sdk.android.core.identity.ShareEmailController:
+    private static final java.lang.String EMPTY_EMAIL
+com.twitter.sdk.android.core.identity.TwitterAuthClient:
+    private static final java.lang.String SCRIBE_CLIENT
+    private static final java.lang.String SCRIBE_LOGIN_PAGE
+    private static final java.lang.String SCRIBE_SHARE_EMAIL_PAGE
+    private static final java.lang.String SCRIBE_SECTION
+    private static final java.lang.String SCRIBE_COMPONENT
+    private static final java.lang.String SCRIBE_ELEMENT
+    private static final java.lang.String SCRIBE_ACTION
+com.twitter.sdk.android.core.identity.TwitterAuthClient$AuthStateLazyHolder:
+    42:42:private TwitterAuthClient$AuthStateLazyHolder()
+com.twitter.sdk.android.core.identity.TwitterLoginButton:
+    static final java.lang.String TAG
+    static final java.lang.String ERROR_MSG_NO_ACTIVITY
+com.twitter.sdk.android.core.internal.MigrationHelper:
+    private static final java.lang.String SHARED_PREFS_DIR
+com.twitter.sdk.android.core.internal.SessionMonitor$MonitorState:
+    private static final long TIME_THRESHOLD_IN_MILLIS
+com.twitter.sdk.android.core.internal.TwitterSessionVerifier:
+    static final java.lang.String SCRIBE_CLIENT
+    static final java.lang.String SCRIBE_PAGE
+    static final java.lang.String SCRIBE_SECTION
+    static final java.lang.String SCRIBE_COMPONENT
+    static final java.lang.String SCRIBE_ELEMENT
+    static final java.lang.String SCRIBE_ACTION
+    45:48:TwitterSessionVerifier(com.twitter.sdk.android.core.internal.TwitterSessionVerifier$AccountServiceProvider,com.twitter.sdk.android.core.internal.scribe.DefaultScribeClient)
+com.twitter.sdk.android.core.internal.oauth.GuestAuthToken:
+    private static final long EXPIRES_IN_MS
+com.twitter.sdk.android.core.internal.oauth.GuestTokenResponse:
+    27:29:public GuestTokenResponse(java.lang.String)
+com.twitter.sdk.android.core.internal.oauth.OAuth1aParameters:
+    private static final java.lang.String VERSION
+    private static final java.lang.String SIGNATURE_METHOD
+com.twitter.sdk.android.core.internal.oauth.OAuth1aService:
+    private static final java.lang.String RESOURCE_OAUTH
+    private static final java.lang.String CALLBACK_URL
+    private static final java.lang.String PARAM_SCREEN_NAME
+    private static final java.lang.String PARAM_USER_ID
+com.twitter.sdk.android.core.internal.oauth.OAuthService:
+    private static final java.lang.String CLIENT_NAME
+com.twitter.sdk.android.core.internal.scribe.DefaultScribeClient:
+    private static final java.lang.String SCRIBE_URL
+    private static final java.lang.String SCRIBE_PATH_VERSION
+    private static final java.lang.String SCRIBE_PATH_TYPE
+    private static final java.lang.String DEBUG_BUILD
+com.twitter.sdk.android.core.internal.scribe.ScribeClient:
+    private static final java.lang.String WORKING_FILENAME_BASE
+    private static final java.lang.String STORAGE_DIR_BASE
+com.twitter.sdk.android.core.internal.scribe.ScribeEvent:
+    private static final java.lang.String CURRENT_FORMAT_VERSION
+com.twitter.sdk.android.core.internal.scribe.ScribeFilesManager:
+    static final java.lang.String FILE_PREFIX
+    static final java.lang.String FILE_EXTENSION
+com.twitter.sdk.android.core.internal.scribe.ScribeFilesSender:
+    private static final java.lang.String SEND_FILE_FAILURE_ERROR
+    168:169:void setApiAdapter(retrofit.RestAdapter)
+com.twitter.sdk.android.core.internal.scribe.ScribeFilesSender$ConfigRequestInterceptor:
+    private static final java.lang.String USER_AGENT_HEADER
+    private static final java.lang.String CLIENT_UUID_HEADER
+    private static final java.lang.String POLLING_HEADER
+    private static final java.lang.String POLLING_HEADER_VALUE
+com.twitter.sdk.android.core.internal.scribe.SyndicatedSdkImpressionEvent:
+    private static final java.lang.String SCRIBE_CATEGORY
+com.twitter.sdk.android.core.internal.scribe.TwitterCoreScribeClientHolder:
+    private static final java.lang.String KIT_NAME
+com.twitter.sdk.android.core.models.Entity:
+    private static final int START_INDEX
+    private static final int END_INDEX
+com.twitter.sdk.android.tweetcomposer.TweetComposer:
+    private static final java.lang.String MIME_TYPE_PLAIN_TEXT
+    private static final java.lang.String MIME_TYPE_JPEG
+    private static final java.lang.String TWITTER_PACKAGE_NAME
+    private static final java.lang.String WEB_INTENT
+com.twitter.sdk.android.tweetui.BaseTweetView:
+    private static final java.lang.String TAG
+    private static final java.lang.String EMPTY_STRING
+    static final double DEFAULT_ASPECT_RATIO
+    static final double SECONDARY_TEXT_COLOR_LIGHT_OPACITY
+    static final double SECONDARY_TEXT_COLOR_DARK_OPACITY
+    static final double MEDIA_BG_LIGHT_OPACITY
+    static final double MEDIA_BG_DARK_OPACITY
+    static final long INVALID_ID
+com.twitter.sdk.android.tweetui.BaseTweetView$3:
+    797:797:public void onPhotoClicked(com.twitter.sdk.android.core.models.MediaEntity)
+com.twitter.sdk.android.tweetui.CollectionTimeline:
+    static final java.lang.String COLLECTION_PREFIX
+    private static final java.lang.String SCRIBE_SECTION
+com.twitter.sdk.android.tweetui.ColorUtils:
+    23:23:private ColorUtils()
+com.twitter.sdk.android.tweetui.CompactTweetView:
+    private static final java.lang.String VIEW_TYPE_NAME
+    private static final double SQUARE_ASPECT_RATIO
+    private static final double MAX_LANDSCAPE_ASPECT_RATIO
+    private static final double MIN_LANDSCAPE_ASPECT_RATIO
+    44:45:CompactTweetView(android.content.Context,com.twitter.sdk.android.core.models.Tweet,int,com.twitter.sdk.android.tweetui.BaseTweetView$DependencyProvider)
+com.twitter.sdk.android.tweetui.FixedTweetTimeline:
+    private static final java.lang.String SCRIBE_SECTION
+com.twitter.sdk.android.tweetui.LinkClickListener:
+    public abstract void onPhotoClicked(com.twitter.sdk.android.core.models.MediaEntity)
+com.twitter.sdk.android.tweetui.ScribeConstants:
+    static final java.lang.String TFW_CLIENT_EVENT_PAGE
+    static final java.lang.String TFW_CLIENT_EVENT_SECTION
+    static final java.lang.String TFW_CLIENT_EVENT_ELEMENT
+    static final java.lang.String SYNDICATED_SDK_IMPRESSION_PAGE
+    static final java.lang.String SYNDICATED_SDK_IMPRESSION_COMPONENT
+    static final java.lang.String SYNDICATED_SDK_IMPRESSION_ELEMENT
+    static final java.lang.String SCRIBE_CLICK_ACTION
+    static final java.lang.String SCRIBE_IMPRESSION_ACTION
+    static final java.lang.String SCRIBE_FAVORITE_ACTION
+    static final java.lang.String SCRIBE_UNFAVORITE_ACTION
+    static final java.lang.String SCRIBE_SHARE_ACTION
+    static final java.lang.String SCRIBE_ACTIONS_ELEMENT
+    static final java.lang.String SCRIBE_INITIAL_ELEMENT
+    static final java.lang.String SCRIBE_TIMELINE_SECTION
+    static final java.lang.String SCRIBE_TIMELINE_PAGE
+    static final java.lang.String SCRIBE_INITIAL_COMPONENT
+com.twitter.sdk.android.tweetui.ScribeEventFactory:
+    24:24:ScribeEventFactory()
+com.twitter.sdk.android.tweetui.SearchTimeline:
+    static final java.lang.String FILTER_RETWEETS
+    static final java.lang.String RESULT_TYPE
+    private static final java.lang.String SCRIBE_SECTION
+com.twitter.sdk.android.tweetui.SyndicationClientEvent:
+    static final java.lang.String CLIENT_NAME
+    private static final java.lang.String SCRIBE_CATEGORY
+com.twitter.sdk.android.tweetui.TweetDateUtils:
+    static final long INVALID_DATE
+    39:39:private TweetDateUtils()
+com.twitter.sdk.android.tweetui.TweetRepository:
+    private static final java.lang.String TAG
+    private static final java.lang.String AUTH_ERROR
+    private static final int DEFAULT_CACHE_SIZE
+    122:129:void retweet(long,com.twitter.sdk.android.core.Callback)
+    132:139:void unretweet(long,com.twitter.sdk.android.core.Callback)
+com.twitter.sdk.android.tweetui.TweetRepository$4
+com.twitter.sdk.android.tweetui.TweetRepository$5
+com.twitter.sdk.android.tweetui.TweetTextLinkifier:
+    private static final java.lang.String PHOTO_TYPE
+    36:36:private TweetTextLinkifier()
+com.twitter.sdk.android.tweetui.TweetTextUtils:
+    private static final java.lang.String PHOTO_TYPE
+    34:34:private TweetTextUtils()
+com.twitter.sdk.android.tweetui.TweetUi:
+    static final java.lang.String LOGTAG
+    static final java.lang.String NOT_STARTED_ERROR
+    private static final java.lang.String KIT_SCRIBE_NAME
+    180:181:void setTweetRepository(com.twitter.sdk.android.tweetui.TweetRepository)
+    189:190:void setImageLoader(com.squareup.picasso.Picasso)
+    193:194:void clearAppSession(long)
+com.twitter.sdk.android.tweetui.TweetUtils:
+    private static final java.lang.String TAG
+    private static final java.lang.String PERMALINK_FORMAT
+    private static final java.lang.String UNKNOWN_SCREEN_NAME
+    static final java.lang.String LOAD_TWEET_DEBUG
+com.twitter.sdk.android.tweetui.TweetView:
+    private static final java.lang.String VIEW_TYPE_NAME
+    40:41:TweetView(android.content.Context,com.twitter.sdk.android.core.models.Tweet,int,com.twitter.sdk.android.tweetui.BaseTweetView$DependencyProvider)
+com.twitter.sdk.android.tweetui.TwitterListTimeline:
+    private static final java.lang.String SCRIBE_SECTION
+com.twitter.sdk.android.tweetui.UserTimeline:
+    private static final java.lang.String SCRIBE_SECTION
+com.twitter.sdk.android.tweetui.UserUtils:
+    26:26:private UserUtils()
+com.twitter.sdk.android.tweetui.Utils:
+    27:27:private Utils()
+com.twitter.sdk.android.tweetui.internal.TimelineDelegate:
+    static final long CAPACITY
+com.twitter.sdk.android.tweetui.internal.util.AspectRatioImageView:
+    private static final float DEFAULT_ASPECT_RATIO
+    private static final int DEFAULT_ADJUST_DIMENSION
+    static final int ADJUST_DIMENSION_HEIGHT
+    static final int ADJUST_DIMENSION_WIDTH
+com.twitter.sdk.android.tweetui.internal.util.HtmlEntities$ArrayEntityMap
+com.twitter.sdk.android.tweetui.internal.util.HtmlEntities$BinaryEntityMap
+com.twitter.sdk.android.tweetui.internal.util.HtmlEntities$HashEntityMap
+com.twitter.sdk.android.tweetui.internal.util.HtmlEntities$LookupEntityMap:
+    private static final int LOOKUP_TABLE_SIZE
+com.twitter.sdk.android.tweetui.internal.util.HtmlEntities$MapIntMap
+com.twitter.sdk.android.tweetui.internal.util.HtmlEntities$TreeEntityMap
 fr.castorflex.android.verticalviewpager.VerticalViewPager:
     private static final java.lang.String TAG
     private static final boolean DEBUG
@@ -354,10 +705,16 @@ fr.castorflex.android.verticalviewpager.VerticalViewPager:
 io.fabric.sdk.android.Fabric:
     static final java.lang.String ROOT_DIR
     static final boolean DEFAULT_DEBUGGABLE
+io.fabric.sdk.android.FabricKitsFinder:
+    static final java.lang.String FABRIC_DIR
+    private static final java.lang.String FABRIC_IDENTIFIER_KEY
+    private static final java.lang.String FABRIC_VERSION_KEY
+    private static final java.lang.String FABRIC_BUILD_TYPE_KEY
 io.fabric.sdk.android.InitializationTask:
     private static final java.lang.String TIMING_METRIC_TAG
 io.fabric.sdk.android.Onboarding:
     static final java.lang.String CRASHLYTICS_API_ENDPOINT
+    private static final java.lang.String BINARY_BUILD_TYPE
 io.fabric.sdk.android.services.common.AdvertisingInfoProvider:
     private static final java.lang.String ADVERTISING_INFO_PREFERENCES
     private static final java.lang.String PREFKEY_LIMIT_AD_TRACKING
@@ -412,13 +769,13 @@ io.fabric.sdk.android.services.common.IdManager:
     private static final java.lang.String SDK_ASSETS_ROOT
     private static final java.lang.String BAD_ANDROID_ID
     private static final java.lang.String BLUETOOTH_ERROR_MESSAGE
-    433:433:private java.lang.String[] getTwitterSdkAssetsList()
+    443:443:private java.lang.String[] getTwitterSdkAssetsList()
 io.fabric.sdk.android.services.common.InstallerPackageNameProvider:
     private static final java.lang.String NO_INSTALLER_PACKAGE_NAME
 io.fabric.sdk.android.services.common.QueueFile:
     private static final int INITIAL_LENGTH
     static final int HEADER_LENGTH
-    105:123:QueueFile(java.io.RandomAccessFile)
+    122:140:QueueFile(java.io.RandomAccessFile)
 io.fabric.sdk.android.services.common.QueueFile$Element:
     static final int HEADER_LENGTH
 io.fabric.sdk.android.services.concurrency.AsyncTask:
@@ -428,8 +785,10 @@ io.fabric.sdk.android.services.concurrency.AsyncTask:
     private static final int MESSAGE_POST_PROGRESS
 io.fabric.sdk.android.services.concurrency.PriorityThreadPoolExecutor:
     private static final long KEEP_ALIVE
+io.fabric.sdk.android.services.concurrency.internal.ExponentialBackoff:
+    private static final int DEFAULT_POWER
 io.fabric.sdk.android.services.network.CertificateChainCleaner:
-    17:18:private CertificateChainCleaner()
+    34:35:private CertificateChainCleaner()
 io.fabric.sdk.android.services.network.DefaultHttpRequestFactory:
     private static final java.lang.String HTTPS
 io.fabric.sdk.android.services.network.HttpRequest:
@@ -457,7 +816,7 @@ io.fabric.sdk.android.services.settings.DefaultSettingsSpiCall:
 io.fabric.sdk.android.services.settings.Settings:
     private static final java.lang.String SETTINGS_URL_FORMAT
 io.fabric.sdk.android.services.settings.Settings$LazyHolder:
-    29:29:Settings$LazyHolder()
+    46:46:Settings$LazyHolder()
 okio.Base64:
     26:27:private Base64()
 okio.Buffer:

@@ -42,7 +42,7 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
     public static int height;
 
 
-    public static File      mFileTemp;
+    public static File mFileTemp;
     UploadNewStyleMainFragment mainFragment;
     public static final Uri CONTENT_URI = Uri.parse("content://eu.janmuller.android.simplecropimage.example/");
     public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
@@ -60,8 +60,6 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
         topDivider.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)mainLayout.getLayoutParams();
         param.topMargin = 0;
-
-
 
         tvName = (TextView) findViewById(R.id.toolbarName);
         tvName.setTypeface(FTUtils.loadFont(getAssets(), getString(R.string.font_avantgarde_bold)));
@@ -307,7 +305,6 @@ public class UploadNewStyleActivity extends BaseActivity implements UploadNewSty
             //actionBar.setHomeAsUpIndicator(android.R.drawable.ic_a);
             Log.d(TAG, "CONTINUE BUTTON CLICKED");
             //actionBar.setHomeButtonEnabled(true);
-
             //actionBar.setDisplayHomeAsUpEnabled(true);
             //actionBar.setDisplayShowHomeEnabled(false);
             //actionBar.setDefaultDisplayHomeAsUpEnabled(false);

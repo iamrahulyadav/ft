@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.mallardduckapps.fashiontalks.FashionTalksApp;
 import com.mallardduckapps.fashiontalks.objects.PopularUser;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
@@ -26,9 +27,11 @@ public class PopularUsersLoader extends AsyncTaskLoader<ArrayList<PopularUser>> 
     boolean loadingInProgress;
     public int startIndex = 0;
     public int perPage = 50;
+    FashionTalksApp app;
 
-    public PopularUsersLoader(Context context, int loaderId){
+    public PopularUsersLoader(Context context,FashionTalksApp app, int loaderId){
         super(context);
+        this.app = app;
         this.loaderId = loaderId;
     }
 
@@ -38,8 +41,12 @@ public class PopularUsersLoader extends AsyncTaskLoader<ArrayList<PopularUser>> 
         String response = "";
         RestClient restClient = new RestClient();
         try {
+            String token = null;
+            if(app != null){
+                token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+            }
             String url = new StringBuilder(Constants.POPULAR_USERS_PREFIX).append("/").append(startIndex).append("/").append(perPage).toString();
-            response = restClient.doGetRequest(url, null);
+            response = restClient.doGetRequest(url,token, null);
             Log.d(TAG, "RESPONSE FROM API: " + response);
         } catch (Exception e) {
             response = "NO_CONNECTION";

@@ -15,7 +15,7 @@
     <dimen name="page_margin">25dp</dimen>
     <dimen name="thumbnail_width">50dp</dimen>
     <dimen name="thumbnail_height">50dp</dimen>
-    <dimen name="glam_font_size">8dp</dimen>
+    <dimen name="glam_font_size">9dp</dimen>
     <dimen name = "title_font_size">16dp</dimen>
     <dimen name = "navmenuitem_font_size">15dp</dimen>
     <dimen name = "postitem_font_size">13dp</dimen>

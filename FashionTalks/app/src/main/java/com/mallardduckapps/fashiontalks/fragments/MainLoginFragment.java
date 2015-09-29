@@ -124,7 +124,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         attached = true;
         try {
@@ -241,7 +241,7 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.i(TAG, "LoginManager FacebookCallback onSuccess");
-                if(loginResult.getAccessToken() != null) {
+                if (loginResult.getAccessToken() != null) {
                     Log.i(TAG, "Access Token:: " + loginResult.getAccessToken());
                     String accessToken = loginResult.getAccessToken().getToken();
                     Log.d(TAG, "FB ON SUCCESS + " + accessToken);
@@ -281,7 +281,12 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
         app.dataSaver.putString(Constants.ACCESS_TOKEN_KEY, fbToken);
         app.dataSaver.save();
         loggedInBefore = true;
-        RestClient.setAccessToken(fbToken);
+        if(fbToken != null) {
+            RestClient.setAccessToken(fbToken);
+        }
+        else {
+            return;
+        }
         LoginTask authTask = new LoginTask(MainLoginFragment.this, getActivity());
         authTask.execute();
     }
@@ -331,12 +336,15 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
                 switcher.setDisplayedChild(1);
                 break;
             case Constants.AUTHENTICATION_SUCCESSFUL:
-                mListener.saveTokens(true, tokens);
+                if(tokens != null){
+                    Log.d(TAG, "SAVE TOKENS AUTH SUCCESS: " + tokens[0]);
+                    mListener.saveTokens(true, tokens);
+                }
                 mListener.goToMainActivity();
                 break;
             case Constants.FB_AUTHENTICATION_SUCCESSFUL:
                 mListener.saveTokens(false,tokens);
-                Log.d(TAG, "FB AUTH SUCCESSFULL - calls go to main activity");
+                Log.d(TAG, "FB AUTH SUCCESSFULL - ");
                 //mListener.goToMainActivity();
                 break;
             case Constants.AUTHENTICATION_FAILED:
@@ -372,6 +380,11 @@ public class MainLoginFragment extends BasicFragment implements LoginTask.LoginT
             Log.d(TAG, "GET USER AUTH SUCCESSFULL calls go to main activity");
             mListener.goToMainActivity();
             //activity.finish();
+        }else if(user != null && authStatus == Constants.FB_AUTHENTICATION_SUCCESSFUL){
+            app.setMe(user);
+            Log.d(TAG, "GET USER FACEBOOK AUTH SUCCESSFULL calls fb friends page");
+            mListener.onFragmentInteraction("FBFriends");
+
         }
         else if(authStatus == Constants.NO_CONNECTION){
             app.openOKDialog(getActivity(), MainLoginFragment.this, "no_connection");

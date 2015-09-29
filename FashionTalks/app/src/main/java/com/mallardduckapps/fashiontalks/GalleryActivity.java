@@ -72,6 +72,7 @@ public class GalleryActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
+        menu.removeItem(R.id.action_user_info);
         return true;
     }
 

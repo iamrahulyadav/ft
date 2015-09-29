@@ -107,7 +107,7 @@ class CropImageView extends ImageViewTouchBase {
         invalidate();
     }
     int mode = -1;
-    float oldDist = 0;
+    double oldDist = 0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -216,11 +216,11 @@ class CropImageView extends ImageViewTouchBase {
                 }else
                 if(mode == 1){
                     Log.d("DRAG or ZOOM", "ZOOM");
-                    float newDist = spacing(event);
+                    double newDist = spacing(event);
                     //Log.d("ZOOM", "newDist=" + newDist);
                     if (newDist > 10f) {
                         //matrix.set(savedMatrix);
-                        float scale = newDist / oldDist;
+                        double scale = newDist / oldDist;
                         Log.d("ZOOM", "scale=" + scale);
                         //ImageViewTouchBase.SCALE_RATE = scale;
                         if(scale >= 1){
@@ -257,10 +257,10 @@ class CropImageView extends ImageViewTouchBase {
     }
 
     /** Determine the space between the first two fingers */
-    private float spacing(MotionEvent event) {
+    private double spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
-        return FloatMath.sqrt(x * x + y * y);
+        return Math.sqrt(x * x + y * y);
     }
 
     /** Calculate the mid point of the first two fingers */

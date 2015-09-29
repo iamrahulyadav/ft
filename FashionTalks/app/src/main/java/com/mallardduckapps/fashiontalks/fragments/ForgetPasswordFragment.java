@@ -23,11 +23,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.mallardduckapps.fashiontalks.R;
+import com.mallardduckapps.fashiontalks.objects.BasicNameValuePair;
 import com.mallardduckapps.fashiontalks.services.RestClient;
 import com.mallardduckapps.fashiontalks.utils.Constants;
 import com.mallardduckapps.fashiontalks.utils.FTUtils;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -206,7 +206,11 @@ public class ForgetPasswordFragment extends BasicFragment implements LoaderManag
             String response = "";
             RestClient restClient = new RestClient();
             try {
-                response = restClient.doPostRequestWithJSON(Constants.RESET_PASS, null, new BasicNameValuePair("email", email));
+                String token = null;
+                if(app != null){
+                    token = app.dataSaver.getString(Constants.ACCESS_TOKEN_KEY);
+                }
+                response = restClient.doPostRequestWithJSON(Constants.RESET_PASS, token, new BasicNameValuePair("email", email));
                 Log.d(TAG, "RESPONSE FROM API: " + response);
             } catch (Exception e) {
                 response = "NO_CONNECTION";

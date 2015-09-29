@@ -24,11 +24,11 @@ public class ExpandablePanelWrapper extends RelativeLayout {
     public ExpandablePanelWrapper(final FashionTalksApp app,final Context context, Pivot pivot, int x, int y, boolean lhsAnimation, boolean ownPost, boolean createPost, boolean adPost) {
         super(context);
         glam = new ExpandablePanel(app, context, pivot, this,x, y, lhsAnimation, ownPost, createPost, adPost);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.leftMargin = x;
-        params.topMargin = y;
-        addView(glam);
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics());
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.leftMargin = x - padding;
+        params.topMargin = y - padding;
+        addView(glam);
         setPadding(padding,padding,padding,padding);
         setBackgroundColor(getResources().getColor(R.color.transparent));
         setClickable(true);

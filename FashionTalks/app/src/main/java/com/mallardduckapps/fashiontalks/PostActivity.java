@@ -75,6 +75,11 @@ public class PostActivity extends ActionBarActivity implements BasicFragment.OnF
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
+//        if(post.getUser().getU){
+            menu.removeItem(R.id.action_home);
+//        }else{
+//            menu.removeItem(R.id.action_user_info);
+//        }
         return true;
     }
 
