@@ -79,10 +79,6 @@
 -keep class android.transition.**{*;}
 -keep public class com.mallardduckapps.fashiontalks.FashionTalksApp
 
-#-keep class com.mallardduckapps.fashiontalks.GalleriesFragment
-#-keep public class com.mallardduckapps.fashiontalks.LoginActivity
-#-keep class * extends com.mallardduckapps.fashiontalks.BaseActivity
-
 -keepclasseswithmembernames class android.support.v4.app.Fragment {
     android.support.v4.app.FragmentManagerImpl mChildFragmentManager;
 }
@@ -196,19 +192,15 @@
       @com.google.android.gms.common.annotation.KeepName *;
   }
 
-  -keepnames class * implements android.os.Parcelable {
-      public static final ** CREATOR;
-  }
+#  -keepnames class * implements android.os.Parcelable {
+#      public static final ** CREATOR;
+#  }
 
 -dontwarn com.squareup.okhttp.**
 -dontwarn com.google.appengine.api.urlfetch.**
 -dontwarn com.twitter.sdk.**
 -dontwarn rx.**
 -dontwarn retrofit.**
--keepattributes Signature
--keepattributes *Annotation*
--keep class com.squareup.okhttp.** { *; }
--keep interface com.squareup.okhttp.** { *; }
 -keep class retrofit.** { *; }
 -keepclasseswithmembers class * {
     @retrofit.http.* <methods>;

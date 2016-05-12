@@ -35,45 +35,43 @@ android {
         signingConfig signingConfigs.config
         multiDexEnabled = true
     }
- //   android {
+    //   android {
 
-        packagingOptions {
-            exclude 'META-INF/LICENSE.txt'
-            exclude 'META-INF/NOTICE.txt'
-        }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_7
-            targetCompatibility JavaVersion.VERSION_1_7
-        }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 
-        buildTypes {
-            release {
-                minifyEnabled true
-                debuggable false
-                signingConfig signingConfigs.config
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-            debug {
-                applicationIdSuffix ".debug"
-                debuggable true
-                minifyEnabled false
-            }
+    buildTypes {
+        release {
+            minifyEnabled true
+            debuggable false
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+            minifyEnabled false
+        }
+    }
     productFlavors {
     }
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def outputFile = output.outputFile
-                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                    def fileName = outputFile.name.replace('.apk', "-${versionName}.apk")
-                    fileName= outputFile.name.replace("app","FashionTalks")
-                    output.outputFile = new File(outputFile.parent, fileName)
-                }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace('.apk', "-${versionName}.apk")
+                fileName = outputFile.name.replace("app", "FashionTalks")
+                output.outputFile = new File(outputFile.parent, fileName)
             }
         }
-  //  }
-    productFlavors {
     }
+    //  }
 }
 
 repositories {
@@ -89,34 +87,34 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:support-v4:23.0.0'
-    compile 'com.android.support:support-v13:23.0.0'
-    compile 'com.makeramen:roundedimageview:2.0.1'
-    compile 'com.android.support:cardview-v7:23.0.0'
-    compile 'com.squareup.okhttp:okhttp:2.1.0'
-    compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile project(':gridListViewAdapters')
-    compile 'com.jeremyfeinstein.slidingmenu:library:1.3@aar'
-    compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
-    compile 'joda-time:joda-time:2.3'
     compile project(':simple-crop-image-lib')
-    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
-    compile('com.twitter.sdk.android:twitter:1.7.2@aar') {
+    compile('com.twitter.sdk.android:twitter:1.8.0@aar') {
         transitive = true;
     }
-    compile('com.twitter.sdk.android:tweet-composer:0.8.0@aar') {
+    compile('com.twitter.sdk.android:tweet-composer:0.9.0@aar') {
         transitive = true;
     }
-    compile 'com.nineoldandroids:library:2.4.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.4.0@aar') {
         transitive = true;
     }
     compile files('libs/commons-lang3-3.3.2.jar')
-    compile 'com.google.android.gms:play-services-base:7.8.0'
-    compile 'com.google.android.gms:play-services-gcm:7.8.0'
-    compile 'com.google.android.gms:play-services-analytics:7.8.0'
+    compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
+    compile 'com.android.support:support-v4:24.0.0-alpha1'
+    compile 'com.android.support:support-v13:24.0.0-alpha1'
+    compile 'com.makeramen:roundedimageview:2.0.1'
+    compile 'com.android.support:cardview-v7:24.0.0-alpha1'
+    compile 'com.squareup.okhttp:okhttp:2.1.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.jeremyfeinstein.slidingmenu:library:1.3@aar'
+    compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
+    compile 'joda-time:joda-time:2.3'
+    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.google.android.gms:play-services-base:8.1.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'com.google.android.gms:play-services-analytics:8.1.0'
 }
 // Find any 3rd party libraries which have released new versions
 // to the central Maven repo since we last upgraded.
@@ -126,7 +124,7 @@ task checkLibVersions << {
         configurations.each { configuration ->
             configuration.allDependencies.each { dependency ->
                 def version = dependency.version
-                if(!version.contains('SNAPSHOT') && !checked[dependency]) {
+                if (!version.contains('SNAPSHOT') && !checked[dependency]) {
                     def group = dependency.group
                     def path = group.replace('.', '/')
                     def name = dependency.name
@@ -138,12 +136,12 @@ task checkLibVersions << {
                         versions.removeAll { it.toLowerCase().contains('beta') }
                         versions.removeAll { it.toLowerCase().contains('rc') }
                         def newest = versions.max()
-                        if(version != newest) {
+                        if (version != newest) {
                             println "$group:$name $version -> $newest"
                         }
-                    } catch(FileNotFoundException e) {
+                    } catch (FileNotFoundException e) {
                         logger.debug "Unable to download $url: $e.message"
-                    } catch(org.xml.sax.SAXParseException e) {
+                    } catch (org.xml.sax.SAXParseException e) {
                         logger.debug "Unable to parse $url: $e.message"
                     }
                     checked[dependency] = true
